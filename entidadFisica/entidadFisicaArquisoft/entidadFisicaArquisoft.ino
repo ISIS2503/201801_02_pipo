@@ -76,7 +76,7 @@ boolean block;
 //-----------------------------------
 int pirPin = 2;
 
-int redLed = 1;
+int redLed = A1;
 
 int pirState = LOW;
 
@@ -115,7 +115,11 @@ void setup() {
 void loop() {
   //PIR
   val = digitalRead(pirPin);
-  digitalWrite(redLed, val);
+  Serial.println("val "+ String(val));
+  if(val>0)
+     analogWrite(redLed, 200);
+  else
+    analogWrite(redLed, 0);
   if(pirState != val) {
     pirState = val;
     if(val == HIGH) {
