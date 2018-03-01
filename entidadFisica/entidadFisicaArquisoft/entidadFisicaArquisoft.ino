@@ -147,7 +147,7 @@ void loop() {
     }
   }
   
-  if(!block && !openKeypad) {
+  if(!block) {
     //Selected key parsed;
     customKey = customKeypad.getKey();
   }
