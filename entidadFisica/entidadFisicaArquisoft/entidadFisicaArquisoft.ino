@@ -14,7 +14,7 @@ const int B_LED_PIN = 10;
 
 const String boardId = "Arduino007";
 
-const long timeBlock = 10000;
+const long timeBlock = 30000;
 
 //---------------------------------- 
 
@@ -115,7 +115,6 @@ void setup() {
 void loop() {
   //PIR
   val = digitalRead(pirPin);
-  Serial.println("val "+ String(val));
   if(val>0)
      analogWrite(redLed, 200);
   else
