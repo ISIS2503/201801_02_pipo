@@ -230,6 +230,7 @@ void loop() {
       setColor(0, 0, 255);
       open = false;
       buttonState = false;
+      openTooMuchTime = false;
     }
   }
   delay(100);
