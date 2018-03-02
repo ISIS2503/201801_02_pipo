@@ -18,7 +18,7 @@ const long timeBlock = 10000;
 
 //---------------------------------- 
 
-const String KEY = "3141";
+const String KEY[] = {"3141","2718","1234"};
 
 const byte ROWS = 4;
 
@@ -169,20 +169,24 @@ void loop() {
 
  
   //If the current key contains '#' reset attempt
-  if(currentKey.endsWith("#")&&currentKey.length()<=KEY.length()) {
+  if(currentKey.endsWith("#")&&currentKey.length()<=KEY[0].length()) {
     currentKey = "";
   }
 
   //If current key matches the key length
-  if (currentKey.length()== KEY.length()) {
-    if(currentKey == KEY) {
-      currentKey = "";
-      openKeypad = true;
-      setColor(0, 255, 0);
-      attempts = 0;
-      currTimeKeypad = millis();
+  if (currentKey.length()== KEY[0].length()) {
+    boolean band = false;
+    for(int i = 0; i<sizeof(KEY); i++) {
+      if(currentKey == KEY[i]) {
+        band = true;
+        currentKey = "";
+        openKeypad = true;
+        setColor(0, 255, 0);
+        attempts = 0;
+        currTimeKeypad = millis();
+      }
     }
-    else {
+    if(!band) {
       attempts++;
       currentKey = "";
       setColor(255, 0, 0);
