@@ -1,6 +1,6 @@
 # 201810_02_pipo
 
-##Integrantes
+## Integrantes
 
 + Juan Sebastián Díaz Serrano - 201532686
 + Carlos Mario Sarmiento Pinilla - 201512466
@@ -8,7 +8,7 @@
 + Sergio Guzmán Mayorga - 201614859
 + Julián Alberto Manrique Puerto - 201615449
 
-##EXPERIMENTO I INTERMEDIO:
+## EXPERIMENTO I INTERMEDIO:
 
 + LINK: https://youtu.be/zIY5MJsavyg
 Para esta entrega se hizo la siguiente repartición de roles:
