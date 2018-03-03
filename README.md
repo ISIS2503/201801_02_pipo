@@ -10,7 +10,7 @@
 
 ##EXPERIMENTO I INTERMEDIO:
 
-+ LINK: 
++ LINK: https://youtu.be/zIY5MJsavyg
 Para esta entrega se hizo la siguiente repartición de roles:
 + Entidad física (preparación): Juan Sebastián Díaz y Carlos Mario Sarmiento. Como tal no hubo commits de esta parte.
 + Entidad física (código de arduino): Sergio Cárdenas y Julián Manrique. Como todo se trabajó desde la máquina local de Sergio, él fue el responsable de hacer commits de esta parte.
