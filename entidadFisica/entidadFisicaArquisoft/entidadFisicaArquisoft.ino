@@ -138,6 +138,7 @@ void loop() {
   switch(estado) {
     //Estado Stand_by
     case STAND_BY:
+      open = false;
       setColor(0, 0, 255);
       //Botón oprimido
       if(button == 1) {
@@ -191,7 +192,7 @@ void loop() {
     case PUERTA_ABIERTA_BOTON:
       setColor(0, 255, 0);
       //Se dejó de oprimir el botón
-      if(button==0){
+      if(button==0){        
         estado=STAND_BY;
       }
       //Se supperó el tiempo de puerta abierta
