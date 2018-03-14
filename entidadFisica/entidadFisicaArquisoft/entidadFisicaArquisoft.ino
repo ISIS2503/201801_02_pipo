@@ -14,8 +14,6 @@ const int B_LED_PIN = 10;
 
 const String boardId = "Arduino007";
 
-const long timeBlock = 30000;
-
 //---------------------------------- 
 
 const String KEY[] = {"3141","2718","1234"};
@@ -26,11 +24,15 @@ const byte COLS = 3;
 
 const byte maxAttempts = 3;
 
-boolean openKeypad;
+int pirPin = 2;
 
-boolean keypadState;
+int redLed = A1;
 
-long currTimeKeypad;
+int pirState = LOW;
+
+int val;
+
+long currTime;
 
 //Keypad mapping matrix
 char hexaKeys[ROWS][COLS] = {
@@ -70,30 +72,23 @@ String currentKey;
 boolean open;
 //Number of current attempts
 byte attempts;
-//If the number of current attempts exceeds the maximum allowed
-boolean block;
+
+
+//State Machine
+int STAND_BY = 0;
+int PUERTA_ABIERTA_BOTON = 1;
+int ERROR_PUERTA_ABIERTA_BOTON = 2;
+int PUERTA_ABIERTA_TECLADO = 3;
+int ERROR_PUERTA_ABIERTA_TECLADO = 4;
+int BLOQUEADO = 5;
+
+int estado;
 
 //-----------------------------------
-int pirPin = 2;
 
-int redLed = A1;
-
-int pirState = LOW;
-
-int val;
-
-boolean openTooMuchTime;
-
-
-//Attribute that defines the button state
-boolean buttonState;
-
-//Current time when the button is tapped
-long currTimeButton;
 
 void setup() {
   Serial.begin(9600);
-  buttonState = false;
   
   pinMode(R_LED_PIN, OUTPUT);
   pinMode(G_LED_PIN, OUTPUT);
@@ -108,6 +103,8 @@ void setup() {
   keypadState = false;
   attempts = 0;
   block = false;
+
+  estado = STAND_BY;
   
   setColor(0, 0, 255);
 }
@@ -115,126 +112,127 @@ void setup() {
 void loop() {
   //PIR
   val = digitalRead(pirPin);
+  Serial.println("val "+ String(val));
   if(val>0)
      analogWrite(redLed, 200);
   else
     analogWrite(redLed, 0);
   if(pirState != val) {
     pirState = val;
-    if(val == HIGH) {
+    if(val == HIGH && !open) {
       Serial.println(boardId+"\t3");
     }
   }
 
   //===================================================================
   
-  //KEYPAD
-
+  //Lecturas
+  //BOTON
+  int button = digitalRead(CONTACT_PIN);
   char customKey;
-
-   //If door is openned
-  if(openKeypad) {
-    if(millis()-currTimeKeypad >= timeBlock) {
-      setColor(255, 0, 0);
-      if(!keypadState) {
-        keypadState = true;
-        Serial.println(boardId+"\t1");
-      }
-    }
-    //If the current key contains '*' and door is open
-    if(currentKey.endsWith("*")) {
-      openKeypad = false;
-      keypadState = false;
-      setColor(0, 0, 255);
-      currentKey = "";
-    }
-  }
+  //KEYPAD
+  customKey = customKeypad.getKey();
   
-  if(!block) {
-    //Selected key parsed;
-    customKey = customKeypad.getKey();
-  }
-  else {
-    block = millis()- currTimeKeypad < timeBlock;
-    if(!block){
+
+  //Transiciones y salidas
+  switch(estado) {
+    //Estado Stand_by
+    case STAND_BY:
+      open = false;
       setColor(0, 0, 255);
-    }
-  }
-
-  //Verification of input and appended value
-  if (customKey) {  
-    currentKey+=String(customKey);
-  }
-
- 
-  //If the current key contains '#' reset attempt
-  if(currentKey.endsWith("#")&&currentKey.length()<=KEY[0].length()) {
-    currentKey = "";
-  }
-
-  //If current key matches the key length
-  if (currentKey.length()== KEY[0].length()) {
-    boolean band = false;
-    for(int i = 0; i<sizeof(KEY); i++) {
-      if(currentKey == KEY[i]) {
-        band = true;
+      //Botón oprimido
+      if(button == 1) {
+        estado = PUERTA_ABIERTA_BOTON;
+        currTime = millis();
         currentKey = "";
-        openKeypad = true;
-        setColor(0, 255, 0);
         attempts = 0;
-        currTimeKeypad = millis();
       }
-    }
-    if(!band) {
-      attempts++;
-      currentKey = "";
-      setColor(255, 0, 0);
-      delay(1000);
-      setColor(0, 0, 255);
-    }
-  }
-  if(attempts>=maxAttempts && !block) {
-    block = true;
-    setColor(255, 0, 0);
-    currTimeKeypad = millis();
-    attempts = 0;
-    Serial.println(boardId+"\t2");
-    
-  }
-  
-  //===================================================================
-  
-  //Security Contact
-  
-  // put your main code here, to run repeatedly:
-  //Button input read and processing 
-  if(!buttonState) {
-    if(digitalRead(CONTACT_PIN)) {
-      currTimeButton = millis();
-      buttonState = true;
-      setColor(0, 255, 0);
-      open = true;
-      attempts = 0;
-    }
-  }
-  else {
-    if(digitalRead(CONTACT_PIN)) {
-      if((millis()-currTimeButton)>=timeBlock) {
-        setColor(255, 0, 0);
-        if(!openTooMuchTime) {
-          openTooMuchTime = true;
-          Serial.println(boardId+"\t1");
+      //Leer número
+      if (customKey && customKey!='*' && customKey!='#') {  
+        currentKey+=String(customKey);
+      }
+      //Reiniciar Clave
+      else if(customKey && customKey!='#')
+      {
+        currentKey = "";
+      }
+      //Se ingresó clave
+      else if(currentKey.size()==4)
+      {
+        //verificar clave
+        for(int i = 0; i<sizeof(KEY); i++) {
+          if(currentKey == KEY[i]) {
+            estado = PUERTA_ABIERTA_TECLADO;
+            currentKey = "";
+            open = true;
+            setColor(0, 255, 0);
+            attempts = 0;
+            currTime = millis();
+          }
+        }
+        //Clave incorrecta
+        if(!open) {
+          attempts = attempts + 1;
+          setColor(255, 0, 0);
+          //Máximo número de intentos incorrectos 
+          if(attempts >= maxAttempts){                      
+            delay(30000)
+            Serial.println(boardId+"\t2");
+            attempts=0;
+          }
+          //Un intento incorrecto
+          else
+          {
+            delay(1000)
+          }
         }
       }
-    }else{
-      setColor(0, 0, 255);
-      open = false;
-      buttonState = false;
-      openTooMuchTime = false;
-    }
-  }
-  delay(100);
-}
+      break;
+    //Estado Puerta abierta botón
+    case PUERTA_ABIERTA_BOTON:
+      setColor(0, 255, 0);
+      //Se dejó de oprimir el botón
+      if(button==0){        
+        estado=STAND_BY;
+      }
+      //Se supperó el tiempo de puerta abierta
+      else if(millis()-currTime>30000)
+      {
+         estado=ERROR_PUERTA_ABIERTA_BOTON;
+         Serial.println(boardId+"\t1");
+      }
+      break;
+      //Estado error puerta abierta botón
+    case ERROR_PUERTA_ABIERTA_BOTON:
+        setColor(255, 0, 0);
+         //Se dejó de oprimir el botón
+         if(button==0){
+          estado=STAND_BY;
+      }
+      break;
+      //Estado puerta abierta teclado
+    case PUERTA_ABIERTA_TECLADO:
+        setColor(0, 255, 0);
+         //Se cerró la puerta
+        if (customKey && customKey=='*') {  
+        estado=STAND_BY;
+        }
+        //Se supperó el tiempo de puerta abierta
+        else if(millis()-currTime>30000)
+        {
+         estado=ERROR_PUERTA_ABIERTA_TECLADO;
+         Serial.println(boardId+"\t1");
+        }
+       break;
+    //Estado error puerta abierta teclado
+    case PUERTA_ABIERTA_TECLADO:
+      setColor(0, 255, 0);
+      //Se cerró la puerta
+      if (customKey && customKey=='*') {  
+        estado=STAND_BY;
+        }
+        
+}  
 
 void setColor(int redValue, int greenValue, int blueValue) {
   analogWrite(R_LED_PIN, redValue);

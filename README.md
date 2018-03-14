@@ -9,9 +9,10 @@
 + Julián Alberto Manrique Puerto - 201615449
 
 ## EXPERIMENTO I INTERMEDIO:
-
-+ LINK: https://youtu.be/zIY5MJsavyg
-Para esta entrega se hizo la siguiente repartición de roles:
++ Para esta entrega se usó la máquina virtual con ip 172.24.42.33 del estudiante Sergio Guzmán.
++ El programa P se encuentra en la carpeta de entidad virtual y al haberse construido con maven se le de hacer clean and build antes de correrlo.
++ LINK DE LA ENTREGA: https://youtu.be/zIY5MJsavyg
+### Para esta entrega se hizo la siguiente repartición de roles:
 + Entidad física (preparación): Juan Sebastián Díaz y Carlos Mario Sarmiento. Como tal no hubo commits de esta parte.
 + Entidad física (código de arduino): Sergio Cárdenas y Julián Manrique. Como todo se trabajó desde la máquina local de Sergio, él fue el responsable de hacer commits de esta parte.
 + Entidad virtual (Node-red y Programa P): Sergio Guzmán. Él se encargó de hacer commits relacionados con la creación de flujos y el programa P.
