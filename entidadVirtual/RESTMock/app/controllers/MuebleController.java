@@ -15,7 +15,27 @@ import java.util.List;
  * Created by scvalencia606 on 8/10/15.
  */
 public class MuebleController extends Controller {
-
+    /**
+     *
+     * FORMATO JSON
+     * {
+     *     "remitente":"s.guzmanm@uniandes.edu.co",
+     *     "destinatarios":[
+     *     {
+     *         "correo":"js.diaz@uniandes.edu.co"
+     *     },
+     *     {
+     *         "correo":"js.diaz@uniandes.edu.co"
+     *     },
+     *     {
+     *         "correo":"cm.sarmiento10@uniandes.edu.co"
+     *     }
+     *     ],
+     *     "asunto":"Sergio está fuera",
+     *     "cuerpo":"Sergio queda fuera del grupo por esta entrega"
+     *
+     * }
+     */
     @BodyParser.Of(BodyParser.Json.class)
     public Result create() {
         JsonNode j = Controller.request().body().asJson();
