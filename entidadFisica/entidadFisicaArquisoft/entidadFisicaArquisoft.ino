@@ -98,7 +98,7 @@ void setup() {
   pinMode(pirPin, INPUT);
 
   currentKey = "";
-  open = false;
+  permitidoEntrar = false;
   openKeypad = false;
   keypadState = false;
   attempts = 0;
@@ -119,7 +119,7 @@ void loop() {
     analogWrite(redLed, 0);
   if(pirState != val) {
     pirState = val;
-    if(val == HIGH && !open) {
+    if(val == HIGH && !permitidoEntrar) {
       Serial.println(boardId+"\t3");
     }
   }
@@ -138,7 +138,7 @@ void loop() {
   switch(estado) {
     //Estado Stand_by
     case STAND_BY:
-      open = false;
+      permitidoEntrar = false;
       setColor(0, 0, 255);
       //Botón oprimido
       if(button == 1) {
@@ -164,21 +164,22 @@ void loop() {
           if(currentKey == KEY[i]) {
             estado = PUERTA_ABIERTA_TECLADO;
             currentKey = "";
-            open = true;
+            permitidoEntrar = true;
             setColor(0, 255, 0);
             attempts = 0;
             currTime = millis();
           }
         }
         //Clave incorrecta
-        if(!open) {
+        if(!permitidoEntrar) {
           attempts = attempts + 1;
           setColor(255, 0, 0);
           //Máximo número de intentos incorrectos 
           if(attempts >= maxAttempts){                      
-            delay(30000)
+            estado=BLOQUEADO;
             Serial.println(boardId+"\t2");
             attempts=0;
+            currTime = millis();
           }
           //Un intento incorrecto
           else
@@ -199,6 +200,7 @@ void loop() {
       else if(millis()-currTime>30000)
       {
          estado=ERROR_PUERTA_ABIERTA_BOTON;
+        permitidoEntrar=false;
          Serial.println(boardId+"\t1");
       }
       break;
@@ -221,6 +223,7 @@ void loop() {
         else if(millis()-currTime>30000)
         {
          estado=ERROR_PUERTA_ABIERTA_TECLADO;
+          permitidoEntrar=false;
          Serial.println(boardId+"\t1");
         }
        break;
@@ -231,7 +234,14 @@ void loop() {
       if (customKey && customKey=='*') {  
         estado=STAND_BY;
         }
-        
+        break;
+     case BLOQUEADO:
+      setColor(0, 255, 0);
+      if(millis()-currTime>30000)
+        {
+         estado=STAND_BY;
+        }
+      break;
 }  
 
 void setColor(int redValue, int greenValue, int blueValue) {
