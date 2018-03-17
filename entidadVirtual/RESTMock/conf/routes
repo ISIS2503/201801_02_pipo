@@ -22,6 +22,8 @@ POST        /mensaje                 controllers.MensajeController.create()
 
 GET         /mensaje                controllers.MensajeController.read()
 
+PUT         /mensaje                controllers.MensajeController.initializeBuffer()
+
 
 
 # Map static resources from the /public folder to the /assets URL path
