@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by scvalencia606 on 8/10/15.
  */
-public class MuebleController extends Controller {
+public class MensajeController extends Controller {
     /**
      *
      * FORMATO JSON
