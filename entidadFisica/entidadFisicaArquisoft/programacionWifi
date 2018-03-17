@@ -2,12 +2,12 @@
 #include <ESP8266WiFi.h>
 
 //DEFINES
-#define TOPIC_SUBSCRIBE        "comando.conjunto1.apto1"
-#define TOPIC_PUBLISH          "alarma.conjunto1.apto1"
+#define TOPIC_SUBSCRIBE        "Arduino007.recepcion"
+#define TOPIC_PUBLISH          "Arduino007.envio"
 #define SIZE_BUFFER_DATA       50
 
 //VARIABLES
-const char* idDevice = "ISIS2503";
+const char* idDevice = "Arduino007";
 boolean     stringComplete = false;
 boolean     init_flag = false;
 String      inputString = "";
