@@ -26,11 +26,11 @@ const byte maxAttempts = 3;
 
 int pirPin = 2;
 
-int bateria= A0;
+int bateria= A2;
 
 int ledPresencia = A1;
 
-int ledBateria = A2;
+int ledBateria = A0;
 
 int pirState = LOW;
 
@@ -145,13 +145,19 @@ void loop() {
 
   //Bateria
   valorBateria = analogRead(bateria);
-  float voltage = valBateria * (5.4 / 1023.0);
+  float voltage = valorBateria * (5.4 / 1023.0);
   //Bateria Alta
   if(voltage>1.2)
   {
      analogWrite(ledBateria, 0);
+     if(bateriaBaja)
+     {
+      delay(150);
+     }
      bateriaBaja=false;
      batteryState=LOW;
+     fallaBateria=false;
+ 
   }
   //Bateria baja
   else
@@ -162,6 +168,7 @@ void loop() {
     {
       Serial.println(boardId+"\t4");
       bateriaBaja=true;
+      delay(150);
     }
     //Si la batería es baja y han pasado más de 30 segs desde la última vez que se tocó la alarma
     if(batteryState==LOW && !fallaBateria)
@@ -202,7 +209,8 @@ void loop() {
   char customKey;
   //KEYPAD
   customKey = customKeypad.getKey();
-  
+
+  Serial.println("llave "+currentKey);
 
   //Transiciones y salidas
   switch(estado) {
