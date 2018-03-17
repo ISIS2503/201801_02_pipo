@@ -34,7 +34,19 @@ int ledBateria = A2;
 
 int pirState = LOW;
 
-int val;
+int batteryState = LOW;
+
+int valorPIR;
+
+int valorBateria;
+
+long temporizadorBateria;
+
+bool fallaBateria=false;
+
+long contadorFallaBateria;
+
+bool bateriaBaja=false;
 
 long currTime;
 
@@ -117,14 +129,14 @@ void setup() {
 
 void loop() {
   //PIR
-  val = digitalRead(pirPin);
-  if(val>0)
+  valorPIR = digitalRead(pirPin);
+  if(valorPIR>0)
      analogWrite(ledPresencia, 200);
   else
     analogWrite(ledPresencia, 0);
-  if(pirState != val) {
-    pirState = val;
-    if(val == HIGH && !permitidoEntrar) {
+  if(pirState != valorPIR) {
+    pirState = valorPIR;
+    if(valorPIR == HIGH && !permitidoEntrar) {
       Serial.println(boardId+"\t3");
     }
   }
@@ -132,15 +144,55 @@ void loop() {
   //===================================================================
 
   //Bateria
-  int valBateria = analogRead(bateria);
-  float voltage = valBateria * (5.0 / 1023.0);
+  valorBateria = analogRead(bateria);
+  float voltage = valBateria * (5.4 / 1023.0);
+  //Bateria Alta
   if(voltage>1.2)
+  {
      analogWrite(ledBateria, 0);
-  else
-    analogWrite(ledBateria, 200);
-  if(voltage<1.2) {
-    //Serial.println(boardId+"\t4");
+     bateriaBaja=false;
+     batteryState=LOW;
   }
+  //Bateria baja
+  else
+  {
+    analogWrite(ledBateria, 200);
+    //Primera vez que se ingresa
+    if(!bateriaBaja)
+    {
+      Serial.println(boardId+"\t4");
+      bateriaBaja=true;
+    }
+    //Si la batería es baja y han pasado más de 30 segs desde la última vez que se tocó la alarma
+    if(batteryState==LOW && !fallaBateria)
+    {     
+     temporizadorBateria=millis();
+     contadorFallaBateria=millis();
+     fallaBateria=true;
+    }
+     //Espera 30 segundos para volver a poner el Led de alarma
+    else if(batteryState==HIGH)
+    {
+       //Si la batería es baja y han pasado 30 segs desde la última vez que se tocó la alarma
+      if(millis()-temporizadorBateria>=30000)
+      {
+        contadorFallaBateria=millis();
+        batteryState=LOW;
+      }
+    }
+    //Si se debe poner el Led como rojo
+    else if(fallaBateria)
+    {
+      setColor(255, 0, 0);
+      if(millis()-contadorFallaBateria>=2000)
+      {
+        fallaBateria=false;
+        batteryState=HIGH;
+      }
+  
+    }
+  }
+
 
   //===================================================================
   
@@ -157,7 +209,8 @@ void loop() {
     //Estado Stand_by
     case STAND_BY:
       permitidoEntrar = false;
-      setColor(0, 0, 255);
+      if(!fallaBateria)
+        setColor(0, 0, 255);
       //Botón oprimido
       if(button == 1) {
         estado = PUERTA_ABIERTA_BOTON;
@@ -212,7 +265,8 @@ void loop() {
       break;
     //Estado Puerta abierta botón
     case PUERTA_ABIERTA_BOTON:
-      setColor(0, 255, 0);
+      if(!fallaBateria)
+        setColor(0, 255, 0);
       //Se dejó de oprimir el botón
       if(button==0){        
         estado=STAND_BY;
@@ -235,7 +289,8 @@ void loop() {
       break;
       //Estado puerta abierta teclado
     case PUERTA_ABIERTA_TECLADO:
-        setColor(0, 255, 0);
+        if(!fallaBateria)
+          setColor(0, 255, 0);
          //Se cerró la puerta
         if (customKey && customKey=='*') {  
         estado=STAND_BY;
