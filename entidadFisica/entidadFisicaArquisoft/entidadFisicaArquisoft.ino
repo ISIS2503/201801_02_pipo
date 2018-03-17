@@ -26,7 +26,11 @@ const byte maxAttempts = 3;
 
 int pirPin = 2;
 
-int redLed = A1;
+int bateria= A0;
+
+int ledPresencia = A1;
+
+int ledBateria = A2;
 
 int pirState = LOW;
 
@@ -69,23 +73,28 @@ Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS)
 //Current key variable
 String currentKey;
 //Door state
-boolean open;
+boolean permitidoEntrar;
 //Number of current attempts
 byte attempts;
 
 
 //State Machine
-int STAND_BY = 0;
-int PUERTA_ABIERTA_BOTON = 1;
-int ERROR_PUERTA_ABIERTA_BOTON = 2;
-int PUERTA_ABIERTA_TECLADO = 3;
-int ERROR_PUERTA_ABIERTA_TECLADO = 4;
-int BLOQUEADO = 5;
+const int STAND_BY = 0;
+const int PUERTA_ABIERTA_BOTON = 1;
+const int ERROR_PUERTA_ABIERTA_BOTON = 2;
+const int PUERTA_ABIERTA_TECLADO = 3;
+const int ERROR_PUERTA_ABIERTA_TECLADO = 4;
+const int BLOQUEADO = 5;
 
 int estado;
 
 //-----------------------------------
 
+void setColor(int redValue, int greenValue, int blueValue) {
+  analogWrite(R_LED_PIN, redValue);
+  analogWrite(G_LED_PIN, greenValue);
+  analogWrite(B_LED_PIN, blueValue);
+}
 
 void setup() {
   Serial.begin(9600);
@@ -94,15 +103,12 @@ void setup() {
   pinMode(G_LED_PIN, OUTPUT);
   pinMode(B_LED_PIN, OUTPUT);
   pinMode(CONTACT_PIN,INPUT);
-  pinMode(redLed, OUTPUT);
+  pinMode(ledPresencia, OUTPUT);
   pinMode(pirPin, INPUT);
 
   currentKey = "";
-  open = false;
-  openKeypad = false;
-  keypadState = false;
+  permitidoEntrar = false;
   attempts = 0;
-  block = false;
 
   estado = STAND_BY;
   
@@ -112,16 +118,28 @@ void setup() {
 void loop() {
   //PIR
   val = digitalRead(pirPin);
-  Serial.println("val "+ String(val));
   if(val>0)
-     analogWrite(redLed, 200);
+     analogWrite(ledPresencia, 200);
   else
-    analogWrite(redLed, 0);
+    analogWrite(ledPresencia, 0);
   if(pirState != val) {
     pirState = val;
-    if(val == HIGH && !open) {
+    if(val == HIGH && !permitidoEntrar) {
       Serial.println(boardId+"\t3");
     }
+  }
+
+  //===================================================================
+
+  //Bateria
+  int valBateria = analogRead(bateria);
+  float voltage = valBateria * (5.0 / 1023.0);
+  if(voltage>1.2)
+     analogWrite(ledBateria, 0);
+  else
+    analogWrite(ledBateria, 200);
+  if(voltage<1.2) {
+    //Serial.println(boardId+"\t4");
   }
 
   //===================================================================
@@ -138,11 +156,12 @@ void loop() {
   switch(estado) {
     //Estado Stand_by
     case STAND_BY:
-      open = false;
+      permitidoEntrar = false;
       setColor(0, 0, 255);
       //Botón oprimido
       if(button == 1) {
         estado = PUERTA_ABIERTA_BOTON;
+        permitidoEntrar=true;
         currTime = millis();
         currentKey = "";
         attempts = 0;
@@ -152,38 +171,41 @@ void loop() {
         currentKey+=String(customKey);
       }
       //Reiniciar Clave
-      else if(customKey && customKey!='#')
+      else if(customKey && customKey=='#')
       {
         currentKey = "";
       }
       //Se ingresó clave
-      else if(currentKey.size()==4)
+      else if(currentKey.length()==4)
       {
         //verificar clave
         for(int i = 0; i<sizeof(KEY); i++) {
           if(currentKey == KEY[i]) {
             estado = PUERTA_ABIERTA_TECLADO;
-            currentKey = "";
-            open = true;
+            
+            permitidoEntrar = true;
             setColor(0, 255, 0);
             attempts = 0;
             currTime = millis();
           }
         }
+        currentKey = "";
         //Clave incorrecta
-        if(!open) {
+        if(!permitidoEntrar) {    
           attempts = attempts + 1;
           setColor(255, 0, 0);
           //Máximo número de intentos incorrectos 
-          if(attempts >= maxAttempts){                      
-            delay(30000)
+          if(attempts >= maxAttempts){ 
+                                 
+            estado=BLOQUEADO;
             Serial.println(boardId+"\t2");
             attempts=0;
+            currTime = millis();
           }
           //Un intento incorrecto
           else
           {
-            delay(1000)
+            delay(1000);
           }
         }
       }
@@ -199,6 +221,7 @@ void loop() {
       else if(millis()-currTime>30000)
       {
          estado=ERROR_PUERTA_ABIERTA_BOTON;
+        permitidoEntrar=false;
          Serial.println(boardId+"\t1");
       }
       break;
@@ -221,21 +244,24 @@ void loop() {
         else if(millis()-currTime>30000)
         {
          estado=ERROR_PUERTA_ABIERTA_TECLADO;
+          permitidoEntrar=false;
          Serial.println(boardId+"\t1");
         }
        break;
     //Estado error puerta abierta teclado
-    case PUERTA_ABIERTA_TECLADO:
-      setColor(0, 255, 0);
+    case ERROR_PUERTA_ABIERTA_TECLADO:
+      setColor(255, 0, 0);
       //Se cerró la puerta
       if (customKey && customKey=='*') {  
         estado=STAND_BY;
         }
-        
+        break;
+     case BLOQUEADO:
+      setColor(255, 0, 0);
+      if(millis()-currTime>30000)
+        {
+         estado=STAND_BY;
+        }
+      break;
+    }
 }  
-
-void setColor(int redValue, int greenValue, int blueValue) {
-  analogWrite(R_LED_PIN, redValue);
-  analogWrite(G_LED_PIN, greenValue);
-  analogWrite(B_LED_PIN, blueValue);
-}
