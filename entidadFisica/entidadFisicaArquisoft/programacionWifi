@@ -22,7 +22,7 @@ const char* ssid = "korkies22";
 const char* password = "sasuke22";
 
 // CONFIG MQTT
-IPAddress serverMQTT (192,168,0,13);
+IPAddress serverMQTT (172,42,24,33);
 const uint16_t portMQTT = 8083;
 // const char* usernameMQTT = "admin";
 // const char* passwordMQTT = "admin";
