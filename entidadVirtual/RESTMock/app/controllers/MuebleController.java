@@ -8,6 +8,8 @@ import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+import akka.event.Logging;
+import akka.event.LoggingAdapter;
 
 import java.util.List;
 
@@ -15,6 +17,7 @@ import java.util.List;
  * Created by scvalencia606 on 8/10/15.
  */
 public class MuebleController extends Controller {
+
     /**
      *
      * FORMATO JSON
@@ -39,11 +42,12 @@ public class MuebleController extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public Result create() {
         JsonNode j = Controller.request().body().asJson();
-        String mensaje="DE: "+j.findValue("remitente")+" PARA: ";
+        String mensaje="DE: "+j.findValue("remitente")+"; PARA: ";
         for(JsonNode s:j.findValue("destinatarios"))
-            mensaje+=s.findValue("correo")+";";
-        mensaje+="ASUNTO: "+j.findValue("asunto")+";"+"CUERPO: "+j.findValue("cuerpo");
-        return ok(mensaje);
+            mensaje+=s.findValue("correo")+"; ";
+        mensaje+="ASUNTO: "+j.findValue("asunto")+"; "+"CUERPO: "+j.findValue("cuerpo");
+        System.out.println(mensaje);
+        return ok("");
     }
 
     public Result read() {
