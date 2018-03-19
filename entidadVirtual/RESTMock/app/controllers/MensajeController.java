@@ -25,7 +25,7 @@ public class MensajeController extends Controller {
             try
             {
                 //out = new BufferedWriter(new OutputStreamWriter(System.out), 32768);
-                out = new BufferedWriter(new FileWriter(new File("./logs/prueba.txt")), 32768);
+                out = new BufferedWriter(new FileWriter(new File("./logs/prueba.txt")), 100000);
             }
             catch(Exception e)
             {
