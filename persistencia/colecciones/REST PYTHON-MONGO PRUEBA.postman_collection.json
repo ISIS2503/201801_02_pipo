@@ -1,0 +1,949 @@
+{
+	"info": {
+		"_postman_id": "bdee22e1-0edc-4273-8643-87f8d1bf6da7",
+		"name": "REST PYTHON-MONGO PRUEBA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Unidad residencial",
+			"description": "",
+			"item": [
+				{
+					"name": "YALE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/yale"
+					},
+					"response": []
+				},
+				{
+					"name": "Ver unidad residencial",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/unidadesResidenciales/Toscana"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear unidad residencial",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombre\":\"San Lorenzo\",\n\t\"direccion\":\"CRA 68D#24A50\",\n\t\"inmuebles\":[]\n}"
+						},
+						"url": "localhost:8080/unidadesResidenciales"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar unidad residencial",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombre\":\"San Lorenzo 2.0\",\n\t\"direccion\":\"CRA 68D#24A50\",\n\t\"inmuebles\":[]\n}"
+						},
+						"url": "localhost:8080/unidadesResidenciales/Toscana"
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar unidadResidencial",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/unidadesResidenciales/Toscana"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Toscana",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/unidadesResidenciales/Toscana"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inmueble",
+			"description": "",
+			"item": [
+				{
+					"name": "Ver todos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles"
+					},
+					"response": []
+				},
+				{
+					"name": "Ver uno",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"localID\":\"1234\"\n}"
+						},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"localID\":\"1235\"\n}"
+						},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234"
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1235"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1235"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"localID\":\"1234\"\n}"
+						},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles"
+					},
+					"response": []
+				},
+				{
+					"name": "Ver todos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/inmuebles"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "37f878f7-d576-486d-9e36-56633eb2771d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1a22f044-11e4-4ced-ae8e-6eeeb12cf581",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Hub",
+			"description": "",
+			"item": [
+				{
+					"name": "Ver",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\":2,\n\t\"fallosMaximos\":3\n}"
+						},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
+					},
+					"response": []
+				},
+				{
+					"name": "Ver uno",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\":2,\n\t\"fallosMaximos\":6\n}"
+						},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\":2,\n\t\"fallosMaximos\":3\n}"
+						},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
+					},
+					"response": []
+				},
+				{
+					"name": "Ver todos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/hubs"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "37f878f7-d576-486d-9e36-56633eb2771d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1a22f044-11e4-4ced-ae8e-6eeeb12cf581",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Cerradura",
+			"description": "",
+			"item": [
+				{
+					"name": "Ver",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\":0.1,\n\t\"tiempoMaximo\":10,\n\t\"frequencia\":15,\n\t\"fallosMaximos\":3\n}"
+						},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
+					},
+					"response": []
+				},
+				{
+					"name": "Ver uno",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\":0.1,\n\t\"tiempoMaximo\":10,\n\t\"frequencia\":15,\n\t\"fallosMaximos\":3\n}"
+						},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
+					},
+					"response": []
+				},
+				{
+					"name": "Ver todas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/cerraduras"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "37f878f7-d576-486d-9e36-56633eb2771d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1a22f044-11e4-4ced-ae8e-6eeeb12cf581",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Alarma",
+			"description": "",
+			"item": [
+				{
+					"name": "Crear",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\":\"2016-03-18T14:00:00\",\n\t\"tipo\":\"bateriaCritica\",\n\t\"idEmergencia\":4\n}"
+						},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura/emergencias"
+					},
+					"response": []
+				},
+				{
+					"name": "Propietario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura/emergencias"
+					},
+					"response": []
+				},
+				{
+					"name": "Yale",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "localhost:8080/yale/emergencias"
+					},
+					"response": []
+				},
+				{
+					"name": "Administrador",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\":0.1,\n\t\"tiempoMaximo\":10,\n\t\"frequencia\":15,\n\t\"fallosMaximos\":3\n}"
+						},
+						"url": "localhost:8080/unidadesResidenciales/Toscana/emergencias"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "37f878f7-d576-486d-9e36-56633eb2771d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1a22f044-11e4-4ced-ae8e-6eeeb12cf581",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
