@@ -51,7 +51,9 @@ def unidadResidencial(unidad):
     #Retornar JSON
     return dumpJson(respuesta)
   elif request.method == PUT:
+    #Convertir JSON a directorio python
     data = loads(request.data)
+    #Verificar campos no nulos/vacíos
     valid = True
     try:
       valid = valid and (data['nombre'] != None or data['nombre'] != "")
@@ -68,6 +70,7 @@ def unidadResidencial(unidad):
 
     if not valid:
       return "No debe haber campos vacíos", 400
+    #Actualizar en la base de datos
     nuevo = db.unidadesResidenciales.find_one_and_update({"nombre": unidad}, {'$set' : {'nombre': data['nombre'], 'direccion': data['direccion']}}, return_document=ReturnDocument.AFTER)
     return dumpJson(nuevo)
   elif request.method == DELETE:
@@ -79,7 +82,7 @@ def crearUnidad():
   if request.method == POST:
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
-    
+
     data = loads(request.data)
     valid = True
     try:
@@ -103,7 +106,7 @@ def crearUnidad():
     sanitizedData['nombre'] = data['nombre']
     sanitizedData['direccion'] = data['direccion']
     sanitizedData['inmuebles'] = []
-
+    #Insertar en mongoDB
     result = db.unidadesResidenciales.insert_one(sanitizedData)
     sanitizedData['_id'] = result.inserted_id
     return dumpJson(sanitizedData)
@@ -130,7 +133,7 @@ def imuebles(unidad):
     sanitizedData['_id'] = ObjectId()
     sanitizedData['localID'] = data['localID']
     sanitizedData['hub'] = {}
-
+    #Añadir al arreglo de inmuebles
     result = db.unidadesResidenciales.find_one_and_update({'nombre':unidad}, {'$push': {'inmuebles': sanitizedData}})
     return dumpJson(sanitizedData)
 
@@ -139,10 +142,12 @@ def inmuebles(unidad, localID):
   if request.method == GET:
     respuesta = []
     unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    #Buscar inmueble dentro de la unidad residencial
     for inmueble in unidad['inmuebles']:
       if inmueble['localID'] == localID:
         respuesta = inmueble
         break
+    #Lo retorna
     return dumpJson(respuesta)
   elif request.method == PUT:
     data = loads(request.data)
@@ -171,6 +176,7 @@ def hub(unidad, localID):
       if inmueble['localID'] == localID:
         respuesta = inmueble
         break
+    #Retorna solo el Hub del inmueble buscado
     return dumpJson(respuesta['hub'])
   elif request.method == POST or request.method == PUT:
     if request.data == None or request.data == "":
@@ -201,7 +207,7 @@ def hub(unidad, localID):
     return_document=ReturnDocument.AFTER)
     return dumpJson(result)
 
-@app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura", methods=[GET, POST, PUT])
+@app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura", methods=[GET, POST, PUT, DELETE])
 def cerradura(unidad, localID):
   if request.method == GET:
     respuesta = []
@@ -239,6 +245,15 @@ def cerradura(unidad, localID):
     #inmuebles[x] corresponde al elemento tal que inmuebles[x].localID == identificador local del inmueble
     result = db.unidadesResidenciales.find_one_and_update({'nombre': unidad,},
     {'$set': {'inmuebles.$[elemento].hub.cerradura' : sanitizedData}},
+    array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
+    return_document=ReturnDocument.AFTER)
+    return dumpJson(result)
+  elif request.method == DELETE:
+    #Esta linea busca los documentos que tengan la propiedad nombre == unidad
+    #Y luego actualiza el valor del campo inmuebles[x].hub a un hub vacío (Equivalente a eliminarlo)
+    #inmuebles[x] corresponde al elemento tal que inmuebles[x].localID == identificador local del inmueble
+    result = db.unidadesResidenciales.find_one_and_update({'nombre': unidad,},
+    {'$set': {'inmuebles.$[elemento].hub.cerradura' : {}}},
     array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
     return_document=ReturnDocument.AFTER)
     return dumpJson(result)
@@ -373,6 +388,28 @@ def horariosPermitidos(unidad, localID):
     array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
     return_document=ReturnDocument.AFTER)
     return dumpJson(result)
+
+@app.route("/unidadesResidenciales/<unidad>/emergencias", methods=[GET])
+def emergenciasUnidad(unidad, localID):
+  if request.method == GET:
+    respuesta = []
+    unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    for inmueble in unidad['inmuebles']:
+      respuesta.append(inmueble['hub']['cerradura']['emergencias'])
+    return dumpJson(respuesta)
+
+#TODO probar método, puede que el find no retorne objetos python entonces puede putiarse
+@app.route("/yale/emergencias", methods=[GET])
+def yale():
+    respuesta = []
+    #Encontrar todos las unidades residenciales
+    for doc in db.unidadesResidenciales.find():
+      #Por cada in mueble en cada unidad residencial
+      for inmueble in doc['inmuebles']:
+        #Agregar las emergencias a la respuesta
+        respuesta += inmueble['hub']['cerradura']['emergencias']
+    #Retornar JSON
+    return dumpJson(respuesta)
 
 def dumpJson(obj):
   return dumps(obj, json_options=CANONICAL_JSON_OPTIONS)
