@@ -26,26 +26,36 @@ import org.json.JSONObject;
  */
 public class SimpleMqqtConsumerClient implements MqttCallback {
 
+    private static String url="http://172.24.42.33:9000/mensaje";
+    private static int contador=0;
+    
   public void connectionLost(Throwable throwable) {
     System.out.println("Connection to MQTT broker lost!");
   }
 
   public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
-       new RestPublisher(mqttMessage).start();
-       System.out.println(mqttMessage.toString());
-
+       new RestPublisher(mqttMessage,url).start();
+       ++contador;
   }
 
   public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
     // not used in this example
   }
   
-  public static void main (String[] args) throws Exception
+  public static void main (String[] args)
   {
-    System.out.println("Message not received:\n\t");
-    MqttClient client=new MqttClient("tcp://172.24.42.33:8083", MqttClient.generateClientId());
-    client.setCallback(new SimpleMqqtConsumerClient() );
-    client.connect();
-    client.subscribe("Toscana/emergencia/#");
+      try
+      {
+          System.out.println("Message not received:\n\t");
+            MqttClient client=new MqttClient("tcp://172.24.42.70:8083", MqttClient.generateClientId());
+            client.setCallback(new SimpleMqqtConsumerClient() );
+            client.connect();
+            client.subscribe("Toscana/emergencia/#");
+      }
+      catch(Exception e)
+      {
+          e.printStackTrace();
+      }
+    
   }
 }

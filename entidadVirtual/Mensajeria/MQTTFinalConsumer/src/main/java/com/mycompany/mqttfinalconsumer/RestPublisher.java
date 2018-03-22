@@ -5,13 +5,8 @@
  */
 package com.mycompany.mqttfinalconsumer;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.json.JSONObject;
 
@@ -20,11 +15,12 @@ import org.json.JSONObject;
  * @author s.guzmanm
  */
 public class RestPublisher extends Thread {
-    
+    private String url;
     private MqttMessage mqttMessage;
 
-    public RestPublisher(MqttMessage message) {
+    public RestPublisher(MqttMessage message,String url) {
         this.mqttMessage = message;
+        this.url=url;
     }
     
     
@@ -32,49 +28,21 @@ public class RestPublisher extends Thread {
     {
         try
         {
-                //Base connection with RestAPI
-            String url = "http://172.24.42.33:9000/mensaje";
-
+            //Base connection with RestAPI
             URL obj = new URL(url);
-                          System.out.println("B");
 
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-                          System.out.println("N");
 
             // GET
-            con.setRequestMethod("POST");
-
-
-
-            con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            con.setRequestProperty("Accept", "application/json; charset=UTF-8");
-
+            con.setRequestMethod("GET");
             con.setDoOutput(true);
 
-                          System.out.println("B");
-
             JSONObject jsonRequest=new JSONObject(mqttMessage.toString()).getJSONObject("emergency");
-
-            String contenido="Hubo una emergencia en el inmueble "+jsonRequest.getString("apartamento")+
-                    " de la unidad residencial "+jsonRequest.getString("conjunto")+" de tipo "+jsonRequest.getString("emergencia");
-
-            JSONObject jsonBody=new JSONObject();
-            jsonBody.put("asunto","Alarma del dispositivo "+ jsonRequest.getString("id"));
-            jsonBody.put("cuerpo",contenido);
-            jsonBody.put("remitente","s.guzmanm@yale.com");
-            List<String> sList = new ArrayList<String>();
-            sList.add("se.cardenas@uniandes.edu.co");
-            sList.add("ja.manrique@uniandes.edu.co");
-
-            jsonBody.put("destinatarios", sList);
-            System.out.println(jsonBody.toString());
-            OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
-            wr.write(jsonBody.toString());
-            wr.flush();
-            wr.close();
-        
-
-        
+            System.out.println("ASUNTO: Alarma del dispositivo "+ jsonRequest.getString("id")+";CONTENIDO: Hubo una emergencia en el inmueble "+jsonRequest.getString("apartamento")+
+                    " de la unidad residencial "+jsonRequest.getString("conjunto")+" de tipo "+jsonRequest.getString("emergencia")+";REMITENTE:s.guzmanm@yale.com"
+                    +";DESTINATARIOS:se.cardenas@uniandes.edu.co,ja.manrique@uniandes.edu.co");
+            if(con.getResponseCode()!=200)
+                throw new Exception("Falló P1");
         }
         catch(Exception e)
         {

@@ -1,0 +1,191 @@
+C:\ISIS2503\JMeter\bin>jmeter -n -t MQTTExpI.jmx
+Writing log file to: C:\ISIS2503\JMeter\bin\jmeter.log
+Creating summariser <summary>
+Created the tree successfully using MQTTExpI.jmx
+Starting the test @ Tue Mar 20 23:11:40 COT 2018 (1521605500343)
+Waiting for possible Shutdown/StopTestNow/Heapdump message on port 4445
+summary +   3105 in 00:00:20 =  158,4/s Avg:     0 Min:     0 Max:    71 Err:
+  0 (0,00%) Active: 1 Started: 3105 Finished: 3104
+summary +   4734 in 00:00:30 =  157,8/s Avg:     0 Min:     0 Max:    33 Err:
+  0 (0,00%) Active: 1 Started: 7839 Finished: 7838
+summary =   7839 in 00:00:50 =  158,0/s Avg:     0 Min:     0 Max:    71 Err:
+  0 (0,00%)
+¿Desea terminar el trabajo por lotes (S/N)? S
+
+C:\ISIS2503\JMeter\bin>jmeter -n -t MQTTExpI.jmx
+Writing log file to: C:\ISIS2503\JMeter\bin\jmeter.log
+Creating summariser <summary>
+Created the tree successfully using MQTTExpI.jmx
+Starting the test @ Tue Mar 20 23:12:47 COT 2018 (1521605567018)
+Waiting for possible Shutdown/StopTestNow/Heapdump message on port 4445
+Uncaught Exception java.lang.NullPointerException. See log file for details.
+summary +   2051 in 00:00:13 =  158,6/s Avg:     0 Min:     0 Max:   118 Err:
+  0 (0,00%) Active: 2 Started: 2051 Finished: 2049
+summary +   4819 in 00:00:30 =  160,6/s Avg:     0 Min:     0 Max:    33 Err:
+  0 (0,00%) Active: 2 Started: 6870 Finished: 6868
+summary =   6870 in 00:00:43 =  160,0/s Avg:     0 Min:     0 Max:   118 Err:
+  0 (0,00%)
+summary +   3130 in 00:00:20 =  160,1/s Avg:     0 Min:     0 Max:    65 Err:
+  0 (0,00%) Active: 1 Started: 10000 Finished: 9999
+summary =  10000 in 00:01:03 =  159,9/s Avg:     0 Min:     0 Max:   118 Err:
+  0 (0,00%)
+Tidying up ...    @ Tue Mar 20 23:13:49 COT 2018 (1521605629604)
+... end of run
+C:\ISIS2503\JMeter\bin>jmeter -n -t MQTTExpI.jmx
+Writing log file to: C:\ISIS2503\JMeter\bin\jmeter.log
+Creating summariser <summary>
+Created the tree successfully using MQTTExpI.jmx
+Starting the test @ Tue Mar 20 23:15:54 COT 2018 (1521605754478)
+Waiting for possible Shutdown/StopTestNow/Heapdump message on port 4445
+Uncaught Exception java.lang.NullPointerException. See log file for details.
+summary +   4085 in 00:00:05 =  747,6/s Avg:     0 Min:     0 Max:   224 Err:
+  0 (0,00%) Active: 150 Started: 4239 Finished: 4089
+summary +  18046 in 00:00:31 =  581,4/s Avg:     3 Min:     0 Max:  1376 Err:
+  0 (0,00%) Active: 2622 Started: 24751 Finished: 22129
+summary =  22131 in 00:00:37 =  606,3/s Avg:     3 Min:     0 Max:  1376 Err:
+  0 (0,00%)
+summary +  24208 in 00:00:29 =  835,8/s Avg:     0 Min:     0 Max:  1114 Err: 23
+905 (98,75%) Active: 2901 Started: 49238 Finished: 46337
+summary =  46339 in 00:01:05 =  707,9/s Avg:     1 Min:     0 Max:  1376 Err: 23
+905 (51,59%)
+summary +  26443 in 00:01:33 =  284,4/s Avg:     0 Min:     0 Max:     1 Err: 26
+443 (100,00%) Active: 12484 Started: 75553 Finished: 63069
+summary =  72782 in 00:02:38 =  459,4/s Avg:     1 Min:     0 Max:  1376 Err: 50
+348 (69,18%)
+¿Desea terminar el trabajo por lotes (S/N)? S
+
+C:\ISIS2503\JMeter\bin>jmeter -n -t MQTTExpI.jmx
+Writing log file to: C:\ISIS2503\JMeter\bin\jmeter.log
+Creating summariser <summary>
+Created the tree successfully using MQTTExpI.jmx
+Starting the test @ Tue Mar 20 23:19:49 COT 2018 (1521605989953)
+Waiting for possible Shutdown/StopTestNow/Heapdump message on port 4445
+Uncaught Exception java.lang.NullPointerException. See log file for details.
+summary +   2192 in 00:00:10 =  219,4/s Avg:     0 Min:     0 Max:   133 Err:
+  0 (0,00%) Active: 2 Started: 2192 Finished: 2190
+summary +   6615 in 00:00:30 =  220,5/s Avg:     0 Min:     0 Max:   231 Err:
+  0 (0,00%) Active: 2 Started: 8807 Finished: 8805
+summary =   8807 in 00:00:40 =  220,2/s Avg:     0 Min:     0 Max:   231 Err:
+  0 (0,00%)
+summary +   5193 in 00:00:27 =  192,6/s Avg:     0 Min:     0 Max:    24 Err:
+  0 (0,00%) Active: 1 Started: 14000 Finished: 13999
+summary =  14000 in 00:01:07 =  209,1/s Avg:     0 Min:     0 Max:   231 Err:
+  0 (0,00%)
+Tidying up ...    @ Tue Mar 20 23:20:56 COT 2018 (1521606056964)
+... end of run
+C:\ISIS2503\JMeter\bin>jmeter -n -t MQTTExpI.jmx
+Writing log file to: C:\ISIS2503\JMeter\bin\jmeter.log
+Creating summariser <summary>
+Created the tree successfully using MQTTExpI.jmx
+Starting the test @ Tue Mar 20 23:21:12 COT 2018 (1521606072923)
+Waiting for possible Shutdown/StopTestNow/Heapdump message on port 4445
+summary +   3711 in 00:00:17 =  218,0/s Avg:     0 Min:     0 Max:    90 Err:
+  0 (0,00%) Active: 1 Started: 3711 Finished: 3710
+summary +   6597 in 00:00:30 =  219,9/s Avg:     0 Min:     0 Max:    56 Err:  5
+265 (79,81%) Active: 1 Started: 10308 Finished: 10307
+summary =  10308 in 00:00:47 =  219,2/s Avg:     0 Min:     0 Max:    90 Err:  5
+265 (51,08%)
+summary +   3692 in 00:00:19 =  192,9/s Avg:     0 Min:     0 Max:    63 Err:
+ 84 (2,28%) Active: 0 Started: 14000 Finished: 14000
+summary =  14000 in 00:01:06 =  211,6/s Avg:     0 Min:     0 Max:    90 Err:  5
+349 (38,21%)
+Tidying up ...    @ Tue Mar 20 23:22:19 COT 2018 (1521606139139)
+... end of run
+C:\ISIS2503\JMeter\bin>jmeter -n -t MQTTExpI.jmx
+Writing log file to: C:\ISIS2503\JMeter\bin\jmeter.log
+Creating summariser <summary>
+Created the tree successfully using MQTTExpI.jmx
+Starting the test @ Tue Mar 20 23:23:15 COT 2018 (1521606195390)
+Waiting for possible Shutdown/StopTestNow/Heapdump message on port 4445
+Uncaught Exception java.lang.NullPointerException. See log file for details.
+summary +   3186 in 00:00:15 =  218,9/s Avg:     0 Min:     0 Max:    80 Err:
+  0 (0,00%) Active: 2 Started: 3186 Finished: 3184
+summary +   6599 in 00:00:30 =  220,0/s Avg:     0 Min:     0 Max:    38 Err:
+  0 (0,00%) Active: 2 Started: 9785 Finished: 9783
+summary =   9785 in 00:00:45 =  219,6/s Avg:     0 Min:     0 Max:    80 Err:
+  0 (0,00%)
+summary +   4215 in 00:00:21 =  198,6/s Avg:     0 Min:     0 Max:    42 Err:
+  0 (0,00%) Active: 1 Started: 14000 Finished: 13999
+summary =  14000 in 00:01:06 =  212,8/s Avg:     0 Min:     0 Max:    80 Err:
+  0 (0,00%)
+Tidying up ...    @ Tue Mar 20 23:24:21 COT 2018 (1521606261226)
+... end of run
+C:\ISIS2503\JMeter\bin>jmeter -n -t MQTTExpI.jmx
+Writing log file to: C:\ISIS2503\JMeter\bin\jmeter.log
+Creating summariser <summary>
+Created the tree successfully using MQTTExpI.jmx
+Starting the test @ Tue Mar 20 23:24:43 COT 2018 (1521606283655)
+Waiting for possible Shutdown/StopTestNow/Heapdump message on port 4445
+¿Desea terminar el trabajo por lotes (S/N)?
+^Cerrorlevel=130
+Presione una tecla para continuar . . .
+C:\ISIS2503\JMeter\bin>
+C:\ISIS2503\JMeter\bin>jmeter -n -t MQTTExpI.jmx
+Writing log file to: C:\ISIS2503\JMeter\bin\jmeter.log
+Creating summariser <summary>
+Created the tree successfully using MQTTExpI.jmx
+Starting the test @ Tue Mar 20 23:25:29 COT 2018 (1521606329878)
+Waiting for possible Shutdown/StopTestNow/Heapdump message on port 4445
+summary +      1 in 00:00:00 =    2,5/s Avg:     1 Min:     1 Max:     1 Err:
+  0 (0,00%) Active: 107 Started: 107 Finished: 0
+summary +   9085 in 00:00:30 =  306,2/s Avg:     0 Min:     0 Max:    70 Err:
+  0 (0,00%) Active: 1 Started: 9086 Finished: 9085
+summary =   9086 in 00:00:30 =  302,2/s Avg:     0 Min:     0 Max:    70 Err:
+  0 (0,00%)
+summary +   8192 in 00:00:30 =  273,0/s Avg:     0 Min:     0 Max:    41 Err:
+977 (11,93%) Active: 2 Started: 17280 Finished: 17278
+summary =  17278 in 00:01:00 =  287,6/s Avg:     0 Min:     0 Max:    70 Err:
+977 (5,65%)
+summary +   2722 in 00:00:10 =  259,4/s Avg:     0 Min:     0 Max:     1 Err:  2
+722 (100,00%) Active: 0 Started: 20000 Finished: 20000
+summary =  20000 in 00:01:11 =  283,4/s Avg:     0 Min:     0 Max:    70 Err:  3
+699 (18,50%)
+Tidying up ...    @ Tue Mar 20 23:26:40 COT 2018 (1521606400498)
+... end of run
+C:\ISIS2503\JMeter\bin>jmeter -n -t MQTTExpI.jmx
+Writing log file to: C:\ISIS2503\JMeter\bin\jmeter.log
+Creating summariser <summary>
+Created the tree successfully using MQTTExpI.jmx
+Starting the test @ Tue Mar 20 23:29:11 COT 2018 (1521606551829)
+Waiting for possible Shutdown/StopTestNow/Heapdump message on port 4445
+Uncaught Exception java.lang.NullPointerException. See log file for details.
+summary +   4462 in 00:00:18 =  246,3/s Avg:     0 Min:     0 Max:    64 Err:
+  0 (0,00%) Active: 2 Started: 4462 Finished: 4460
+summary +   7429 in 00:00:30 =  247,6/s Avg:     0 Min:     0 Max:    47 Err:
+  0 (0,00%) Active: 2 Started: 11892 Finished: 11890
+summary =  11891 in 00:00:48 =  247,1/s Avg:     0 Min:     0 Max:    64 Err:
+  0 (0,00%)
+summary +   4109 in 00:00:19 =  214,8/s Avg:     0 Min:     0 Max:    19 Err:
+  0 (0,00%) Active: 1 Started: 16000 Finished: 15999
+summary =  16000 in 00:01:07 =  237,9/s Avg:     0 Min:     0 Max:    64 Err:
+  0 (0,00%)
+Tidying up ...    @ Tue Mar 20 23:30:19 COT 2018 (1521606619131)
+... end of run
+C:\ISIS2503\JMeter\bin>jmeter -n -t MQTTExpI.jmx
+Writing log file to: C:\ISIS2503\JMeter\bin\jmeter.log
+Creating summariser <summary>
+Created the tree successfully using MQTTExpI.jmx
+Starting the test @ Tue Mar 20 23:32:27 COT 2018 (1521606747830)
+Waiting for possible Shutdown/StopTestNow/Heapdump message on port 4445
+summary +    580 in 00:00:02 =  274,0/s Avg:     0 Min:     0 Max:    37 Err:
+  0 (0,00%) Active: 2 Started: 581 Finished: 579
+Uncaught Exception java.lang.NullPointerException. See log file for details.
+summary +   8316 in 00:00:30 =  277,2/s Avg:     0 Min:     0 Max:    66 Err:
+  0 (0,00%) Active: 2 Started: 8896 Finished: 8894
+summary =   8896 in 00:00:32 =  277,0/s Avg:     0 Min:     0 Max:    66 Err:
+  0 (0,00%)
+summary +   7360 in 00:00:30 =  245,3/s Avg:     0 Min:     0 Max:    36 Err:
+  0 (0,00%) Active: 2 Started: 16256 Finished: 16254
+summary =  16256 in 00:01:02 =  261,7/s Avg:     0 Min:     0 Max:    66 Err:
+  0 (0,00%)
+summary +   1744 in 00:00:07 =  249,7/s Avg:     0 Min:     0 Max:     1 Err:  1
+626 (93,23%) Active: 1 Started: 18000 Finished: 17999
+summary =  18000 in 00:01:09 =  260,5/s Avg:     0 Min:     0 Max:    66 Err:  1
+626 (9,03%)
+Tidying up ...    @ Tue Mar 20 23:33:36 COT 2018 (1521606816987)
+... end of run
+C:\ISIS2503\JMeter\bin>
+
+
+Para 18000 éxito de 16374. 
+Para de ahí en abajo éxito de 100%
