@@ -140,12 +140,14 @@ def imuebles(unidad):
     result = db.unidadesResidenciales.find_one_and_update({'nombre':unidad}, {'$push': {'inmuebles': sanitizedData}})
     return dumpJson(sanitizedData)
 
-@app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>", methods=[GET, PUT])
+@app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>", methods=[GET, PUT, DELETE])
 def inmuebles(unidad, localID):
   if request.method == GET:
     respuesta = []
     unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
     #Buscar inmueble dentro de la unidad residencial
+    if unidad['inmuebles'] == None:
+      return "{}"
     for inmueble in unidad['inmuebles']:
       if inmueble['localID'] == localID:
         respuesta = inmueble
@@ -167,7 +169,13 @@ def inmuebles(unidad, localID):
     {'$set': {'inmuebles.$[elemento].localID' : data['localID']}},
     array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
     return_document=ReturnDocument.AFTER)
-    
+    return dumpJson(nuevo)
+  elif request.method == DELETE:
+    #Esta linea busca los documentos que tengan la propiedad nombre == unidad
+    #Y luego actualiza el valor del campo inmuebles, eliminando el elemento con 'localID' que entró por parámetro
+    nuevo = db.unidadesResidenciales.find_one_and_update({'nombre': unidad,},
+    {'$pull': {'inmuebles' : {'localID' : localID}}},
+    return_document=ReturnDocument.AFTER)
     return dumpJson(nuevo)
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub", methods=[GET, POST, PUT])
@@ -175,6 +183,8 @@ def hub(unidad, localID):
   if request.method == GET:
     respuesta = []
     unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    if unidad['inmuebles'] == None:
+      return "{}"
     for inmueble in unidad['inmuebles']:
       if inmueble['localID'] == localID:
         respuesta = inmueble
@@ -215,10 +225,14 @@ def cerradura(unidad, localID):
   if request.method == GET:
     respuesta = []
     unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    if unidad['inmuebles'] == None:
+      return "{}"
     for inmueble in unidad['inmuebles']:
       if inmueble['localID'] == localID:
         respuesta = inmueble
         break
+    if respuesta['hub'] == {}:
+      return "{}"
     return dumpJson(respuesta['hub']['cerradura'])
   elif request.method == POST or request.method == PUT:
     if request.data == None or request.data == "":
@@ -304,10 +318,16 @@ def emergencias(unidad, localID):
   if request.method == GET:
     respuesta = []
     unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    if unidad['inmuebles'] == None:
+      return "{}"
     for inmueble in unidad['inmuebles']:
       if inmueble['localID'] == localID:
         respuesta = inmueble
         break
+    if respuesta['hub'] == {}:
+      return "{}"
+    elif respuesta['hub']['cerradura'] == {}:
+      return "{}"
     return dumpJson(respuesta['hub']['cerradura']['emergencias'])
   elif request.method == POST or request.method == PUT:
     if request.data == None or request.data == "":
@@ -350,10 +370,16 @@ def horariosPermitidos(unidad, localID):
   if request.method == GET:
     respuesta = []
     unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    if unidad['inmuebles'] == None:
+      return "{}"  
     for inmueble in unidad['inmuebles']:
       if inmueble['localID'] == localID:
         respuesta = inmueble
         break
+    if respuesta['hub'] == {}:
+      return "{}"
+    elif respuesta['hub']['cerradura'] == {}:
+      return "{}"
     return dumpJson(respuesta['hub']['cerradura']['horariosPermitidos'])
   elif request.method == POST or request.method == PUT:
     if request.data == None or request.data == "":

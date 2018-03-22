@@ -77,7 +77,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"nombre\":\"San Lorenzo\",\n\t\"direccion\":\"CRA 68D#24A50\",\n\t\"inmuebles\":[]\n}"
+							"raw": "{\n\t\"nombre\":\"San Lorenzo\",\n\t\"direccion\":\"CRA 68D#24A50\"}"
 						},
 						"url": "localhost:8080/unidadesResidenciales"
 					},
