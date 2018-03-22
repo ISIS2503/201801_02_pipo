@@ -116,7 +116,10 @@ def imuebles(unidad):
   if request.method == GET:
     respuesta = []
     unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
-    return dumpJson(unidad['inmuebles'])
+    if unidad == None:
+      return "{}"
+    else:
+      return dumpJson(unidad['inmuebles'])
   elif request.method == POST:
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
@@ -390,24 +393,36 @@ def horariosPermitidos(unidad, localID):
     return dumpJson(result)
 
 @app.route("/unidadesResidenciales/<unidad>/emergencias", methods=[GET])
-def emergenciasUnidad(unidad, localID):
+def emergenciasUnidad(unidad):
   if request.method == GET:
     respuesta = []
     unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
-    for inmueble in unidad['inmuebles']:
-      respuesta.append(inmueble['hub']['cerradura']['emergencias'])
+    try:
+      for inmueble in unidad['inmuebles']:
+        try:
+          respuesta.append(inmueble['hub']['cerradura']['emergencias'])
+        except KeyError as error:
+          print(inmueble['localID'] + ' no tiene ' + error.args)
+    except TypeError as error:
+        print(inmueble['localID'] + ' no tiene ' + error.args)
     return dumpJson(respuesta)
 
 #TODO probar método, puede que el find no retorne objetos python entonces puede putiarse
 @app.route("/yale/emergencias", methods=[GET])
-def yale():
+def yaleEmergencias():
     respuesta = []
     #Encontrar todos las unidades residenciales
     for doc in db.unidadesResidenciales.find():
-      #Por cada in mueble en cada unidad residencial
-      for inmueble in doc['inmuebles']:
-        #Agregar las emergencias a la respuesta
-        respuesta += inmueble['hub']['cerradura']['emergencias']
+      try:
+        #Por cada in mueble en cada unidad residencial
+        for inmueble in doc['inmuebles']:
+          try:
+          #Agregar las emergencias a la respuesta
+            respuesta += inmueble['hub']['cerradura']['emergencias']
+          except KeyError as error:
+            print(inmueble['localID'] + ' no tiene ' + error.args)
+      except TypeError as error:
+        print(inmueble['localID'] + ' no tiene ' + error.args)
     #Retornar JSON
     return dumpJson(respuesta)
 
