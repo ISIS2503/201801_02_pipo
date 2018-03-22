@@ -18,8 +18,8 @@ WiFiClient    clientWIFI;
 PubSubClient  clientMQTT(clientWIFI);
 
 // CONFIG WIFI
-const char* ssid = "korkies22";
-const char* password = "sasuke22";
+const char* ssid = "isis2503";
+const char* password = "Yale2018.";
 
 // CONFIG MQTT
 IPAddress serverMQTT (172,24,42,33);
