@@ -17,10 +17,12 @@ import org.json.JSONObject;
 public class RestPublisher extends Thread {
     private String url;
     private MqttMessage mqttMessage;
+    private long initialTime;
 
     public RestPublisher(MqttMessage message,String url) {
         this.mqttMessage = message;
         this.url=url;
+        this.initialTime=System.currentTimeMillis();
     }
     
     
@@ -35,7 +37,6 @@ public class RestPublisher extends Thread {
 
             // GET
             con.setRequestMethod("GET");
-            con.setDoOutput(true);
 
             JSONObject jsonRequest=new JSONObject(mqttMessage.toString()).getJSONObject("emergency");
             System.out.println(SimpleMqqtConsumerClient.contador+" ASUNTO: Alarma del dispositivo "+ jsonRequest.getString("id")+";CONTENIDO: Hubo una emergencia en el inmueble "+jsonRequest.getString("apartamento")+
@@ -43,6 +44,20 @@ public class RestPublisher extends Thread {
                     +";DESTINATARIOS:se.cardenas@uniandes.edu.co,ja.manrique@uniandes.edu.co");
             if(con.getResponseCode()!=200)
                 throw new Exception("Falló P1 ");
+            
+            obj = new URL("http://172.24.42.57:9000");
+
+             con = (HttpURLConnection) obj.openConnection();
+             long time=System.currentTimeMillis();
+
+            // GET
+            con.setRequestMethod("GET");
+            con.setRequestProperty("tiempo",(time-initialTime)+"");
+            if(con.getResponseCode()!=200)
+                throw new Exception("Murió MOCK 2");
+
+            
+            
         }
         catch(Exception e)
         {

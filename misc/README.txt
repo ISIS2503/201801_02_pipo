@@ -1,0 +1,1 @@
+Meter en JMeter/lib/ext y reiniciar JMeter para correr las pruebas de MQTT
