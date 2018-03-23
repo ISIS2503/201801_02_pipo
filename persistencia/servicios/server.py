@@ -62,7 +62,7 @@ def unidadResidencial(unidad):
       return "Falta el nombre o la dirección de la unidad", 400
 
     try:
-      valid = False and (data['inmuebles'] == [])
+      valid = data['inmuebles'] == [] and False
       if not valid:
         return "No puede haber inmuebles asociados en la actualización de una unidad residencial", 400
     except KeyError:
@@ -140,15 +140,21 @@ def imuebles(unidad):
     result = db.unidadesResidenciales.find_one_and_update({'nombre':unidad}, {'$push': {'inmuebles': sanitizedData}})
     return dumpJson(sanitizedData)
 
+@app.route("/test")
+def testo():
+  unidad = db.unidadesResidenciales.find_one({ 'nombre' : 'Toscana' })
+  print("Unidad: ", unidad)
+  return "xd"
+
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>", methods=[GET, PUT, DELETE])
 def inmuebles(unidad, localID):
   if request.method == GET:
     respuesta = []
-    unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
     #Buscar inmueble dentro de la unidad residencial
-    if unidad['inmuebles'] == None:
+    if unidadRes == None:
       return "{}"
-    for inmueble in unidad['inmuebles']:
+    for inmueble in unidadRes['inmuebles']:
       if inmueble['localID'] == localID:
         respuesta = inmueble
         break
@@ -182,10 +188,10 @@ def inmuebles(unidad, localID):
 def hub(unidad, localID):
   if request.method == GET:
     respuesta = []
-    unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
-    if unidad['inmuebles'] == None:
+    unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    if unidadRes == None:
       return "{}"
-    for inmueble in unidad['inmuebles']:
+    for inmueble in unidadRes['inmuebles']:
       if inmueble['localID'] == localID:
         respuesta = inmueble
         break
@@ -224,10 +230,10 @@ def hub(unidad, localID):
 def cerradura(unidad, localID):
   if request.method == GET:
     respuesta = []
-    unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
-    if unidad['inmuebles'] == None:
+    unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    if unidadRes == None:
       return "{}"
-    for inmueble in unidad['inmuebles']:
+    for inmueble in unidadRes['inmuebles']:
       if inmueble['localID'] == localID:
         respuesta = inmueble
         break
@@ -280,8 +286,8 @@ def claves(unidad, localID):
   data = loads(request.data)
   if request.method == GET:
     respuesta = []
-    unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
-    for inmueble in unidad['inmuebles']:
+    unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    for inmueble in unidadRes['inmuebles']:
       if inmueble['localID'] == localID:
         respuesta = inmueble
         break
@@ -331,10 +337,10 @@ def emergencias(unidad, localID):
   data = loads(request.data)
   if request.method == GET:
     respuesta = []
-    unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
-    if unidad['inmuebles'] == None:
+    unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    if unidadRes == None:
       return "{}"
-    for inmueble in unidad['inmuebles']:
+    for inmueble in unidadRes['inmuebles']:
       if inmueble['localID'] == localID:
         respuesta = inmueble
         break
@@ -381,10 +387,10 @@ def emergencias(unidad, localID):
 def horariosPermitidos(unidad, localID):
   if request.method == GET:
     respuesta = []
-    unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
-    if unidad['inmuebles'] == None:
+    unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    if unidadRes == None:
       return "{}"  
-    for inmueble in unidad['inmuebles']:
+    for inmueble in unidadRes['inmuebles']:
       if inmueble['localID'] == localID:
         respuesta = inmueble
         break
@@ -434,17 +440,17 @@ def horariosPermitidos(unidad, localID):
 def emergenciasUnidad(unidad):
   if request.method == GET:
     respuesta = []
-    unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
-    if unidad == None:
+    unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    if unidadRes == None:
       return "[]"
     try:
-      for inmueble in unidad['inmuebles']:
+      for inmueble in unidadRes['inmuebles']:
         try:
           respuesta.append(inmueble['hub']['cerradura']['emergencias'])
         except KeyError as error:
-          print(inmueble['localID'] + ' no tiene ' + error.args)
+          print(inmueble['localID'], ' no tiene ', error.args)
     except TypeError as error:
-        print(inmueble['localID'] + ' no tiene ' + error.args)
+        print(inmueble['localID'], ' no tiene ', error.args)
     return dumpJson(respuesta)
 
 #TODO probar método, puede que el find no retorne objetos python entonces puede putiarse
@@ -460,9 +466,9 @@ def yaleEmergencias():
           #Agregar las emergencias a la respuesta
             respuesta += inmueble['hub']['cerradura']['emergencias']
           except KeyError as error:
-            print(inmueble['localID'] + ' no tiene ' + error.args)
+            print(inmueble['localID'], ' no tiene ', error.args)
       except TypeError as error:
-        print(inmueble['localID'] + ' no tiene ' + error.args)
+        print(inmueble['localID'], ' no tiene ', error.args)
     #Retornar JSON
     return dumpJson(respuesta)
 
