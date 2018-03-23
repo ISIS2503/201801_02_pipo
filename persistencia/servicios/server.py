@@ -275,8 +275,9 @@ def cerradura(unidad, localID):
     return_document=ReturnDocument.AFTER)
     return dumpJson(result)
 
-@app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/claves", methods=[GET, POST, PUT])
+@app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/claves", methods=[GET, POST, PUT, DELETE])
 def claves(unidad, localID):
+  data = loads(request.data)
   if request.method == GET:
     respuesta = []
     unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
@@ -289,7 +290,6 @@ def claves(unidad, localID):
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
     
-    data = loads(request.data)
     valid = True
     try:
       valid = valid and (data['combinacion'] != None or data['combinacion'] != "")
@@ -312,9 +312,23 @@ def claves(unidad, localID):
     array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
     return_document=ReturnDocument.AFTER)
     return dumpJson(result)
+  elif request.method == DELETE:
+    clave = ""
+    try:
+       clave = data['clave']
+    except KeyError:
+      return "Debe enviar qué clave se va a borrar", 400
+    #Esta linea busca los documentos que tengan la propiedad nombre == unidad
+    #Y luego actualiza el valor del campo inmuebles, eliminando el elemento con 'localID' que entró por parámetro
+    nuevo = db.unidadesResidenciales.find_one_and_update({'nombre': unidad,},
+    {'$pull': {'inmuebles.$[elemento].hub.cerradura.claves' : {'$eq' : clave}}},
+    array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
+    return_document=ReturnDocument.AFTER)
+    return dumpJson(nuevo)
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/emergencias", methods=[GET, POST])
 def emergencias(unidad, localID):
+  data = loads(request.data)
   if request.method == GET:
     respuesta = []
     unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
@@ -332,8 +346,6 @@ def emergencias(unidad, localID):
   elif request.method == POST or request.method == PUT:
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
-    
-    data = loads(request.data)
     valid = True
     try:
       valid = valid and (data['fecha'] != None or data['fecha'] != "")
@@ -423,6 +435,8 @@ def emergenciasUnidad(unidad):
   if request.method == GET:
     respuesta = []
     unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    if unidad == None:
+      return "[]"
     try:
       for inmueble in unidad['inmuebles']:
         try:

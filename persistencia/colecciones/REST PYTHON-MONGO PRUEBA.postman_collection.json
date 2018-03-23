@@ -107,7 +107,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"nombre\":\"San Lorenzo 2.0\",\n\t\"direccion\":\"CRA 68D#24A50\",\n\t\"inmuebles\":[]\n}"
+							"raw": "{\n\t\"nombre\":\"Toscana\",\n\t\"direccion\":\"CRA 68D # 24A50 - 432\"}"
 						},
 						"url": "localhost:8080/unidadesResidenciales/Toscana"
 					},
@@ -338,28 +338,6 @@
 							"raw": "{\n\t\"localID\":\"1234\"\n}"
 						},
 						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles"
-					},
-					"response": []
-				},
-				{
-					"name": "Ver todos",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": "localhost:8080/inmuebles"
 					},
 					"response": []
 				}
