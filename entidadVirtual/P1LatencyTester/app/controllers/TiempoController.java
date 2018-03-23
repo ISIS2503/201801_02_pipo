@@ -16,21 +16,25 @@ import java.util.List;
  */
 public class TiempoController extends Controller {
 
-    private int prom;
+    private int prom=0;
+
+    private int cantidad=0;
 
     public Result initializeProm()
     {
-        System.out.println(prom);
+        String temp=prom+" "+cantidad;
         if(prom!=0)
         {
             prom=0;
+            cantidad=0;
         }
-        return ok("");
+        return ok(temp);
 
     }
 
     public Result read() {
         prom+=Integer.parseInt(Controller.request().getHeader("tiempo"));
+        cantidad++;
         return ok("");
     }
 }
