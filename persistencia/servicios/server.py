@@ -184,7 +184,7 @@ def inmuebles(unidad, localID):
     return_document=ReturnDocument.AFTER)
     return dumpJson(nuevo)
 
-@app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub", methods=[GET, POST, PUT])
+@app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub", methods=[GET, POST, PUT, DELETE])
 def hub(unidad, localID):
   if request.method == GET:
     respuesta = []
@@ -222,6 +222,15 @@ def hub(unidad, localID):
     #inmuebles[x] corresponde al elemento tal que inmuebles[x].localID == identificador local del inmueble
     result = db.unidadesResidenciales.find_one_and_update({'nombre': unidad,},
     {'$set': {'inmuebles.$[elemento].hub' : sanitizedData}},
+    array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
+    return_document=ReturnDocument.AFTER)
+    return dumpJson(result)
+  elif request.method == DELETE:
+    #Esta linea busca los documentos que tengan la propiedad nombre == unidad
+    #Y luego actualiza el valor del campo inmuebles[x].hub a el nuevo hub
+    #inmuebles[x] corresponde al elemento tal que inmuebles[x].localID == identificador local del inmueble
+    result = db.unidadesResidenciales.find_one_and_update({'nombre': unidad,},
+    {'$set': {'inmuebles.$[elemento].hub' : {}}},
     array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
     return_document=ReturnDocument.AFTER)
     return dumpJson(result)
@@ -283,14 +292,20 @@ def cerradura(unidad, localID):
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/claves", methods=[GET, POST, PUT, DELETE])
 def claves(unidad, localID):
-  data = loads(request.data)
+  data = {}
+  if request.data:
+    data = loads(request.data)
   if request.method == GET:
     respuesta = []
     unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    if unidadRes == None:
+      return "{}"
     for inmueble in unidadRes['inmuebles']:
       if inmueble['localID'] == localID:
         respuesta = inmueble
         break
+    if respuesta == []:
+      return respuesta
     return dumpJson(respuesta['hub']['cerradura']['claves'])
   elif request.method == POST or request.method == PUT:
     if request.data == None or request.data == "":
@@ -334,7 +349,9 @@ def claves(unidad, localID):
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/emergencias", methods=[GET, POST])
 def emergencias(unidad, localID):
-  data = loads(request.data)
+  data = {}
+  if request.data:
+    data = loads(request.data)
   if request.method == GET:
     respuesta = []
     unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
@@ -344,7 +361,9 @@ def emergencias(unidad, localID):
       if inmueble['localID'] == localID:
         respuesta = inmueble
         break
-    if respuesta['hub'] == {}:
+    if respuesta == []:
+      return respuesta
+    elif respuesta['hub'] == {}:
       return "{}"
     elif respuesta['hub']['cerradura'] == {}:
       return "{}"

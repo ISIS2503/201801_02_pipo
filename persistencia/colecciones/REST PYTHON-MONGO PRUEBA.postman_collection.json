@@ -131,7 +131,7 @@
 						"method": "DELETE",
 						"header": [],
 						"body": {},
-						"url": "localhost:8080/unidadesResidenciales/Toscana"
+						"url": "localhost:8080/unidadesResidenciales/San%20Lorenzo"
 					},
 					"response": []
 				},
