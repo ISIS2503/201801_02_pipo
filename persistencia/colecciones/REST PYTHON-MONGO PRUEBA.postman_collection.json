@@ -546,28 +546,6 @@
 						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
 					},
 					"response": []
-				},
-				{
-					"name": "Ver todos",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": "localhost:8080/hubs"
-					},
-					"response": []
 				}
 			],
 			"event": [
@@ -742,28 +720,6 @@
 						"header": [],
 						"body": {},
 						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
-					},
-					"response": []
-				},
-				{
-					"name": "Ver todas",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "7c9c1a0e-0a2b-448e-b723-e5348fa73d81",
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": "localhost:8080/cerraduras"
 					},
 					"response": []
 				}
