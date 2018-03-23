@@ -17,7 +17,6 @@
 ########################################################################################################################
 
 
-POST        /mensaje                 controllers.TiempoController.create()
 
 GET         /mensaje                controllers.TiempoController.read()
 

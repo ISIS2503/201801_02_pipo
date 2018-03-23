@@ -18,7 +18,6 @@ public class TiempoController extends Controller {
 
     private int prom;
 
-    private int cantidad=0;
     public Result initializeProm()
     {
         System.out.println(prom);
@@ -32,7 +31,6 @@ public class TiempoController extends Controller {
 
     public Result read() {
         prom+=Integer.parseInt(Controller.request().getHeader("tiempo"));
-        cantidad++;
         return ok("");
     }
 }
