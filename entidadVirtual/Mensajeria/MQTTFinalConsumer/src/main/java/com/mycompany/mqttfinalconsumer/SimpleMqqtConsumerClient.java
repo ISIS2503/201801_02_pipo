@@ -19,13 +19,14 @@ public class SimpleMqqtConsumerClient implements MqttCallback {
 
     private static String url="http://172.24.41.181:80/mensaje";
     static int contador=0;
+    static long[] sumatoria=new long[100000];
     
   public void connectionLost(Throwable throwable) {
     System.out.println("Connection to MQTT broker lost!");
   }
 
   public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
-       new RestPublisher(mqttMessage,url).start();
+       new RestPublisher(mqttMessage,url,contador).start();
        ++contador;
   }
 

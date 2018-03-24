@@ -17,11 +17,13 @@ import org.json.JSONObject;
 public class RestPublisher extends Thread {
     private String url;
     private MqttMessage mqttMessage;
+    private int contador;
     private long time=System.currentTimeMillis();
 
-    public RestPublisher(MqttMessage message,String url) {
+    public RestPublisher(MqttMessage message,String url, int contador) {
         this.mqttMessage = message;
         this.url=url;
+        this.contador=contador;
     }
     
     
@@ -44,7 +46,7 @@ public class RestPublisher extends Thread {
                     +";DESTINATARIOS:se.cardenas@uniandes.edu.co,ja.manrique@uniandes.edu.co");
             if(con.getResponseCode()!=200)
                 throw new Exception("Falló P1 ");
-            System.out.println((System.currentTimeMillis()-time)+"");
+            SimpleMqqtConsumerClient.sumatoria[contador]=System.currentTimeMillis()-time;
         }
         catch(Exception e)
         {
