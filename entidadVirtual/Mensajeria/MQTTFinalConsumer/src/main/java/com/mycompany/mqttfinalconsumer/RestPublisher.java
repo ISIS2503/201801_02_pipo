@@ -17,6 +17,7 @@ import org.json.JSONObject;
 public class RestPublisher extends Thread {
     private String url;
     private MqttMessage mqttMessage;
+    private long time=System.currentTimeMillis();
 
     public RestPublisher(MqttMessage message,String url) {
         this.mqttMessage = message;
@@ -43,6 +44,7 @@ public class RestPublisher extends Thread {
                     +";DESTINATARIOS:se.cardenas@uniandes.edu.co,ja.manrique@uniandes.edu.co");
             if(con.getResponseCode()!=200)
                 throw new Exception("Falló P1 ");
+            System.out.println((System.currentTimeMillis()-time)+"");
         }
         catch(Exception e)
         {
