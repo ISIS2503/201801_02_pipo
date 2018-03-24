@@ -10,6 +10,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+
  */
 /**
  *
@@ -17,15 +18,16 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
  */
 public class SimpleMqqtConsumerClient implements MqttCallback {
 
-    private static String url="http://172.24.42.33:9000/mensaje";
+    private static String url="http://172.24.41.181:80/mensaje";
     static int contador=0;
+    static long[] sumatoria=new long[100000];
     
   public void connectionLost(Throwable throwable) {
     System.out.println("Connection to MQTT broker lost!");
   }
 
   public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
-       new RestPublisher(mqttMessage,url).start();
+       new RestPublisher(mqttMessage,url,contador).start();
        ++contador;
   }
 
@@ -41,7 +43,8 @@ public class SimpleMqqtConsumerClient implements MqttCallback {
             MqttClient client=new MqttClient("tcp://172.24.42.70:8083", MqttClient.generateClientId());
             client.setCallback(new SimpleMqqtConsumerClient() );
             client.connect();
-            client.subscribe("Toscana/emergencia/#");
+            client.subscribe("Toscana/emergencia/Centro");
+            new Contador().start();
       }
       catch(Exception e)
       {
