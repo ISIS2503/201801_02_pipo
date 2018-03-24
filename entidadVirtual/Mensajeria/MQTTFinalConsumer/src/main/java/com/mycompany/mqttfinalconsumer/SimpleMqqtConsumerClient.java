@@ -10,6 +10,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+
  */
 /**
  *
@@ -43,6 +44,7 @@ public class SimpleMqqtConsumerClient implements MqttCallback {
             client.setCallback(new SimpleMqqtConsumerClient() );
             client.connect();
             client.subscribe("Toscana/emergencia/Centro");
+            new Contador().start();
       }
       catch(Exception e)
       {
