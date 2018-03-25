@@ -1,0 +1,4297 @@
+{
+	"info": {
+		"_postman_id": "a40515e4-be47-4b94-af1e-003658d18e48",
+		"name": "Poblar REST Yale - Completo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Valdivia",
+			"description": null,
+			"item": [
+				{
+					"name": "Crear UR [Valdivia]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombre\" : \"Gran Reserva De Valdivia\",\n\t\"direccion\": \"Calle 32B # 74A - 73\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-101]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-101\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-102]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-102\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-103]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-103\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-201]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-201\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-202]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-202\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-101/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-101",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-102/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-102",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-103/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-103",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-201/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-201",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-202/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-202",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-101/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-101",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-102/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-102",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-103/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-103",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-201/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-201",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-202/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-202",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-101/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-101",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-102/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-102",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-103/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-103",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-201/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-201",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-202/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-202",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1548\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-101/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-101",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1549\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-102/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-102",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1549\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-103/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-103",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1549\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-201/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-201",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1549\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-202/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-202",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-101/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-101",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-102/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-102",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-103/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-103",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-201/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-201",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Valdivia/inmuebles/T1-202/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Valdivia",
+								"inmuebles",
+								"T1-202",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "94122d55-1126-4869-8937-ce9468b53833",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Gran Reserva de Toscana",
+			"description": null,
+			"item": [
+				{
+					"name": "Crear UR [Toscana]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombre\" : \"Gran Reserva De Toscana\",\n\t\"direccion\": \"Calle 24B # 71A - 53\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-101]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-101\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-102]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-102\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-103]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-103\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-201]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-201\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-202]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-202\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-101/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-101",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-102/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-102",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-103/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-103",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-201/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-201",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-202/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-202",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-101/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-101",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-102/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-102",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-103/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-103",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-201/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-201",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-202/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-202",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1548\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-101/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-101",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1549\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-102/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-102",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1549\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-103/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-103",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1549\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-201/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-201",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1549\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-202/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-202",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-102/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-102",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-101/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-101",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-103/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-103",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-201/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-201",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-202/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-202",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-101/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-101",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-102/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-102",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-103/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-103",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-201/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-201",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Toscana/inmuebles/T1-202/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Toscana",
+								"inmuebles",
+								"T1-202",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "94122d55-1126-4869-8937-ce9468b53833",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Chablis",
+			"description": null,
+			"item": [
+				{
+					"name": "Crear UR [Chablis]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombre\" : \"Gran Reserva De Chablis\",\n\t\"direccion\": \"Calle 39B # 71A - 01\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-101]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-101\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-102]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-102\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-103]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-103\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-201]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-201\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-202]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-202\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-101/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-101",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-102/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-102",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-103/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-103",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-201/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-201",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-202/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-202",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-101/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-101",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-102/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-102",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-103/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-103",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-201/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-201",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-202/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-202",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-101/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-101",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-102/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-102",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-103/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-103",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-201/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-201",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-202/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-202",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1548\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-101/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-101",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1549\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-102/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-102",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1549\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-103/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-103",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1549\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-201/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-201",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1549\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-202/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-202",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-101/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-101",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-102/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-102",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-103/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-103",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-201/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-201",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Chablis/inmuebles/T1-202/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Chablis",
+								"inmuebles",
+								"T1-202",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "94122d55-1126-4869-8937-ce9468b53833",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Trento",
+			"description": null,
+			"item": [
+				{
+					"name": "Crear UR [Trento]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombre\" : \"Gran Reserva De Trento\",\n\t\"direccion\": \"Calle 26B # 73 - 88\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-101]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-101\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-102]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-102\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-103]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-103\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-201]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-201\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmueble [T1-202]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e0a37ba-37bb-4518-9056-af618ebc5da4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"localID\": \"T1-202\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-101/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-101",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-102/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-102",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-103/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-103",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-201/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-201",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Hub [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frecuencia\" : 500,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-202/hub",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-202",
+								"hub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-101/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-101",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-102/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-102",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-103/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-103",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-201/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-201",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cerradura [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bateriaCritica\" : 500,\n\t\"tiempoMaximo\" : 30,\n\t\"frequencia\" : 250,\n\t\"fallosMaximos\" : 5\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-202/hub/cerradura",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-202",
+								"hub",
+								"cerradura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-101/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-101",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-102/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-102",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-103/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-103",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-201/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-201",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Horario [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"horaInicio\" : \"01:23\",\n\t\"horaFin\" : \"04:40\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-202/hub/cerradura/horariosPermitidos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-202",
+								"hub",
+								"cerradura",
+								"horariosPermitidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1548\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-101/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-101",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1549\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-102/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-102",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1549\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-103/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-103",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1549\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-201/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-201",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clave [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"combinacion\" : \"1549\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-202/hub/cerradura/claves",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-202",
+								"hub",
+								"cerradura",
+								"claves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-101]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-101/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-101",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-102]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-102/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-102",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-103]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-103/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-103",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-201]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-201/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-201",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Emergencia [T1-202]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha\" : \"10-03-18 12:43:00\",\n\t\"tipo\" : \"Puerta abierta\",\n\t\"idEmergencia\" : \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/unidadesResidenciales/Gran%20Reserva%20De%20Trento/inmuebles/T1-202/hub/cerradura/emergencias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadesResidenciales",
+								"Gran%20Reserva%20De%20Trento",
+								"inmuebles",
+								"T1-202",
+								"hub",
+								"cerradura",
+								"emergencias"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "94122d55-1126-4869-8937-ce9468b53833",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			]
+		}
+	]
+}
