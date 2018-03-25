@@ -20,7 +20,7 @@ Se hace la especificación de esta repartición para justificar la no uniformida
 ## EXPERIMENTO I FINAL: 
 + El diagrama de despliegue de esta entrega se encuentra en la documentacin.
 + El software del Bridge, del programa P1 y P2 se encuentra en la carpeta de la entidad virtual bajo la subcarpeta de Mensajera.
-+El REST Mock se encuentra en la carpeta de entidad virtual. Tiene 3 operaciones particulares: GET (Retorna 200), POST (Escribe mensajes en un archivo) y PUT (Activa el modo de escritura sobre el archivo).
++ El REST Mock se encuentra en la carpeta de entidad virtual. Tiene 3 operaciones particulares: GET (Retorna 200), POST (Escribe mensajes en un archivo) y PUT (Activa el modo de escritura sobre el archivo).
 + En la carpeta de persistencia se encuentran los servicios REST hechos en FLASK junto con sus colecciones. 
 + Link de la entrega: https://www.youtube.com/watch?v=yYp-H7bFBOI&feature=youtu.be
 + Para este aparte particular se va a tener una matriz de esfuerzos en la carpeta docs para simbolizar cual fue el aporte de cada integrante del grupo.
