@@ -18,7 +18,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
  */
 public class SimpleMqqtConsumerClient implements MqttCallback {
 
-    private static String url="http://172.24.42.33:9000/mensaje";
+    private static String url="http://172.24.41.181:80/mensaje";
     static int contador=0;
     static long[] sumatoria=new long[100000];
     
@@ -43,7 +43,7 @@ public class SimpleMqqtConsumerClient implements MqttCallback {
             MqttClient client=new MqttClient("tcp://172.24.42.70:8083", MqttClient.generateClientId());
             client.setCallback(new SimpleMqqtConsumerClient() );
             client.connect();
-            client.subscribe("Toscana/emergencia/Periferia");
+            client.subscribe("Toscana/emergencia/Centro");
             new Contador().start();
       }
       catch(Exception e)
