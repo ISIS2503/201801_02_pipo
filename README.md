@@ -23,4 +23,4 @@ Se hace la especificación de esta repartición para justificar la no uniformida
 + El REST Mock se encuentra en la carpeta de entidad virtual. Tiene 3 operaciones particulares: GET (Retorna 200), POST (Escribe mensajes en un archivo) y PUT (Activa el modo de escritura sobre el archivo).
 + En la carpeta de persistencia se encuentran los servicios REST hechos en FLASK junto con sus colecciones. 
 + Link de la entrega: https://www.youtube.com/watch?v=yYp-H7bFBOI&feature=youtu.be
-+ Para este aparte particular se va a tener una matriz de esfuerzos en la carpeta docs para simbolizar cual fue el aporte de cada integrante del grupo.
++ Para este aparte particular se va a tener una matriz de esfuerzos en la carpeta docs para simbolizar cual fue el aporte de cada integrante del grupo. A su vez el documento final está en dicha carpeta.
