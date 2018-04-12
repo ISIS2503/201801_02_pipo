@@ -1,13 +1,13 @@
 {
 	"info": {
-		"_postman_id": "bdee22e1-0edc-4273-8643-87f8d1bf6da7",
+		"_postman_id": "d35d0707-4d76-448b-b389-ece13de66a42",
 		"name": "REST PYTHON-MONGO PRUEBA",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Unidad residencial",
-			"description": "",
+			"description": null,
 			"item": [
 				{
 					"name": "YALE",
@@ -26,8 +26,11 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"url": "localhost:8080/yale"
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "172.24.42.64:8080/yale"
 					},
 					"response": []
 				},
@@ -48,8 +51,11 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"url": "localhost:8080/unidadesResidenciales/Toscana"
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana"
 					},
 					"response": []
 				},
@@ -79,7 +85,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"nombre\":\"San Lorenzo\",\n\t\"direccion\":\"CRA 68D#24A50\"}"
 						},
-						"url": "localhost:8080/unidadesResidenciales"
+						"url": "172.24.42.64:8080/unidadesResidenciales"
 					},
 					"response": []
 				},
@@ -109,7 +115,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"nombre\":\"Toscana\",\n\t\"direccion\":\"CRA 68D # 24A50 - 432\"}"
 						},
-						"url": "localhost:8080/unidadesResidenciales/Toscana"
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana"
 					},
 					"response": []
 				},
@@ -130,8 +136,11 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"body": {},
-						"url": "localhost:8080/unidadesResidenciales/San%20Lorenzo"
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "172.24.42.64:8080/unidadesResidenciales/San%20Lorenzo"
 					},
 					"response": []
 				},
@@ -152,8 +161,11 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"url": "localhost:8080/unidadesResidenciales/Toscana"
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana"
 					},
 					"response": []
 				}
@@ -161,7 +173,7 @@
 		},
 		{
 			"name": "Inmueble",
-			"description": "",
+			"description": null,
 			"item": [
 				{
 					"name": "Ver todos",
@@ -180,8 +192,11 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles"
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles"
 					},
 					"response": []
 				},
@@ -202,8 +217,11 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234"
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1234"
 					},
 					"response": []
 				},
@@ -233,7 +251,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"localID\":\"1234\"\n}"
 						},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles"
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles"
 					},
 					"response": []
 				},
@@ -263,7 +281,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"localID\":\"1235\"\n}"
 						},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234"
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1234"
 					},
 					"response": []
 				},
@@ -284,8 +302,11 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"body": {},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1235"
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1235"
 					},
 					"response": []
 				},
@@ -306,8 +327,11 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1235"
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1235"
 					},
 					"response": []
 				},
@@ -337,7 +361,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"localID\":\"1234\"\n}"
 						},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles"
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles"
 					},
 					"response": []
 				}
@@ -367,7 +391,7 @@
 		},
 		{
 			"name": "Hub",
-			"description": "",
+			"description": null,
 			"item": [
 				{
 					"name": "Ver",
@@ -386,8 +410,11 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
 					},
 					"response": []
 				},
@@ -415,9 +442,9 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"frecuencia\":2,\n\t\"fallosMaximos\":3\n}"
+							"raw": "{\n\t\"frecuencia\":2,\n\t\"fallosMaximos\":3,\n\t\"zona\":\"Centro\"\n}"
 						},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
 					},
 					"response": []
 				},
@@ -438,8 +465,11 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
 					},
 					"response": []
 				},
@@ -467,9 +497,9 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"frecuencia\":2,\n\t\"fallosMaximos\":6\n}"
+							"raw": "{\n\t\"frecuencia\":2,\n\t\"fallosMaximos\":6,\n\t\"zona\":\"Centro\"\n}"
 						},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
 					},
 					"response": []
 				},
@@ -490,8 +520,11 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"body": {},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
 					},
 					"response": []
 				},
@@ -512,8 +545,11 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
 					},
 					"response": []
 				},
@@ -541,9 +577,9 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"frecuencia\":2,\n\t\"fallosMaximos\":3\n}"
+							"raw": "{\n\t\"frecuencia\":2,\n\t\"fallosMaximos\":3,\n\t\"zona\":\"Centro\"\n}"
 						},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub"
 					},
 					"response": []
 				}
@@ -573,7 +609,7 @@
 		},
 		{
 			"name": "Cerradura",
-			"description": "",
+			"description": null,
 			"item": [
 				{
 					"name": "Ver",
@@ -592,8 +628,11 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
 					},
 					"response": []
 				},
@@ -623,7 +662,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"bateriaCritica\":0.1,\n\t\"tiempoMaximo\":10,\n\t\"frequencia\":15,\n\t\"fallosMaximos\":3\n}"
 						},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
 					},
 					"response": []
 				},
@@ -644,8 +683,11 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
 					},
 					"response": []
 				},
@@ -675,7 +717,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"bateriaCritica\":0.1,\n\t\"tiempoMaximo\":10,\n\t\"frequencia\":15,\n\t\"fallosMaximos\":3\n}"
 						},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
 					},
 					"response": []
 				},
@@ -696,8 +738,11 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"body": {},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
 					},
 					"response": []
 				},
@@ -718,8 +763,11 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura"
 					},
 					"response": []
 				}
@@ -749,7 +797,7 @@
 		},
 		{
 			"name": "Alarma",
-			"description": "",
+			"description": null,
 			"item": [
 				{
 					"name": "Crear",
@@ -777,7 +825,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"fecha\":\"2016-03-18T14:00:00\",\n\t\"tipo\":\"bateriaCritica\",\n\t\"idEmergencia\":4\n}"
 						},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura/emergencias"
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura/emergencias"
 					},
 					"response": []
 				},
@@ -798,8 +846,11 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura/emergencias"
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura/emergencias"
 					},
 					"response": []
 				},
@@ -820,8 +871,11 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"url": "localhost:8080/yale/emergencias"
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "172.24.42.64:8080/yale/emergencias"
 					},
 					"response": []
 				},
@@ -851,7 +905,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"bateriaCritica\":0.1,\n\t\"tiempoMaximo\":10,\n\t\"frequencia\":15,\n\t\"fallosMaximos\":3\n}"
 						},
-						"url": "localhost:8080/unidadesResidenciales/Toscana/emergencias"
+						"url": "172.24.42.64:8080/unidadesResidenciales/Toscana/emergencias"
 					},
 					"response": []
 				}
