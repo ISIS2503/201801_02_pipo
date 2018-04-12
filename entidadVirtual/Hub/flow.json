@@ -1,1 +1,906 @@
-[{"id":"a81c23f3.bd483","type":"tab","label":"Telemetry Flow","disabled":false,"info":""},{"id":"34f6a4a0.c4adbc","type":"tab","label":"CorrectEntry Flow","disabled":false,"info":""},{"id":"ddb0bb9c.500fa8","type":"tab","label":"PasswordEditing Flow","disabled":false,"info":""},{"id":"c8e3a915.9cf118","type":"mqtt-broker","z":"","name":"","broker":"172.24.42.33","port":"8083","clientid":"","usetls":false,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"","willQos":"0","willPayload":"","birthTopic":"","birthQos":"0","birthPayload":""},{"id":"9e2cc79c.317298","type":"mqtt-broker","z":"","name":"","broker":"172.24.42.70","port":"8083","clientid":"","usetls":false,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"","willQos":"0","willPayload":"","birthTopic":"","birthQos":"0","birthPayload":""},{"id":"24d81772.16ff1","type":"inject","z":"a81c23f3.bd483","name":"Send Time","topic":"emergencyTime","payload":"","payloadType":"date","repeat":"1","crontab":"","once":false,"onceDelay":"0","x":150,"y":220,"wires":[["5a28159e.ed1894","6d1eae87.85925"]]},{"id":"cda3dec6.d81e98","type":"function","z":"a81c23f3.bd483","name":"Format Physical Entity","func":"var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-503\"\nvar conjunto=\"Toscana\"\nvar zona=\"Centro\"\n\ntempArray = msg.payload.split(\"\\t\");\nres.topic = \"emergencyHub\";\nres.payload = {};\n\nres.payload = {\"id\": tempArray[0], \"emergencia\":tempArray[1][0],\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona}\n\nreturn res;","outputs":1,"noerr":0,"x":540,"y":180,"wires":[["dad6b47.267ddc8","e68a0d3a.e27a88"]]},{"id":"6d1eae87.85925","type":"function","z":"a81c23f3.bd483","name":"Format Time","func":"var res = {};\n\n\nres.payload = new Date(msg.payload);\nres.topic = msg.topic;\n\nreturn res;","outputs":1,"noerr":0,"x":410,"y":300,"wires":[["f0db5c46.f3f48","e68a0d3a.e27a88"]]},{"id":"4052f2a1.f8529c","type":"debug","z":"a81c23f3.bd483","name":"Before Format 1","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":700,"y":20,"wires":[]},{"id":"dad6b47.267ddc8","type":"debug","z":"a81c23f3.bd483","name":"After Format","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":710,"y":140,"wires":[]},{"id":"5a28159e.ed1894","type":"debug","z":"a81c23f3.bd483","name":"Before Format 2","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":420,"y":240,"wires":[]},{"id":"f0db5c46.f3f48","type":"debug","z":"a81c23f3.bd483","name":"After Format 2","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":640,"y":320,"wires":[]},{"id":"e68a0d3a.e27a88","type":"function","z":"a81c23f3.bd483","name":"Merge 2 Messages","func":"context.data = context.data || {};\n\nswitch (msg.topic) \n{\n    case \"emergencyTime\":\n        context.data.sensetime = msg.payload;\n        msg = null;\n        break;\n    case \"emergencyHub\":\n        context.data.emergency = msg.payload;\n        context.flag=msg.payload.emergencia;\n        msg = null;\n        break;\n    default:\n        msg = null;\n    \tbreak;\n}\n\nif(context.flag!=null && context.data.sensetime != null && context.data.emergency != null) \n{\n\tres = {};\n    res.payload = JSON.stringify(context.data);\n    res.flag=context.flag;\n    res.topic = \"emergencyHub\";\n    context.data = null;\n    \n    return res;\n}","outputs":1,"noerr":0,"x":750,"y":240,"wires":[["faff2eb0.303eb","fd8f5986.edef08","4f8d0b1a.d37044"]]},{"id":"19797ae6.0376c5","type":"debug","z":"a81c23f3.bd483","name":"After Merge 1 ","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":1240,"y":140,"wires":[]},{"id":"89415c67.8be7f","type":"mqtt out","z":"a81c23f3.bd483","name":"Emergency 1","topic":"Centro/Toscana/emergencia/puertaAbierta/2-503","qos":"0","retain":"false","broker":"9e2cc79c.317298","x":1190,"y":60,"wires":[]},{"id":"faff2eb0.303eb","type":"switch","z":"a81c23f3.bd483","name":"Classify emergency","property":"flag","propertyType":"msg","rules":[{"t":"eq","v":"1","vt":"str"},{"t":"eq","v":"2","vt":"str"},{"t":"eq","v":"3","vt":"str"},{"t":"eq","v":"4","vt":"str"}],"checkall":"false","repair":false,"outputs":4,"x":1010,"y":240,"wires":[["89415c67.8be7f","19797ae6.0376c5"],["476f2563.86810c","e6167352.0908c"],["60765d6d.1f8954","514d4c4b.e2e4cc"],["babeddaf.a72b28","82f8f459.1c6258"]]},{"id":"476f2563.86810c","type":"mqtt out","z":"a81c23f3.bd483","name":"Emergency 2","topic":"Centro/Toscana/emergencia/aperturaSospechosa/2-503","qos":"0","retain":"false","broker":"9e2cc79c.317298","x":1250,"y":200,"wires":[]},{"id":"e6167352.0908c","type":"debug","z":"a81c23f3.bd483","name":"After Merge 2","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":1320,"y":260,"wires":[]},{"id":"60765d6d.1f8954","type":"mqtt out","z":"a81c23f3.bd483","name":"Emergency 3","topic":"Centro/Toscana/emergencia/aperturaNoPermitida/2-503","qos":"0","retain":"false","broker":"9e2cc79c.317298","x":1290,"y":320,"wires":[]},{"id":"514d4c4b.e2e4cc","type":"debug","z":"a81c23f3.bd483","name":"After Merge 3","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":1260,"y":380,"wires":[]},{"id":"babeddaf.a72b28","type":"mqtt out","z":"a81c23f3.bd483","name":"Emergency 4","topic":"Centro/Toscana/emergencia/bateriaCritica/2-503","qos":"0","retain":"false","broker":"9e2cc79c.317298","x":1130,"y":440,"wires":[]},{"id":"82f8f459.1c6258","type":"debug","z":"a81c23f3.bd483","name":"After Merge 4","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":1080,"y":500,"wires":[]},{"id":"fd8f5986.edef08","type":"debug","z":"a81c23f3.bd483","name":"Flag","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"flag","x":850,"y":340,"wires":[]},{"id":"4f8d0b1a.d37044","type":"debug","z":"a81c23f3.bd483","name":"Merge","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":890,"y":100,"wires":[]},{"id":"a028253.4efa758","type":"mqtt in","z":"a81c23f3.bd483","name":"","topic":"Arduino007.envio","qos":"0","broker":"c8e3a915.9cf118","x":80,"y":60,"wires":[[]]},{"id":"34478d11.7e0e72","type":"inject","z":"a81c23f3.bd483","name":"","topic":"","payload":"","payloadType":"date","repeat":"1","crontab":"","once":false,"onceDelay":0.1,"x":110,"y":20,"wires":[["94223766.9bee9"]]},{"id":"94223766.9bee9","type":"random","z":"a81c23f3.bd483","name":"Random emergency","low":"1","high":"4","inte":"true","x":260,"y":20,"wires":[["2f5bea78.c63806"]]},{"id":"d74b3c82.68db38","type":"function","z":"a81c23f3.bd483","name":"Physical Entity mock","func":"msg.flag=msg.payload.split(\"\\t\")[1][0];\nreturn msg;","outputs":1,"noerr":0,"x":500,"y":80,"wires":[["4052f2a1.f8529c","bf17128b.931cc8"]]},{"id":"bf17128b.931cc8","type":"switch","z":"a81c23f3.bd483","name":"Is emergency","property":"flag","propertyType":"msg","rules":[{"t":"gt","v":"0","vt":"str"}],"checkall":"false","repair":false,"outputs":1,"x":700,"y":60,"wires":[["cda3dec6.d81e98"]]},{"id":"d7caeb35.e8e19","type":"function","z":"34f6a4a0.c4adbc","name":"Merge 2 Messages","func":"context.data = context.data || {};\n\nswitch (msg.topic) \n{\n    case \"emergencyTime\":\n        context.data.sensetime = msg.payload;\n        msg = null;\n        break;\n    case \"entryHub\":\n        context.data.entry = msg.payload;\n        context.flag=msg.payload.entry;\n        msg = null;\n        break;\n    default:\n        msg = null;\n    \tbreak;\n}\n\nif(context.flag!=null && context.data.sensetime != null && context.data.entry != null) \n{\n\tres = {};\n    res.payload = JSON.stringify(context.data);\n    res.flag=context.flag;\n    res.topic = \"entryHub\";\n    context.data = null;\n    \n    return res;\n}","outputs":1,"noerr":0,"x":730,"y":260,"wires":[["b0c2ea92.1f36a","738500dc.02aa88","12234ebf.cfe301"]]},{"id":"12234ebf.cfe301","type":"mqtt out","z":"34f6a4a0.c4adbc","name":"Entry","topic":"Centro/Toscana/apertura/2-503","qos":"0","retain":"false","broker":"9e2cc79c.317298","x":970,"y":200,"wires":[]},{"id":"cd7bbca9.598ab8","type":"function","z":"34f6a4a0.c4adbc","name":"Format Physical Entity","func":"var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-503\";\nvar conjunto=\"Toscana\";\nvar zona=\"Centro\";\n\ntempArray = msg.payload.split(\"\\t\");\nres.topic = \"entryHub\";\nres.payload = {};\n\nres.payload = {\"id\": tempArray[0], \"entry\":tempArray[1][0],\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona,\"codigo\":tempArray[2]}\n\nreturn res;","outputs":1,"noerr":0,"x":520,"y":200,"wires":[["8c172336.62932","d7caeb35.e8e19"]]},{"id":"2ba70be2.744fac","type":"function","z":"34f6a4a0.c4adbc","name":"Format Time","func":"var res = {};\n\n\nres.payload = new Date(msg.payload);\nres.topic = msg.topic;\n\nreturn res;","outputs":1,"noerr":0,"x":390,"y":320,"wires":[["ef591d0e.67c148","d7caeb35.e8e19"]]},{"id":"b0c2ea92.1f36a","type":"debug","z":"34f6a4a0.c4adbc","name":"Flag","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"flag","x":830,"y":360,"wires":[]},{"id":"738500dc.02aa88","type":"debug","z":"34f6a4a0.c4adbc","name":"Merge","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":870,"y":120,"wires":[]},{"id":"8c172336.62932","type":"debug","z":"34f6a4a0.c4adbc","name":"After Format","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":690,"y":160,"wires":[]},{"id":"c2818a40.bea788","type":"switch","z":"34f6a4a0.c4adbc","name":"Is correct entry?","property":"flag","propertyType":"msg","rules":[{"t":"eq","v":"0","vt":"str"}],"checkall":"false","repair":false,"outputs":1,"x":580,"y":100,"wires":[["cd7bbca9.598ab8"]]},{"id":"907bfd3f.eb5ba8","type":"inject","z":"34f6a4a0.c4adbc","name":"Send Time","topic":"emergencyTime","payload":"","payloadType":"date","repeat":"1","crontab":"","once":false,"onceDelay":"0","x":130,"y":240,"wires":[["174ceca7.2df74b","2ba70be2.744fac"]]},{"id":"ef591d0e.67c148","type":"debug","z":"34f6a4a0.c4adbc","name":"After Format 2","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":620,"y":340,"wires":[]},{"id":"bf0a8711.72761","type":"function","z":"34f6a4a0.c4adbc","name":"Physical Entity mock","func":"msg.flag=msg.payload.split(\"\\t\")[1][0];\nreturn msg;","outputs":1,"noerr":0,"x":260,"y":120,"wires":[["f11155c6.522e1","c2818a40.bea788"]]},{"id":"174ceca7.2df74b","type":"debug","z":"34f6a4a0.c4adbc","name":"Before Format 2","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":400,"y":260,"wires":[]},{"id":"f11155c6.522e1","type":"debug","z":"34f6a4a0.c4adbc","name":"Before Format 1","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":540,"y":60,"wires":[]},{"id":"85d5c560.7df24","type":"random","z":"34f6a4a0.c4adbc","name":"Random emergency","low":"0","high":"0","inte":"true","x":240,"y":40,"wires":[["9735429e.c7973"]]},{"id":"a3b78923.8bd4d","type":"inject","z":"34f6a4a0.c4adbc","name":"","topic":"","payload":"","payloadType":"date","repeat":"1","crontab":"","once":false,"onceDelay":0.1,"x":90,"y":40,"wires":[["85d5c560.7df24"]]},{"id":"98342d12.4458a8","type":"mqtt in","z":"34f6a4a0.c4adbc","name":"","topic":"Arduino007.envio","qos":"0","broker":"c8e3a915.9cf118","x":80,"y":180,"wires":[[]]},{"id":"2f5bea78.c63806","type":"function","z":"a81c23f3.bd483","name":"Put id","func":"msg.payload=\"Arduino007\\t\"+msg.payload;\nreturn msg;","outputs":1,"noerr":0,"x":290,"y":100,"wires":[["d74b3c82.68db38"]]},{"id":"9735429e.c7973","type":"function","z":"34f6a4a0.c4adbc","name":"Put id","func":"msg.payload=\"Arduino007\\t\"+msg.payload+\"\\t3141\";\nreturn msg;","outputs":1,"noerr":0,"x":190,"y":80,"wires":[["bf0a8711.72761"]]},{"id":"e498ea45.f71cc8","type":"mqtt out","z":"ddb0bb9c.500fa8","name":"","topic":"Arduino007.recibir","qos":"0","retain":"","broker":"c8e3a915.9cf118","x":650,"y":120,"wires":[]},{"id":"9e3af951.bceb98","type":"mqtt in","z":"ddb0bb9c.500fa8","name":"","topic":"Centro/Toscana/2-503/claves/Arduino007","qos":"0","broker":"c8e3a915.9cf118","x":160,"y":120,"wires":[["3ca1ebdb.7d11ec"]]},{"id":"3ca1ebdb.7d11ec","type":"debug","z":"ddb0bb9c.500fa8","name":"Virtual entity","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":390,"y":40,"wires":[]},{"id":"7bf50ee4.c8d238","type":"function","z":"ddb0bb9c.500fa8","name":"Verify change message","func":"data=msg.payload.split(\"\\t\");\nlist=[\"CHANGE_PASSWORD\",\"NEW_PASSWORD\",\"DELETE_PASSWORD\"];\nif(data.length>1)\n{\n    if(list.indexOf(data[0])>-1 && data[1].length==2 &&data[2].length==4)\n    {\n        if(!isNaN(parseInt(data[1]))&&parseInt(data[1])<20 && !isNaN(parseInt(data[2])))\n        {\n            msg.payload=data[0]+\";\"+data[1]+\";\"+data[2];\n        }\n    }\n}\nelse if(data[0]===\"DELETE_ALL\")\n{\n    msg.payload=data[0]\n}\nelse\n{\n    msg.payload={};\n}\nreturn msg;","outputs":1,"noerr":0,"x":440,"y":220,"wires":[["706e2be0.75a374","e498ea45.f71cc8"]]},{"id":"706e2be0.75a374","type":"debug","z":"ddb0bb9c.500fa8","name":"Message sent","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":590,"y":300,"wires":[]},{"id":"f8a969cb.79af","type":"inject","z":"ddb0bb9c.500fa8","name":"","topic":"","payload":"","payloadType":"date","repeat":"1","crontab":"","once":false,"onceDelay":0.1,"x":70,"y":240,"wires":[["4253ab23.fc4b14"]]},{"id":"4253ab23.fc4b14","type":"random","z":"ddb0bb9c.500fa8","name":"Random emergency","low":"1","high":"4","inte":"true","x":160,"y":360,"wires":[["e45e2d1.7441ed"]]},{"id":"d245b00e.344db8","type":"debug","z":"ddb0bb9c.500fa8","name":"Virtual mock","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":240,"y":280,"wires":[]},{"id":"e45e2d1.7441ed","type":"function","z":"ddb0bb9c.500fa8","name":"Merge","func":"num=parseInt(msg.payload);\nlist=[\"CHANGE_PASSWORD\",\"NEW_PASSWORD\",\"DELETE_PASSWORD\",\"DELETE_ALL\"];\nif(num<4)\n{\n    msg.payload=list[num-1]+\"\\t\"+\"01\"+\"\\t\"+\"3141\";\n}\nelse\n    msg.payload=list[num-1];\nreturn msg;","outputs":1,"noerr":0,"x":380,"y":420,"wires":[["d245b00e.344db8","7bf50ee4.c8d238"]]}]
+[
+    {
+        "id": "a81c23f3.bd483",
+        "type": "tab",
+        "label": "Telemetry Flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "34f6a4a0.c4adbc",
+        "type": "tab",
+        "label": "CorrectEntry Flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "ddb0bb9c.500fa8",
+        "type": "tab",
+        "label": "PasswordEditing Flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c8e3a915.9cf118",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "172.24.42.33",
+        "port": "8083",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "9e2cc79c.317298",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "172.24.42.70",
+        "port": "8083",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "24d81772.16ff1",
+        "type": "inject",
+        "z": "a81c23f3.bd483",
+        "name": "Send Time",
+        "topic": "emergencyTime",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "0",
+        "x": 150,
+        "y": 220,
+        "wires": [
+            [
+                "5a28159e.ed1894",
+                "6d1eae87.85925"
+            ]
+        ]
+    },
+    {
+        "id": "cda3dec6.d81e98",
+        "type": "function",
+        "z": "a81c23f3.bd483",
+        "name": "Format Physical Entity",
+        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-503\"\nvar conjunto=\"Toscana\"\nvar zona=\"Centro\"\n\ntempArray = msg.payload.split(\"\\t\");\nres.topic = \"emergencyHub\";\nres.payload = {};\n\nres.payload = {\"id\": tempArray[0], \"emergencia\":tempArray[1][0],\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona}\n\nreturn res;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 540,
+        "y": 180,
+        "wires": [
+            [
+                "dad6b47.267ddc8",
+                "e68a0d3a.e27a88"
+            ]
+        ]
+    },
+    {
+        "id": "6d1eae87.85925",
+        "type": "function",
+        "z": "a81c23f3.bd483",
+        "name": "Format Time",
+        "func": "var res = {};\n\n\nres.payload = new Date(msg.payload);\nres.topic = msg.topic;\n\nreturn res;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 410,
+        "y": 300,
+        "wires": [
+            [
+                "f0db5c46.f3f48",
+                "e68a0d3a.e27a88"
+            ]
+        ]
+    },
+    {
+        "id": "4052f2a1.f8529c",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "Before Format 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 700,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "dad6b47.267ddc8",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "After Format",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 710,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "5a28159e.ed1894",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "Before Format 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 420,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "f0db5c46.f3f48",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "After Format 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 640,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "e68a0d3a.e27a88",
+        "type": "function",
+        "z": "a81c23f3.bd483",
+        "name": "Merge 2 Messages",
+        "func": "context.data = context.data || {};\n\nswitch (msg.topic) \n{\n    case \"emergencyTime\":\n        context.data.sensetime = msg.payload;\n        msg = null;\n        break;\n    case \"emergencyHub\":\n        context.data.emergency = msg.payload;\n        context.flag=msg.payload.emergencia;\n        msg = null;\n        break;\n    default:\n        msg = null;\n    \tbreak;\n}\n\nif(context.flag!=null && context.data.sensetime != null && context.data.emergency != null) \n{\n\tres = {};\n    res.payload = JSON.stringify(context.data);\n    res.flag=context.flag;\n    res.topic = \"emergencyHub\";\n    context.data = null;\n    \n    return res;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 750,
+        "y": 240,
+        "wires": [
+            [
+                "faff2eb0.303eb",
+                "fd8f5986.edef08",
+                "4f8d0b1a.d37044"
+            ]
+        ]
+    },
+    {
+        "id": "19797ae6.0376c5",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "After Merge 1 ",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1240,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "89415c67.8be7f",
+        "type": "mqtt out",
+        "z": "a81c23f3.bd483",
+        "name": "Emergency 1",
+        "topic": "Centro/Toscana/emergencia/puertaAbierta/2-503",
+        "qos": "0",
+        "retain": "false",
+        "broker": "9e2cc79c.317298",
+        "x": 1190,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "faff2eb0.303eb",
+        "type": "switch",
+        "z": "a81c23f3.bd483",
+        "name": "Classify emergency",
+        "property": "flag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "4",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 4,
+        "x": 1010,
+        "y": 240,
+        "wires": [
+            [
+                "89415c67.8be7f",
+                "19797ae6.0376c5"
+            ],
+            [
+                "476f2563.86810c",
+                "e6167352.0908c"
+            ],
+            [
+                "60765d6d.1f8954",
+                "514d4c4b.e2e4cc"
+            ],
+            [
+                "babeddaf.a72b28",
+                "82f8f459.1c6258"
+            ]
+        ]
+    },
+    {
+        "id": "476f2563.86810c",
+        "type": "mqtt out",
+        "z": "a81c23f3.bd483",
+        "name": "Emergency 2",
+        "topic": "Centro/Toscana/emergencia/aperturaSospechosa/2-503",
+        "qos": "0",
+        "retain": "false",
+        "broker": "9e2cc79c.317298",
+        "x": 1250,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "e6167352.0908c",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "After Merge 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1320,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "60765d6d.1f8954",
+        "type": "mqtt out",
+        "z": "a81c23f3.bd483",
+        "name": "Emergency 3",
+        "topic": "Centro/Toscana/emergencia/aperturaNoPermitida/2-503",
+        "qos": "0",
+        "retain": "false",
+        "broker": "9e2cc79c.317298",
+        "x": 1290,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "514d4c4b.e2e4cc",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "After Merge 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1260,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "babeddaf.a72b28",
+        "type": "mqtt out",
+        "z": "a81c23f3.bd483",
+        "name": "Emergency 4",
+        "topic": "Centro/Toscana/emergencia/bateriaCritica/2-503",
+        "qos": "0",
+        "retain": "false",
+        "broker": "9e2cc79c.317298",
+        "x": 1130,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "82f8f459.1c6258",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "After Merge 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1080,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "fd8f5986.edef08",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "Flag",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "flag",
+        "x": 850,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "4f8d0b1a.d37044",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "Merge",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 890,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "a028253.4efa758",
+        "type": "mqtt in",
+        "z": "a81c23f3.bd483",
+        "name": "",
+        "topic": "Arduino007.envio",
+        "qos": "0",
+        "broker": "c8e3a915.9cf118",
+        "x": 80,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "34478d11.7e0e72",
+        "type": "inject",
+        "z": "a81c23f3.bd483",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 20,
+        "wires": [
+            [
+                "94223766.9bee9"
+            ]
+        ]
+    },
+    {
+        "id": "94223766.9bee9",
+        "type": "random",
+        "z": "a81c23f3.bd483",
+        "name": "Random emergency",
+        "low": "1",
+        "high": "4",
+        "inte": "true",
+        "x": 260,
+        "y": 20,
+        "wires": [
+            [
+                "2f5bea78.c63806"
+            ]
+        ]
+    },
+    {
+        "id": "d74b3c82.68db38",
+        "type": "function",
+        "z": "a81c23f3.bd483",
+        "name": "Physical Entity mock",
+        "func": "msg.flag=msg.payload.split(\"\\t\")[1][0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 520,
+        "y": 80,
+        "wires": [
+            [
+                "4052f2a1.f8529c",
+                "bf17128b.931cc8"
+            ]
+        ]
+    },
+    {
+        "id": "bf17128b.931cc8",
+        "type": "switch",
+        "z": "a81c23f3.bd483",
+        "name": "Is emergency",
+        "property": "flag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 700,
+        "y": 60,
+        "wires": [
+            [
+                "cda3dec6.d81e98"
+            ]
+        ]
+    },
+    {
+        "id": "d7caeb35.e8e19",
+        "type": "function",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Merge 2 Messages",
+        "func": "context.data = context.data || {};\n\nswitch (msg.topic) \n{\n    case \"emergencyTime\":\n        context.data.sensetime = msg.payload;\n        msg = null;\n        break;\n    case \"entryHub\":\n        context.data.entry = msg.payload;\n        context.flag=msg.payload.entry;\n        msg = null;\n        break;\n    default:\n        msg = null;\n    \tbreak;\n}\n\nif(context.flag!=null && context.data.sensetime != null && context.data.entry != null) \n{\n\tres = {};\n    res.payload = JSON.stringify(context.data);\n    res.flag=context.flag;\n    res.topic = \"entryHub\";\n    context.data = null;\n    \n    return res;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 730,
+        "y": 260,
+        "wires": [
+            [
+                "b0c2ea92.1f36a",
+                "738500dc.02aa88",
+                "12234ebf.cfe301"
+            ]
+        ]
+    },
+    {
+        "id": "12234ebf.cfe301",
+        "type": "mqtt out",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Entry",
+        "topic": "Centro/Toscana/apertura/2-503",
+        "qos": "0",
+        "retain": "false",
+        "broker": "9e2cc79c.317298",
+        "x": 970,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "cd7bbca9.598ab8",
+        "type": "function",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Format Physical Entity",
+        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-503\";\nvar conjunto=\"Toscana\";\nvar zona=\"Centro\";\n\ntempArray = msg.payload.split(\"\\t\");\nres.topic = \"entryHub\";\nres.payload = {};\n\nres.payload = {\"id\": tempArray[0], \"entry\":tempArray[1][0],\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona,\"codigo\":tempArray[2]}\n\nreturn res;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 520,
+        "y": 200,
+        "wires": [
+            [
+                "8c172336.62932",
+                "d7caeb35.e8e19"
+            ]
+        ]
+    },
+    {
+        "id": "2ba70be2.744fac",
+        "type": "function",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Format Time",
+        "func": "var res = {};\n\n\nres.payload = new Date(msg.payload);\nres.topic = msg.topic;\n\nreturn res;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 320,
+        "wires": [
+            [
+                "ef591d0e.67c148",
+                "d7caeb35.e8e19"
+            ]
+        ]
+    },
+    {
+        "id": "b0c2ea92.1f36a",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Flag",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "flag",
+        "x": 830,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "738500dc.02aa88",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Merge",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 870,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "8c172336.62932",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "After Format",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 690,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "c2818a40.bea788",
+        "type": "switch",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Is correct entry?",
+        "property": "flag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 580,
+        "y": 100,
+        "wires": [
+            [
+                "cd7bbca9.598ab8"
+            ]
+        ]
+    },
+    {
+        "id": "907bfd3f.eb5ba8",
+        "type": "inject",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Send Time",
+        "topic": "emergencyTime",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "0",
+        "x": 130,
+        "y": 240,
+        "wires": [
+            [
+                "174ceca7.2df74b",
+                "2ba70be2.744fac"
+            ]
+        ]
+    },
+    {
+        "id": "ef591d0e.67c148",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "After Format 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 620,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "bf0a8711.72761",
+        "type": "function",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Physical Entity mock",
+        "func": "msg.flag=msg.payload.split(\"\\t\")[1][0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 260,
+        "y": 120,
+        "wires": [
+            [
+                "f11155c6.522e1",
+                "c2818a40.bea788"
+            ]
+        ]
+    },
+    {
+        "id": "174ceca7.2df74b",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Before Format 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 400,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "f11155c6.522e1",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Before Format 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 540,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "85d5c560.7df24",
+        "type": "random",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Random emergency",
+        "low": "0",
+        "high": "0",
+        "inte": "true",
+        "x": 240,
+        "y": 40,
+        "wires": [
+            [
+                "9735429e.c7973"
+            ]
+        ]
+    },
+    {
+        "id": "a3b78923.8bd4d",
+        "type": "inject",
+        "z": "34f6a4a0.c4adbc",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 90,
+        "y": 40,
+        "wires": [
+            [
+                "85d5c560.7df24"
+            ]
+        ]
+    },
+    {
+        "id": "98342d12.4458a8",
+        "type": "mqtt in",
+        "z": "34f6a4a0.c4adbc",
+        "name": "",
+        "topic": "Arduino007.envio",
+        "qos": "0",
+        "broker": "c8e3a915.9cf118",
+        "x": 80,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2f5bea78.c63806",
+        "type": "function",
+        "z": "a81c23f3.bd483",
+        "name": "Put id",
+        "func": "msg.payload=\"Arduino007\\t\"+msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 100,
+        "wires": [
+            [
+                "d74b3c82.68db38"
+            ]
+        ]
+    },
+    {
+        "id": "9735429e.c7973",
+        "type": "function",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Put id",
+        "func": "msg.payload=\"Arduino007\\t\"+msg.payload+\"\\t3141\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 190,
+        "y": 80,
+        "wires": [
+            [
+                "bf0a8711.72761"
+            ]
+        ]
+    },
+    {
+        "id": "e498ea45.f71cc8",
+        "type": "mqtt out",
+        "z": "ddb0bb9c.500fa8",
+        "name": "",
+        "topic": "Arduino007.recibir",
+        "qos": "0",
+        "retain": "",
+        "broker": "c8e3a915.9cf118",
+        "x": 650,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "9e3af951.bceb98",
+        "type": "mqtt in",
+        "z": "ddb0bb9c.500fa8",
+        "name": "",
+        "topic": "Centro/Toscana/2-503/claves/Arduino007",
+        "qos": "0",
+        "broker": "c8e3a915.9cf118",
+        "x": 160,
+        "y": 120,
+        "wires": [
+            [
+                "3ca1ebdb.7d11ec"
+            ]
+        ]
+    },
+    {
+        "id": "3ca1ebdb.7d11ec",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Virtual entity",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 390,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "7bf50ee4.c8d238",
+        "type": "function",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Verify change message",
+        "func": "data=msg.payload.split(\"\\t\");\nlist=[\"CHANGE_PASSWORD\",\"NEW_PASSWORD\",\"DELETE_PASSWORD\"];\nif(data.length>1)\n{\n    if(list.indexOf(data[0])>-1 && data[1].length==2 &&data[2].length==4)\n    {\n        if(!isNaN(parseInt(data[1]))&&parseInt(data[1])<20 && !isNaN(parseInt(data[2])))\n        {\n            msg.payload=data[0]+\";\"+data[1]+\";\"+data[2];\n        }\n    }\n}\nelse if(data[0]===\"DELETE_ALL\")\n{\n    msg.payload=data[0]+\";\"\n}\nelse\n{\n    msg.payload={};\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 440,
+        "y": 220,
+        "wires": [
+            [
+                "706e2be0.75a374",
+                "e498ea45.f71cc8"
+            ]
+        ]
+    },
+    {
+        "id": "706e2be0.75a374",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Message sent",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 590,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "f8a969cb.79af",
+        "type": "inject",
+        "z": "ddb0bb9c.500fa8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 70,
+        "y": 240,
+        "wires": [
+            [
+                "4253ab23.fc4b14"
+            ]
+        ]
+    },
+    {
+        "id": "4253ab23.fc4b14",
+        "type": "random",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Random emergency",
+        "low": "1",
+        "high": "4",
+        "inte": "true",
+        "x": 160,
+        "y": 360,
+        "wires": [
+            [
+                "e45e2d1.7441ed"
+            ]
+        ]
+    },
+    {
+        "id": "d245b00e.344db8",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Virtual mock",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 240,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "e45e2d1.7441ed",
+        "type": "function",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Merge",
+        "func": "num=parseInt(msg.payload);\nlist=[\"CHANGE_PASSWORD\",\"NEW_PASSWORD\",\"DELETE_PASSWORD\",\"DELETE_ALL\"];\nif(num<4)\n{\n    msg.payload=list[num-1]+\"\\t\"+\"01\"+\"\\t\"+\"3141\";\n}\nelse\n    msg.payload=list[num-1];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 380,
+        "y": 420,
+        "wires": [
+            [
+                "d245b00e.344db8",
+                "7bf50ee4.c8d238"
+            ]
+        ]
+    }
+]
