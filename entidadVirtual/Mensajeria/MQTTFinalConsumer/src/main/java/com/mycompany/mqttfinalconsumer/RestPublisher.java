@@ -42,7 +42,7 @@ public class RestPublisher extends Thread {
 
             JSONObject jsonRequest=new JSONObject(mqttMessage.toString()).getJSONObject("emergency");
             System.out.println(SimpleMqqtConsumerClient.contador+" ASUNTO: Alarma del dispositivo "+ jsonRequest.getString("id")+";CONTENIDO: Hubo una emergencia en el inmueble "+jsonRequest.getString("apartamento")+
-                    " de la unidad residencial "+jsonRequest.getString("conjunto")+" de tipo "+jsonRequest.getString("emergencia")+";REMITENTE:s.guzmanm@yale.com"
+                    " de la unidad residencial "+jsonRequest.getString("conjunto")+" de la zona "+jsonRequest.getString("zona")+" de tipo "+jsonRequest.getString("emergencia")+";REMITENTE:s.guzmanm@yale.com"
                     +";DESTINATARIOS:se.cardenas@uniandes.edu.co,ja.manrique@uniandes.edu.co");
             if(con.getResponseCode()!=200)
                 throw new Exception("Falló P1 ");
