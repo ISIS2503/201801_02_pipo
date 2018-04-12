@@ -107,9 +107,13 @@ def crearUnidad():
     sanitizedData['direccion'] = data['direccion']
     sanitizedData['inmuebles'] = []
     #Insertar en mongoDB
-    result = db.unidadesResidenciales.insert_one(sanitizedData)
-    sanitizedData['_id'] = result.inserted_id
-    return dumpJson(sanitizedData)
+    try:
+      result = db.unidadesResidenciales.insert_one(sanitizedData)
+      sanitizedData['_id'] = result.inserted_id
+      return dumpJson(sanitizedData)
+    except Exception as error:
+      print(error)
+      return "Ya existe una unidad residencial con ese nombre", 400
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles", methods=[GET, POST])
 def imuebles(unidad):
@@ -117,7 +121,7 @@ def imuebles(unidad):
     respuesta = []
     unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
     if unidad == None:
-      return "{}"
+      return "{}", 404
     else:
       return dumpJson(unidad['inmuebles'])
   elif request.method == POST:
@@ -138,7 +142,9 @@ def imuebles(unidad):
     sanitizedData['hub'] = {}
     #Añadir al arreglo de inmuebles
     result = db.unidadesResidenciales.find_one_and_update({'nombre':unidad}, {'$push': {'inmuebles': sanitizedData}})
-    return dumpJson(sanitizedData)
+    if result == None:
+      return "No hay ninguna unidad con ese nombre", 404
+    return dumpJson(result)
 
 @app.route("/test")
 def testo():
@@ -153,7 +159,7 @@ def inmuebles(unidad, localID):
     unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
     #Buscar inmueble dentro de la unidad residencial
     if unidadRes == None:
-      return "{}"
+      return "{}", 404
     for inmueble in unidadRes['inmuebles']:
       if inmueble['localID'] == localID:
         respuesta = inmueble
@@ -175,6 +181,8 @@ def inmuebles(unidad, localID):
     {'$set': {'inmuebles.$[elemento].localID' : data['localID']}},
     array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
     return_document=ReturnDocument.AFTER)
+    if nuevo == None:
+      return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     return dumpJson(nuevo)
   elif request.method == DELETE:
     #Esta linea busca los documentos que tengan la propiedad nombre == unidad
@@ -190,7 +198,7 @@ def hub(unidad, localID):
     respuesta = []
     unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
     if unidadRes == None:
-      return "{}"
+      return "{}", 404
     for inmueble in unidadRes['inmuebles']:
       if inmueble['localID'] == localID:
         respuesta = inmueble
@@ -226,6 +234,8 @@ def hub(unidad, localID):
     {'$set': {'inmuebles.$[elemento].hub' : sanitizedData}},
     array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
     return_document=ReturnDocument.AFTER)
+    if result == None:
+      return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     return dumpJson(result)
   elif request.method == DELETE:
     #Esta linea busca los documentos que tengan la propiedad nombre == unidad
@@ -235,6 +245,8 @@ def hub(unidad, localID):
     {'$set': {'inmuebles.$[elemento].hub' : {}}},
     array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
     return_document=ReturnDocument.AFTER)
+    if result == None:
+      return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     return dumpJson(result)
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura", methods=[GET, POST, PUT, DELETE])
@@ -243,13 +255,13 @@ def cerradura(unidad, localID):
     respuesta = []
     unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
     if unidadRes == None:
-      return "{}"
+      return "{}", 404
     for inmueble in unidadRes['inmuebles']:
       if inmueble['localID'] == localID:
         respuesta = inmueble
         break
     if respuesta['hub'] == {}:
-      return "{}"
+      return "{}", 404
     return dumpJson(respuesta['hub']['cerradura'])
   elif request.method == POST or request.method == PUT:
     if request.data == None or request.data == "":
@@ -281,6 +293,8 @@ def cerradura(unidad, localID):
     {'$set': {'inmuebles.$[elemento].hub.cerradura' : sanitizedData}},
     array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
     return_document=ReturnDocument.AFTER)
+    if result == None:
+      return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     return dumpJson(result)
   elif request.method == DELETE:
     #Esta linea busca los documentos que tengan la propiedad nombre == unidad
@@ -290,6 +304,8 @@ def cerradura(unidad, localID):
     {'$set': {'inmuebles.$[elemento].hub.cerradura' : {}}},
     array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
     return_document=ReturnDocument.AFTER)
+    if result == None:
+      return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     return dumpJson(result)
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/claves", methods=[GET, POST, PUT, DELETE])
@@ -301,7 +317,7 @@ def claves(unidad, localID):
     respuesta = []
     unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
     if unidadRes == None:
-      return "{}"
+      return "{}", 404
     for inmueble in unidadRes['inmuebles']:
       if inmueble['localID'] == localID:
         respuesta = inmueble
@@ -334,6 +350,8 @@ def claves(unidad, localID):
     {'$push': {'inmuebles.$[elemento].hub.cerradura.claves' : str(data['combinacion'])}},
     array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
     return_document=ReturnDocument.AFTER)
+    if result == None:
+      return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     return dumpJson(result)
   elif request.method == DELETE:
     clave = ""
@@ -347,6 +365,8 @@ def claves(unidad, localID):
     {'$pull': {'inmuebles.$[elemento].hub.cerradura.claves' : {'$eq' : clave}}},
     array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
     return_document=ReturnDocument.AFTER)
+    if result == None:
+      return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     return dumpJson(nuevo)
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/emergencias", methods=[GET, POST])
@@ -402,6 +422,8 @@ def emergencias(unidad, localID):
     {'$push': {'inmuebles.$[elemento].hub.cerradura.emergencias' : sanitizedData}},
     array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
     return_document=ReturnDocument.AFTER)
+    if result == None:
+      return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     return dumpJson(result)
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/horariosPermitidos", methods=[GET, POST])
@@ -455,6 +477,8 @@ def horariosPermitidos(unidad, localID):
     {'$push': {'inmuebles.$[elemento].hub.cerradura.horariosPermitidos' : sanitizedData}},
     array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
     return_document=ReturnDocument.AFTER)
+    if result == None:
+      return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     return dumpJson(result)
 
 @app.route("/unidadesResidenciales/<unidad>/emergencias", methods=[GET])
@@ -469,12 +493,11 @@ def emergenciasUnidad(unidad):
         try:
           respuesta.append(inmueble['hub']['cerradura']['emergencias'])
         except KeyError as error:
-          print(inmueble['localID'], ' no tiene ', error.args)
+          print(inmueble['localID'], ' no tiene ', str(error.args))
     except TypeError as error:
-        print(inmueble['localID'], ' no tiene ', error.args)
+        print(inmueble['localID'], ' no tiene ', str(error.args))
     return dumpJson(respuesta)
 
-#TODO probar método, puede que el find no retorne objetos python entonces puede putiarse
 @app.route("/yale/emergencias", methods=[GET])
 def yaleEmergencias():
     respuesta = []
@@ -487,9 +510,9 @@ def yaleEmergencias():
           #Agregar las emergencias a la respuesta
             respuesta += inmueble['hub']['cerradura']['emergencias']
           except KeyError as error:
-            print(inmueble['localID'], ' no tiene ', error.args)
+            print(inmueble['localID'], ' no tiene ', str(error.args))
       except TypeError as error:
-        print(inmueble['localID'], ' no tiene ', error.args)
+        print(inmueble['localID'], ' no tiene ', str(error.args))
     #Retornar JSON
     return dumpJson(respuesta)
 
