@@ -206,14 +206,16 @@ def hub(unidad, localID):
     try:
       valid = valid and (data['frecuencia'] != None or data['frecuencia'] != "")
       valid = valid and (data['fallosMaximos'] != None or data['fallosMaximos'] != "")
+      valid = valid and (data['zona'] != None or data['fallosMaximos']!="")
     except KeyError:
-      return "Debe incluir la frecuencia y el número de fallos máximos del inmueble", 400
+      return "Debe incluir la frecuencia, la zona y el número de fallos máximos del inmueble", 400
 
     #Objeto nuevo para eliminar posibles campos adicionales del json
     sanitizedData = {}
     sanitizedData['_id'] = ObjectId()
     sanitizedData['frecuencia'] = data['frecuencia']
     sanitizedData['fallosMaximos'] = data['fallosMaximos']
+    sanitizedData['zona']=data['zona']
     sanitizedData['fallos'] = []
     sanitizedData['cerradura'] = {}
 
