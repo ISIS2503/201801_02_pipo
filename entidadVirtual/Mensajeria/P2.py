@@ -16,7 +16,6 @@ for message in consumer:
 	unidad = emergency['conjunto']
 	inmuebleId = emergency['apartamento']
 	idEmergencia = emergency['emergencia']
-	zone=emergency['zona']
 	
 	tipoEmergencia = ''
 	if idEmergencia == str(1):
@@ -37,7 +36,6 @@ for message in consumer:
 		'fecha': sensetime,
 		'tipo': tipoEmergencia,
 		'idEmergencia' : idEmergencia
-		'zona':zone
     }
 	print(tipoEmergencia)
 	response = requests.post(url, data=json.dumps(payload),headers={'Content-type': 'application/json'})
