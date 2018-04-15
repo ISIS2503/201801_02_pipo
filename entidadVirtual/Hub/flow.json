@@ -787,7 +787,8 @@
         "y": 120,
         "wires": [
             [
-                "3ca1ebdb.7d11ec"
+                "3ca1ebdb.7d11ec",
+                "2a630e64.7916f2"
             ]
         ]
     },
@@ -802,7 +803,7 @@
         "tostatus": false,
         "complete": "payload",
         "x": 390,
-        "y": 40,
+        "y": 60,
         "wires": []
     },
     {
@@ -810,11 +811,11 @@
         "type": "function",
         "z": "ddb0bb9c.500fa8",
         "name": "Verify change message",
-        "func": "data=msg.payload.split(\"\\t\");\nlist=[\"CHANGE_PASSWORD\",\"NEW_PASSWORD\",\"DELETE_PASSWORD\"];\nif(data.length>1)\n{\n    if(list.indexOf(data[0])>-1 && data[1].length==2 &&data[2].length==4)\n    {\n        if(!isNaN(parseInt(data[1]))&&parseInt(data[1])<20 && !isNaN(parseInt(data[2])))\n        {\n            msg.payload=data[0]+\";\"+data[1]+\";\"+data[2];\n        }\n    }\n}\nelse if(data[0]===\"DELETE_ALL\")\n{\n    msg.payload=data[0]+\";\"\n}\nelse\n{\n    msg.payload={};\n}\nreturn msg;",
+        "func": "data=msg.payload.msg.split(\";\");\nlist=[\"NEW_PASSWORD\",\"CHANGE_PASSWORD\",\"DELETE_PASSWORD\",\"DELETE_ALL\"];\nif(data.length>2)\n{\n    if(data[1].length<=2 &&data[2].length==4)\n    {\n        if(!isNaN(parseInt(data[1]))&&parseInt(data[1])<20 && !isNaN(parseInt(data[2])))\n        {\n            msg.payload=list[parseInt(data[0])-1]+\";\"+data[1]+\";\"+data[2];\n        }\n    }\n}\nelse if (data.length>1)\n{\n    if(!isNaN(parseInt(data[1]))&&parseInt(data[1])<20)\n        {\n            msg.payload=list[parseInt(data[0])-1]+\";\"+data[1];\n        }\n}\nelse\n{\n    if(parseInt(msg.payload.msg)===4)\n    {\n        msg.payload=list[parseInt(msg.payload.msg)-1]\n    }\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 440,
-        "y": 220,
+        "x": 430,
+        "y": 180,
         "wires": [
             [
                 "706e2be0.75a374",
@@ -891,16 +892,46 @@
         "type": "function",
         "z": "ddb0bb9c.500fa8",
         "name": "Merge",
-        "func": "num=parseInt(msg.payload);\nlist=[\"CHANGE_PASSWORD\",\"NEW_PASSWORD\",\"DELETE_PASSWORD\",\"DELETE_ALL\"];\nif(num<4)\n{\n    msg.payload=list[num-1]+\"\\t\"+\"01\"+\"\\t\"+\"3141\";\n}\nelse\n    msg.payload=list[num-1];\nreturn msg;",
+        "func": "num=parseInt(msg.payload);\nif (num==3)\n{\n    msg.payload=\"{\\\"msg\\\":\\\"\"+num+\";\"+\"01\\\"}\";\n}\nelse if(num<4)\n{\n    msg.payload=\"{\\\"msg\\\":\\\"\"+num+\";\"+\"01\"+\";\"+\"3141\\\"}\";\n}\nelse\n    msg.payload=\"{\\\"msg\\\":\\\"\"+num+\"\\\"}\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 380,
-        "y": 420,
+        "x": 350,
+        "y": 380,
         "wires": [
             [
-                "d245b00e.344db8",
-                "7bf50ee4.c8d238"
+                "d245b00e.344db8"
             ]
         ]
+    },
+    {
+        "id": "2a630e64.7916f2",
+        "type": "json",
+        "z": "ddb0bb9c.500fa8",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 260,
+        "y": 220,
+        "wires": [
+            [
+                "7bf50ee4.c8d238",
+                "18eddaf4.fd7bd5"
+            ]
+        ]
+    },
+    {
+        "id": "18eddaf4.fd7bd5",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Json Conversion",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 410,
+        "y": 240,
+        "wires": []
     }
 ]
