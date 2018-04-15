@@ -1,4 +1,6 @@
 #include <Keypad.h>
+#include <EEPROM.h>
+#define SIZE_BUFFER_DATA       50
 
 //Button pin
 const int CONTACT_PIN = 11;
@@ -16,7 +18,11 @@ const String boardId = "Arduino007";
 
 //---------------------------------- 
 
+char bufferData [SIZE_BUFFER_DATA];
+
 const String KEY[] = {"3141","2718","1234"};
+
+String      inputString = "";
 
 const byte ROWS = 4;
 
@@ -47,6 +53,8 @@ bool fallaBateria=false;
 long contadorFallaBateria;
 
 bool bateriaBaja=false;
+
+boolean stringComplete = false;
 
 long currTime;
 
@@ -108,8 +116,92 @@ void setColor(int redValue, int greenValue, int blueValue) {
   analogWrite(B_LED_PIN, blueValue);
 }
 
+//-----------------------------------
+
+// Method that compares a key with stored keys
+boolean compareKey(String key) {
+  int acc = 3;
+  int codif, arg0, arg1; 
+  for(int i=0; i<3; i++) {
+    codif = EEPROM.read(i);
+    while(codif!=0) {
+      if(codif%2==1) {
+        arg0 = EEPROM.read(acc);
+        arg1 = EEPROM.read(acc+1)*256;
+        arg1+= arg0;
+        if(String(arg1)==key) {
+          return true;
+        }
+      }
+      acc+=2;
+      codif>>=1;
+    }
+    acc=(i+1)*16+3;
+  }
+  return false;
+}
+
+// Methods that divides the command by parameters
+void processCommand(String* result, String command) {
+  char buf[sizeof(command)];
+  String vars = "";
+  vars.toCharArray(buf, sizeof(buf));
+  char *p = buf;
+  char *str;
+  int i = 0;
+  while ((str = strtok_r(p, ";", &p)) != NULL) {
+    // delimiter is the semicolon
+    result[i++] = str;
+  }
+}
+
+//Method that adds a password in the specified index
+void addPassword(int val, int index) {
+  byte arg0 = val%256;
+  byte arg1 = val/256;
+  EEPROM.write((index*2)+3,arg0);
+  EEPROM.write((index*2)+4,arg1);
+  byte i = 1;
+  byte location = index/8;
+  byte position = index%8;
+  i<<=position;
+  byte j = EEPROM.read(location);
+  j |= i;
+  EEPROM.write(location,j);
+}
+
+//Method that updates a password in the specified index
+void updatePassword(int val, int index) {
+  byte arg0 = val%256;
+  byte arg1 = val/256;
+  EEPROM.write((index*2)+3,arg0);
+  EEPROM.write((index*2)+4,arg1);
+}
+
+//Method that deletes a password in the specified index
+void deletePassword(int index) {
+  byte i = 1;
+  byte location = index/8;
+  byte position = index%8;
+  i<<=position;
+  byte j = EEPROM.read(location);
+  j ^= i;
+  EEPROM.write(location,j);
+}
+
+//Method that deletes all passwords
+void deleteAllPasswords() {
+  //Password reference to inactive
+  EEPROM.write(0,0);
+  EEPROM.write(1,0);
+  EEPROM.write(2,0);
+}
+
+//-----------------------------------
+
 void setup() {
   Serial.begin(9600);
+   inputString.reserve(100);
   
   pinMode(R_LED_PIN, OUTPUT);
   pinMode(G_LED_PIN, OUTPUT);
@@ -202,6 +294,46 @@ void loop() {
 
 
   //===================================================================
+
+
+
+  while (Serial.available()) {
+    // get the new byte:
+    char inChar = (char)Serial.read();
+    // add it to the inputString:
+    inputString += inChar;
+    // if the incoming character is a newline, set a flag
+    // so the main loop can do something about it:
+    if (inChar == '\n') {
+      stringComplete = true;
+    }
+  }
+
+  if(stringComplete)
+  {
+    String *comandos;
+    processCommand(comandos,inputString);
+    if(comandos[0]=="NEW_PASSWORD")
+    {
+    addPassword(comandos[2].toInt(), comandos[1].toInt());
+    }
+    else if(comandos[0]=="CHANGE_PASSWORD")
+    {
+      updatePassword(comandos[2].toInt(), comandos[1].toInt());
+    }
+    else if(comandos[0]=="DELETE_PASSWORD")
+    {
+      deletePassword(comandos[1].toInt());
+    }
+    else if(comandos[0]=="DELETE_ALL")
+    {
+      deleteAllPasswords();
+    }
+    inputString="";
+    stringComplete=false;
+  }
+
+    //===================================================================
   
   //Lecturas
   //BOTON
@@ -210,7 +342,6 @@ void loop() {
   //KEYPAD
   customKey = customKeypad.getKey();
 
-  Serial.println("llave "+currentKey);
 
   //Transiciones y salidas
   switch(estado) {
@@ -240,16 +371,15 @@ void loop() {
       else if(currentKey.length()==4)
       {
         //verificar clave
-        for(int i = 0; i<sizeof(KEY); i++) {
-          if(currentKey == KEY[i]) {
-            estado = PUERTA_ABIERTA_TECLADO;
-            
-            permitidoEntrar = true;
-            setColor(0, 255, 0);
-            attempts = 0;
-            currTime = millis();
-          }
-        }
+       boolean comparacion=compareKey(currentKey);
+       if(comparacion) {
+         estado = PUERTA_ABIERTA_TECLADO;            
+         permitidoEntrar = true;
+         setColor(0, 255, 0);
+         attempts = 0;
+         currTime = millis();
+       }
+        
         currentKey = "";
         //Clave incorrecta
         if(!permitidoEntrar) {    
@@ -327,4 +457,4 @@ void loop() {
         }
       break;
     }
-}  
+} 
