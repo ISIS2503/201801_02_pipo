@@ -1,0 +1,5 @@
+flask
+pymongo
+requests
+flask-oauthlib
+six

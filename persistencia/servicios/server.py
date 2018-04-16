@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
+from flask_oauthlib.client import OAuth
 from pymongo import MongoClient, ReturnDocument
 from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
+import os
 import json
 import re
 
@@ -14,10 +16,12 @@ DELETE = 'DELETE'
 TIME_REGEX = r"[0-2][0-9]:[0-5][0-9]"
 
 #Instalación en windows ---------------------
+#Agregar variable de entorno AUTH0_YALE_CLIENT_SECRET y asignarle el valor del campo
 #pip install flask
-#En powershell poner la siguiente línea de código:
+#En *Powershell* poner las siguientes líneas de código:
 #$env:FLASK_APP = "server.py"
-#Correr ejecutando el comando "flask run" estando parado en el directorio de este archivo
+#$env:AUTH0_YALE_CLIENT_SECRET = "<CLIENT_SECRET_AUTH0>"
+#Correr ejecutando el comando "flask run --port=80 --host=172.24.42.64" estando parado en el directorio de este archivo
 
 #Setup de mongoDB
 #Puerto: 27017
@@ -27,6 +31,62 @@ TIME_REGEX = r"[0-2][0-9]:[0-5][0-9]"
 client = MongoClient('localhost', 27017)
 db = client['Pipo-yale-persistencia']
 app = Flask(__name__)
+app.secret_key = "super secret key"
+oauth = OAuth(app)
+auth0 = oauth.remote_app(
+  'auth0',
+  consumer_key='AJqGQ4TtjF3Vw8pIGW1w-IUbGyplpsJa',
+  consumer_secret=os.environ.get('AUTH0_YALE_CLIENT_SECRET'),
+  request_token_params={
+      'scope': 'openid profile',
+      'audience': 'https://' + 'isis2503-jamanrique.auth0.com' + '/userinfo'
+  },
+  base_url='https://%s' % 'isis2503-jamanrique.auth0.com',
+  access_token_method='POST',
+  access_token_url='/oauth/token',
+  authorize_url='/authorize',
+)
+
+print(os.environ['AUTH0_YALE_CLIENT_SECRET'])
+
+@app.route('/callback')
+def callback_handling():
+  # Maneja la respuesta desde el endpoint del token
+  resp = auth0.authorized_response()
+  if resp is None:
+    raise Exception('Access denied: reason=%s error=%s' % (
+      request.args['error_reason'],
+      request.args['error_description']
+    ))
+  
+  url = 'https://' + AUTH0_DOMAIN + '/userinfo'
+  headers = {'authorization': 'Bearer ' + resp['access_token']}
+  resp = requests.get(url, headers=headers)
+  user_info = resp.json()
+  session[constants.JWT_PAYLOAD] = user_info
+  session[constants.PROFILE_KEY] = {
+    'user_id': user_info['sub'],
+    'name': userinfo['name'],
+    'picture': user_info['picture']
+  }
+
+  return redirect('/dashboard')
+
+@app.route('/login')
+def login():
+  return auth0.authorize(callback='https://172.24.42.64/callback')
+
+@app.route('/logout')
+def logout():
+  #Limpiar información de la sesión
+  session.clear()
+  #Redireccionar
+  params = {'returnTo': url_for('home', _external=True), 'client_id': 'AJqGQ4TtjF3Vw8pIGW1w-IUbGyplpsJa'}
+  return redirect(auth0.base_url + '/v2/logout?' + urlencode(params))
+
+@app.route('/logged_out')
+def logged_out():
+  return render_template('logged_out.html')
 
 @app.route("/", methods=[GET])
 def hello():
