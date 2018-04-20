@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from flask_oauthlib.client import OAuth
+from authlib.flask.client import OAuth
 from pymongo import MongoClient, ReturnDocument
 from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
 import os
@@ -21,7 +21,7 @@ TIME_REGEX = r"[0-2][0-9]:[0-5][0-9]"
 #En *Powershell* poner las siguientes líneas de código:
 #$env:FLASK_APP = "server.py"
 #$env:AUTH0_YALE_CLIENT_SECRET = "<CLIENT_SECRET_AUTH0>"
-#Correr ejecutando el comando "flask run --port=80 --host=172.24.42.64" estando parado en el directorio de este archivo
+#Correr ejecutando el comando "flask run --port=443 --host=172.24.42.64" estando parado en el directorio de este archivo
 
 #Setup de mongoDB
 #Puerto: 27017
@@ -33,31 +33,25 @@ db = client['Pipo-yale-persistencia']
 app = Flask(__name__)
 app.secret_key = "super secret key"
 oauth = OAuth(app)
-auth0 = oauth.remote_app(
+print(os.environ['AUTH0_YALE_CLIENT_SECRET'])
+auth0 = oauth.register(
   'auth0',
-  consumer_key='AJqGQ4TtjF3Vw8pIGW1w-IUbGyplpsJa',
-  consumer_secret=os.environ.get('AUTH0_YALE_CLIENT_SECRET'),
-  request_token_params={
-      'scope': 'openid profile',
-      'audience': 'https://' + 'isis2503-jamanrique.auth0.com' + '/userinfo'
-  },
-  base_url='https://%s' % 'isis2503-jamanrique.auth0.com',
-  access_token_method='POST',
-  access_token_url='/oauth/token',
-  authorize_url='/authorize',
+  client_id='AJqGQ4TtjF3Vw8pIGW1w-IUbGyplpsJa',
+  client_secret=os.environ.get('AUTH0_YALE_CLIENT_SECRET'),
+  api_base_url='https://%s' % 'isis2503-jamanrique.auth0.com',
+  access_token_url='https://isis2503-jamanrique.auth0.com/oauth/token',
+  authorize_url='https://isis2503-jamanrique.auth0.com/authorize',
+  client_kwargs={
+    'scope': 'openid profile'
+  }
 )
 
-print(os.environ['AUTH0_YALE_CLIENT_SECRET'])
 
 @app.route('/callback')
 def callback_handling():
   # Maneja la respuesta desde el endpoint del token
-  resp = auth0.authorized_response()
-  if resp is None:
-    raise Exception('Access denied: reason=%s error=%s' % (
-      request.args['error_reason'],
-      request.args['error_description']
-    ))
+  #resp = auth0.authorized_response()
+  resp = auth0.authorize_access_token()
   
   url = 'https://' + AUTH0_DOMAIN + '/userinfo'
   headers = {'authorization': 'Bearer ' + resp['access_token']}
@@ -66,7 +60,7 @@ def callback_handling():
   session[constants.JWT_PAYLOAD] = user_info
   session[constants.PROFILE_KEY] = {
     'user_id': user_info['sub'],
-    'name': userinfo['name'],
+    'name': user_info['name'],
     'picture': user_info['picture']
   }
 
@@ -74,7 +68,7 @@ def callback_handling():
 
 @app.route('/login')
 def login():
-  return auth0.authorize(callback='https://172.24.42.64/callback')
+  return auth0.authorize_redirect(redirect_uri='http://172.24.42.64/callback')
 
 @app.route('/logout')
 def logout():

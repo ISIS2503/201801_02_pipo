@@ -1,5 +1,5 @@
 flask
 pymongo
 requests
-flask-oauthlib
+authlib
 six
