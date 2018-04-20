@@ -24,3 +24,6 @@ Se hace la especificación de esta repartición para justificar la no uniformida
 + En la carpeta de persistencia se encuentran los servicios REST hechos en FLASK junto con sus colecciones. 
 + Link de la entrega: https://www.youtube.com/watch?v=yYp-H7bFBOI&feature=youtu.be
 + Para este aparte particular se va a tener una matriz de esfuerzos en la carpeta docs para simbolizar cual fue el aporte de cada integrante del grupo. A su vez el documento final está en dicha carpeta.
+
+## EXPERIMENTO II INTERMEDIO: 
++ El link de la parte de la entidad física se encuentra acá: https://youtu.be/YIpmc0j0udE 
