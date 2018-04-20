@@ -56,6 +56,10 @@ bool bateriaBaja=false;
 
 boolean stringComplete = false;
 
+String firstVal="";
+
+String secondVal="";
+
 long currTime;
 
 //Keypad mapping matrix
@@ -142,16 +146,19 @@ boolean compareKey(String key) {
 }
 
 // Methods that divides the command by parameters
-void processCommand(String* result, String command) {
-  char buf[sizeof(command)];
-  String vars = "";
-  vars.toCharArray(buf, sizeof(buf));
-  char *p = buf;
-  char *str;
-  int i = 0;
-  while ((str = strtok_r(p, ";", &p)) != NULL) {
-    // delimiter is the semicolon
-    result[i++] = str;
+void processCommand(String input) {
+  boolean band = false;
+  for (int i = 0; i < input.length(); i++) {
+  if (input.substring(i, i+1) == ";") {
+    firstVal = input.substring(0, i);
+    secondVal = input.substring(i+1);
+    Serial.println("VAL "+secondVal);
+    band = true;
+    break;
+  }
+}
+  if(!band) {
+    firstVal = input;
   }
 }
 
@@ -311,22 +318,31 @@ void loop() {
 
   if(stringComplete)
   {
-    String *comandos;
-    processCommand(comandos,inputString);
-    if(comandos[0]=="NEW_PASSWORD")
+    inputString = inputString.substring(0,inputString.length()-1);
+    Serial.println(inputString);
+    processCommand(inputString);
+    Serial.println("."+firstVal+".");
+    firstVal.trim();
+    if(firstVal=="NEW_PASSWORD")
     {
-    addPassword(comandos[2].toInt(), comandos[1].toInt());
+      Serial.println("llega nuevo");
+      processCommand(secondVal);
+    addPassword(secondVal.toInt(), firstVal.toInt());
     }
-    else if(comandos[0]=="CHANGE_PASSWORD")
+    else if(firstVal=="CHANGE_PASSWORD")
     {
-      updatePassword(comandos[2].toInt(), comandos[1].toInt());
+      Serial.println("llega cambiar");
+      processCommand(secondVal);
+      updatePassword(secondVal.toInt(), firstVal.toInt());
     }
-    else if(comandos[0]=="DELETE_PASSWORD")
+    else if(firstVal=="DELETE_PASSWORD")
     {
-      deletePassword(comandos[1].toInt());
+      Serial.println("llega borrar");
+      deletePassword(secondVal.toInt());
     }
-    else if(comandos[0]=="DELETE_ALL")
+    else if(firstVal=="DELETE_ALL")
     {
+      Serial.println("llega borrar todo");
       deleteAllPasswords();
     }
     inputString="";
