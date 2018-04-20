@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect
 from authlib.flask.client import OAuth
 from pymongo import MongoClient, ReturnDocument
 from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
+from functools import wraps
 import os
 import json
-import re
+import requests
 
 #Constantes métodos REST
 GET = 'GET'
@@ -36,7 +37,7 @@ oauth = OAuth(app)
 print(os.environ['AUTH0_YALE_CLIENT_SECRET'])
 auth0 = oauth.register(
   'auth0',
-  client_id='AJqGQ4TtjF3Vw8pIGW1w-IUbGyplpsJa',
+  client_id='VFOHkNbDGQJlrFJ8QzfmLkM3EVhDIDFn',
   client_secret=os.environ.get('AUTH0_YALE_CLIENT_SECRET'),
   api_base_url='https://%s' % 'isis2503-jamanrique.auth0.com',
   access_token_url='https://isis2503-jamanrique.auth0.com/oauth/token',
@@ -46,6 +47,14 @@ auth0 = oauth.register(
   }
 )
 
+def requires_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if 'PROFILE_KEY' not in session:
+            return redirect('/login')
+        return f(*args, **kwargs)
+
+    return decorated
 
 @app.route('/callback')
 def callback_handling():
@@ -53,12 +62,12 @@ def callback_handling():
   #resp = auth0.authorized_response()
   resp = auth0.authorize_access_token()
   
-  url = 'https://' + AUTH0_DOMAIN + '/userinfo'
+  url = 'https://' + 'isis2503-jamanrique.auth0.com' + '/userinfo'
   headers = {'authorization': 'Bearer ' + resp['access_token']}
   resp = requests.get(url, headers=headers)
   user_info = resp.json()
-  session[constants.JWT_PAYLOAD] = user_info
-  session[constants.PROFILE_KEY] = {
+  session['JWT_PAYLOAD'] = user_info
+  session['PROFILE_KEY'] = {
     'user_id': user_info['sub'],
     'name': user_info['name'],
     'picture': user_info['picture']
@@ -69,6 +78,11 @@ def callback_handling():
 @app.route('/login')
 def login():
   return auth0.authorize_redirect(redirect_uri='http://172.24.42.64/callback')
+
+@app.route('/dashboard')
+@requires_auth
+def post_login():
+  return "Succesfully logged in!"
 
 @app.route('/logout')
 def logout():
