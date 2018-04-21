@@ -63,15 +63,16 @@ def checkScope(user_id, auth_type, scope):
   user = db.users.find_one({'auth0_id' : user_id})
   if scope == None:
     return True
-  return scope == user.scope
+  return scope.startswith(user.scope)
 
 def checkSession(user_id, auth_type, scope):
   print('uid: ', user_id, 'auth: ', auth_type, 'scope: ', scope)
   return checkRole(user_id, auth_type) and checkScope(user_id, auth_type, scope)
 
-def requires_auth(func, auth_type):
-  @wraps(func)
-  def decorated(*args, **kwargs):
+def requires_auth(*auth_type):
+  def decorator(func):
+    @wraps(func)
+    def decorated(*args, **kwargs):
       scope = ''
       for arg in args:
         scope += arg + '/'
@@ -82,7 +83,8 @@ def requires_auth(func, auth_type):
         return func(*args, **kwargs)
       else:
         return redirect('/unauthorized')
-  return decorated
+    return decorated
+  return decorator
 
 @app.route('/testo/<param1>/<param2>')
 @requires_auth(PROPERTY_OWNER)
@@ -138,6 +140,7 @@ def hello():
     return render_template("index.html")
 
 @app.route("/yale", methods=[GET])
+@requires_auth(YALE)
 def yale():
     respuesta = []
     #Encontrar todos las unidades residenciales
@@ -148,6 +151,7 @@ def yale():
     return dumpJson(respuesta)
 
 @app.route("/unidadesResidenciales/<unidad>", methods=[GET, PUT, DELETE])
+@requires_auth(UR_ADMIN)
 def unidadResidencial(unidad):
   if request.method == GET:
     respuesta = {}
@@ -183,6 +187,7 @@ def unidadResidencial(unidad):
     return dumpJson(borrado)
   
 @app.route("/unidadesResidenciales", methods=[POST])
+@requires_auth(YALE)
 def crearUnidad():
   if request.method == POST:
     if request.data == None or request.data == "":
@@ -221,6 +226,7 @@ def crearUnidad():
       return "Ya existe una unidad residencial con ese nombre", 400
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles", methods=[GET, POST])
+@requires_auth(UR_ADMIN)
 def imuebles(unidad):
   if request.method == GET:
     respuesta = []
@@ -259,6 +265,7 @@ def testo():
   return "xd"
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>", methods=[GET, PUT, DELETE])
+@requires_auth(PROPERTY_OWNER)
 def inmuebles(unidad, localID):
   if request.method == GET:
     respuesta = []
@@ -299,6 +306,7 @@ def inmuebles(unidad, localID):
     return dumpJson(nuevo)
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub", methods=[GET, POST, PUT, DELETE])
+@requires_auth(PROPERTY_OWNER)
 def hub(unidad, localID):
   if request.method == GET:
     respuesta = []
@@ -356,6 +364,7 @@ def hub(unidad, localID):
     return dumpJson(result)
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura", methods=[GET, POST, PUT, DELETE])
+@requires_auth(PROPERTY_OWNER)
 def cerradura(unidad, localID):
   if request.method == GET:
     respuesta = []
@@ -415,6 +424,7 @@ def cerradura(unidad, localID):
     return dumpJson(result)
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/claves", methods=[GET, POST, PUT, DELETE])
+@requires_auth(PROPERTY_OWNER)
 def claves(unidad, localID):
   data = {}
   if request.data:
@@ -476,6 +486,7 @@ def claves(unidad, localID):
     return dumpJson(nuevo)
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/emergencias", methods=[GET, POST])
+@requires_auth(PROPERTY_OWNER)
 def emergencias(unidad, localID):
   data = {}
   if request.data:
@@ -533,21 +544,12 @@ def emergencias(unidad, localID):
     return dumpJson(result)
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/horariosPermitidos", methods=[GET, POST])
+@requires_auth(PROPERTY_OWNER)
 def horariosPermitidos(unidad, localID):
   if request.method == GET:
     respuesta = []
-    unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
-    if unidadRes == None:
-      return "{}"  
-    for inmueble in unidadRes['inmuebles']:
-      if inmueble['localID'] == localID:
-        respuesta = inmueble
-        break
-    if respuesta['hub'] == {}:
-      return "{}"
-    elif respuesta['hub']['cerradura'] == {}:
-      return "{}"
-    return dumpJson(respuesta['hub']['cerradura']['horariosPermitidos'])
+    user = db.users.find_one({session['PROFILE_KEY']['user_id'] : user_id})
+    return dumpJson(user.horariosPermitidos)
   elif request.method == POST or request.method == PUT:
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
@@ -579,8 +581,8 @@ def horariosPermitidos(unidad, localID):
     #Esta linea busca los documentos que tengan la propiedad nombre == unidad
     #Y luego inserta a el valor del campo inmuebles[x].hub.cerradura.horariosPermitidos el nuevo horario
     #inmuebles[x] corresponde al elemento tal que inmuebles[x].localID == identificador local del inmueble
-    result = db.unidadesResidenciales.find_one_and_update({'nombre': unidad,},
-    {'$push': {'inmuebles.$[elemento].hub.cerradura.horariosPermitidos' : sanitizedData}},
+    result = db.users.find_one_and_update({session['PROFILE_KEY']['user_id'] : user_id},
+    {'$push': {'horariosPermitidos' : sanitizedData}},
     array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
     return_document=ReturnDocument.AFTER)
     if result == None:
@@ -588,6 +590,7 @@ def horariosPermitidos(unidad, localID):
     return dumpJson(result)
 
 @app.route("/unidadesResidenciales/<unidad>/emergencias", methods=[GET])
+@requires_auth(SECURITY)
 def emergenciasUnidad(unidad):
   if request.method == GET:
     respuesta = []
@@ -605,6 +608,7 @@ def emergenciasUnidad(unidad):
     return dumpJson(respuesta)
 
 @app.route("/yale/emergencias", methods=[GET])
+@requires_auth(YALE)
 def yaleEmergencias():
     respuesta = []
     #Encontrar todos las unidades residenciales
