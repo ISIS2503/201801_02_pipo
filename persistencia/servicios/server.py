@@ -16,6 +16,13 @@ DELETE = 'DELETE'
 #Expresión regular para verificar horas [00:00] - [23:59]
 TIME_REGEX = r"[0-2][0-9]:[0-5][0-9]"
 
+#Tipos de autorización
+USER = 'USER'
+YALE = 'YALE'
+SECURITY = 'SECURITY'
+UR_ADMIN = 'UR_ADMIN'
+PROPERTY_OWNER = 'PROPERTY_OWNER'
+
 #Instalación en windows ---------------------
 #Agregar variable de entorno AUTH0_YALE_CLIENT_SECRET y asignarle el valor del campo
 #pip install flask
@@ -47,14 +54,44 @@ auth0 = oauth.register(
   }
 )
 
-def requires_auth(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        if 'PROFILE_KEY' not in session:
-            return redirect('/login')
-        return f(*args, **kwargs)
+def checkRole(user_id, auth_type):
+  user = db.users.find_one({'auth0_id' : user_id})
+  group = db.groups.find_one({'nombre' : user.group})
+  return auth_type in group.roles
 
-    return decorated
+def checkScope(user_id, auth_type, scope):
+  user = db.users.find_one({'auth0_id' : user_id})
+  if scope == None:
+    return True
+  return scope == user.scope
+
+def checkSession(user_id, auth_type, scope):
+  print('uid: ', user_id, 'auth: ', auth_type, 'scope: ', scope)
+  return checkRole(user_id, auth_type) and checkScope(user_id, auth_type, scope)
+
+def requires_auth(func, auth_type):
+  @wraps(func)
+  def decorated(*args, **kwargs):
+      scope = ''
+      for arg in args:
+        scope += arg + '/'
+      scope = scope[:-2]
+      if 'PROFILE_KEY' not in session:
+          return redirect('/login')
+      elif checkSession(session['PROFILE_KEY']['user_id'], auth_type, scope):
+        return func(*args, **kwargs)
+      else:
+        return redirect('/unauthorized')
+  return decorated
+
+@app.route('/testo/<param1>/<param2>')
+@requires_auth(PROPERTY_OWNER)
+def testt(param1, param2):
+  return param1 + param2
+
+@app.route('/unauthorized')
+def unauthorized():
+  return "No tiene los permisos necesarios para ejecutar la operación"
 
 @app.route('/callback')
 def callback_handling():
@@ -80,7 +117,7 @@ def login():
   return auth0.authorize_redirect(redirect_uri='http://172.24.42.64/callback')
 
 @app.route('/dashboard')
-@requires_auth
+#@requires_auth
 def post_login():
   return "Succesfully logged in!"
 
@@ -214,7 +251,8 @@ def imuebles(unidad):
       return "No hay ninguna unidad con ese nombre", 404
     return dumpJson(result)
 
-@app.route("/test")
+@app.route('/test')
+#@requires_auth
 def testo():
   unidad = db.unidadesResidenciales.find_one({ 'nombre' : 'Toscana' })
   print("Unidad: ", unidad)
