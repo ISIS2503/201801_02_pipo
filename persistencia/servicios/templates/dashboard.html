@@ -1,0 +1,111 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <h1>
+            Dashboard - API Invoker
+        </h1>
+        <div id="app">
+            <div>
+                URL
+                <input placeholder="URL" v-model="url">
+                <select name="method" v-model="method" id="method">
+                    <option selected value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                    <option value="DELETE">DELETE</option>
+                </select>
+                <button v-on:click="sendRequest">
+                    enviar
+                </button>
+            </div>
+            <div>
+                <textarea v-model="body" name="requestBody" id="requestBody" cols="70" rows="40">{}</textarea>
+            </div>
+
+            <div v-if="error || response">
+                <h2>
+                    Resultado:
+                </h2>
+                <p v-if="error">
+                    %{error}%
+                </p>
+
+                <p v-if="response">
+                    %{response}%
+                </p>
+            </div>
+
+        </div>
+
+        <script>
+            var app = new Vue({
+                el: '#app',
+                delimiters: ["%{", "}%"],
+                data: {
+                    url: 'http://172.24.42.64/',
+                    method: 'GET',
+                    body: '',
+                    response: '',
+                    error: ''
+                },
+                methods: {
+                    sendRequest: function () {
+                        var _this = this;
+                        var _JSON = JSON.parse(_this.body);
+                        switch (this.method) {
+                            case 'GET':
+                                axios.get(_this.url, _JSON)
+                                    .then(function (response) {
+                                        _this.response = response.data
+                                    })
+                                    .catch(function (error) {
+                                        _this.error = error
+                                        console.log(error)
+                                    });
+                                break;
+                            case 'POST':
+                                axios.post(_this.url, _JSON)
+                                    .then(function (response) {
+                                        _this.response = response.data
+                                    })
+                                    .catch(function (error) {
+                                        _this.error = error
+                                        console.log(error)
+                                    });
+                                break;
+                            case 'PUT':
+                                axios.put(_this.url, _JSON)
+                                    .then(function (response) {
+                                        _this.response = response.data
+                                    })
+                                    .catch(function (error) {
+                                        _this.error = error
+                                        console.log(error)
+                                    });
+                                break;
+                            case 'DELETE':
+                                axios.delete(_this.url, _JSON)
+                                    .then(function (response) {
+                                        _this.response = response.data
+                                    })
+                                    .catch(function (error) {
+                                        _this.error = error
+                                        console.log(error)
+                                    });
+                                break;
+                        }
+                    }
+                }
+            })
+        </script>
+
+    </div>
+</body>
+
+</html>

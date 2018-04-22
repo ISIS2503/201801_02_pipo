@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, url_for
 from authlib.flask.client import OAuth
 from pymongo import MongoClient, ReturnDocument
 from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
 from functools import wraps
+from six.moves.urllib.parse import urlencode
 import os
 import json
 import requests
@@ -56,20 +57,25 @@ auth0 = oauth.register(
 
 def checkRole(user_id, auth_type):
   user = db.users.find_one({'auth0_id' : user_id})
-  group = db.groups.find_one({'nombre' : user.group})
-  return auth_type in group.roles
+  if user:
+    group = db.groups.find_one({'nombre' : user['group']})
+    #Si el usuario existe, se concede la autorización de usuario por defecto
+    if auth_type == USER:
+      return True
+    return auth_type in group['roles']
+  return False
 
 def checkScope(user_id, auth_type, scope):
   user = db.users.find_one({'auth0_id' : user_id})
-  if scope == None:
+  if scope:
     return True
-  return scope.startswith(user.scope)
+  return scope.startswith(user['scope'])
 
 def checkSession(user_id, auth_type, scope):
   print('uid: ', user_id, 'auth: ', auth_type, 'scope: ', scope)
   return checkRole(user_id, auth_type) and checkScope(user_id, auth_type, scope)
 
-def requires_auth(*auth_type):
+def requires_auth(auth_type):
   def decorator(func):
     @wraps(func)
     def decorated(*args, **kwargs):
@@ -112,6 +118,12 @@ def callback_handling():
     'picture': user_info['picture']
   }
 
+  #Idealmente con redis pero YOLO
+  user = db.users.find_one({'auth0_id' : user_info['sub']})
+  if not user:
+    insert = db.users.insert_one({ 'auth0_id' : user_info['sub'], 'group' : USER,  'scope' : ''})
+    print('insert: ', insert.inserted_id)
+
   return redirect('/dashboard')
 
 @app.route('/login')
@@ -119,25 +131,29 @@ def login():
   return auth0.authorize_redirect(redirect_uri='http://172.24.42.64/callback')
 
 @app.route('/dashboard')
-#@requires_auth
+@requires_auth(USER)
 def post_login():
-  return "Succesfully logged in!"
+  return render_template('dashboard.html')
 
 @app.route('/logout')
 def logout():
   #Limpiar información de la sesión
   session.clear()
   #Redireccionar
-  params = {'returnTo': url_for('home', _external=True), 'client_id': 'AJqGQ4TtjF3Vw8pIGW1w-IUbGyplpsJa'}
-  return redirect(auth0.base_url + '/v2/logout?' + urlencode(params))
+  params = {'returnTo': url_for('logged_out', _external=True), 'client_id': 'AJqGQ4TtjF3Vw8pIGW1w-IUbGyplpsJa'}
+  return redirect(auth0.api_base_url + '/v2/logout?' + urlencode(params))
 
 @app.route('/logged_out')
 def logged_out():
   return render_template('logged_out.html')
 
 @app.route("/", methods=[GET])
+def home():
+  return redirect('/home')
+
+@app.route('/home')
 def hello():
-    return render_template("index.html")
+  return render_template("index.html")
 
 @app.route("/yale", methods=[GET])
 @requires_auth(YALE)
@@ -246,6 +262,14 @@ def imuebles(unidad):
     except KeyError:
       return "Debe incluir el identificador local del inmueble", 400
 
+    #Buscar el usuario propietario
+    user_id = session['PROFILE_KEY']['user_id']
+    user = db.users.find_one({'auth0_id' : user_id })
+
+    #Si no encontró el usuario para asignarle la propiedad
+    if not user:
+      return "El usuario especificado para que sea asignado como propietario, no existe", 400
+
     #Objeto nuevo para eliminar posibles campos adicionales del json
     sanitizedData = {}
     sanitizedData['_id'] = ObjectId()
@@ -253,6 +277,9 @@ def imuebles(unidad):
     sanitizedData['hub'] = {}
     #Añadir al arreglo de inmuebles
     result = db.unidadesResidenciales.find_one_and_update({'nombre':unidad}, {'$push': {'inmuebles': sanitizedData}})
+    #Añadir scope al dueño
+    scope = unidad + '/' + sanitizedData['localID']
+    db.users.find_one_and_update({'auth0_id' : user_id}, {'$set': {'scope': scope, 'group': PROPERTY_OWNER}})
     if result == None:
       return "No hay ninguna unidad con ese nombre", 404
     return dumpJson(result)

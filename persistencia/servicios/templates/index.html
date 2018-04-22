@@ -9,7 +9,7 @@
   πpo
 </h1>
 
-<div class="login">
+<div id="login">
   <img src="https://i.cloudup.com/StzWWrY34s.png" />
   <h3>Autenticación con Auth0: </h3>
   <a class="botonLogin" href="/login">Log In</a>
@@ -105,7 +105,11 @@
   #login{
     display: flex;
     flex: 1;
-    align-items: center
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 16px;
+    background: linear-gradient(orange, whitesmoke);
   }
 
   #botonLogin{
