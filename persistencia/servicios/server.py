@@ -25,17 +25,16 @@ UR_ADMIN = 'UR_ADMIN'
 PROPERTY_OWNER = 'PROPERTY_OWNER'
 
 #Instalación en windows ---------------------
-#Agregar variable de entorno AUTH0_YALE_CLIENT_SECRET y asignarle el valor del campo
-#pip install flask
-#En *Powershell* poner las siguientes líneas de código:
+#pip install -r requirements.txt
+#En *Powershell*, parado en la carpeta de este archivo, poner las siguientes líneas de código:
 #$env:FLASK_APP = "server.py"
 #$env:AUTH0_YALE_CLIENT_SECRET = "<CLIENT_SECRET_AUTH0>"
-#Correr ejecutando el comando "flask run --port=443 --host=172.24.42.64" estando parado en el directorio de este archivo
+#Correr ejecutando el comando "flask run --port=80 --host=172.24.42.64" estando parado en el directorio de este archivo
 
 #Setup de mongoDB
 #Puerto: 27017
 #DB: Pipo-yale-persistencia
-#COL: unidadesResidenciales
+#COL: unidadesResidenciales / users / groups
 
 client = MongoClient('localhost', 27017)
 db = client['Pipo-yale-persistencia']
