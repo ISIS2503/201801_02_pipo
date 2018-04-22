@@ -625,6 +625,14 @@ def horariosPermitidos(unidad, localID):
     if result == None:
       return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     return dumpJson(result)
+  elif request.method == DELETE:
+    result = db.users.find_one_and_update({'auth0_id' : session['PROFILE_KEY']['user_id']},
+    [],
+    return_document=ReturnDocument.AFTER)
+    if result == None:
+      return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
+    return dumpJson(result)
+
 
 @app.route("/unidadesResidenciales/<unidad>/emergencias", methods=[GET])
 @requires_auth(SECURITY)
