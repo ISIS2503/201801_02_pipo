@@ -4,6 +4,7 @@ from pymongo import MongoClient, ReturnDocument
 from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
 from functools import wraps
 from six.moves.urllib.parse import urlencode
+import http.client
 import os
 import json
 import requests
@@ -23,6 +24,7 @@ YALE = 'YALE'
 SECURITY = 'SECURITY'
 UR_ADMIN = 'UR_ADMIN'
 PROPERTY_OWNER = 'PROPERTY_OWNER'
+DISABLED = 'DISABLED'
 
 #Instalación en windows ---------------------
 #pip install -r requirements.txt
@@ -61,27 +63,32 @@ def checkRole(user_id, auth_type):
     #Si el usuario existe, se concede la autorización de usuario por defecto
     if auth_type == USER:
       return True
-    return auth_type in group['roles']
+    if group:
+      return auth_type in group['roles']
   return False
 
 def checkScope(user_id, auth_type, scope):
   user = db.users.find_one({'auth0_id' : user_id})
-  if scope:
+  if not scope:
     return True
-  return scope.startswith(user['scope'])
+  if user:
+    return scope.startswith(user['scope']) or scope == user['username']
+  return "El usuario no existe", 404
 
 def checkSession(user_id, auth_type, scope):
   print('uid: ', user_id, 'auth: ', auth_type, 'scope: ', scope)
   return checkRole(user_id, auth_type) and checkScope(user_id, auth_type, scope)
 
 def requires_auth(auth_type):
-  def decorator(func):
+  def decorator(func, *args1):
     @wraps(func)
     def decorated(*args, **kwargs):
       scope = ''
-      for arg in args:
-        scope += arg + '/'
-      scope = scope[:-2]
+      print('a',args)
+      print('kwa',kwargs)
+      for arg in kwargs:
+        scope += kwargs[arg] + '/'
+      scope = scope[:-1]
       if 'PROFILE_KEY' not in session:
           return redirect('/login')
       elif checkSession(session['PROFILE_KEY']['user_id'], auth_type, scope):
@@ -113,14 +120,16 @@ def callback_handling():
   session['JWT_PAYLOAD'] = user_info
   session['PROFILE_KEY'] = {
     'user_id': user_info['sub'],
-    'name': user_info['name'],
+    'name': session['JWT_PAYLOAD']['nickname'],
+    'email': user_info['name'],
     'picture': user_info['picture']
   }
 
   #Idealmente con redis pero YOLO
   user = db.users.find_one({'auth0_id' : user_info['sub']})
   if not user:
-    insert = db.users.insert_one({ 'auth0_id' : user_info['sub'], 'group' : USER,  'scope' : ''})
+    info = session['PROFILE_KEY']
+    insert = db.users.insert_one({ 'auth0_id' :  info['user_id'] , 'username' : info['name'], 'email': info['email'], 'group' : USER,  'scope' : '/*--//--*/'})
     print('insert: ', insert.inserted_id)
 
   return redirect('/dashboard')
@@ -258,11 +267,13 @@ def imuebles(unidad):
     valid = True
     try:
       valid = valid and (data['localID'] != None or data['localID'] != "")
+      valid = valid and (data['owner'] != None or data['owner'] != "")
+      valid = valid and (data['owner_user_id'] != None or data['owner_user_id'] != "")
     except KeyError:
       return "Debe incluir el identificador local del inmueble", 400
 
     #Buscar el usuario propietario
-    user_id = session['PROFILE_KEY']['user_id']
+    user_id = data['owner_user_id']
     user = db.users.find_one({'auth0_id' : user_id })
 
     #Si no encontró el usuario para asignarle la propiedad
@@ -278,7 +289,7 @@ def imuebles(unidad):
     result = db.unidadesResidenciales.find_one_and_update({'nombre':unidad}, {'$push': {'inmuebles': sanitizedData}})
     #Añadir scope al dueño
     scope = unidad + '/' + sanitizedData['localID']
-    db.users.find_one_and_update({'auth0_id' : user_id}, {'$set': {'scope': scope, 'group': PROPERTY_OWNER}})
+    db.users.find_one_and_update({'auth0_id' : user_id}, {'$set': {'scope': scope, 'group': PROPERTY_OWNER, 'horariosPermitidos': []}})
     if result == None:
       return "No hay ninguna unidad con ese nombre", 404
     return dumpJson(result)
@@ -574,7 +585,7 @@ def emergencias(unidad, localID):
 def horariosPermitidos(unidad, localID):
   if request.method == GET:
     respuesta = []
-    user = db.users.find_one({session['PROFILE_KEY']['user_id'] : user_id})
+    user = db.users.find_one({'auth0_id' : session['PROFILE_KEY']['user_id']})
     return dumpJson(user.horariosPermitidos)
   elif request.method == POST or request.method == PUT:
     if request.data == None or request.data == "":
@@ -651,6 +662,27 @@ def yaleEmergencias():
         print(inmueble['localID'], ' no tiene ', str(error.args))
     #Retornar JSON
     return dumpJson(respuesta)
+
+@app.route('/yale/users')
+@requires_auth(YALE)
+def listarUsuarios():
+  respuesta = []
+  for doc in db.users.find():
+    respuesta.append(doc)
+  return dumpJson(respuesta)
+
+@app.route('/users/<usuario>', methods=[GET, PUT, DELETE])
+@requires_auth(USER)
+def usuario(usuario):
+  data = {}
+  if request.data:
+    data = loads(request.data)
+  if request.method == GET:
+    user = db.users.find({'username': usuario})
+    return dumpJson(user)
+  elif request.method == DELETE:
+    user = db.users.find_one_and_update({"username": usuario}, {'$set' : {'group': DISABLED}}, return_document=ReturnDocument.AFTER)
+    return dumpJson(user)
 
 def dumpJson(obj):
   return dumps(obj, json_options=CANONICAL_JSON_OPTIONS)
