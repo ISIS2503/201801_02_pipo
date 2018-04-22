@@ -4,6 +4,7 @@ from pymongo import MongoClient, ReturnDocument
 from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
 from functools import wraps
 from six.moves.urllib.parse import urlencode
+import re
 import http.client
 import os
 import json
@@ -129,7 +130,7 @@ def callback_handling():
   user = db.users.find_one({'auth0_id' : user_info['sub']})
   if not user:
     info = session['PROFILE_KEY']
-    insert = db.users.insert_one({ 'auth0_id' :  info['user_id'] , 'username' : info['name'], 'email': info['email'], 'group' : USER,  'scope' : '/*--//--*/'})
+    insert = db.users.insert_one({ 'auth0_id' :  info['user_id'] , 'username' : info['name'], 'email': info['email'], 'group' : USER,  'scope' : '/*--//--*/', 'horariosPermitidos' : []})
     print('insert: ', insert.inserted_id)
 
   return redirect('/dashboard')
@@ -289,7 +290,7 @@ def imuebles(unidad):
     result = db.unidadesResidenciales.find_one_and_update({'nombre':unidad}, {'$push': {'inmuebles': sanitizedData}})
     #Añadir scope al dueño
     scope = unidad + '/' + sanitizedData['localID']
-    db.users.find_one_and_update({'auth0_id' : user_id}, {'$set': {'scope': scope, 'group': PROPERTY_OWNER, 'horariosPermitidos': []}})
+    db.users.find_one_and_update({'auth0_id' : user_id}, {'$set': {'scope': scope, 'group': PROPERTY_OWNER}})
     if result == None:
       return "No hay ninguna unidad con ese nombre", 404
     return dumpJson(result)
@@ -586,7 +587,7 @@ def horariosPermitidos(unidad, localID):
   if request.method == GET:
     respuesta = []
     user = db.users.find_one({'auth0_id' : session['PROFILE_KEY']['user_id']})
-    return dumpJson(user.horariosPermitidos)
+    return dumpJson(user['horariosPermitidos'])
   elif request.method == POST or request.method == PUT:
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
@@ -618,9 +619,8 @@ def horariosPermitidos(unidad, localID):
     #Esta linea busca los documentos que tengan la propiedad nombre == unidad
     #Y luego inserta a el valor del campo inmuebles[x].hub.cerradura.horariosPermitidos el nuevo horario
     #inmuebles[x] corresponde al elemento tal que inmuebles[x].localID == identificador local del inmueble
-    result = db.users.find_one_and_update({session['PROFILE_KEY']['user_id'] : user_id},
+    result = db.users.find_one_and_update({'auth0_id' : session['PROFILE_KEY']['user_id']},
     {'$push': {'horariosPermitidos' : sanitizedData}},
-    array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
     return_document=ReturnDocument.AFTER)
     if result == None:
       return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
@@ -680,6 +680,8 @@ def usuario(usuario):
   if request.method == GET:
     user = db.users.find({'username': usuario})
     return dumpJson(user)
+  elif request.method == PUT:
+    return "Dirígase a /login y haga click en 'Don't remember your password?'"
   elif request.method == DELETE:
     user = db.users.find_one_and_update({"username": usuario}, {'$set' : {'group': DISABLED}}, return_document=ReturnDocument.AFTER)
     return dumpJson(user)
