@@ -59,6 +59,25 @@
         "birthPayload": ""
     },
     {
+        "id": "d459177c.3d905",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
         "id": "24d81772.16ff1",
         "type": "inject",
         "z": "a81c23f3.bd483",
@@ -385,7 +404,7 @@
         "qos": "0",
         "broker": "c8e3a915.9cf118",
         "x": 80,
-        "y": 60,
+        "y": 80,
         "wires": [
             []
         ]
@@ -787,8 +806,7 @@
         "y": 120,
         "wires": [
             [
-                "3ca1ebdb.7d11ec",
-                "2a630e64.7916f2"
+                "3ca1ebdb.7d11ec"
             ]
         ]
     },
@@ -802,8 +820,8 @@
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 390,
-        "y": 60,
+        "x": 370,
+        "y": 40,
         "wires": []
     },
     {
@@ -899,7 +917,8 @@
         "y": 380,
         "wires": [
             [
-                "d245b00e.344db8"
+                "d245b00e.344db8",
+                "2a630e64.7916f2"
             ]
         ]
     },
