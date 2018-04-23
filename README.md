@@ -27,6 +27,6 @@ Se hace la especificación de esta repartición para justificar la no uniformida
 
 ## EXPERIMENTO II INTERMEDIO: 
 + El link de la parte de la entidad física se encuentra acá: https://youtu.be/YIpmc0j0udE 
-+ El alcance de la entidad física se encuentra en la carpeta entidadFisica, mientras que el aseguramiento de servicios se encuentra en entidadVirtual/servicios
++ El alcance de la entidad física se encuentra en la carpeta entidadFisica, mientras que el aseguramiento de servicios se encuentra en entidadVirtual/persistencia/servicios
 + Se tomó como decisión de diseño que la operacin de actualizar claves, agregar usuarios y loggearse fueran hechas con el API de Auth0. En la base de datos de mongo se persiste la información relevante del usuario (correo, username, id de auth0, rol, scope).
 + Se modificó el flujo de node red para simular el cambio de claves en el arduino. Este flujo es llamado por el programa RestClavesCerradura/cerradura/cerradura.servicios
