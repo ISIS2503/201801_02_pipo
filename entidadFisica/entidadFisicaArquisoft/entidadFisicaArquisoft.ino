@@ -152,7 +152,6 @@ void processCommand(String input) {
   if (input.substring(i, i+1) == ";") {
     firstVal = input.substring(0, i);
     secondVal = input.substring(i+1);
-    Serial.println("VAL "+secondVal);
     band = true;
     break;
   }
@@ -319,30 +318,24 @@ void loop() {
   if(stringComplete)
   {
     inputString = inputString.substring(0,inputString.length()-1);
-    Serial.println(inputString);
     processCommand(inputString);
-    Serial.println("."+firstVal+".");
     firstVal.trim();
     if(firstVal=="NEW_PASSWORD")
     {
-      Serial.println("llega nuevo");
       processCommand(secondVal);
     addPassword(secondVal.toInt(), firstVal.toInt());
     }
     else if(firstVal=="CHANGE_PASSWORD")
     {
-      Serial.println("llega cambiar");
       processCommand(secondVal);
       updatePassword(secondVal.toInt(), firstVal.toInt());
     }
     else if(firstVal=="DELETE_PASSWORD")
     {
-      Serial.println("llega borrar");
       deletePassword(secondVal.toInt());
     }
     else if(firstVal=="DELETE_ALL")
     {
-      Serial.println("llega borrar todo");
       deleteAllPasswords();
     }
     inputString="";

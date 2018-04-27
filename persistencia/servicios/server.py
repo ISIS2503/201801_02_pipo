@@ -223,8 +223,10 @@ def crearUnidad():
     try:
       valid = valid and (data['nombre'] != None or data['nombre'] != "")
       valid = valid and (data['direccion'] != None or data['direccion'] != "")
+      valid = valid and (data['owner_user_id'] != None or data['owner_user_id'] != "")
+      valid = valid and (data['security_user_id'] != None or data['security_user_id'] != "")
     except KeyError:
-      return "Falta el nombre o la dirección de la unidad", 400
+      return "Falta el nombre, la dirección de la unidad o el usuario administrador", 400
 
     try:
       valid = valid and (data['inmuebles'] == [])
@@ -236,11 +238,28 @@ def crearUnidad():
     if not valid:
       return "Solo el arreglo de inmuebles puede estar vacío, los demás atributos no", 400
 
+    #Buscar el usuario propietario y seguridad
+    owner_user_id = data['owner_user_id']
+    owner_user = db.users.find_one({'auth0_id' : owner_user_id })
+
+    security_user_id = data['security_user_id']
+    security_user = db.users.find_one({'auth0_id' : security_user_id })
+
+    #Si no encontró el usuario para asignarle la propiedad
+    if not owner_user or not security_user:
+      return "El usuario especificado para que sea asignado como administrador o seguridad (de unidad residencial), no existe", 400
+
     #Objeto nuevo para eliminar posibles campos adicionales del json
     sanitizedData = {}
     sanitizedData['nombre'] = data['nombre']
     sanitizedData['direccion'] = data['direccion']
     sanitizedData['inmuebles'] = []
+
+    #Añadir scope al dueño y a la seguridad
+    scope = data['nombre']
+    db.users.find_one_and_update({'auth0_id' : owner_user_id}, {'$set': {'scope': scope, 'group': UR_ADMIN}})
+    db.users.find_one_and_update({'auth0_id' : security_user_id}, {'$set': {'scope': scope, 'group': SECURITY}})
+
     #Insertar en mongoDB
     try:
       result = db.unidadesResidenciales.insert_one(sanitizedData)
@@ -581,7 +600,7 @@ def emergencias(unidad, localID):
       return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     return dumpJson(result)
 
-@app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/horariosPermitidos", methods=[GET, POST])
+@app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/horariosPermitidos", methods=[GET, POST, DELETE])
 @requires_auth(PROPERTY_OWNER)
 def horariosPermitidos(unidad, localID):
   if request.method == GET:
@@ -627,7 +646,7 @@ def horariosPermitidos(unidad, localID):
     return dumpJson(result)
   elif request.method == DELETE:
     result = db.users.find_one_and_update({'auth0_id' : session['PROFILE_KEY']['user_id']},
-    [],
+    {'$set': {'horariosPermitidos': []}},
     return_document=ReturnDocument.AFTER)
     if result == None:
       return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
