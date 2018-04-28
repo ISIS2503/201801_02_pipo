@@ -27,6 +27,7 @@
         "name": "",
         "broker": "172.24.42.33",
         "port": "8083",
+        "tls": "b43d730.8b5731",
         "clientid": "",
         "usetls": false,
         "compatmode": true,
@@ -46,6 +47,7 @@
         "name": "",
         "broker": "172.24.42.70",
         "port": "8083",
+        "tls": "b43d730.8b5731",
         "clientid": "",
         "usetls": false,
         "compatmode": true,
@@ -62,7 +64,180 @@
         "id": "d459177c.3d905",
         "type": "mqtt-broker",
         "z": "",
-        "name": "",
+        "name": "Arduino007WriterConnection",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "10",
+        "cleansession": true,
+        "willTopic": "Arduino007.recibir",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "b43d730.8b5731",
+        "type": "tls-config",
+        "z": "",
+        "name": "CONF ARQUISOFT",
+        "cert": "",
+        "key": "",
+        "ca": "/Users/SIS/s.guzmanm/Documents/ssl/m2mqtt_ca.crt",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "verifyservercert": false
+    },
+    {
+        "id": "7864308b.b44098",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/2-503/claves/Arduino007",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/2-503/claves/Arduino007",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/2-503/claves/Arduino007",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "95b6be9c.590918",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Arduino007.envio",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Arduino007.envio",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Arduino007.envio",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "66020ec3.36326",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/emergencia/puertaAbierta/2-503",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/emergencia/puertaAbierta/2-503",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/emergencia/puertaAbierta/2-503",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "6bf30e21.7143f",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/emergencia/aperturaSospechosa/2-503",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/emergencia/aperturaSospechosa/2-503",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "dec95f12.953088",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/emergencia/aperturaNoPermitida/2-503",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/emergencia/aperturaNoPermitida/2-503",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/emergencia/aperturaNoPermitida/2-503",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "d61fe174.7f0c2",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/emergencia/bateriaCritica/2-503",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/emergencia/bateriaCritica/2-503",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/emergencia/bateriaCritica/2-503",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "21be8c88.6d7f64",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Arduino007.recibir",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Arduino007.recibir",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Arduino007.recibir",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "6286e69c.ab1e4",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/apertura/2-503",
         "broker": "172.24.41.182",
         "port": "8083",
         "clientid": "",
@@ -70,10 +245,10 @@
         "compatmode": true,
         "keepalive": "60",
         "cleansession": true,
-        "willTopic": "",
+        "willTopic": "Centro/Toscana/apertura/2-503",
         "willQos": "0",
         "willPayload": "",
-        "birthTopic": "",
+        "birthTopic": "Centro/Toscana/apertura/2-503",
         "birthQos": "0",
         "birthPayload": ""
     },
@@ -228,7 +403,7 @@
         "topic": "Centro/Toscana/emergencia/puertaAbierta/2-503",
         "qos": "0",
         "retain": "false",
-        "broker": "9e2cc79c.317298",
+        "broker": "66020ec3.36326",
         "x": 1190,
         "y": 60,
         "wires": []
@@ -294,7 +469,7 @@
         "topic": "Centro/Toscana/emergencia/aperturaSospechosa/2-503",
         "qos": "0",
         "retain": "false",
-        "broker": "9e2cc79c.317298",
+        "broker": "6bf30e21.7143f",
         "x": 1250,
         "y": 200,
         "wires": []
@@ -321,7 +496,7 @@
         "topic": "Centro/Toscana/emergencia/aperturaNoPermitida/2-503",
         "qos": "0",
         "retain": "false",
-        "broker": "9e2cc79c.317298",
+        "broker": "dec95f12.953088",
         "x": 1290,
         "y": 320,
         "wires": []
@@ -348,7 +523,7 @@
         "topic": "Centro/Toscana/emergencia/bateriaCritica/2-503",
         "qos": "0",
         "retain": "false",
-        "broker": "9e2cc79c.317298",
+        "broker": "d61fe174.7f0c2",
         "x": 1130,
         "y": 440,
         "wires": []
@@ -402,11 +577,13 @@
         "name": "",
         "topic": "Arduino007.envio",
         "qos": "0",
-        "broker": "c8e3a915.9cf118",
+        "broker": "95b6be9c.590918",
         "x": 80,
         "y": 80,
         "wires": [
-            []
+            [
+                "2f5bea78.c63806"
+            ]
         ]
     },
     {
@@ -440,9 +617,7 @@
         "x": 260,
         "y": 20,
         "wires": [
-            [
-                "2f5bea78.c63806"
-            ]
+            []
         ]
     },
     {
@@ -513,7 +688,7 @@
         "topic": "Centro/Toscana/apertura/2-503",
         "qos": "0",
         "retain": "false",
-        "broker": "9e2cc79c.317298",
+        "broker": "6286e69c.ab1e4",
         "x": 970,
         "y": 200,
         "wires": []
@@ -742,7 +917,7 @@
         "name": "",
         "topic": "Arduino007.envio",
         "qos": "0",
-        "broker": "c8e3a915.9cf118",
+        "broker": "95b6be9c.590918",
         "x": 80,
         "y": 180,
         "wires": [
@@ -789,9 +964,9 @@
         "topic": "Arduino007.recibir",
         "qos": "0",
         "retain": "",
-        "broker": "c8e3a915.9cf118",
-        "x": 650,
-        "y": 120,
+        "broker": "21be8c88.6d7f64",
+        "x": 610,
+        "y": 60,
         "wires": []
     },
     {
@@ -801,12 +976,13 @@
         "name": "",
         "topic": "Centro/Toscana/2-503/claves/Arduino007",
         "qos": "0",
-        "broker": "c8e3a915.9cf118",
+        "broker": "7864308b.b44098",
         "x": 160,
         "y": 120,
         "wires": [
             [
-                "3ca1ebdb.7d11ec"
+                "3ca1ebdb.7d11ec",
+                "2a630e64.7916f2"
             ]
         ]
     },
@@ -917,8 +1093,7 @@
         "y": 380,
         "wires": [
             [
-                "d245b00e.344db8",
-                "2a630e64.7916f2"
+                "d245b00e.344db8"
             ]
         ]
     },
