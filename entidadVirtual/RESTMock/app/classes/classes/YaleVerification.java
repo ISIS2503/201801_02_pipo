@@ -1,12 +1,17 @@
 package classes;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class YaleVerification
+public class YaleVerification extends Thread
 {
     private static HashMap<String,Date> hashMap=new HashMap<>();
 
     private static HashMap<String,Integer> losses=new HashMap<>();
+
+    private static HashMap<String,List<String>> to=new HashMap<>();
+
+    private static final String FROM="admin@yale.com";
 
     private int maxLosses;
 
@@ -16,6 +21,12 @@ public class YaleVerification
     {
         this.maxLosses=maxLosses;
         this.maxTime=maxTime;
+        ArrayList<String> mails=new ArrayList<>();
+        mails.add("js.diaz@uniandes.edu.co");
+        mails.add("ja.manrique@uniandes.edu.co");
+        mails.add("cm.sarmiento10@uniandes.edu.co");
+        this.to.put("Hub007",mails);
+        System.out.println(to.size());
     }
 
 
@@ -26,21 +37,39 @@ public class YaleVerification
         losses.put(hub,0);
     }
 
-    public static void main (String[] args)
+
+    public void run()
     {
-        YaleVerification yaleVerification=new YaleVerification(1,5000);
+        System.out.println("ENTRA "+to.size()+" "+to.get("Hub007"));
         while(true)
         {
-            for(String hub:yaleVerification.hashMap.keySet())
+            System.out.println("WHILE");
+            for(String hub:hashMap.keySet())
             {
-                if(new Date().getTime()-yaleVerification.hashMap.get(hub).getTime()>yaleVerification.maxTime)
+                System.out.println("HUB "+hub);
+                if(new Date().getTime()-hashMap.get(hub).getTime()>maxTime)
                 {
                     losses.put(hub,losses.get(hub)+1);
-                    if(losses.get(hub)>yaleVerification.maxLosses)
+                    if(losses.get(hub)>maxLosses)
                     {
-                        System.out.println("FALLA EL HUB");
+                        String msj="";
+                        for(String mail:to.get(hub))
+                        {
+                            msj+=mail+" ";
+                        }
+                        String mensaje = "DE: " +FROM + " PARA: "+msj;
+                        mensaje += "ASUNTO: " + "FALLA EL HUB" + ";" + "CUERPO: " + "EL HUB 007 ESTA FALLANDO EN LA FECHA "+new SimpleDateFormat("yyyy-MM-dd kk:mm:ss").format(new Date());
+                        System.out.println(mensaje);
                     }
                 }
+            }
+            try
+            {
+                Thread.sleep(1000);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
             }
         }
     }
