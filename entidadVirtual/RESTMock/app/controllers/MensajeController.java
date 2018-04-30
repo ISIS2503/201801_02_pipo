@@ -16,7 +16,6 @@ import java.util.List;
  */
 public class MensajeController extends Controller {
     BufferedWriter out;
-    private String buffer = "";
 
     private static final int TAMANO_BUFFER = 100000;
 
@@ -80,13 +79,7 @@ public class MensajeController extends Controller {
             mensaje += s.findValue("correo") + ";";
         mensaje += "ASUNTO: " + j.findValue("asunto") + ";" + "CUERPO: " + j.findValue("cuerpo");
         //System.out.println(mensaje);
-        //out.write(mensaje + "\n");
-        buffer += mensaje + "\n";
-
-        if(buffer.length() > TAMANO_BUFFER) {
-            out.write(buffer);
-            buffer = "";
-        }
+        out.write(mensaje + "\n");
         //Logger.info(mensaje);
         return ok("");
     }
