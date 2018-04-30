@@ -21,6 +21,20 @@
         "info": ""
     },
     {
+        "id": "c716ffd5.d195d",
+        "type": "tab",
+        "label": "MicrocontrollerHealthcheck Flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "9f25517e.dc5bc8",
+        "type": "tab",
+        "label": "HubHealthcheckFlow",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "c8e3a915.9cf118",
         "type": "mqtt-broker",
         "z": "",
@@ -965,8 +979,8 @@
         "qos": "0",
         "retain": "",
         "broker": "21be8c88.6d7f64",
-        "x": 610,
-        "y": 60,
+        "x": 590,
+        "y": 80,
         "wires": []
     },
     {
@@ -1127,5 +1141,358 @@
         "x": 410,
         "y": 240,
         "wires": []
+    },
+    {
+        "id": "6b82f3bf.6f0894",
+        "type": "function",
+        "z": "c716ffd5.d195d",
+        "name": "Reset Health Check",
+        "func": "global.set(\"lastHealthCheck\",new Date());\nglobal.set(\"misses\",0);",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 520,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2aafec8.6b2b714",
+        "type": "function",
+        "z": "c716ffd5.d195d",
+        "name": "Format Time",
+        "func": "\nif(typeof global.get(\"lastHealthCheck\")=='undefined')\n{\n    global.set(\"lastHealthCheck\",new Date());\n    msg.test2=\"ENTRA\";\n}\nif(isNaN(global.get(\"misses\")))\n{\n    global.set(\"misses\",0);\n}\n\nvar maxMisses=\"1\";\nvar time=5000;\nvar last=global.get(\"lastHealthCheck\");\nmsg.flag=0;\n\nvar diffMs = (new Date() - last); // milliseconds between now & Christmas\n\nmsg.test=global.get(\"lastHealthCheck\")+\" \"+global.get(\"misses\")+\" \"+diffMs;\n\nif(diffMs>time)\n{\n    global.set(\"misses\",global.get(\"misses\")+1);\n}\nif(global.get(\"misses\")>maxMisses)\n{\n    msg.flag=1;\n    msg.headers={\"Content-Type\":\"application/json\"};\n    msg.payload={\n          \"remitente\":\"Hub007@yale.edu.co\",\n          \"destinatarios\":[\n          {\n              \"correo\":\"js.diaz@uniandes.edu.co\"\n          },\n          {\n              \"correo\":\"ja.manrique@uniandes.edu.co\"\n          },\n          {\n              \"correo\":\"cm.sarmiento10@uniandes.edu.co\"\n          }\n          ],\n          \"asunto\":\"CERRADURA FUERA DE LÍNEA\",\n          \"cuerpo\":\"Arduino 007 no está en línea\"\n     \n      };\n}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 280,
+        "wires": [
+            [
+                "d79095c2.2370f",
+                "665aef84.14ef",
+                "fe5494b0.364cb8",
+                "6e9aa67a.0b96a8",
+                "ce675edd.24ebb8"
+            ]
+        ]
+    },
+    {
+        "id": "1b4f8040.0998b",
+        "type": "switch",
+        "z": "c716ffd5.d195d",
+        "name": "Is correct entry?",
+        "property": "flag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "5",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 560,
+        "y": 100,
+        "wires": [
+            [
+                "6b82f3bf.6f0894"
+            ]
+        ]
+    },
+    {
+        "id": "514c60e6.97d12",
+        "type": "inject",
+        "z": "c716ffd5.d195d",
+        "name": "Healthcheck Verification",
+        "topic": "emergencyTime",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "0",
+        "x": 170,
+        "y": 220,
+        "wires": [
+            [
+                "3c514c4a.76bf04",
+                "2aafec8.6b2b714"
+            ]
+        ]
+    },
+    {
+        "id": "d79095c2.2370f",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "HC3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 350,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "f5cf0e6d.904338",
+        "type": "function",
+        "z": "c716ffd5.d195d",
+        "name": "Physical Entity mock",
+        "func": "msg.flag=msg.payload.split(\"\\t\")[1][0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 260,
+        "y": 100,
+        "wires": [
+            [
+                "21463b73.1a206c",
+                "1b4f8040.0998b"
+            ]
+        ]
+    },
+    {
+        "id": "3c514c4a.76bf04",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "HC2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 390,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "21463b73.1a206c",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "FLAG1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 510,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "25ca698.9691016",
+        "type": "random",
+        "z": "c716ffd5.d195d",
+        "name": "Random emergency",
+        "low": "5",
+        "high": "5",
+        "inte": "true",
+        "x": 300,
+        "y": 20,
+        "wires": [
+            [
+                "debe76c9.6e646"
+            ]
+        ]
+    },
+    {
+        "id": "29cfc44d.90d17c",
+        "type": "inject",
+        "z": "c716ffd5.d195d",
+        "name": "",
+        "topic": "s.guzmanm@uniandes.edu.co",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "11",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 90,
+        "y": 20,
+        "wires": [
+            [
+                "25ca698.9691016"
+            ]
+        ]
+    },
+    {
+        "id": "ede1b737.188af",
+        "type": "mqtt in",
+        "z": "c716ffd5.d195d",
+        "name": "",
+        "topic": "Arduino007.envio",
+        "qos": "0",
+        "broker": "95b6be9c.590918",
+        "x": 80,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "debe76c9.6e646",
+        "type": "function",
+        "z": "c716ffd5.d195d",
+        "name": "Put id",
+        "func": "msg.payload=\"Arduino007\\t\"+msg.payload+\"\\t3141\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 190,
+        "y": 60,
+        "wires": [
+            [
+                "f5cf0e6d.904338"
+            ]
+        ]
+    },
+    {
+        "id": "665aef84.14ef",
+        "type": "switch",
+        "z": "c716ffd5.d195d",
+        "name": "Is emergency?",
+        "property": "flag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 680,
+        "y": 240,
+        "wires": [
+            [
+                "25fc6e52.0751da",
+                "c7412491.606b18"
+            ]
+        ]
+    },
+    {
+        "id": "25fc6e52.0751da",
+        "type": "http request",
+        "z": "c716ffd5.d195d",
+        "name": "POST REQUEST",
+        "method": "POST",
+        "ret": "txt",
+        "url": "172.24.42.57:9000/mensaje",
+        "tls": "",
+        "x": 940,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fe5494b0.364cb8",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "HC4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "flag",
+        "x": 540,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "c7412491.606b18",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "HC5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 880,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "6e9aa67a.0b96a8",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "TEST",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "test",
+        "x": 120,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "ce675edd.24ebb8",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "TEST2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "test2",
+        "x": 250,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "6bf43a36.a4b31c",
+        "type": "inject",
+        "z": "9f25517e.dc5bc8",
+        "name": "TIME INTERVAL",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "4cea937a.702394"
+            ]
+        ]
+    },
+    {
+        "id": "4cea937a.702394",
+        "type": "function",
+        "z": "9f25517e.dc5bc8",
+        "name": "HEALTHCHECK",
+        "func": "msg.payload={\"Hub\":\"Hub007\"}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 140,
+        "wires": [
+            [
+                "e8a59ca3.44937"
+            ]
+        ]
+    },
+    {
+        "id": "e8a59ca3.44937",
+        "type": "http request",
+        "z": "9f25517e.dc5bc8",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "url": "http://172.24.42.57:9000/yale",
+        "tls": "",
+        "x": 580,
+        "y": 140,
+        "wires": [
+            []
+        ]
     }
 ]
