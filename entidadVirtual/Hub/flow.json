@@ -3,7 +3,7 @@
         "id": "a81c23f3.bd483",
         "type": "tab",
         "label": "Telemetry Flow",
-        "disabled": false,
+        "disabled": true,
         "info": ""
     },
     {
@@ -17,21 +17,21 @@
         "id": "ddb0bb9c.500fa8",
         "type": "tab",
         "label": "PasswordEditing Flow",
-        "disabled": false,
+        "disabled": true,
         "info": ""
     },
     {
         "id": "c716ffd5.d195d",
         "type": "tab",
         "label": "MicrocontrollerHealthcheck Flow",
-        "disabled": false,
+        "disabled": true,
         "info": ""
     },
     {
         "id": "9f25517e.dc5bc8",
         "type": "tab",
         "label": "HubHealthcheckFlow",
-        "disabled": false,
+        "disabled": true,
         "info": ""
     },
     {
@@ -116,7 +116,7 @@
         "port": "8083",
         "tls": "b43d730.8b5731",
         "clientid": "",
-        "usetls": true,
+        "usetls": false,
         "compatmode": true,
         "keepalive": "60",
         "cleansession": true,
@@ -136,7 +136,7 @@
         "port": "8083",
         "tls": "b43d730.8b5731",
         "clientid": "",
-        "usetls": true,
+        "usetls": false,
         "compatmode": true,
         "keepalive": "60",
         "cleansession": true,
@@ -156,7 +156,7 @@
         "port": "8083",
         "tls": "b43d730.8b5731",
         "clientid": "",
-        "usetls": true,
+        "usetls": false,
         "compatmode": true,
         "keepalive": "60",
         "cleansession": true,
@@ -176,7 +176,7 @@
         "port": "8083",
         "tls": "b43d730.8b5731",
         "clientid": "",
-        "usetls": true,
+        "usetls": false,
         "compatmode": true,
         "keepalive": "60",
         "cleansession": true,
@@ -196,7 +196,7 @@
         "port": "8083",
         "tls": "b43d730.8b5731",
         "clientid": "",
-        "usetls": true,
+        "usetls": false,
         "compatmode": true,
         "keepalive": "60",
         "cleansession": true,
@@ -216,7 +216,7 @@
         "port": "8083",
         "tls": "b43d730.8b5731",
         "clientid": "",
-        "usetls": true,
+        "usetls": false,
         "compatmode": true,
         "keepalive": "60",
         "cleansession": true,
@@ -374,7 +374,7 @@
         "tostatus": false,
         "complete": "payload",
         "x": 640,
-        "y": 320,
+        "y": 360,
         "wires": []
     },
     {
@@ -417,7 +417,7 @@
         "topic": "Centro/Toscana/emergencia/puertaAbierta/2-503",
         "qos": "0",
         "retain": "false",
-        "broker": "66020ec3.36326",
+        "broker": "21be8c88.6d7f64",
         "x": 1190,
         "y": 60,
         "wires": []
@@ -483,7 +483,7 @@
         "topic": "Centro/Toscana/emergencia/aperturaSospechosa/2-503",
         "qos": "0",
         "retain": "false",
-        "broker": "6bf30e21.7143f",
+        "broker": "21be8c88.6d7f64",
         "x": 1250,
         "y": 200,
         "wires": []
@@ -510,7 +510,7 @@
         "topic": "Centro/Toscana/emergencia/aperturaNoPermitida/2-503",
         "qos": "0",
         "retain": "false",
-        "broker": "dec95f12.953088",
+        "broker": "21be8c88.6d7f64",
         "x": 1290,
         "y": 320,
         "wires": []
@@ -537,7 +537,7 @@
         "topic": "Centro/Toscana/emergencia/bateriaCritica/2-503",
         "qos": "0",
         "retain": "false",
-        "broker": "d61fe174.7f0c2",
+        "broker": "21be8c88.6d7f64",
         "x": 1130,
         "y": 440,
         "wires": []
@@ -591,7 +591,7 @@
         "name": "",
         "topic": "Arduino007.envio",
         "qos": "0",
-        "broker": "95b6be9c.590918",
+        "broker": "21be8c88.6d7f64",
         "x": 80,
         "y": 80,
         "wires": [
@@ -677,83 +677,21 @@
         ]
     },
     {
-        "id": "d7caeb35.e8e19",
-        "type": "function",
-        "z": "34f6a4a0.c4adbc",
-        "name": "Merge 2 Messages",
-        "func": "context.data = context.data || {};\n\nswitch (msg.topic) \n{\n    case \"emergencyTime\":\n        context.data.sensetime = msg.payload;\n        msg = null;\n        break;\n    case \"entryHub\":\n        context.data.entry = msg.payload;\n        context.flag=msg.payload.entry;\n        msg = null;\n        break;\n    default:\n        msg = null;\n    \tbreak;\n}\n\nif(context.flag!=null && context.data.sensetime != null && context.data.entry != null) \n{\n\tres = {};\n    res.payload = JSON.stringify(context.data);\n    res.flag=context.flag;\n    res.topic = \"entryHub\";\n    context.data = null;\n    \n    return res;\n}",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 730,
-        "y": 260,
-        "wires": [
-            [
-                "b0c2ea92.1f36a",
-                "738500dc.02aa88",
-                "12234ebf.cfe301"
-            ]
-        ]
-    },
-    {
-        "id": "12234ebf.cfe301",
-        "type": "mqtt out",
-        "z": "34f6a4a0.c4adbc",
-        "name": "Entry",
-        "topic": "Centro/Toscana/apertura/2-503",
-        "qos": "0",
-        "retain": "false",
-        "broker": "6286e69c.ab1e4",
-        "x": 970,
-        "y": 200,
-        "wires": []
-    },
-    {
         "id": "cd7bbca9.598ab8",
         "type": "function",
         "z": "34f6a4a0.c4adbc",
         "name": "Format Physical Entity",
-        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-503\";\nvar conjunto=\"Toscana\";\nvar zona=\"Centro\";\n\ntempArray = msg.payload.split(\"\\t\");\nres.topic = \"entryHub\";\nres.payload = {};\n\nres.payload = {\"id\": tempArray[0], \"entry\":tempArray[1][0],\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona,\"codigo\":tempArray[2]}\n\nreturn res;",
+        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-503\";\nvar conjunto=\"Toscana\";\nvar username=\"sguzmanm\";\nvar password=\"s.guzmanm.00\";\n\ntempArray = msg.payload.split(\";\");\nres.topic = \"entryHub\";\nres.payload = {};\nres.payload = {\"apartamento\": apartamento, \"conjunto\": conjunto,\"codigo\":tempArray[0],\"username\":username,\"password\":password};\n\nglobal.set(\"arduinoRequestDate\",new Date());\nglobal.set(\"arduinoTimeout\",tempArray[1]);\nglobal.set(\"scope\",\"unidadesResidenciales/\"+conjunto+\"/inmuebles/\"+apartamento+\"/horariosHub\");\nreturn res;",
         "outputs": 1,
         "noerr": 0,
         "x": 520,
-        "y": 200,
+        "y": 300,
         "wires": [
             [
                 "8c172336.62932",
-                "d7caeb35.e8e19"
+                "fd2e839d.c06e1"
             ]
         ]
-    },
-    {
-        "id": "2ba70be2.744fac",
-        "type": "function",
-        "z": "34f6a4a0.c4adbc",
-        "name": "Format Time",
-        "func": "var res = {};\n\n\nres.payload = new Date(msg.payload);\nres.topic = msg.topic;\n\nreturn res;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 390,
-        "y": 320,
-        "wires": [
-            [
-                "ef591d0e.67c148",
-                "d7caeb35.e8e19"
-            ]
-        ]
-    },
-    {
-        "id": "b0c2ea92.1f36a",
-        "type": "debug",
-        "z": "34f6a4a0.c4adbc",
-        "name": "Flag",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "flag",
-        "x": 830,
-        "y": 360,
-        "wires": []
     },
     {
         "id": "738500dc.02aa88",
@@ -779,7 +717,7 @@
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 690,
+        "x": 710,
         "y": 160,
         "wires": []
     },
@@ -809,46 +747,11 @@
         ]
     },
     {
-        "id": "907bfd3f.eb5ba8",
-        "type": "inject",
-        "z": "34f6a4a0.c4adbc",
-        "name": "Send Time",
-        "topic": "emergencyTime",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "1",
-        "crontab": "",
-        "once": false,
-        "onceDelay": "0",
-        "x": 130,
-        "y": 240,
-        "wires": [
-            [
-                "174ceca7.2df74b",
-                "2ba70be2.744fac"
-            ]
-        ]
-    },
-    {
-        "id": "ef591d0e.67c148",
-        "type": "debug",
-        "z": "34f6a4a0.c4adbc",
-        "name": "After Format 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "x": 620,
-        "y": 340,
-        "wires": []
-    },
-    {
         "id": "bf0a8711.72761",
         "type": "function",
         "z": "34f6a4a0.c4adbc",
         "name": "Physical Entity mock",
-        "func": "msg.flag=msg.payload.split(\"\\t\")[1][0];\nreturn msg;",
+        "func": "msg.flag=msg.payload.split(\";\")[0];\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 260,
@@ -859,20 +762,6 @@
                 "c2818a40.bea788"
             ]
         ]
-    },
-    {
-        "id": "174ceca7.2df74b",
-        "type": "debug",
-        "z": "34f6a4a0.c4adbc",
-        "name": "Before Format 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "x": 400,
-        "y": 260,
-        "wires": []
     },
     {
         "id": "f11155c6.522e1",
@@ -912,11 +801,11 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "repeat": "1",
+        "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 90,
+        "x": 80,
         "y": 40,
         "wires": [
             [
@@ -931,7 +820,7 @@
         "name": "",
         "topic": "Arduino007.envio",
         "qos": "0",
-        "broker": "95b6be9c.590918",
+        "broker": "21be8c88.6d7f64",
         "x": 80,
         "y": 180,
         "wires": [
@@ -959,7 +848,7 @@
         "type": "function",
         "z": "34f6a4a0.c4adbc",
         "name": "Put id",
-        "func": "msg.payload=\"Arduino007\\t\"+msg.payload+\"\\t3141\";\nreturn msg;",
+        "func": "msg.payload=msg.payload+\";\"+5000;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 190,
@@ -990,7 +879,7 @@
         "name": "",
         "topic": "Centro/Toscana/2-503/claves/Arduino007",
         "qos": "0",
-        "broker": "7864308b.b44098",
+        "broker": "21be8c88.6d7f64",
         "x": 160,
         "y": 120,
         "wires": [
@@ -1494,5 +1383,179 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "fd2e839d.c06e1",
+        "type": "function",
+        "z": "34f6a4a0.c4adbc",
+        "name": "SET TOKEN PARAMS",
+        "func": "msg.payload={\n\"grant_type\":\"http://auth0.com/oauth/grant-type/password-realm\",\n\"username\": msg.payload[\"username\"],\n\"password\": msg.payload[\"password\"],\n\"scope\": \"openid\",\n\"client_id\": \"VFOHkNbDGQJlrFJ8QzfmLkM3EVhDIDFn\", \n\"client_secret\": \"QeQufdmrmAlBLFOkhYhNbR85g6riIH1maey--dJha5YAZCEnnpkrJ3rSq1PO4pRY\", \n\"realm\": \"Username-Password-Authentication\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 820,
+        "y": 220,
+        "wires": [
+            [
+                "d038b3ad.25d01",
+                "54a25c75.eb1244"
+            ]
+        ]
+    },
+    {
+        "id": "d038b3ad.25d01",
+        "type": "http request",
+        "z": "34f6a4a0.c4adbc",
+        "name": "GET TOKEN",
+        "method": "POST",
+        "ret": "obj",
+        "url": "https://isis2503-jamanrique.auth0.com/oauth/token",
+        "tls": "",
+        "x": 1050,
+        "y": 280,
+        "wires": [
+            [
+                "741e02a.60067fc",
+                "a6d117ee.5b77b8"
+            ]
+        ]
+    },
+    {
+        "id": "64557d50.9b7a14",
+        "type": "inject",
+        "z": "34f6a4a0.c4adbc",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 830,
+        "y": 320,
+        "wires": [
+            [
+                "fd2e839d.c06e1"
+            ]
+        ]
+    },
+    {
+        "id": "54a25c75.eb1244",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1030,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "741e02a.60067fc",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1150,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "a6d117ee.5b77b8",
+        "type": "http request",
+        "z": "34f6a4a0.c4adbc",
+        "name": "POST TO TEST",
+        "method": "POST",
+        "ret": "obj",
+        "url": "http://172.24.42.64/horariosHub",
+        "tls": "",
+        "x": 1380,
+        "y": 360,
+        "wires": [
+            [
+                "f179779d.5f3f08",
+                "511b2093.fea8a",
+                "e00bd0a8.abd328"
+            ]
+        ]
+    },
+    {
+        "id": "f179779d.5f3f08",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1310,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "511b2093.fea8a",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "status",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "statusCode",
+        "x": 1580,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "e00bd0a8.abd328",
+        "type": "function",
+        "z": "34f6a4a0.c4adbc",
+        "name": "GET MQTT MSG",
+        "func": "msg.payload=\"CERRAR\";\nvar last=global.get(\"arduinoRequestDate\");\nvar time=global.get(\"arduinoTimeout\");\nvar diffMs = (new Date() - last); // milliseconds between now & Christmas\nif(msg.statusCode==200 && diffMs<=time)\n{\n    msg.payload=\"ABRIR\";\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1700,
+        "y": 320,
+        "wires": [
+            [
+                "f58759ff.7f50e",
+                "ee1c0c4f.f691"
+            ]
+        ]
+    },
+    {
+        "id": "f58759ff.7f50e",
+        "type": "mqtt out",
+        "z": "34f6a4a0.c4adbc",
+        "name": "",
+        "topic": "Arduino007.recibir",
+        "qos": "",
+        "retain": "",
+        "broker": "21be8c88.6d7f64",
+        "x": 1980,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "ee1c0c4f.f691",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "msg result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1960,
+        "y": 280,
+        "wires": []
     }
 ]
