@@ -45,8 +45,7 @@ public class PasswordService {
         }
         msg.msg = AGREGAR+";"+index+";"+val;
         //falta publicar a mosquitto
-        SimpleMqttClient smc = new SimpleMqttClient();
-        smc.runClient();
+        SimpleMqttClient smc = SimpleMqttClient.getInstance();
         smc.publish(msg);
         
         return msg;
@@ -65,8 +64,7 @@ public class PasswordService {
         }
         msg.msg = ACTUALIZAR+";"+index+";"+val;
         //falta publicar a mosquitto
-        SimpleMqttClient smc = new SimpleMqttClient();
-        smc.runClient();
+        SimpleMqttClient smc = SimpleMqttClient.getInstance();
         smc.publish(msg);
         
         return msg;
@@ -82,8 +80,7 @@ public class PasswordService {
         }
         msg.msg = ELIMINAR+";"+index;
         //falta publicar a mosquitto
-        SimpleMqttClient smc = new SimpleMqttClient();
-        smc.runClient();
+        SimpleMqttClient smc = SimpleMqttClient.getInstance();
         smc.publish(msg);
         
         return msg;
@@ -96,8 +93,7 @@ public class PasswordService {
         Msg msg = new Msg();
         msg.msg = ELIMINAR_TODO+"";
         //falta publicar a mosquitto
-        SimpleMqttClient smc = new SimpleMqttClient();
-        smc.runClient();
+        SimpleMqttClient smc = SimpleMqttClient.getInstance();
         smc.publish(msg);
         
         return msg;
