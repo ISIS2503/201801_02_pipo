@@ -3,11 +3,9 @@ import sys
 import hashlib
 import redis
 from flask import Flask,Response,request
-# Código para autenticar y autorizar con el arduino
- #Uso de redis y hashlib para encriptar en md5
+ 
 app = Flask(__name__)
 r = redis.Redis()
-m = hashlib.md5()
 roles=['Lector','Escritor']
  
 @app.route('/auth', methods=['POST'])
@@ -23,13 +21,15 @@ def auth():
       token = auth.split(' ')[1]
       data = base64.b64decode(token).decode("utf-8").split(':')
       username = data[0]
-      password = bytes(data[1],'utf-8')
-      m.update(password)
+      password = bytes(data[1].strip(),'utf-8')
+      m  = hashlib.md5(password)
+      print("PASS",m.hexdigest())
       print("data: ",data,password)
       redis=r.get(username).decode('utf-8')
-      print(redis)
-      print (m.hexdigest())
-      if redis == m.hexdigest():
+      print("REDIS",redis)
+      digest=m.hexdigest()
+      print("DIGEST",digest)
+      if redis == digest:
           response.status_code = 200
     except:
       pass
