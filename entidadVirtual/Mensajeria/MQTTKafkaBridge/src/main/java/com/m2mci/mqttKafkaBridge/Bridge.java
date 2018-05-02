@@ -11,20 +11,65 @@ import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.kohsuke.args4j.CmdLineException;
+
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.openssl.*;
+import org.bouncycastle.openssl.PEMReader;
+
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManagerFactory;
+
+import java.security.KeyPair;
+import java.security.KeyStore;
+import java.security.Security;
+import java.security.cert.X509Certificate;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.logging.Level;
 
 public class Bridge implements MqttCallback {
 	private Logger logger = Logger.getLogger(this.getClass().getName());
 	private MqttAsyncClient mqtt;
 	private Producer<String, String> kafkaProducer;
+        private MqttConnectOptions connOpt;
+        
+    static final String ROOT = "C:/Users/se.cardenas/Documents/201810_02_pipo/entidadVirtual/Mensajeria/MQTTKafkaBridge";
+    static final String CA_FILE_PATH = "/ssl/ca.crt";
+    static final String CLIENT_CRT_FILE_PATH = "/ssl/server.crt";
+    static final String CLIENT_KEY_FILE_PATH = "/ssl/server.key";
+    static final String MQTT_USER_NAME = "BridgeCentro";
+    static final String MQTT_PASSWORD = "4525b5129ae9d1158f98997a1fe5f598";
 	
 	private void connect(String serverURI, String clientId, String zkConnect) throws MqttException {
 		
-		mqtt = new MqttAsyncClient(serverURI, clientId);
-		mqtt.setCallback(this);
-		IMqttToken token = mqtt.connect();
+            mqtt = new MqttAsyncClient(serverURI, clientId);
+            mqtt.setCallback(this);
+            connOpt = new MqttConnectOptions();
+            connOpt.setKeepAliveInterval(30);
+            connOpt.setMqttVersion(MqttConnectOptions.MQTT_VERSION_3_1);
+            connOpt.setUserName(MQTT_USER_NAME);
+            connOpt.setPassword(MQTT_PASSWORD.toCharArray());
+
+            //socket factory
+            SSLSocketFactory socketFactory;
+            try {
+                socketFactory = getSocketFactory(ROOT+CA_FILE_PATH, ROOT+CLIENT_CRT_FILE_PATH, ROOT+CLIENT_KEY_FILE_PATH, "");
+                connOpt.setSocketFactory(socketFactory);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+                
+                
+		IMqttToken token = mqtt.connect(connOpt);
 		Properties props = new Properties();
 		
 		//Updated based on Kafka v0.8.1.1
@@ -40,7 +85,7 @@ public class Bridge implements MqttCallback {
 	}
 
 	private void reconnect() throws MqttException {
-		IMqttToken token = mqtt.connect();
+		IMqttToken token = mqtt.connect(connOpt);
 		token.waitForCompletion();
 	}
 	
@@ -86,6 +131,56 @@ public class Bridge implements MqttCallback {
 		KeyedMessage<String, String> data = new KeyedMessage<String, String>(x, new String(payload));
 		kafkaProducer.send(data);
 	}
+        
+    static SSLSocketFactory getSocketFactory (final String caCrtFile, final String crtFile, final String keyFile, 
+	                                          final String password) throws Exception
+    {
+        Security.addProvider(new BouncyCastleProvider());
+
+        // load CA certificate
+        PEMReader reader = new PEMReader(new InputStreamReader(new ByteArrayInputStream(Files.readAllBytes(Paths.get(caCrtFile)))));
+        X509Certificate caCert = (X509Certificate)reader.readObject();
+        reader.close();
+
+        // load client certificate
+        reader = new PEMReader(new InputStreamReader(new ByteArrayInputStream(Files.readAllBytes(Paths.get(crtFile)))));
+        X509Certificate cert = (X509Certificate)reader.readObject();
+        reader.close();
+
+        // load client private key
+        reader = new PEMReader(
+            new InputStreamReader(new ByteArrayInputStream(Files.readAllBytes(Paths.get(keyFile)))),
+            new PasswordFinder() {
+                @Override
+                public char[] getPassword() {
+                        return password.toCharArray();
+                }
+            }
+        );
+        KeyPair key = (KeyPair)reader.readObject();
+        reader.close();
+
+        // CA certificate is used to authenticate server
+        KeyStore caKs = KeyStore.getInstance(KeyStore.getDefaultType());
+        caKs.load(null, null);
+        caKs.setCertificateEntry("ca-certificate", caCert);
+        TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+        tmf.init(caKs);
+
+        // client key and certificates are sent to server so it can authenticate us
+        KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+        ks.load(null, null);
+        ks.setCertificateEntry("certificate", cert);
+        ks.setKeyEntry("private-key", key.getPrivate(), password.toCharArray(), new java.security.cert.Certificate[]{cert});
+        KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+        kmf.init(ks, password.toCharArray());
+
+        // finally, create SSL socket factory
+        SSLContext context = SSLContext.getInstance("TLSv1.2");
+        context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+
+        return context.getSocketFactory();
+    }
 
 	/**
 	 * @param args
