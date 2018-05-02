@@ -36,6 +36,8 @@ public class SimpleMqttClient implements MqttCallback {
     MqttConnectOptions connOpt;
 
     MqttTopic topic;
+    
+    private static SimpleMqttClient client = null;
 
     static final String BROKER_URL = "ssl://172.24.41.182:8083";
     static final String M2MIO_THING = "clavesRest";
@@ -48,7 +50,14 @@ public class SimpleMqttClient implements MqttCallback {
     
     //private static SimpleMqttClient mqttClient = null;
 
-
+    public static SimpleMqttClient getInstance() {
+        if(client==null) {
+            client = new SimpleMqttClient();
+            client.runClient();
+        }
+        return client;
+    }
+    
     /**
      * 
      * connectionLost
@@ -84,7 +93,6 @@ public class SimpleMqttClient implements MqttCallback {
      */
     public void runClient() {
             // setup MQTT Client
-            //System.setProperty("https.protocols", "SSLv3,TLSv1,TLSv1.1,TLSv1.2");
             String clientID = M2MIO_THING;
             connOpt = new MqttConnectOptions();
             connOpt.setCleanSession(true);
@@ -100,13 +108,13 @@ public class SimpleMqttClient implements MqttCallback {
                 socketFactory = getSocketFactory(ROOT+CA_FILE_PATH, ROOT+CLIENT_CRT_FILE_PATH, ROOT+CLIENT_KEY_FILE_PATH, "");
                 connOpt.setSocketFactory(socketFactory);
                 myClient.connect(connOpt);
+                System.out.println("Connected to " + BROKER_URL);
             } catch (MqttException e) {
                 e.printStackTrace();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-
-            System.out.println("Connected to " + BROKER_URL);
+            
 
             // setup topic
             // topics on m2m.io are in the form <domain>/<stuff>/<thing>
@@ -147,6 +155,7 @@ public class SimpleMqttClient implements MqttCallback {
             token = topic.publish(message);
             // Wait until the message has been delivered to the broker
             token.waitForCompletion();
+            System.out.println("llegó");
             Thread.sleep(100);
         } catch (Exception e) {
             e.printStackTrace();
@@ -197,7 +206,7 @@ public class SimpleMqttClient implements MqttCallback {
 		kmf.init(ks, password.toCharArray());
 
 		// finally, create SSL socket factory
-		SSLContext context = SSLContext.getInstance("TLSv1");
+		SSLContext context = SSLContext.getInstance("TLSv1.2");
 		context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
 
 		return context.getSocketFactory();
