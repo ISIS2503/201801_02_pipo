@@ -22,7 +22,7 @@ char bufferData [SIZE_BUFFER_DATA];
 
 const String KEY[] = {"3141","2718","1234"};
 
-String      inputString = "";
+String inputString = "";
 
 const byte ROWS = 4;
 
@@ -61,6 +61,18 @@ String firstVal="";
 String secondVal="";
 
 long currTime;
+
+long timeConfirmacion;
+
+const int tiempoTimeout=5000;
+
+boolean esperandoConfirmacion=false;
+
+boolean confirmado=false;
+
+boolean cerrar=false;
+
+boolean intentoFallido=false;
 
 //Keypad mapping matrix
 char hexaKeys[ROWS][COLS] = {
@@ -320,7 +332,15 @@ void loop() {
     inputString = inputString.substring(0,inputString.length()-1);
     processCommand(inputString);
     firstVal.trim();
-    if(firstVal=="NEW_PASSWORD")
+    if(firstVal=="ABRIR")
+    {
+      confirmado=true;
+    }
+    else if(firstVal=="CERRAR")
+    {
+      cerrar=true;
+    }
+    else if(firstVal=="NEW_PASSWORD")
     {
       processCommand(secondVal);
     addPassword(secondVal.toInt(), firstVal.toInt());
@@ -368,30 +388,34 @@ void loop() {
         attempts = 0;
       }
       //Leer número
-      if (customKey && customKey!='*' && customKey!='#') {  
-        currentKey+=String(customKey);
-      }
-      //Reiniciar Clave
-      else if(customKey && customKey=='#')
-      {
-        currentKey = "";
-      }
-      //Se ingresó clave
-      else if(currentKey.length()==4)
-      {
-        //verificar clave
-       boolean comparacion=compareKey(currentKey);
-       if(comparacion) {
+
+       if(confirmado) {
+         esperandoConfirmacion=false;
+         confirmado=false;
          estado = PUERTA_ABIERTA_TECLADO;            
          permitidoEntrar = true;
          setColor(0, 255, 0);
          attempts = 0;
          currTime = millis();
        }
-        
-        currentKey = "";
-        //Clave incorrecta
-        if(!permitidoEntrar) {    
+
+       if(cerrar)
+       {
+        intentoFallido=true;
+        esperandoConfirmacion=false;
+        cerrar=false;
+       }
+
+       if(esperandoConfirmacion && millis()-timeConfirmacion>tiempoTimeout)
+       {
+          esperandoConfirmacion=false;
+          setColor(255,0, 255);
+          delay(1000);
+          setColor(0,0, 255);
+       }
+
+       if(intentoFallido) {    
+          intentoFallido=false;
           attempts = attempts + 1;
           setColor(255, 0, 0);
           //Máximo número de intentos incorrectos 
@@ -408,6 +432,37 @@ void loop() {
             delay(1000);
           }
         }
+      
+      if (customKey && customKey!='*' && customKey!='#' && !esperandoConfirmacion) {  
+        currentKey+=String(customKey);
+      }
+      
+      //Reiniciar Clave
+      else if(customKey && customKey=='#')
+      {
+        currentKey = "";
+      }
+      //Se ingresó clave
+      else if(currentKey.length()==4)
+      {
+        //verificar clave
+       boolean comparacion=compareKey(currentKey);
+
+       if(comparacion){
+        currentKey = "";
+        comparacion=false;
+        timeConfirmacion = millis();
+        Serial.println('0;'+tiempoTimeout);
+        esperandoConfirmacion=true;
+       }
+       else
+       {
+        intentoFallido=true;
+       }
+        
+        currentKey = "";
+        //Clave incorrecta
+        
       }
       break;
     //Estado Puerta abierta botón
