@@ -99,6 +99,36 @@ def requires_auth(auth_type):
     return decorated
   return decorator
 
+@app.route('/horariosHub', methods=[POST])
+def confirmarHorariosHubs():
+  # Maneja la respuesta desde el endpoint del token
+  #resp = auth0.authorized_response()
+    if request.method == POST:
+      print("HOLA")
+      print(request.data)
+      resp = loads(request.data)
+      
+      url = 'https://' + 'isis2503-jamanrique.auth0.com' + '/userinfo'
+      headers = {'authorization': 'Bearer ' + resp['access_token']}
+      resp = requests.get(url, headers=headers)
+      user_info = resp.json()
+      session['JWT_PAYLOAD'] = user_info
+      session['PROFILE_KEY'] = {
+        'user_id': user_info['sub'],
+        'name': session['JWT_PAYLOAD']['nickname'],
+        'email': user_info['name'],
+        'picture': user_info['picture']
+      }
+      print("TODO BIEN 1")
+      respuesta = []
+      user = db.users.find_one({'auth0_id' : session['PROFILE_KEY']['user_id']})
+      print("USER ",user)
+      scope=""
+      if checkSession(session['PROFILE_KEY']['user_id'], PROPERTY_OWNER, user['scope']):
+       return dumpJson(user['horariosPermitidos'])
+      return "Hubo un error autenticando al usuario",500     
+
+
 @app.route('/testo/<param1>/<param2>')
 @requires_auth(PROPERTY_OWNER)
 def testt(param1, param2):
@@ -113,7 +143,7 @@ def callback_handling():
   # Maneja la respuesta desde el endpoint del token
   #resp = auth0.authorized_response()
   resp = auth0.authorize_access_token()
-  
+  print("RESP",resp)
   url = 'https://' + 'isis2503-jamanrique.auth0.com' + '/userinfo'
   headers = {'authorization': 'Bearer ' + resp['access_token']}
   resp = requests.get(url, headers=headers)
