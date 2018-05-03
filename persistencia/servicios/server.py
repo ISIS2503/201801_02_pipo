@@ -90,6 +90,7 @@ def requires_auth(auth_type):
       for arg in kwargs:
         scope += kwargs[arg] + '/'
       scope = scope[:-1]
+      print("SESION",session['PROFILE_KEY'])
       if 'PROFILE_KEY' not in session:
           return redirect('/login')
       elif checkSession(session['PROFILE_KEY']['user_id'], auth_type, scope):
@@ -104,10 +105,7 @@ def confirmarHorariosHubs():
   # Maneja la respuesta desde el endpoint del token
   #resp = auth0.authorized_response()
     if request.method == POST:
-      print("HOLA")
-      print(request.data)
       resp = loads(request.data)
-      
       url = 'https://' + 'isis2503-jamanrique.auth0.com' + '/userinfo'
       headers = {'authorization': 'Bearer ' + resp['access_token']}
       resp = requests.get(url, headers=headers)
@@ -119,14 +117,10 @@ def confirmarHorariosHubs():
         'email': user_info['name'],
         'picture': user_info['picture']
       }
-      print("TODO BIEN 1")
-      respuesta = []
       user = db.users.find_one({'auth0_id' : session['PROFILE_KEY']['user_id']})
-      print("USER ",user)
-      scope=""
       if checkSession(session['PROFILE_KEY']['user_id'], PROPERTY_OWNER, user['scope']):
        return dumpJson(user['horariosPermitidos'])
-      return "Hubo un error autenticando al usuario",500     
+      return "Hubo un error autenticando al usuario",403     
 
 
 @app.route('/testo/<param1>/<param2>')
