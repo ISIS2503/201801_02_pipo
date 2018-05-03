@@ -248,7 +248,7 @@ void loop()
   if (millis() - timeHealthcheck > tiempoHealthcheck)
   {
     timeHealthcheck = millis();
-    Serial.println("5");
+    Serial.println(boardId+"\t5");
   }
 
   //PIR
@@ -354,7 +354,6 @@ void loop()
     }
     else if (firstVal == "NEW_PASSWORD")
     {
-      Serial.println("nueva Pass " + secondVal);
       processCommand(secondVal);
       addPassword(secondVal.toInt(), firstVal.toInt());
     }
@@ -406,27 +405,31 @@ void loop()
 
     if (confirmado)
     {
-      Serial.println("se abrió");
+      
+      if(esperandoConfirmacion) {
+        estado = PUERTA_ABIERTA_TECLADO;
+        permitidoEntrar = true;
+        setColor(0, 255, 0);
+        attempts = 0;
+        currTime = millis();
+      }
       esperandoConfirmacion = false;
       confirmado = false;
-      estado = PUERTA_ABIERTA_TECLADO;
-      permitidoEntrar = true;
-      setColor(0, 255, 0);
-      attempts = 0;
-      currTime = millis();
     }
 
     if (cerrar)
     {
-      Serial.println("denegado");
-      intentoFallido = true;
+      if(esperandoConfirmacion) {
+        Serial.println("denegado");
+        intentoFallido = true;
+        
+      }
       esperandoConfirmacion = false;
       cerrar = false;
     }
 
     if (esperandoConfirmacion && millis() - timeConfirmacion > tiempoTimeout)
     {
-      Serial.println("timeout");
       esperandoConfirmacion = false;
       setColor(255, 0, 255);
       delay(1000);
@@ -458,7 +461,6 @@ void loop()
     if (customKey && customKey != '*' && customKey != '#' && !esperandoConfirmacion)
     {
       currentKey += String(customKey);
-      Serial.println("currentKey " + currentKey);
     }
 
     //Reiniciar Clave
@@ -469,23 +471,21 @@ void loop()
     //Se ingresó clave
     else if (currentKey.length() == 4)
     {
-      Serial.println("llegaLength");
       //verificar clave
       boolean comparacion = compareKey(currentKey);
 
       if (comparacion)
       {
-        Serial.println("comparacion Correcta");
+        //Serial.println("comparacion Correcta");
         currentKey = "";
         comparacion = false;
         timeConfirmacion = millis();
-        Serial.println('0;' + tiempoTimeout);
+        Serial.println(boardId+"\t0\t" + String(tiempoTimeout));
         esperandoConfirmacion = true;
-        setColor(255, 255, 0);
+        setColor(255, 255, 255);
       }
       else
       {
-        Serial.println("comparacion Fallida");
         intentoFallido = true;
       }
 
