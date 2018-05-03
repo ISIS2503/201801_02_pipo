@@ -42,7 +42,7 @@ public class SimpleMqttClient implements MqttCallback {
     static final String CLIENT_CRT_FILE_PATH = "/ssl/server.crt";
     static final String CLIENT_KEY_FILE_PATH = "/ssl/server.key";
     static final String MQTT_USER_NAME = "ClavesArduino007";
-    static final String MQTT_PASSWORD = "4525b5129ae9d1158f98997a1fe5f598";
+    static final String MQTT_PASSWORD = "piporules";
     
     //private static SimpleMqttClient mqttClient = null;
 
@@ -151,7 +151,6 @@ public class SimpleMqttClient implements MqttCallback {
             // Wait until the message has been delivered to the broker
             token.waitForCompletion();
             System.out.println("llegó");
-            Thread.sleep(100);
         } catch (Exception e) {
             e.printStackTrace();
         }

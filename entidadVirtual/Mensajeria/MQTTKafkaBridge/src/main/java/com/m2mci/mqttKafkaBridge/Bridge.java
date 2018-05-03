@@ -47,7 +47,7 @@ public class Bridge implements MqttCallback {
     static final String CLIENT_CRT_FILE_PATH = "/ssl/server.crt";
     static final String CLIENT_KEY_FILE_PATH = "/ssl/server.key";
     static final String MQTT_USER_NAME = "BridgeCentro";
-    static final String MQTT_PASSWORD = "4525b5129ae9d1158f98997a1fe5f598";
+    static final String MQTT_PASSWORD = "piporules";
 	
 	private void connect(String serverURI, String clientId, String zkConnect) throws MqttException {
 		
