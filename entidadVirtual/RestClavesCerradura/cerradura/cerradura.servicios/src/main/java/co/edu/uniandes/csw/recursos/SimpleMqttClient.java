@@ -1,9 +1,6 @@
 package co.edu.uniandes.csw.recursos;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -37,21 +34,22 @@ public class SimpleMqttClient implements MqttCallback {
 
     MqttTopic topic;
     
+    boolean conectado = false;
+    
     private static SimpleMqttClient client = null;
 
     static final String BROKER_URL = "ssl://172.24.41.182:8083";
-    static final String M2MIO_THING = "clavesRest";
     static final String ROOT = "C:/Users/se.cardenas/Documents/201810_02_pipo/entidadVirtual/RestClavesCerradura/cerradura/cerradura.servicios";
     static final String CA_FILE_PATH = "/ssl/ca.crt";
     static final String CLIENT_CRT_FILE_PATH = "/ssl/server.crt";
     static final String CLIENT_KEY_FILE_PATH = "/ssl/server.key";
     static final String MQTT_USER_NAME = "ClavesArduino007";
-    static final String MQTT_PASSWORD = "4525b5129ae9d1158f98997a1fe5f598";
+    static final String MQTT_PASSWORD = "piporules";
     
     //private static SimpleMqttClient mqttClient = null;
 
     public static SimpleMqttClient getInstance() {
-        if(client==null) {
+        if(client==null || !client.conectado) {
             client = new SimpleMqttClient();
             client.runClient();
         }
@@ -66,9 +64,9 @@ public class SimpleMqttClient implements MqttCallback {
      */
     @Override
     public void connectionLost(Throwable t) {
-            System.out.println("Connection lost!");
-            // code to reconnect to the broker would go here if desired
-            
+        System.out.println("Connection lost!");
+        // code to reconnect to the broker would go here if desired
+        conectado = false;
     }
 
     /**
@@ -93,22 +91,23 @@ public class SimpleMqttClient implements MqttCallback {
      */
     public void runClient() {
             // setup MQTT Client
-            String clientID = M2MIO_THING;
             connOpt = new MqttConnectOptions();
             connOpt.setCleanSession(true);
             connOpt.setKeepAliveInterval(30);
             connOpt.setMqttVersion(MqttConnectOptions.MQTT_VERSION_3_1);
             connOpt.setUserName(MQTT_USER_NAME);
             connOpt.setPassword(MQTT_PASSWORD.toCharArray());
+            //connOpt.setConnectionTimeout();
             // Connect to Broker
             SSLSocketFactory socketFactory;
             try {
-                myClient = new MqttClient(BROKER_URL, clientID);
+                myClient = new MqttClient(BROKER_URL, MqttClient.generateClientId());
                 myClient.setCallback(this);
                 socketFactory = getSocketFactory(ROOT+CA_FILE_PATH, ROOT+CLIENT_CRT_FILE_PATH, ROOT+CLIENT_KEY_FILE_PATH, "");
                 connOpt.setSocketFactory(socketFactory);
                 myClient.connect(connOpt);
                 System.out.println("Connected to " + BROKER_URL);
+                conectado = true;
             } catch (MqttException e) {
                 e.printStackTrace();
             } catch (Exception ex) {
@@ -120,14 +119,6 @@ public class SimpleMqttClient implements MqttCallback {
             // topics on m2m.io are in the form <domain>/<stuff>/<thing>
             String myTopic = "Centro/Toscana/2-503/claves/Arduino007";
             topic = myClient.getTopic(myTopic);
-
-            
-        try {
-            
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
             
     }
 
@@ -156,7 +147,7 @@ public class SimpleMqttClient implements MqttCallback {
             // Wait until the message has been delivered to the broker
             token.waitForCompletion();
             System.out.println("llegó");
-            Thread.sleep(100);
+            //Thread.sleep(100);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -164,51 +155,51 @@ public class SimpleMqttClient implements MqttCallback {
     
     static SSLSocketFactory getSocketFactory (final String caCrtFile, final String crtFile, final String keyFile, 
 	                                          final String password) throws Exception
-	{
-		Security.addProvider(new BouncyCastleProvider());
+    {
+        Security.addProvider(new BouncyCastleProvider());
 
-		// load CA certificate
-		PEMReader reader = new PEMReader(new InputStreamReader(new ByteArrayInputStream(Files.readAllBytes(Paths.get(caCrtFile)))));
-		X509Certificate caCert = (X509Certificate)reader.readObject();
-		reader.close();
+        // load CA certificate
+        PEMReader reader = new PEMReader(new InputStreamReader(new ByteArrayInputStream(Files.readAllBytes(Paths.get(caCrtFile)))));
+        X509Certificate caCert = (X509Certificate)reader.readObject();
+        reader.close();
 
-		// load client certificate
-		reader = new PEMReader(new InputStreamReader(new ByteArrayInputStream(Files.readAllBytes(Paths.get(crtFile)))));
-		X509Certificate cert = (X509Certificate)reader.readObject();
-		reader.close();
+        // load client certificate
+        reader = new PEMReader(new InputStreamReader(new ByteArrayInputStream(Files.readAllBytes(Paths.get(crtFile)))));
+        X509Certificate cert = (X509Certificate)reader.readObject();
+        reader.close();
 
-		// load client private key
-		reader = new PEMReader(
-				new InputStreamReader(new ByteArrayInputStream(Files.readAllBytes(Paths.get(keyFile)))),
-				new PasswordFinder() {
-					@Override
-					public char[] getPassword() {
-						return password.toCharArray();
-					}
-				}
-		);
-		KeyPair key = (KeyPair)reader.readObject();
-		reader.close();
+        // load client private key
+        reader = new PEMReader(
+            new InputStreamReader(new ByteArrayInputStream(Files.readAllBytes(Paths.get(keyFile)))),
+            new PasswordFinder() {
+                @Override
+                public char[] getPassword() {
+                        return password.toCharArray();
+                }
+            }
+        );
+        KeyPair key = (KeyPair)reader.readObject();
+        reader.close();
 
-		// CA certificate is used to authenticate server
-		KeyStore caKs = KeyStore.getInstance(KeyStore.getDefaultType());
-		caKs.load(null, null);
-		caKs.setCertificateEntry("ca-certificate", caCert);
-		TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-		tmf.init(caKs);
+        // CA certificate is used to authenticate server
+        KeyStore caKs = KeyStore.getInstance(KeyStore.getDefaultType());
+        caKs.load(null, null);
+        caKs.setCertificateEntry("ca-certificate", caCert);
+        TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+        tmf.init(caKs);
 
-		// client key and certificates are sent to server so it can authenticate us
-		KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
-		ks.load(null, null);
-		ks.setCertificateEntry("certificate", cert);
-		ks.setKeyEntry("private-key", key.getPrivate(), password.toCharArray(), new java.security.cert.Certificate[]{cert});
-		KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-		kmf.init(ks, password.toCharArray());
+        // client key and certificates are sent to server so it can authenticate us
+        KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+        ks.load(null, null);
+        ks.setCertificateEntry("certificate", cert);
+        ks.setKeyEntry("private-key", key.getPrivate(), password.toCharArray(), new java.security.cert.Certificate[]{cert});
+        KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+        kmf.init(ks, password.toCharArray());
 
-		// finally, create SSL socket factory
-		SSLContext context = SSLContext.getInstance("TLSv1.2");
-		context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+        // finally, create SSL socket factory
+        SSLContext context = SSLContext.getInstance("TLSv1.2");
+        context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
 
-		return context.getSocketFactory();
-	}
+        return context.getSocketFactory();
+    }
 }
