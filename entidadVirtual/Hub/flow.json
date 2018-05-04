@@ -16,7 +16,7 @@
     {
         "id": "ddb0bb9c.500fa8",
         "type": "tab",
-        "label": "PasswordEditing Flow",
+        "label": "PrivatePopertyOwnerFlow",
         "disabled": false,
         "info": ""
     },
@@ -232,7 +232,7 @@
         "type": "mqtt-broker",
         "z": "",
         "name": "Arduino007.recibir",
-        "broker": "172.24.41.182",
+        "broker": "172.24.41.174",
         "port": "8083",
         "tls": "b43d730.8b5731",
         "clientid": "",
@@ -267,6 +267,90 @@
         "birthPayload": ""
     },
     {
+        "id": "5d4d54b.bf3e5ac",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/2-503/alarmas/Arduino007",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/2-503/alarmas/Arduino007",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/2-503/alarmas/Arduino007",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "39d8c307.06b4a4",
+        "type": "tls-config",
+        "z": "",
+        "name": "CONF MANRIQUE",
+        "cert": "",
+        "key": "",
+        "ca": "/Users/SIS/ja.manrique/ssl/m2mqtt_ca.crt",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "verifyservercert": false
+    },
+    {
+        "id": "423d96e9.1578",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "TEST",
+        "broker": "172.24.41.183",
+        "port": "8083",
+        "tls": "7286d002.605868",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "e199261a.efb0f8",
+        "type": "mqtt-broker",
+        "z": "",
+        "broker": "172.23.65.161",
+        "port": "8083",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "7286d002.605868",
+        "type": "tls-config",
+        "z": "",
+        "name": "CONF CARLOS",
+        "cert": "",
+        "key": "",
+        "ca": "/Users/SIS/cm.sarmiento10/Documents/ssl/m2mqtt_ca.crt",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "verifyservercert": false
+    },
+    {
         "id": "24d81772.16ff1",
         "type": "inject",
         "z": "a81c23f3.bd483",
@@ -292,7 +376,7 @@
         "type": "function",
         "z": "a81c23f3.bd483",
         "name": "Format Physical Entity",
-        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-503\"\nvar conjunto=\"Toscana\"\nvar zona=\"Centro\"\n\ntempArray = msg.payload.split(\"\\t\");\nres.topic = \"emergencyHub\";\nres.payload = {};\n\nres.payload = {\"id\": tempArray[0], \"emergencia\":tempArray[1][0],\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona}\n\nreturn res;",
+        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-503\"\nvar conjunto=\"Toscana\"\nvar zona=\"Centro\"\n//Set the alarm sending to true by default\nif(typeof global.get(\"emailActivated\")=='undefined')\n{\n    global.set(\"emailActivated\",true);\n}\n\ntempArray = msg.payload.split(\"\\t\");\nres.topic = \"emergencyHub\";\nres.payload = {};\n\nres.payload = {\"id\": tempArray[0], \"emergencia\":tempArray[1][0],\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona}\n\nreturn res;",
         "outputs": 1,
         "noerr": 0,
         "x": 540,
@@ -389,9 +473,9 @@
         "y": 240,
         "wires": [
             [
-                "faff2eb0.303eb",
                 "fd8f5986.edef08",
-                "4f8d0b1a.d37044"
+                "4f8d0b1a.d37044",
+                "6318c0ff.7b8ff"
             ]
         ]
     },
@@ -405,7 +489,7 @@
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 1240,
+        "x": 1340,
         "y": 140,
         "wires": []
     },
@@ -418,7 +502,7 @@
         "qos": "0",
         "retain": "false",
         "broker": "66020ec3.36326",
-        "x": 1190,
+        "x": 1290,
         "y": 60,
         "wires": []
     },
@@ -454,7 +538,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 4,
-        "x": 1010,
+        "x": 1070,
         "y": 240,
         "wires": [
             [
@@ -484,7 +568,7 @@
         "qos": "0",
         "retain": "false",
         "broker": "6bf30e21.7143f",
-        "x": 1250,
+        "x": 1350,
         "y": 200,
         "wires": []
     },
@@ -498,7 +582,7 @@
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 1320,
+        "x": 1420,
         "y": 260,
         "wires": []
     },
@@ -511,7 +595,7 @@
         "qos": "0",
         "retain": "false",
         "broker": "dec95f12.953088",
-        "x": 1290,
+        "x": 1390,
         "y": 320,
         "wires": []
     },
@@ -525,7 +609,7 @@
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 1260,
+        "x": 1400,
         "y": 380,
         "wires": []
     },
@@ -538,7 +622,7 @@
         "qos": "0",
         "retain": "false",
         "broker": "d61fe174.7f0c2",
-        "x": 1130,
+        "x": 1270,
         "y": 440,
         "wires": []
     },
@@ -552,7 +636,7 @@
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 1080,
+        "x": 1220,
         "y": 500,
         "wires": []
     },
@@ -592,11 +676,11 @@
         "topic": "Arduino007.envio",
         "qos": "0",
         "broker": "95b6be9c.590918",
-        "x": 80,
-        "y": 80,
+        "x": 220,
+        "y": 160,
         "wires": [
             [
-                "2f5bea78.c63806"
+                "bf17128b.931cc8"
             ]
         ]
     },
@@ -631,7 +715,9 @@
         "x": 260,
         "y": 20,
         "wires": [
-            []
+            [
+                "2f5bea78.c63806"
+            ]
         ]
     },
     {
@@ -642,12 +728,11 @@
         "func": "msg.flag=msg.payload.split(\"\\t\")[1][0];\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 500,
-        "y": 60,
+        "x": 460,
+        "y": 20,
         "wires": [
             [
-                "4052f2a1.f8529c",
-                "bf17128b.931cc8"
+                "4052f2a1.f8529c"
             ]
         ]
     },
@@ -681,7 +766,7 @@
         "type": "function",
         "z": "34f6a4a0.c4adbc",
         "name": "Format Physical Entity",
-        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-503\";\nvar conjunto=\"Toscana\";\nvar username=\"sguzmanm\";\nvar password=\"s.guzmanm.00\";\n\ntempArray = msg.payload.split(\";\");\nres.topic = \"entryHub\";\nres.payload = {};\nres.payload = {\"apartamento\": apartamento, \"conjunto\": conjunto,\"codigo\":tempArray[0],\"username\":username,\"password\":password};\n\nglobal.set(\"arduinoRequestDate\",new Date());\nglobal.set(\"arduinoTimeout\",tempArray[1]);\nglobal.set(\"scope\",\"unidadesResidenciales/\"+conjunto+\"/inmuebles/\"+apartamento+\"/horariosHub\");\nreturn res;",
+        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-503\";\nvar conjunto=\"Toscana\";\nvar username=\"sguzmanm\";\nvar password=\"s.guzmanm.00\";\n\ntempArray = msg.payload.split(\"\\t\");\nres.topic = \"entryHub\";\nres.payload = {};\nres.payload = {\"apartamento\": apartamento, \"conjunto\": conjunto,\"codigo\":tempArray[0],\"username\":username,\"password\":password};\n\nglobal.set(\"arduinoRequestDate\",new Date());\nglobal.set(\"arduinoTimeout\",tempArray[2]);\nglobal.set(\"scope\",\"unidadesResidenciales/\"+conjunto+\"/inmuebles/\"+apartamento+\"/horariosHub\");\nreturn res;",
         "outputs": 1,
         "noerr": 0,
         "x": 520,
@@ -692,20 +777,6 @@
                 "fd2e839d.c06e1"
             ]
         ]
-    },
-    {
-        "id": "738500dc.02aa88",
-        "type": "debug",
-        "z": "34f6a4a0.c4adbc",
-        "name": "Merge",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "x": 870,
-        "y": 120,
-        "wires": []
     },
     {
         "id": "8c172336.62932",
@@ -751,7 +822,7 @@
         "type": "function",
         "z": "34f6a4a0.c4adbc",
         "name": "Physical Entity mock",
-        "func": "msg.flag=msg.payload.split(\";\")[0];\nreturn msg;",
+        "func": "msg.flag=msg.payload.split(\"\\t\")[1];\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 260,
@@ -824,7 +895,10 @@
         "x": 120,
         "y": 180,
         "wires": [
-            []
+            [
+                "bf0a8711.72761",
+                "816dab52.473a78"
+            ]
         ]
     },
     {
@@ -835,8 +909,8 @@
         "func": "msg.payload=\"Arduino007\\t\"+msg.payload;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 290,
-        "y": 100,
+        "x": 330,
+        "y": 80,
         "wires": [
             [
                 "d74b3c82.68db38"
@@ -848,7 +922,7 @@
         "type": "function",
         "z": "34f6a4a0.c4adbc",
         "name": "Put id",
-        "func": "msg.payload=msg.payload+\";\"+5000;\nreturn msg;",
+        "func": "msg.payload=\"Arduino007\\t\"+msg.payload+\"\\t\"+5000;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 190,
@@ -868,8 +942,8 @@
         "qos": "0",
         "retain": "",
         "broker": "21be8c88.6d7f64",
-        "x": 590,
-        "y": 80,
+        "x": 610,
+        "y": 100,
         "wires": []
     },
     {
@@ -1050,7 +1124,7 @@
         "type": "function",
         "z": "c716ffd5.d195d",
         "name": "Format Time",
-        "func": "\nif(typeof global.get(\"lastHealthCheck\")=='undefined')\n{\n    global.set(\"lastHealthCheck\",new Date());\n    msg.test2=\"ENTRA\";\n}\nif(isNaN(global.get(\"misses\")))\n{\n    global.set(\"misses\",0);\n}\n\nvar maxMisses=\"1\";\nvar time=10000;\nvar last=global.get(\"lastHealthCheck\");\nmsg.flag=0;\n\nvar diffMs = (new Date() - last); // milliseconds between now & Christmas\n\nmsg.test=global.get(\"lastHealthCheck\")+\" \"+global.get(\"misses\")+\" \"+diffMs;\n\nif(diffMs>time)\n{\n    global.set(\"misses\",global.get(\"misses\")+1);\n}\nif(global.get(\"misses\")>maxMisses)\n{\n    msg.flag=1;\n    msg.headers={\"Content-Type\":\"application/json\"};\n    msg.payload={\n          \"remitente\":\"Hub007@yale.edu.co\",\n          \"destinatarios\":[\n          {\n              \"correo\":\"js.diaz@uniandes.edu.co\"\n          },\n          {\n              \"correo\":\"ja.manrique@uniandes.edu.co\"\n          },\n          {\n              \"correo\":\"cm.sarmiento10@uniandes.edu.co\"\n          }\n          ],\n          \"asunto\":\"CERRADURA FUERA DE LÍNEA\",\n          \"cuerpo\":\"Arduino 007 no está en línea\"\n     \n      };\n}\nreturn msg;\n\n",
+        "func": "\nif(typeof global.get(\"lastHealthCheck\")=='undefined')\n{\n    global.set(\"lastHealthCheck\",new Date());\n    msg.test2=\"ENTRA\";\n}\nif(isNaN(global.get(\"misses\")))\n{\n    global.set(\"misses\",0);\n}\n\nvar maxMisses=1;\nvar time=4000;\nvar last=global.get(\"lastHealthCheck\");\nmsg.flag=0;\n\nvar diffMs = (new Date() - last); // milliseconds between now & Christmas\n\nmsg.test=global.get(\"lastHealthCheck\")+\" \"+global.get(\"misses\")+\" \"+diffMs;\n\nif(diffMs>time)\n{\n    global.set(\"misses\",global.get(\"misses\")+1);\n}\nif(global.get(\"misses\")>maxMisses)\n{\n    msg.flag=1;\n    msg.headers={\"Content-Type\":\"application/json\"};\n    msg.payload={\n          \"remitente\":\"Hub007@yale.edu.co\",\n          \"destinatarios\":[\n          {\n              \"correo\":\"js.diaz@uniandes.edu.co\"\n          },\n          {\n              \"correo\":\"ja.manrique@uniandes.edu.co\"\n          },\n          {\n              \"correo\":\"cm.sarmiento10@uniandes.edu.co\"\n          }\n          ],\n          \"asunto\":\"CERRADURA FUERA DE LÍNEA\",\n          \"cuerpo\":\"Arduino 007 no está en línea\"\n     \n      };\n}\nreturn msg;\n\n",
         "outputs": 1,
         "noerr": 0,
         "x": 390,
@@ -1086,7 +1160,8 @@
         "y": 100,
         "wires": [
             [
-                "6b82f3bf.6f0894"
+                "6b82f3bf.6f0894",
+                "54856cbb.86e424"
             ]
         ]
     },
@@ -1217,7 +1292,10 @@
         "x": 80,
         "y": 160,
         "wires": [
-            []
+            [
+                "91c2374.9ae15c8",
+                "f5cf0e6d.904338"
+            ]
         ]
     },
     {
@@ -1225,15 +1303,13 @@
         "type": "function",
         "z": "c716ffd5.d195d",
         "name": "Put id",
-        "func": "msg.payload=\"Arduino007\\t\"+msg.payload+\"\\t3141\";\nreturn msg;",
+        "func": "msg.payload=msg.payload+\"\\t3141\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 190,
         "y": 60,
         "wires": [
-            [
-                "f5cf0e6d.904338"
-            ]
+            []
         ]
     },
     {
@@ -1257,8 +1333,8 @@
         "y": 240,
         "wires": [
             [
-                "25fc6e52.0751da",
-                "c7412491.606b18"
+                "c7412491.606b18",
+                "b1ce02a1.7fe8c"
             ]
         ]
     },
@@ -1519,7 +1595,7 @@
         "type": "function",
         "z": "34f6a4a0.c4adbc",
         "name": "GET MQTT MSG",
-        "func": "msg.payload=\"CERRAR\";\nvar last=global.get(\"arduinoRequestDate\");\nvar time=global.get(\"arduinoTimeout\");\nvar diffMs = (new Date() - last); // milliseconds between now & Christmas\nif(msg.statusCode==200 && diffMs<=time)\n{\n    msg.payload=\"ABRIR\";\n}\nreturn msg;",
+        "func": "res={};\nres.payload=\"CERRAR\";\nmsg.test=global.get(\"Timeout\");\nvar last=global.get(\"arduinoRequestDate\");\nvar time=global.get(\"arduinoTimeout\");\nvar diffMs = (new Date() - last); // milliseconds between now & Christmas\nif(msg.statusCode==200 && diffMs<=time)\n{\n    for (horario in msg.payload)\n    {\n        var data=msg.payload[horario].horaInicio.split(\":\");\n        var inicio=new Date();\n        inicio.setHours(parseInt(data[0]));\n        inicio.setMinutes(parseInt(data[1]));\n        var data=msg.payload[horario].horaFin.split(\":\");\n        fin=new Date();\n        fin.setHours(parseInt(data[0]));\n        fin.setMinutes(parseInt(data[1]));\n        if(new Date()>=inicio && new Date()<=fin)\n            res.payload=\"ABRIR\";\n    }\n    \n}\nreturn res;",
         "outputs": 1,
         "noerr": 0,
         "x": 1700,
@@ -1527,7 +1603,8 @@
         "wires": [
             [
                 "f58759ff.7f50e",
-                "ee1c0c4f.f691"
+                "ee1c0c4f.f691",
+                "335e900a.1290a"
             ]
         ]
     },
@@ -1556,6 +1633,263 @@
         "complete": "payload",
         "x": 1960,
         "y": 280,
+        "wires": []
+    },
+    {
+        "id": "54856cbb.86e424",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "HC",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 700,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "91c2374.9ae15c8",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "HCheck",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 300,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "816dab52.473a78",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Format",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 280,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "be0c295e.e20a78",
+        "type": "inject",
+        "z": "34f6a4a0.c4adbc",
+        "name": "ACEPTAR",
+        "topic": "s.guzmanm@uniandes.edu.co",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 200,
+        "y": 420,
+        "wires": [
+            [
+                "8db5adda.8b52b"
+            ]
+        ]
+    },
+    {
+        "id": "8db5adda.8b52b",
+        "type": "function",
+        "z": "34f6a4a0.c4adbc",
+        "name": "GET MQTT MSG",
+        "func": "number=0;\nif(number==0)\n    msg.payload=\"CERRAR\";\nelse\n    msg.payload=\"ABRIR\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 570,
+        "y": 480,
+        "wires": [
+            [
+                "2439fb9.d5c8904"
+            ]
+        ]
+    },
+    {
+        "id": "2439fb9.d5c8904",
+        "type": "mqtt out",
+        "z": "34f6a4a0.c4adbc",
+        "name": "",
+        "topic": "Arduino007.recibir",
+        "qos": "",
+        "retain": "",
+        "broker": "21be8c88.6d7f64",
+        "x": 670,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "525dafb4.185a2",
+        "type": "mqtt out",
+        "z": "34f6a4a0.c4adbc",
+        "name": "",
+        "topic": "Arduino007.recibir",
+        "qos": "",
+        "retain": "",
+        "broker": "21be8c88.6d7f64",
+        "x": 670,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "87f290d6.3f3ca",
+        "type": "function",
+        "z": "34f6a4a0.c4adbc",
+        "name": "GET MQTT MSG",
+        "func": "number=1\nif(number==0)\n    msg.payload=\"CERRAR\";\nelse\n    msg.payload=\"ABRIR\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 570,
+        "y": 640,
+        "wires": [
+            [
+                "525dafb4.185a2"
+            ]
+        ]
+    },
+    {
+        "id": "8e6707a9.61eac8",
+        "type": "inject",
+        "z": "34f6a4a0.c4adbc",
+        "name": "RECHAZAR",
+        "topic": "s.guzmanm@uniandes.edu.co",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 210,
+        "y": 580,
+        "wires": [
+            [
+                "87f290d6.3f3ca"
+            ]
+        ]
+    },
+    {
+        "id": "b1ce02a1.7fe8c",
+        "type": "function",
+        "z": "c716ffd5.d195d",
+        "name": "Reinicio arduino",
+        "func": "global.set(\"misses\",0);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 910,
+        "y": 220,
+        "wires": [
+            [
+                "25fc6e52.0751da"
+            ]
+        ]
+    },
+    {
+        "id": "335e900a.1290a",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "TEST",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "test",
+        "x": 1940,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "7ffab7c1.99c938",
+        "type": "mqtt in",
+        "z": "ddb0bb9c.500fa8",
+        "name": "",
+        "topic": "Centro/Toscana/2-503/alarmas/Arduino007",
+        "qos": "0",
+        "broker": "5d4d54b.bf3e5ac",
+        "x": 160,
+        "y": 460,
+        "wires": [
+            [
+                "ed497d5.501e58"
+            ]
+        ]
+    },
+    {
+        "id": "ed497d5.501e58",
+        "type": "function",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Verify change message",
+        "func": "if (msg.payload==\"1\")\n    global.set(\"emailActivated\",true);\nelse if (msg.payload==\"0\")\n    global.set(\"emailActivated\",false);\nmsg.payload=global.get(\"emailActivated\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 510,
+        "y": 460,
+        "wires": [
+            [
+                "9bcf1e39.40561"
+            ]
+        ]
+    },
+    {
+        "id": "6318c0ff.7b8ff",
+        "type": "switch",
+        "z": "a81c23f3.bd483",
+        "name": "Email is activated?",
+        "property": "emailActivated",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 970,
+        "y": 160,
+        "wires": [
+            [
+                "faff2eb0.303eb"
+            ]
+        ]
+    },
+    {
+        "id": "671cce6e.d28b8",
+        "type": "inject",
+        "z": "ddb0bb9c.500fa8",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 370,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9bcf1e39.40561",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "GLOBAL EMAIL",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 670,
+        "y": 540,
         "wires": []
     }
 ]
