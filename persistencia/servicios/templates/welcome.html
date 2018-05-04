@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <h1>
+        ¡Bienvenido a πpo!
+    </h1>
+    <h2>Por favor, ingresa tus datos personales:</h2>
+    <p>Nombre: </p>
+    <input id="name" type="text" placeholder="Juan Gómez">
+    <p>Teléfono: </p>
+    <input id="phone" type="text" placeholder="3014077075">
+    <p>Edad: </p>
+    <input id="age" type="text" placeholder="22">
+
+    <button onclick="sendAndContinue()">Enviar y continuar</button>
+    <script>
+        function sendAndContinue() {
+            var name = document.getElementById('name').value
+            var phone = document.getElementById('phone').value
+            var age = document.getElementById('age').value
+
+            var payload = {
+                'nombre': name,
+                'telefono': phone,
+                'edad': age
+            }
+
+            axios.put('http://172.24.42.64/', payload)
+                .then(function (response) {
+                    console.log('success!', response);
+                    //redirect to Postman clone
+                    document.location = 'dashboard'
+                })
+                .catch(function (error) {
+                    console.log('RIP', error);
+                });
+        }
+    </script>
+</body>
+
+</html>

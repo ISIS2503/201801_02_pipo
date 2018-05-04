@@ -156,12 +156,18 @@ def callback_handling():
     info = session['PROFILE_KEY']
     insert = db.users.insert_one({ 'auth0_id' :  info['user_id'] , 'username' : info['name'], 'email': info['email'], 'group' : USER,  'scope' : '/*--//--*/', 'horariosPermitidos' : []})
     print('insert: ', insert.inserted_id)
-
-  return redirect('/dashboard')
+    return redirect('/welcome')
+  else:
+    return redirect('/dashboard')
 
 @app.route('/login')
 def login():
   return auth0.authorize_redirect(redirect_uri='http://172.24.42.64/callback')
+
+@app.route('/welcome')
+@requires_auth(USER)
+def welcome():
+  return render_template('welcome.html')
 
 @app.route('/dashboard')
 @requires_auth(USER)
@@ -782,14 +788,18 @@ def usuario(usuario):
     user = db.users.find({'username': usuario})
     return dumpJson(user)
   elif request.method == PUT:
-    return "Dirígase a /login y haga click en 'Don't remember your password?'"
+    name = data['nombre']
+    phone = data['telefono']
+    age = data['edad']
+    user = db.users.find_one_and_update({"username": usuario}, {'$set' : {'nombre': name, 'telefono': phone, 'edad': age}}, return_document=ReturnDocument.AFTER)
+    return dumpJson(user)
   elif request.method == DELETE:
     user = db.users.find_one_and_update({"username": usuario}, {'$set' : {'group': DISABLED}}, return_document=ReturnDocument.AFTER)
     return dumpJson(user)
 
-@app.route('/unidadesResidenciales/inmuebles/<unidad>/reporteMensual/<mesReporte>', methods=[GET])
+@app.route('/unidadesResidenciales/<unidad>/reporteMensual/<mesReporte>', methods=[GET])
 @requires_auth(UR_ADMIN)
-def reportesUnidadResidencial(unidadd, mesReporte):
+def reportesUnidadResidencial(unidad, mesReporte):
   emergencias = []
   mes = 0
   try:
@@ -805,8 +815,11 @@ def reportesUnidadResidencial(unidadd, mesReporte):
     #Agregar las emergencias a la respuesta
       respuesta = inmueble['hub']['cerradura']['emergencias']
       for emergencia in respuesta:
-        if int(emergencia['fecha'].split('-')[1]) == mes:
-          respuesta.append(emergencia)
+        try:
+          if int(emergencia['fecha'].split('-')[1]) == mes:
+            emergencias.append(emergencia)
+        except IndexError:
+          pass
     except KeyError as error:
       print(inmueble['localID'], ' no tiene ', str(error.args))
   
@@ -814,7 +827,7 @@ def reportesUnidadResidencial(unidadd, mesReporte):
   
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/reporteMensual/<mesReporte>", methods=[GET])
 @requires_auth(PROPERTY_OWNER)
-def emergencias(unidad, localID, mesReporte):
+def reportesInmuebles(unidad, localID, mesReporte):
   if request.method == GET:
     emergencias = []
     respuesta = []
@@ -836,9 +849,11 @@ def emergencias(unidad, localID, mesReporte):
     elif respuesta['hub']['cerradura'] == {}:
       return "El inmueble no tiene una cerradura asociada", 404
     for emergencia in respuesta['hub']['cerradura']['emergencias']:
-      if int(emergencia['fecha'].split('-')[1]) == mes:
-        emergencias.append(emergencia)
-    
+      try:
+        if int(emergencia['fecha'].split('-')[1]) == mes:
+          emergencias.append(emergencia)
+      except IndexError:
+        pass    
     return dumps(emergencias)
 
 
