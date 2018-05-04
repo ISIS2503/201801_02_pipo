@@ -305,6 +305,8 @@ def imuebles(unidad):
     sanitizedData['_id'] = ObjectId()
     sanitizedData['localID'] = data['localID']
     sanitizedData['hub'] = {}
+    sanitizedData['owner'] = data['owner']
+    sanitizedData['owner_user_id'] = data['owner_user_id']
     #Añadir al arreglo de inmuebles
     result = db.unidadesResidenciales.find_one_and_update({'nombre':unidad}, {'$push': {'inmuebles': sanitizedData}})
     #Añadir scope al dueño
@@ -385,7 +387,7 @@ def hub(unidad, localID):
     try:
       valid = valid and (data['frecuencia'] != None or data['frecuencia'] != "")
       valid = valid and (data['fallosMaximos'] != None or data['fallosMaximos'] != "")
-      valid = valid and (data['zona'] != None or data['fallosMaximos']!="")
+      valid = valid and (data['zona'] != None or data['zona']!="")
     except KeyError:
       return "Debe incluir la frecuencia, la zona y el número de fallos máximos del inmueble", 400
 

@@ -1,0 +1,7 @@
+[
+    {
+        "method" : "GET",
+        "url" : "http://172.24.42.64/unidadesResidenciales/Toscana/emergencias",
+        "body" : ""
+    }
+]

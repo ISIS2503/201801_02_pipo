@@ -1,0 +1,22 @@
+[
+    {
+        "method" : "GET",
+        "url" : "http://172.24.42.64/yale",
+        "body" : ""
+    },
+    {
+        "method" : "POST",
+        "url" : "http://172.24.42.64/unidadesResidenciales",
+        "body" : "{\"nombre\" : \"\",\"direccion\" : \"\", \"owner_user_id\" : \"\", \"security_user_id\" : \"\", \"inmuebles\" : []}"
+    },
+    {
+        "method" : "GET",
+        "url" : "http://172.24.42.64/yale/emergencias",
+        "body" : ""
+    },
+    {
+        "method" : "GET",
+        "url" : "http://172.24.42.64/yale/users",
+        "body" : ""
+    }
+]
