@@ -12,7 +12,7 @@ var collections =
       {
         "method": "PUT",
         "url": "http://172.24.42.64/unidadesResidenciales/Toscana/inmuebles/1234",
-        "body": "{\"localID\" : \"301\"}"
+        "body": "{\"localID\" : \"1234\"}"
       },
       {
         "method": "DELETE",
@@ -33,11 +33,6 @@ var collections =
         "method": "PUT",
         "url": "http://172.24.42.64/unidadesResidenciales/Toscana/inmuebles/1234/hub",
         "body": "{\"frecuencia\" : 15, \"fallosMaximos\" : 4, \"zona\" : \"norte\"}"
-      },
-      {
-        "method": "DELETE",
-        "url": "http://172.24.42.64/unidadesResidenciales/Toscana/inmuebles/1234/hub",
-        "body": ""
       },
       {
         "method": "GET",
@@ -98,6 +93,16 @@ var collections =
         "method": "DELETE",
         "url": "http://172.24.42.64/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura/horariosPermitidos",
         "body": ""
+      },
+      {
+        "method" : "GET",
+        "url" : "http://172.24.42.64/unidadesResidenciales/Toscana/inmuebles/1234/reporteMensual/5",
+        "body" : ""
+      },
+      {
+        "method": "DELETE",
+        "url": "http://172.24.42.64/unidadesResidenciales/Toscana/inmuebles/1234/hub",
+        "body": ""
       }
     ]
   },
@@ -125,11 +130,6 @@ var collections =
         "body": "{\"nombre\" : \"Toscana\", \"direccion\" : \"Cll 19 # 3-32\"}"
       },
       {
-        "method": "DELETE",
-        "url": "http://172.24.42.64/unidadesResidenciales/Toscana",
-        "body": ""
-      },
-      {
         "method": "GET",
         "url": "http://172.24.42.64/unidadesResidenciales/Toscana/inmuebles",
         "body": ""
@@ -137,7 +137,17 @@ var collections =
       {
         "method": "POST",
         "url": "http://172.24.42.64/unidadesResidenciales/Toscana/inmuebles",
-        "body": "{\"localID\" : \"201\", \"owner\" : \"Pepito Perez\", \"owner_user_id\" : \"\"}"
+        "body": "{\"localID\" : \"201\", \"owner\" : \"Pepito Perez\", \"owner_user_id\" : \"user\"}"
+      },
+      {
+          "method" : "GET",
+          "url" : "http://172.24.42.64/unidadesResidenciales/Toscana/reporteMensual/5",
+          "body" : ""
+      },
+      {
+          "method" : "DELETE",
+          "url" : "http://172.24.42.64/unidadesResidenciales/Toscana",
+          "body" : ""
       }
     ]
   },
@@ -172,7 +182,7 @@ var collections =
       {
         "method": "POST",
         "url": "http://172.24.42.64/unidadesResidenciales",
-        "body": "{\"nombre\" : \"\",\"direccion\" : \"\", \"owner_user_id\" : \"\", \"security_user_id\" : \"\", \"inmuebles\" : []}"
+        "body": "{\"nombre\" : \"Andes\",\"direccion\" : \"Cra 3 # 19-91\", \"owner_user_id\" : \"user\", \"security_user_id\" : \"user1\", \"inmuebles\" : []}"
       },
       {
         "method": "GET",

@@ -7,13 +7,13 @@
     {
         "method" : "PUT",
         "url" : "http://172.24.42.64/unidadesResidenciales/Toscana/inmuebles/1234",
-        "body" : "{\"localID\" : \"301\"}"
+        "body" : "{\"localID\" : \"1234\"}"
     },
     {
         "method" : "DELETE",
         "url" : "http://172.24.42.64/unidadesResidenciales/Toscana/inmuebles/1234",
         "body" : ""
-    },
+    }
     {
         "method" : "GET",
         "url" : "http://172.24.42.64/unidadesResidenciales/Toscana/inmuebles/1234/hub",
@@ -93,5 +93,16 @@
         "method" : "DELETE",
         "url" : "http://172.24.42.64/unidadesResidenciales/Toscana/inmuebles/1234/hub/cerradura/horariosPermitidos",
         "body" : ""
+    },
+    {
+        "method" : "GET",
+        "url" : "http://172.24.42.64/unidadesResidenciales/Toscana/inmuebles/1234/reporteMensual/5",
+        "body" : ""
+    },
+    {
+        "method" : "DELETE",
+        "url" : "http://172.24.42.64/unidadesResidenciales/Toscana/inmuebles/1234",
+        "body" : ""
     }
+
 ]

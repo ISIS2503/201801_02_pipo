@@ -7,7 +7,7 @@
     {
         "method" : "POST",
         "url" : "http://172.24.42.64/unidadesResidenciales",
-        "body" : "{\"nombre\" : \"\",\"direccion\" : \"\", \"owner_user_id\" : \"\", \"security_user_id\" : \"\", \"inmuebles\" : []}"
+        "body" : "{\"nombre\" : \"Andes\",\"direccion\" : \"Cra 3 # 19-91\", \"owner_user_id\" : \"user\", \"security_user_id\" : \"user1\", \"inmuebles\" : []}"
     },
     {
         "method" : "GET",

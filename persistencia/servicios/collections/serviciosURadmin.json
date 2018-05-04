@@ -10,11 +10,6 @@
         "body" : "{\"nombre\" : \"Toscana\", \"direccion\" : \"Cll 19 # 3-32\"}"
     },
     {
-        "method" : "DELETE",
-        "url" : "http://172.24.42.64/unidadesResidenciales/Toscana",
-        "body" : ""
-    },
-    {
         "method" : "GET",
         "url" : "http://172.24.42.64/unidadesResidenciales/Toscana/inmuebles",
         "body" : ""
@@ -22,6 +17,16 @@
     {
         "method" : "POST",
         "url" : "http://172.24.42.64/unidadesResidenciales/Toscana/inmuebles",
-        "body" : "{\"localID\" : \"201\", \"owner\" : \"Pepito Perez\", \"owner_user_id\" : \"\"}"
+        "body" : "{\"localID\" : \"201\", \"owner\" : \"Pepito Perez\", \"owner_user_id\" : \"user\"}"
+    },
+    {
+        "method" : "GET",
+        "url" : "http://172.24.42.64/unidadesResidenciales/Toscana/reporteMensual/5",
+        "body" : ""
+    },
+    {
+        "method" : "DELETE",
+        "url" : "http://172.24.42.64/unidadesResidenciales/Toscana",
+        "body" : ""
     }
 ]
