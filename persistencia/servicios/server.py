@@ -179,7 +179,7 @@ def collection_invoker():
 @app.route('/collections')
 @requires_auth(USER)
 def collections_serving():
-  return send_from_directory('collections', 'collections.json')
+  return send_from_directory('collections', 'collections.js')
 
 @app.route('/logout')
 def logout():
@@ -406,6 +406,8 @@ def hub(unidad, localID):
       if inmueble['localID'] == localID:
         respuesta = inmueble
         break
+    if respuesta == []:
+      return "El inmueble solicitado no presenta ningún hub asociado"
     #Retorna solo el Hub del inmueble buscado
     return dumpJson(respuesta['hub'])
   elif request.method == POST or request.method == PUT:
@@ -528,7 +530,7 @@ def claves(unidad, localID):
         respuesta = inmueble
         break
     if respuesta == []:
-      return respuesta
+      return "No existe ningún inmueble en esa unidad residencial con ese localID", 404;
     return dumpJson(respuesta['hub']['cerradura']['claves'])
   elif request.method == POST or request.method == PUT:
     if request.data == None or request.data == "":
