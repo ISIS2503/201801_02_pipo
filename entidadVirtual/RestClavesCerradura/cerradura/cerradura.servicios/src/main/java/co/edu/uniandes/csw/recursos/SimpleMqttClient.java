@@ -34,6 +34,8 @@ public class SimpleMqttClient implements MqttCallback {
 
     MqttTopic topic;
     
+    boolean conectado = false;
+    
     private static SimpleMqttClient client = null;
 
     static final String BROKER_URL = "ssl://172.24.41.182:8083";
@@ -47,7 +49,7 @@ public class SimpleMqttClient implements MqttCallback {
     //private static SimpleMqttClient mqttClient = null;
 
     public static SimpleMqttClient getInstance() {
-        if(client==null) {
+        if(client==null || !client.conectado) {
             client = new SimpleMqttClient();
             client.runClient();
         }
@@ -62,9 +64,9 @@ public class SimpleMqttClient implements MqttCallback {
      */
     @Override
     public void connectionLost(Throwable t) {
-            System.out.println("Connection lost!");
-            // code to reconnect to the broker would go here if desired
-            
+        System.out.println("Connection lost!");
+        // code to reconnect to the broker would go here if desired
+        conectado = false;
     }
 
     /**
@@ -95,6 +97,7 @@ public class SimpleMqttClient implements MqttCallback {
             connOpt.setMqttVersion(MqttConnectOptions.MQTT_VERSION_3_1);
             connOpt.setUserName(MQTT_USER_NAME);
             connOpt.setPassword(MQTT_PASSWORD.toCharArray());
+            //connOpt.setConnectionTimeout();
             // Connect to Broker
             SSLSocketFactory socketFactory;
             try {
@@ -104,6 +107,7 @@ public class SimpleMqttClient implements MqttCallback {
                 connOpt.setSocketFactory(socketFactory);
                 myClient.connect(connOpt);
                 System.out.println("Connected to " + BROKER_URL);
+                conectado = true;
             } catch (MqttException e) {
                 e.printStackTrace();
             } catch (Exception ex) {
@@ -115,14 +119,6 @@ public class SimpleMqttClient implements MqttCallback {
             // topics on m2m.io are in the form <domain>/<stuff>/<thing>
             String myTopic = "Centro/Toscana/2-503/claves/Arduino007";
             topic = myClient.getTopic(myTopic);
-
-            
-        try {
-            
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
             
     }
 
@@ -151,6 +147,7 @@ public class SimpleMqttClient implements MqttCallback {
             // Wait until the message has been delivered to the broker
             token.waitForCompletion();
             System.out.println("llegó");
+            //Thread.sleep(100);
         } catch (Exception e) {
             e.printStackTrace();
         }

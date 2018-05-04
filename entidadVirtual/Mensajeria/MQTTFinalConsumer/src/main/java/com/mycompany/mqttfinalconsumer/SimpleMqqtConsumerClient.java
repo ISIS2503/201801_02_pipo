@@ -47,7 +47,7 @@ public class SimpleMqqtConsumerClient implements MqttCallback {
     static final String CLIENT_CRT_FILE_PATH = "/ssl/server.crt";
     static final String CLIENT_KEY_FILE_PATH = "/ssl/server.key";
     static final String MQTT_USER_NAME = "P1Centro";
-    static final String MQTT_PASSWORD = "ec6ef230f1828039ee794566b9c58adc";
+    static final String MQTT_PASSWORD = "p1";
     
     public void connectionLost(Throwable throwable) {
         System.out.println("Connection to MQTT broker lost!");
@@ -67,7 +67,7 @@ public class SimpleMqqtConsumerClient implements MqttCallback {
         try
         {
             System.out.println("Message not received:\n\t");
-            MqttClient client=new MqttClient("ssl://172.24.42.70:8083", MqttClient.generateClientId());
+            MqttClient client=new MqttClient("ssl://172.24.41.182:8083", MqttClient.generateClientId());
             client.setCallback(new SimpleMqqtConsumerClient() );
             MqttConnectOptions connOpt = new MqttConnectOptions();
             connOpt.setKeepAliveInterval(30);
