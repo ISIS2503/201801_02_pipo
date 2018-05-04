@@ -44,7 +44,6 @@ db = client['Pipo-yale-persistencia']
 app = Flask(__name__)
 app.secret_key = "super secret key"
 oauth = OAuth(app)
-print(os.environ['AUTH0_YALE_CLIENT_SECRET'])
 auth0 = oauth.register(
   'auth0',
   client_id='VFOHkNbDGQJlrFJ8QzfmLkM3EVhDIDFn',
@@ -90,7 +89,7 @@ def requires_auth(auth_type):
       for arg in kwargs:
         scope += kwargs[arg] + '/'
       scope = scope[:-1]
-      print("SESION",session['PROFILE_KEY'])
+
       if 'PROFILE_KEY' not in session:
           return redirect('/login')
       elif checkSession(session['PROFILE_KEY']['user_id'], auth_type, scope):
@@ -137,7 +136,6 @@ def callback_handling():
   # Maneja la respuesta desde el endpoint del token
   #resp = auth0.authorized_response()
   resp = auth0.authorize_access_token()
-  print("RESP",resp)
   url = 'https://' + 'isis2503-jamanrique.auth0.com' + '/userinfo'
   headers = {'authorization': 'Bearer ' + resp['access_token']}
   resp = requests.get(url, headers=headers)
@@ -152,11 +150,10 @@ def callback_handling():
 
   #Idealmente con redis pero YOLO
   user = db.users.find_one({'auth0_id' : user_info['sub']})
-  if not user:
+  if not user: #POST User
     info = session['PROFILE_KEY']
     insert = db.users.insert_one({ 'auth0_id' :  info['user_id'] , 'username' : info['name'], 'email': info['email'], 'group' : USER,  'scope' : '/*--//--*/', 'horariosPermitidos' : []})
-    print('insert: ', insert.inserted_id)
-    return redirect('/welcome')
+    return redirect('/welcome/' + info['name'])
   else:
     return redirect('/dashboard')
 
@@ -164,9 +161,9 @@ def callback_handling():
 def login():
   return auth0.authorize_redirect(redirect_uri='http://172.24.42.64/callback')
 
-@app.route('/welcome')
+@app.route('/welcome/<usuario>')
 @requires_auth(USER)
-def welcome():
+def welcome(usuario):
   return render_template('welcome.html')
 
 @app.route('/dashboard')
@@ -345,13 +342,6 @@ def imuebles(unidad):
     if result == None:
       return "No hay ninguna unidad con ese nombre", 404
     return dumpJson(result)
-
-@app.route('/test')
-#@requires_auth
-def testo():
-  unidad = db.unidadesResidenciales.find_one({ 'nombre' : 'Toscana' })
-  print("Unidad: ", unidad)
-  return "xd"
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>", methods=[GET, PUT, DELETE])
 @requires_auth(PROPERTY_OWNER)
@@ -638,9 +628,7 @@ def emergenciasP2(unidad, localID):
   if request.data:
     data = loads(request.data)
   if request.method == POST:
-    print("HEADER",request.headers)
     sessionParam=json.loads(request.headers['sessionParam'])
-    print("SESION",type(sessionParam))
     user = db.users.find_one({'auth0_id' : sessionParam['PROFILE_KEY']['user_id']})
     if False==checkSession(sessionParam['PROFILE_KEY']['user_id'], YALE, user['scope']):
       return "Hubo un error autenticando al usuario",403     
