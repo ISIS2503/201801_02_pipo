@@ -624,6 +624,54 @@ def emergencias(unidad, localID):
       return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     return dumpJson(result)
 
+@app.route("/p2/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/emergencias", methods=[GET, POST])
+def emergenciasP2(unidad, localID):
+  data = {}
+  if request.data:
+    data = loads(request.data)
+  if request.method == POST:
+    print("HEADER",request.headers)
+    sessionParam=json.loads(request.headers['sessionParam'])
+    print("SESION",type(sessionParam))
+    user = db.users.find_one({'auth0_id' : sessionParam['PROFILE_KEY']['user_id']})
+    if False==checkSession(sessionParam['PROFILE_KEY']['user_id'], YALE, user['scope']):
+      return "Hubo un error autenticando al usuario",403     
+    if request.data == None or request.data == "":
+      return "Debe enviar información", 400
+    valid = True
+    try:
+      valid = valid and (data['fecha'] != None or data['fecha'] != "")
+      valid = valid and (data['tipo'] != None or data['tipo'] != "")
+      valid = valid and (data['idEmergencia'] != None or data['idEmergencia'] != "")
+    except KeyError:
+      return "Debe incluir la fecha, el tipo y el id de la emergencia", 400
+
+    if not valid:
+      return "Rellene los campos vacíos", 400
+
+    #7 ids diferentes de emergencia
+    valid = valid and int(data['idEmergencia']) > 0 and int(data['idEmergencia']) < 9
+
+    if not valid:
+      return "El id de la emergencia debe estar entre 1 y 8", 400
+
+    sanitizedData = {}
+    sanitizedData['fecha'] = data['fecha']
+    sanitizedData['tipo'] = data['tipo']
+    sanitizedData['idEmergencia'] = data['idEmergencia']
+
+    #Esta linea busca los documentos que tengan la propiedad nombre == unidad
+    #Y luego inserta a el valor del campo inmuebles[x].hub.cerradura.claves la nueva combinación
+    #inmuebles[x] corresponde al elemento tal que inmuebles[x].localID == identificador local del inmueble
+    result = db.unidadesResidenciales.find_one_and_update({'nombre': unidad,},
+    {'$push': {'inmuebles.$[elemento].hub.cerradura.emergencias' : sanitizedData}},
+    array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
+    return_document=ReturnDocument.AFTER)
+    if result == None:
+      return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
+    return dumpJson(result)
+
+
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/horariosPermitidos", methods=[GET, POST, DELETE])
 @requires_auth(PROPERTY_OWNER)
 def horariosPermitidos(unidad, localID):
