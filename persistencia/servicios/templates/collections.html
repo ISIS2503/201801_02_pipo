@@ -1,0 +1,42 @@
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="http://172.24.42.64/collections"></script>
+</head>
+
+<body>
+  <div id='app'>
+    <h1>Collection invoker</h1>
+    <br>
+    <h2>Seleccione una colección para correr y presione 'correr colección' para correrla a nombre del usuario con el que inicio
+      sesión</h2>
+    <div id='collectionSelector'>
+      <select name="collection" v-model="collectionIndex" id="collection">
+        <option v-for="collection, index in collections" :value="index">{{collection.nombre}}</option>
+      </select>
+    </div>
+  </div>
+</body>
+<script>
+  //Should print collections json
+  console.log(collections)
+  var app = new Vue({
+    el: '#app',
+    delimiters: ["%{", "}%"],
+    data: {
+      collections: {},
+      results: []
+    },
+    mounted: function(){
+      //"Import" to vue
+      this.collections = collections
+    },
+    methods: {
+
+    }
+  })
+</script>
+
+</html>

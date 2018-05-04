@@ -21,7 +21,10 @@
                     <option value="DELETE">DELETE</option>
                 </select>
                 <button v-on:click="sendRequest">
-                    enviar
+                    Enviar
+                </button>
+                <button v-on:click="goToCollections">
+                  Correr Colecciones
                 </button>
             </div>
             <div>
@@ -100,6 +103,9 @@
                                     });
                                 break;
                         }
+                    },
+                    goToCollections: function(){
+                      document.location.href = 'http://172.24.42.64/dashboard/collections'
                     }
                 }
             })

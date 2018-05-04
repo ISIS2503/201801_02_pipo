@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, send_from_directory
 from authlib.flask.client import OAuth
 from pymongo import MongoClient, ReturnDocument
 from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
@@ -170,6 +170,16 @@ def welcome(usuario):
 @requires_auth(USER)
 def post_login():
   return render_template('dashboard.html')
+
+@app.route('/dashboard/collections')
+@requires_auth(USER)
+def collection_invoker():
+  return render_template('collections.html')
+
+@app.route('/collections')
+@requires_auth(USER)
+def collections_serving():
+  return send_from_directory('collections', 'collections.json')
 
 @app.route('/logout')
 def logout():
