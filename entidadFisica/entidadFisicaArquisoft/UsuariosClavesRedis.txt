@@ -1,0 +1,23 @@
+'microcontrolador','Isis2503.'
+'Hub007','4525b5129ae9d1158f98997a1fe5f598'->piporules (Hash md5)
+'P1Centro','ec6ef230f1828039ee794566b9c58adc'->p1 (hash md5)
+'P1Sur','ec6ef230f1828039ee794566b9c58adc'->p1 (hash md5)
+'P1Norte','ec6ef230f1828039ee794566b9c58adc'->p1 (hash md5)
+'P1Periferia','ec6ef230f1828039ee794566b9c58adc'->p1 (hash md5)
+'ClavesArduino007','4525b5129ae9d1158f98997a1fe5f598'->pipo rules (hash md5)
+'BridgeCentro','4525b5129ae9d1158f98997a1fe5f598'->pipo rules (hash md5)
+
+
+'Arduino007.recibir','microcontrolador:Hub007'
+'Arduino007.envio','Hub007:microcontrolador'
+'Centro/Toscana/2-503/claves/Arduino007','Hub007:ClavesArduino007'
+'Centro/Toscana/emergencia/puertaAbierta/2-503','P1Centro:Hub007'
+'Centro/Toscana/emergencia/aperturaSospechosa/2-503','P1Centro:Hub007'
+'Centro/Toscana/emergencia/aperturaNoPermitida/2-503','P1Centro:Hub007'
+'Centro/Toscana/emergencia/bateriaCritica/2-503','P1Centro:Hub007'
+'Centro/Test','P1Centro:Hub007'
+'Norte/Test','P1Norte:Hub007'
+'Sur/Test','P1Sur:Hub007'
+'Periferia/Test','P1Periferia:Hub007'
+
+

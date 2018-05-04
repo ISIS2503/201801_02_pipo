@@ -11,41 +11,29 @@ import java.io.*;
 
 import java.util.List;
 
+import classes.YaleVerification;
+
 /**
  * Created by s.guzmanm and js.diaz on 17/03/17.
  */
-public class MensajeController extends Controller {
+public class YaleController extends Controller {
     BufferedWriter out;
 
     private static final int TAMANO_BUFFER = 100000;
 
+    private YaleVerification yaleVerification;
 
-    public Result initializeBuffer()
+
+    public Result initializeControl()
     {
-        if(out==null)
+        if(yaleVerification==null)
         {
-            try
-            {
-                //out = new BufferedWriter(new OutputStreamWriter(System.out), 32768);
-                out = new BufferedWriter(new FileWriter(new File("./logs/prueba.txt")), 100000);
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
+            yaleVerification=new YaleVerification(1,5000);
+            yaleVerification.start();
         }
         else
         {
-            try
-            {
-                out.close();
-                out=null;
-            }
-            catch(Exception e)
-            {
-
-            }
-
+            yaleVerification=null;
         }
         return ok("");
 
@@ -72,14 +60,9 @@ public class MensajeController extends Controller {
      * }
      */
     @BodyParser.Of(BodyParser.Json.class)
-    public Result create() throws Exception {
+    public Result updateHealthCheck() throws Exception {
         JsonNode j = Controller.request().body().asJson();
-        String mensaje = "DE: " + j.findValue("remitente") + " PARA: ";
-        for (JsonNode s : j.findValue("destinatarios"))
-            mensaje += s.findValue("correo") + ";";
-        mensaje += "ASUNTO: " + j.findValue("asunto") + ";" + "CUERPO: " + j.findValue("cuerpo");
-        //System.out.println(mensaje);
-        out.write(mensaje + "\n");
+        yaleVerification.newHub(j.findValue("Hub").asText());
         //Logger.info(mensaje);
         return ok("");
     }
