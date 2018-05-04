@@ -34,6 +34,7 @@ public class CommandLineParser {
 	}
 
 	public String getServerURI() {
+            System.out.println(serverURI);
 		return serverURI;
 	}
 

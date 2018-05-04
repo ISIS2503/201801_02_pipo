@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, send_from_directory
 from authlib.flask.client import OAuth
 from pymongo import MongoClient, ReturnDocument
 from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
@@ -44,7 +44,6 @@ db = client['Pipo-yale-persistencia']
 app = Flask(__name__)
 app.secret_key = "super secret key"
 oauth = OAuth(app)
-print(os.environ['AUTH0_YALE_CLIENT_SECRET'])
 auth0 = oauth.register(
   'auth0',
   client_id='VFOHkNbDGQJlrFJ8QzfmLkM3EVhDIDFn',
@@ -90,6 +89,7 @@ def requires_auth(auth_type):
       for arg in kwargs:
         scope += kwargs[arg] + '/'
       scope = scope[:-1]
+
       if 'PROFILE_KEY' not in session:
           return redirect('/login')
       elif checkSession(session['PROFILE_KEY']['user_id'], auth_type, scope):
@@ -98,6 +98,29 @@ def requires_auth(auth_type):
         return redirect('/unauthorized')
     return decorated
   return decorator
+
+@app.route('/horariosHub', methods=[POST])
+def confirmarHorariosHubs():
+  # Maneja la respuesta desde el endpoint del token
+  #resp = auth0.authorized_response()
+    if request.method == POST:
+      resp = loads(request.data)
+      url = 'https://' + 'isis2503-jamanrique.auth0.com' + '/userinfo'
+      headers = {'authorization': 'Bearer ' + resp['access_token']}
+      resp = requests.get(url, headers=headers)
+      user_info = resp.json()
+      session['JWT_PAYLOAD'] = user_info
+      session['PROFILE_KEY'] = {
+        'user_id': user_info['sub'],
+        'name': session['JWT_PAYLOAD']['nickname'],
+        'email': user_info['name'],
+        'picture': user_info['picture']
+      }
+      user = db.users.find_one({'auth0_id' : session['PROFILE_KEY']['user_id']})
+      if checkSession(session['PROFILE_KEY']['user_id'], PROPERTY_OWNER, user['scope']):
+       return dumpJson(user['horariosPermitidos'])
+      return "Hubo un error autenticando al usuario",403     
+
 
 @app.route('/testo/<param1>/<param2>')
 @requires_auth(PROPERTY_OWNER)
@@ -113,7 +136,6 @@ def callback_handling():
   # Maneja la respuesta desde el endpoint del token
   #resp = auth0.authorized_response()
   resp = auth0.authorize_access_token()
-  
   url = 'https://' + 'isis2503-jamanrique.auth0.com' + '/userinfo'
   headers = {'authorization': 'Bearer ' + resp['access_token']}
   resp = requests.get(url, headers=headers)
@@ -128,21 +150,36 @@ def callback_handling():
 
   #Idealmente con redis pero YOLO
   user = db.users.find_one({'auth0_id' : user_info['sub']})
-  if not user:
+  if not user: #POST User
     info = session['PROFILE_KEY']
     insert = db.users.insert_one({ 'auth0_id' :  info['user_id'] , 'username' : info['name'], 'email': info['email'], 'group' : USER,  'scope' : '/*--//--*/', 'horariosPermitidos' : []})
-    print('insert: ', insert.inserted_id)
-
-  return redirect('/dashboard')
+    return redirect('/welcome/' + info['name'])
+  else:
+    return redirect('/dashboard')
 
 @app.route('/login')
 def login():
   return auth0.authorize_redirect(redirect_uri='http://172.24.42.64/callback')
 
+@app.route('/welcome/<usuario>')
+@requires_auth(USER)
+def welcome(usuario):
+  return render_template('welcome.html')
+
 @app.route('/dashboard')
 @requires_auth(USER)
 def post_login():
   return render_template('dashboard.html')
+
+@app.route('/dashboard/collections')
+@requires_auth(USER)
+def collection_invoker():
+  return render_template('collections.html')
+
+@app.route('/collections')
+@requires_auth(USER)
+def collections_serving():
+  return send_from_directory('collections', 'collections.js')
 
 @app.route('/logout')
 def logout():
@@ -305,6 +342,8 @@ def imuebles(unidad):
     sanitizedData['_id'] = ObjectId()
     sanitizedData['localID'] = data['localID']
     sanitizedData['hub'] = {}
+    sanitizedData['owner'] = data['owner']
+    sanitizedData['owner_user_id'] = data['owner_user_id']
     #Añadir al arreglo de inmuebles
     result = db.unidadesResidenciales.find_one_and_update({'nombre':unidad}, {'$push': {'inmuebles': sanitizedData}})
     #Añadir scope al dueño
@@ -313,13 +352,6 @@ def imuebles(unidad):
     if result == None:
       return "No hay ninguna unidad con ese nombre", 404
     return dumpJson(result)
-
-@app.route('/test')
-#@requires_auth
-def testo():
-  unidad = db.unidadesResidenciales.find_one({ 'nombre' : 'Toscana' })
-  print("Unidad: ", unidad)
-  return "xd"
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>", methods=[GET, PUT, DELETE])
 @requires_auth(PROPERTY_OWNER)
@@ -374,6 +406,8 @@ def hub(unidad, localID):
       if inmueble['localID'] == localID:
         respuesta = inmueble
         break
+    if respuesta == []:
+      return "El inmueble solicitado no presenta ningún hub asociado"
     #Retorna solo el Hub del inmueble buscado
     return dumpJson(respuesta['hub'])
   elif request.method == POST or request.method == PUT:
@@ -385,7 +419,7 @@ def hub(unidad, localID):
     try:
       valid = valid and (data['frecuencia'] != None or data['frecuencia'] != "")
       valid = valid and (data['fallosMaximos'] != None or data['fallosMaximos'] != "")
-      valid = valid and (data['zona'] != None or data['fallosMaximos']!="")
+      valid = valid and (data['zona'] != None or data['zona']!="")
     except KeyError:
       return "Debe incluir la frecuencia, la zona y el número de fallos máximos del inmueble", 400
 
@@ -496,7 +530,7 @@ def claves(unidad, localID):
         respuesta = inmueble
         break
     if respuesta == []:
-      return respuesta
+      return "No existe ningún inmueble en esa unidad residencial con ese localID", 404;
     return dumpJson(respuesta['hub']['cerradura']['claves'])
   elif request.method == POST or request.method == PUT:
     if request.data == None or request.data == "":
@@ -600,6 +634,52 @@ def emergencias(unidad, localID):
       return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     return dumpJson(result)
 
+@app.route("/p2/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/emergencias", methods=[GET, POST])
+def emergenciasP2(unidad, localID):
+  data = {}
+  if request.data:
+    data = loads(request.data)
+  if request.method == POST:
+    sessionParam=json.loads(request.headers['sessionParam'])
+    user = db.users.find_one({'auth0_id' : sessionParam['PROFILE_KEY']['user_id']})
+    if False==checkSession(sessionParam['PROFILE_KEY']['user_id'], YALE, user['scope']):
+      return "Hubo un error autenticando al usuario",403     
+    if request.data == None or request.data == "":
+      return "Debe enviar información", 400
+    valid = True
+    try:
+      valid = valid and (data['fecha'] != None or data['fecha'] != "")
+      valid = valid and (data['tipo'] != None or data['tipo'] != "")
+      valid = valid and (data['idEmergencia'] != None or data['idEmergencia'] != "")
+    except KeyError:
+      return "Debe incluir la fecha, el tipo y el id de la emergencia", 400
+
+    if not valid:
+      return "Rellene los campos vacíos", 400
+
+    #7 ids diferentes de emergencia
+    valid = valid and int(data['idEmergencia']) > 0 and int(data['idEmergencia']) < 9
+
+    if not valid:
+      return "El id de la emergencia debe estar entre 1 y 8", 400
+
+    sanitizedData = {}
+    sanitizedData['fecha'] = data['fecha']
+    sanitizedData['tipo'] = data['tipo']
+    sanitizedData['idEmergencia'] = data['idEmergencia']
+
+    #Esta linea busca los documentos que tengan la propiedad nombre == unidad
+    #Y luego inserta a el valor del campo inmuebles[x].hub.cerradura.claves la nueva combinación
+    #inmuebles[x] corresponde al elemento tal que inmuebles[x].localID == identificador local del inmueble
+    result = db.unidadesResidenciales.find_one_and_update({'nombre': unidad,},
+    {'$push': {'inmuebles.$[elemento].hub.cerradura.emergencias' : sanitizedData}},
+    array_filters=[ {'elemento.localID': {'$eq' : localID}} ],
+    return_document=ReturnDocument.AFTER)
+    if result == None:
+      return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
+    return dumpJson(result)
+
+
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/horariosPermitidos", methods=[GET, POST, DELETE])
 @requires_auth(PROPERTY_OWNER)
 def horariosPermitidos(unidad, localID):
@@ -675,7 +755,7 @@ def emergenciasUnidad(unidad):
 @requires_auth(YALE)
 def yaleEmergencias():
     respuesta = []
-    #Encontrar todos las unidades residenciales
+    #Encontrar todas las unidades residenciales
     for doc in db.unidadesResidenciales.find():
       try:
         #Por cada in mueble en cada unidad residencial
@@ -708,10 +788,74 @@ def usuario(usuario):
     user = db.users.find({'username': usuario})
     return dumpJson(user)
   elif request.method == PUT:
-    return "Dirígase a /login y haga click en 'Don't remember your password?'"
+    name = data['nombre']
+    phone = data['telefono']
+    age = data['edad']
+    user = db.users.find_one_and_update({"username": usuario}, {'$set' : {'nombre': name, 'telefono': phone, 'edad': age}}, return_document=ReturnDocument.AFTER)
+    return dumpJson(user)
   elif request.method == DELETE:
     user = db.users.find_one_and_update({"username": usuario}, {'$set' : {'group': DISABLED}}, return_document=ReturnDocument.AFTER)
     return dumpJson(user)
+
+@app.route('/unidadesResidenciales/<unidad>/reporteMensual/<mesReporte>', methods=[GET])
+@requires_auth(UR_ADMIN)
+def reportesUnidadResidencial(unidad, mesReporte):
+  emergencias = []
+  mes = 0
+  try:
+    mes = int(mesReporte)
+  except Exception:
+    return "Formato incorrecto del mes. Se esperaba un entero", 400
+  unidadResidencial = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+  if not unidadResidencial:
+    return "Unidad no encontrada", 404
+  
+  for inmueble in unidadResidencial['inmuebles']:
+    try:
+    #Agregar las emergencias a la respuesta
+      respuesta = inmueble['hub']['cerradura']['emergencias']
+      for emergencia in respuesta:
+        try:
+          if int(emergencia['fecha'].split('-')[1]) == mes:
+            emergencias.append(emergencia)
+        except IndexError:
+          pass
+    except KeyError as error:
+      print(inmueble['localID'], ' no tiene ', str(error.args))
+  
+  return dumps(emergencias)
+  
+@app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/reporteMensual/<mesReporte>", methods=[GET])
+@requires_auth(PROPERTY_OWNER)
+def reportesInmuebles(unidad, localID, mesReporte):
+  if request.method == GET:
+    emergencias = []
+    respuesta = []
+    try:
+      mes = int(mesReporte)
+    except Exception:
+      return "Formato incorrecto del mes. Se esperaba un entero", 400
+    unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    if unidadRes == None:
+      return "No existe la unidad residencial", 404
+    for inmueble in unidadRes['inmuebles']:
+      if inmueble['localID'] == localID:
+        respuesta = inmueble
+        break
+    if respuesta == []:
+      return "No existe el inmueble '" + localID + "' dentro de la unidad residencial '" + unidad + "'", 404
+    elif respuesta['hub'] == {}:
+      return "El inmueble no tiene un hub asociado", 404
+    elif respuesta['hub']['cerradura'] == {}:
+      return "El inmueble no tiene una cerradura asociada", 404
+    for emergencia in respuesta['hub']['cerradura']['emergencias']:
+      try:
+        if int(emergencia['fecha'].split('-')[1]) == mes:
+          emergencias.append(emergencia)
+      except IndexError:
+        pass    
+    return dumps(emergencias)
+
 
 def dumpJson(obj):
   return dumps(obj, json_options=CANONICAL_JSON_OPTIONS)

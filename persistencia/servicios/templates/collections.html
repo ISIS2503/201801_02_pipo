@@ -1,0 +1,123 @@
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="http://172.24.42.64/collections"></script>
+</head>
+
+<body>
+  <div id='app'>
+    <h1>Collection invoker</h1>
+    <p>Seleccione una colección para correr y presione 'Correr colección' para correrla a nombre del usuario con el que inicio
+      sesión
+    </p>
+    <div id='collectionSelector'>
+      <h3>Colecciones:</h3>
+      <select name="collection" v-model="collectionIndex" id="collection">
+        <option selected disabled value="">Seleccione una colección</option>
+        <option v-for="collection, index in collections" :value="index">%{collection.nombre}%</option>
+      </select>
+    </div>
+    <div v-if='typeof(collectionIndex) === "number"'>
+      <p>[%{collectionIndex}%] Se va a correr la collección "%{collections[collectionIndex].nombre}%"</p>
+      <button v-on:click="runCollection">
+        Correr colección
+      </button>
+    </div>
+    <div v-if="results">
+      <h2>Resultados de la colección:</h2>
+      <button v-on:click="results=[]">Limpiar Resultados</button>
+        <ul>
+          <li v-for="result, index in results">
+            [%{index}%] = %{result}%
+          </li>
+        </ul>
+    </div>
+  </div>
+</body>
+<script>
+  //Should print collections json
+  console.log(collections)
+  var app = new Vue({
+    el: '#app',
+    delimiters: ["%{", "}%"],
+    data: {
+      collections: {},
+      collectionIndex: null,
+      results: null
+    },
+    mounted: function () {
+      //"Import" to vue
+      this.collections = collections
+    },
+    methods: {
+      runCollection: function () {
+        var collectionToRun = this.collections[this.collectionIndex].peticiones;
+        console.log(collectionToRun)
+        this.results = [];
+        for(peticion in collectionToRun){
+          url = collectionToRun[peticion].url;
+          body = collectionToRun[peticion].body;
+          if(!body) body = "{}";
+          method = collectionToRun[peticion].method;
+          this.sendRequest(url, body, method);
+        }
+        console.log("end")
+      },
+      sendRequest: function (url, _body, method) {
+        var _this = this;
+        var body = JSON.parse(_body);
+        console.log(url, body, method)
+        switch (method) {
+          case 'GET':
+            axios.get(url, body)
+              .then(function (response) {
+                _this.results.push(response)
+                //return response;
+              })
+              .catch(function (error) {
+                _this.results.push(error);
+                console.log(error);
+              });
+            break;
+          case 'POST':
+            axios.post(url, body)
+              .then(function (response) {
+                _this.results.push(response)
+                //return response;
+              })
+              .catch(function (error) {
+                _this.results.push(error);
+                console.log(error);
+              });
+            break;
+          case 'PUT':
+            axios.put(url, body)
+              .then(function (response) {
+                _this.results.push(response)
+                //return response;
+              })
+              .catch(function (error) {
+                _this.results.push(error);
+                console.log(error);
+              });
+            break;
+          case 'DELETE':
+            axios.delete(url, body)
+              .then(function (response) {
+                _this.results.push(response)
+                //return response;
+              })
+              .catch(function (error) {
+                _this.results.push(error);
+                console.log(error);
+              });
+            break;
+        }
+      }
+    }
+  })
+</script>
+
+</html>

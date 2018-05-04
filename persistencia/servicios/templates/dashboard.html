@@ -21,11 +21,14 @@
                     <option value="DELETE">DELETE</option>
                 </select>
                 <button v-on:click="sendRequest">
-                    enviar
+                    Enviar
+                </button>
+                <button v-on:click="goToCollections">
+                  Correr Colecciones
                 </button>
             </div>
             <div>
-                <textarea v-model="body" name="requestBody" id="requestBody" cols="70" rows="40">{}</textarea>
+                <textarea v-model="body" name="requestBody" id="requestBody" cols="70" rows="20">{}</textarea>
             </div>
 
             <div v-if="error || response">
@@ -100,6 +103,9 @@
                                     });
                                 break;
                         }
+                    },
+                    goToCollections: function(){
+                      document.location.href = 'http://172.24.42.64/dashboard/collections'
                     }
                 }
             })
