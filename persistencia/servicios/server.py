@@ -677,7 +677,7 @@ def emergenciasUnidad(unidad):
 @requires_auth(YALE)
 def yaleEmergencias():
     respuesta = []
-    #Encontrar todos las unidades residenciales
+    #Encontrar todas las unidades residenciales
     for doc in db.unidadesResidenciales.find():
       try:
         #Por cada in mueble en cada unidad residencial
@@ -714,6 +714,61 @@ def usuario(usuario):
   elif request.method == DELETE:
     user = db.users.find_one_and_update({"username": usuario}, {'$set' : {'group': DISABLED}}, return_document=ReturnDocument.AFTER)
     return dumpJson(user)
+
+@app.route('/unidadesResidenciales/inmuebles/<unidad>/reporteMensual/<mesReporte>', methods=[GET])
+@requires_auth(UR_ADMIN)
+def reportesUnidadResidencial(unidadd, mesReporte):
+  emergencias = []
+  mes = 0
+  try:
+    mes = int(mesReporte)
+  except Exception:
+    return "Formato incorrecto del mes. Se esperaba un entero", 400
+  unidadResidencial = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+  if not unidadResidencial:
+    return "Unidad no encontrada", 404
+  
+  for inmueble in unidadResidencial['inmuebles']:
+    try:
+    #Agregar las emergencias a la respuesta
+      respuesta = inmueble['hub']['cerradura']['emergencias']
+      for emergencia in respuesta:
+        if int(emergencia['fecha'].split('-')[1]) == mes:
+          respuesta.append(emergencia)
+    except KeyError as error:
+      print(inmueble['localID'], ' no tiene ', str(error.args))
+  
+  return dumps(emergencias)
+  
+@app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/reporteMensual/<mesReporte>", methods=[GET])
+@requires_auth(PROPERTY_OWNER)
+def emergencias(unidad, localID, mesReporte):
+  if request.method == GET:
+    emergencias = []
+    respuesta = []
+    try:
+      mes = int(mesReporte)
+    except Exception:
+      return "Formato incorrecto del mes. Se esperaba un entero", 400
+    unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    if unidadRes == None:
+      return "No existe la unidad residencial", 404
+    for inmueble in unidadRes['inmuebles']:
+      if inmueble['localID'] == localID:
+        respuesta = inmueble
+        break
+    if respuesta == []:
+      return "No existe el inmueble '" + localID + "' dentro de la unidad residencial '" + unidad + "'", 404
+    elif respuesta['hub'] == {}:
+      return "El inmueble no tiene un hub asociado", 404
+    elif respuesta['hub']['cerradura'] == {}:
+      return "El inmueble no tiene una cerradura asociada", 404
+    for emergencia in respuesta['hub']['cerradura']['emergencias']:
+      if int(emergencia['fecha'].split('-')[1]) == mes:
+        emergencias.append(emergencia)
+    
+    return dumps(emergencias)
+
 
 def dumpJson(obj):
   return dumps(obj, json_options=CANONICAL_JSON_OPTIONS)
