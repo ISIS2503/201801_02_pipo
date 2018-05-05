@@ -42,10 +42,12 @@ public class Bridge implements MqttCallback {
 	private Producer<String, String> kafkaProducer;
         private MqttConnectOptions connOpt;
         
-    static final String ROOT = "C:/Users/se.cardenas/Documents/201810_02_pipo/entidadVirtual";
-    static final String CA_FILE_PATH = "/ssl/ca.crt";
-    static final String CLIENT_CRT_FILE_PATH = "/ssl/server.crt";
-    static final String CLIENT_KEY_FILE_PATH = "/ssl/server.key";
+    static final String ROOT = "C:/Users/se.cardenas/Documents/201810_02_pipo/entidadVirtual/ssl";
+    static final String CRT_FILE_PATH = "/mosquittoChecho";
+    //static final String CTRFilesPath = "/mosquittoCarlos";
+    static final String CA_FILE_PATH = "/ca.crt";
+    static final String CLIENT_CRT_FILE_PATH = "/server.crt";
+    static final String CLIENT_KEY_FILE_PATH = "/server.key";
     static final String MQTT_USER_NAME = "BridgeCentro";
     static final String MQTT_PASSWORD = "piporules";
 	
@@ -62,7 +64,7 @@ public class Bridge implements MqttCallback {
             //socket factory
             SSLSocketFactory socketFactory;
             try {
-                socketFactory = getSocketFactory(ROOT+CA_FILE_PATH, ROOT+CLIENT_CRT_FILE_PATH, ROOT+CLIENT_KEY_FILE_PATH, "");
+                socketFactory = getSocketFactory(ROOT+CRT_FILE_PATH+CA_FILE_PATH, ROOT+CRT_FILE_PATH+CLIENT_CRT_FILE_PATH, ROOT+CRT_FILE_PATH+CLIENT_KEY_FILE_PATH, "");
                 connOpt.setSocketFactory(socketFactory);
             } catch (Exception e) {
                 e.printStackTrace();
