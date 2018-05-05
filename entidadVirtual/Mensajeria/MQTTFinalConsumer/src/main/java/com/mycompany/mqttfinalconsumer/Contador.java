@@ -13,27 +13,31 @@ import java.util.logging.Logger;
  * @author cm.sarmiento10
  */
 public class Contador extends Thread {
-    
-    public Contador()
-    {
-        
+
+    public Contador() {
+
     }
-    
-    public void run()
-    {
+
+    public void run() {
         try {
             Thread.sleep(600000);
         } catch (InterruptedException ex) {
-            
+
         }
-        long[] arr=SimpleMqqtConsumerClient.sumatoria;
-        long contador=0;
-        long acum=0;
-        for (long num: arr) {
-            acum+=num;
-            contador++;
+        long contador = 0;
+        long acum = 0;
+        try {
+            long[] arr = SimpleMqqtConsumerClient.sumatoria;
+
+            for (long num : arr) {
+                acum += num;
+                contador++;
+            }
+        } catch (Exception e) {
+
         }
-        double resultado= acum/contador;
-        System.out.println("Tiempo "+ resultado);
+        double resultado = acum / contador;
+        System.out.println("Tiempo " + resultado);
+        System.out.println("Contador errores "+ RestPublisher.contadorErrores);
     }
 }
