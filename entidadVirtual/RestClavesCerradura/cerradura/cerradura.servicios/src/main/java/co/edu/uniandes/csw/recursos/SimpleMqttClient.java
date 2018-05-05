@@ -39,7 +39,7 @@ public class SimpleMqttClient implements MqttCallback {
     private static SimpleMqttClient client = null;
 
     static final String BROKER_URL = "ssl://172.24.41.182:8083";
-    static final String ROOT = "C:/Users/se.cardenas/Documents/201810_02_pipo/entidadVirtual/RestClavesCerradura/cerradura/cerradura.servicios";
+    static final String ROOT = "C:/Users/se.cardenas/Documents/201810_02_pipo/entidadVirtual";
     static final String CA_FILE_PATH = "/ssl/ca.crt";
     static final String CLIENT_CRT_FILE_PATH = "/ssl/server.crt";
     static final String CLIENT_KEY_FILE_PATH = "/ssl/server.key";

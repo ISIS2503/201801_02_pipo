@@ -42,7 +42,7 @@ public class SimpleMqqtConsumerClient implements MqttCallback {
     static int contador=0;
     static long[] sumatoria=new long[100000];
     
-    static final String ROOT = "C:/Users/se.cardenas/Documents/201810_02_pipo/entidadVirtual/Mensajeria/MQTTFinalConsumer";
+    static final String ROOT = "C:/Users/se.cardenas/Documents/201810_02_pipo/entidadVirtual";
     static final String CA_FILE_PATH = "/ssl/ca.crt";
     static final String CLIENT_CRT_FILE_PATH = "/ssl/server.crt";
     static final String CLIENT_KEY_FILE_PATH = "/ssl/server.key";
