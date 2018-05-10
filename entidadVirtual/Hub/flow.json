@@ -351,6 +351,24 @@
         "verifyservercert": false
     },
     {
+        "id": "84bc4f24.36d058",
+        "type": "mqtt-broker",
+        "z": "",
+        "broker": "172.23.65.161",
+        "port": "8083",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
         "id": "24d81772.16ff1",
         "type": "inject",
         "z": "a81c23f3.bd483",
@@ -909,8 +927,8 @@
         "func": "msg.payload=\"Arduino007\\t\"+msg.payload;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 330,
-        "y": 80,
+        "x": 290,
+        "y": 100,
         "wires": [
             [
                 "d74b3c82.68db38"
@@ -1454,8 +1472,8 @@
         "ret": "txt",
         "url": "http://172.24.42.57:9000/yale",
         "tls": "",
-        "x": 580,
-        "y": 140,
+        "x": 570,
+        "y": 120,
         "wires": [
             []
         ]
@@ -1826,7 +1844,7 @@
         "type": "function",
         "z": "ddb0bb9c.500fa8",
         "name": "Verify change message",
-        "func": "if (msg.payload==\"1\")\n    global.set(\"emailActivated\",true);\nelse if (msg.payload==\"0\")\n    global.set(\"emailActivated\",false);\nmsg.payload=global.get(\"emailActivated\");\nreturn msg;",
+        "func": "if (msg.payload.msg==\"1\")\n    global.set(\"emailActivated\",true);\nelse if (msg.payload.msg==\"0\")\n    global.set(\"emailActivated\",false);\nmsg.payload=global.get(\"emailActivated\");\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 510,
