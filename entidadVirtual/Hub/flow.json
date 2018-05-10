@@ -1835,7 +1835,7 @@
         "y": 460,
         "wires": [
             [
-                "ed497d5.501e58"
+                "5ee011f7.a3b5f8"
             ]
         ]
     },
@@ -1847,7 +1847,7 @@
         "func": "if (msg.payload.msg==\"1\")\n    global.set(\"emailActivated\",true);\nelse if (msg.payload.msg==\"0\")\n    global.set(\"emailActivated\",false);\nmsg.payload=global.get(\"emailActivated\");\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 510,
+        "x": 530,
         "y": 460,
         "wires": [
             [
@@ -1879,24 +1879,6 @@
         ]
     },
     {
-        "id": "671cce6e.d28b8",
-        "type": "inject",
-        "z": "ddb0bb9c.500fa8",
-        "name": "",
-        "topic": "",
-        "payload": "0",
-        "payloadType": "num",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 370,
-        "y": 580,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "9bcf1e39.40561",
         "type": "debug",
         "z": "ddb0bb9c.500fa8",
@@ -1909,5 +1891,21 @@
         "x": 670,
         "y": 540,
         "wires": []
+    },
+    {
+        "id": "5ee011f7.a3b5f8",
+        "type": "json",
+        "z": "ddb0bb9c.500fa8",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 350,
+        "y": 520,
+        "wires": [
+            [
+                "ed497d5.501e58"
+            ]
+        ]
     }
 ]
