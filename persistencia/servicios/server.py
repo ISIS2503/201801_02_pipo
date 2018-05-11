@@ -127,9 +127,9 @@ def confirmarHorariosHubs():
 def testt(param1, param2):
   return param1 + param2
 
-@app.route('/unauthorized')
+@app.route('/unauthorized', methods=[GET, POST, PUT, DELETE])
 def unauthorized():
-  return "No tiene los permisos necesarios para ejecutar la operación"
+  return "No tiene los permisos necesarios para ejecutar la operación", 403
 
 @app.route('/callback')
 def callback_handling():
