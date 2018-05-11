@@ -104,7 +104,7 @@ public class PasswordService {
     @Produces(MediaType.APPLICATION_JSON)
     public Msg activatePassword() {
         Msg msg = new Msg();
-        msg.msg = "1";
+        msg.msg = "A";
         //falta publicar a mosquitto
         SimpleMqttClient smc = SimpleMqttClient.getInstance();
         smc.publish(msg);
@@ -113,11 +113,11 @@ public class PasswordService {
     }
     
     @POST
-    @Path("activar/")
+    @Path("desactivar/")
     @Produces(MediaType.APPLICATION_JSON)
     public Msg deactivatePassword() {
         Msg msg = new Msg();
-        msg.msg = "0";
+        msg.msg = "D";
         //falta publicar a mosquitto
         SimpleMqttClient smc = SimpleMqttClient.getInstance();
         smc.publish(msg);
