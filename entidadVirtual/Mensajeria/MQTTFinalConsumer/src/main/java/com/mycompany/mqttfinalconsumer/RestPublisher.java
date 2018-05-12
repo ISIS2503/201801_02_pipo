@@ -30,6 +30,7 @@ public class RestPublisher extends Thread {
 
     public void start() {
         try {
+            System.out.println("MSJ:"+mqttMessage.toString());
             //Base connection with RestAPI
             URL obj = new URL(url);
 
@@ -38,25 +39,49 @@ public class RestPublisher extends Thread {
             // GET
             con.setRequestMethod("GET");
             con.setDoOutput(true);
-
-            JSONObject jsonRequest = new JSONObject(mqttMessage.toString()).getJSONObject("emergency");
-            System.out.println(SimpleMqqtConsumerClient.contador + " ASUNTO: Alarma del dispositivo " + jsonRequest.getString("id") + ";CONTENIDO: Hubo una emergencia en el inmueble " + jsonRequest.getString("apartamento")
+            JSONObject jsonRequest=new JSONObject(mqttMessage.toString());
+            
+            if(jsonRequest.has("emergency"))
+            {
+                jsonRequest=jsonRequest.getJSONObject("emergency");
+                System.out.println(SimpleMqqtConsumerClient.contador + " ASUNTO: Alarma del dispositivo " + jsonRequest.getString("id") + ";CONTENIDO: Hubo una emergencia en el inmueble " + jsonRequest.getString("apartamento")
                     + " de la unidad residencial " + jsonRequest.getString("conjunto") + " de la zona " + jsonRequest.getString("zona") + " de tipo " + jsonRequest.getString("emergencia") + ";REMITENTE:s.guzmanm@yale.com"
                     + ";DESTINATARIOS:se.cardenas@uniandes.edu.co,ja.manrique@uniandes.edu.co");
-            if (con.getResponseCode() != 200) {
-                contadorErrores++;
-
-            }
-            SimpleMqqtConsumerClient.sumatoria[contador] = System.currentTimeMillis() - time;
-            if (contador >= 999999) {
-                long acumulado = 0;
-                for (long num : SimpleMqqtConsumerClient.sumatoria) {
-                    acumulado += num;
+                if (con.getResponseCode() != 200) {
+                    contadorErrores++;
                 }
-                double resp= (acumulado / 100000);
-                System.out.println("promedio "+ resp);
-                System.out.println("Contador errores "+  contadorErrores);
+                SimpleMqqtConsumerClient.sumatoria[contador] = System.currentTimeMillis() - time;
+                if (contador >= 999999) {
+                    long acumulado = 0;
+                    for (long num : SimpleMqqtConsumerClient.sumatoria) {
+                        acumulado += num;
+                    }
+                    double resp= (acumulado / 100000);
+                    System.out.println("promedio "+ resp);
+                    System.out.println("Contador errores "+  contadorErrores);
+                }
             }
+            else if (jsonRequest.has("failure"))
+            {
+                jsonRequest = jsonRequest.getJSONObject("failure");
+                 System.out.println(SimpleMqqtConsumerClient.contador + " ASUNTO: Fallo del dispositivo " + jsonRequest.getString("id") + ";CONTENIDO: Hubo un fallo en el inmueble " + jsonRequest.getString("apartamento")
+                    + " de la unidad residencial " + jsonRequest.getString("conjunto") + " de la zona " + jsonRequest.getString("zona") + " de tipo " + jsonRequest.getString("fallo") + ";REMITENTE:s.guzmanm@yale.com"
+                    + ";DESTINATARIOS:se.cardenas@uniandes.edu.co,ja.manrique@uniandes.edu.co");
+                if (con.getResponseCode() != 200) {
+                    contadorErrores++;
+                }
+                SimpleMqqtConsumerClient.sumatoria[contador] = System.currentTimeMillis() - time;
+                if (contador >= 999999) {
+                    long acumulado = 0;
+                    for (long num : SimpleMqqtConsumerClient.sumatoria) {
+                        acumulado += num;
+                    }
+                    double resp= (acumulado / 100000);
+                    System.out.println("promedio "+ resp);
+                    System.out.println("Contador errores "+  contadorErrores);
+                }
+            }
+            
         } catch (Exception e) {
             System.out.println(SimpleMqqtConsumerClient.contador);
             e.printStackTrace();

@@ -42,7 +42,7 @@ public class SimpleMqqtConsumerClient implements MqttCallback {
     static int contador=0;
     static long[] sumatoria=new long[100000];
     
-    static final String ROOT = "C:/Users/se.cardenas/Documents/201810_02_pipo/entidadVirtual/ssl";
+    static final String ROOT = "C:/Users/s.guzmanm/Documents/201810_02_pipo/entidadVirtual/ssl";
     static final String CRT_FILE_PATH = "/mosquittoChecho";
     //static final String CTRFilesPath = "/mosquittoCarlos";
     static final String CA_FILE_PATH = "/ca.crt";
@@ -82,7 +82,7 @@ public class SimpleMqqtConsumerClient implements MqttCallback {
             connOpt.setSocketFactory(socketFactory);
             
             client.connect(connOpt);
-            client.subscribe("Centro/Toscana/emergencia/#");
+            client.subscribe("Centro/Toscana/#");
             new Contador().start();
         }
         catch(Exception e)
