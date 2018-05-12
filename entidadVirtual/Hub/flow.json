@@ -232,7 +232,7 @@
         "type": "mqtt-broker",
         "z": "",
         "name": "Arduino007.recibir",
-        "broker": "172.24.41.174",
+        "broker": "172.24.41.182",
         "port": "8083",
         "tls": "b43d730.8b5731",
         "clientid": "",
@@ -351,6 +351,24 @@
         "verifyservercert": false
     },
     {
+        "id": "84bc4f24.36d058",
+        "type": "mqtt-broker",
+        "z": "",
+        "broker": "172.23.65.161",
+        "port": "8083",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
         "id": "24d81772.16ff1",
         "type": "inject",
         "z": "a81c23f3.bd483",
@@ -466,7 +484,7 @@
         "type": "function",
         "z": "a81c23f3.bd483",
         "name": "Merge 2 Messages",
-        "func": "context.data = context.data || {};\n\nswitch (msg.topic) \n{\n    case \"emergencyTime\":\n        context.data.sensetime = msg.payload;\n        msg = null;\n        break;\n    case \"emergencyHub\":\n        context.data.emergency = msg.payload;\n        context.flag=msg.payload.emergencia;\n        msg = null;\n        break;\n    default:\n        msg = null;\n    \tbreak;\n}\n\nif(context.flag!=null && context.data.sensetime != null && context.data.emergency != null) \n{\n\tres = {};\n    res.payload = JSON.stringify(context.data);\n    res.flag=context.flag;\n    res.topic = \"emergencyHub\";\n    context.data = null;\n    \n    return res;\n}",
+        "func": "context.data = context.data || {};\n\nswitch (msg.topic) \n{\n    case \"emergencyTime\":\n        context.data.sensetime = msg.payload;\n        msg = null;\n        break;\n    case \"emergencyHub\":\n        context.data.emergency = msg.payload;\n        context.flag=msg.payload.emergencia;\n        msg = null;\n        break;\n    default:\n        msg = null;\n    \tbreak;\n}\n\nif(context.flag!=null && context.data.sensetime != null && context.data.emergency != null) \n{\n\tres = {};\n    res.payload = JSON.stringify(context.data);\n    res.flag=context.flag;\n    res.topic = \"emergencyHub\";\n    context.data = null;\n    res.test=global.get(\"emailActivated\");\n    return res;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 750,
@@ -475,7 +493,8 @@
             [
                 "fd8f5986.edef08",
                 "4f8d0b1a.d37044",
-                "6318c0ff.7b8ff"
+                "6318c0ff.7b8ff",
+                "5843eba3.9d8844"
             ]
         ]
     },
@@ -680,7 +699,7 @@
         "y": 160,
         "wires": [
             [
-                "bf17128b.931cc8"
+                "d74b3c82.68db38"
             ]
         ]
     },
@@ -729,10 +748,11 @@
         "outputs": 1,
         "noerr": 0,
         "x": 460,
-        "y": 20,
+        "y": 60,
         "wires": [
             [
-                "4052f2a1.f8529c"
+                "4052f2a1.f8529c",
+                "bf17128b.931cc8"
             ]
         ]
     },
@@ -896,8 +916,7 @@
         "y": 180,
         "wires": [
             [
-                "bf0a8711.72761",
-                "816dab52.473a78"
+                "bf0a8711.72761"
             ]
         ]
     },
@@ -909,12 +928,10 @@
         "func": "msg.payload=\"Arduino007\\t\"+msg.payload;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 330,
-        "y": 80,
+        "x": 170,
+        "y": 60,
         "wires": [
-            [
-                "d74b3c82.68db38"
-            ]
+            []
         ]
     },
     {
@@ -942,8 +959,8 @@
         "qos": "0",
         "retain": "",
         "broker": "21be8c88.6d7f64",
-        "x": 610,
-        "y": 100,
+        "x": 810,
+        "y": 80,
         "wires": []
     },
     {
@@ -981,12 +998,12 @@
         "id": "7bf50ee4.c8d238",
         "type": "function",
         "z": "ddb0bb9c.500fa8",
-        "name": "Verify change message",
+        "name": "Verify arduino message",
         "func": "data=msg.payload.msg.split(\";\");\nlist=[\"NEW_PASSWORD\",\"CHANGE_PASSWORD\",\"DELETE_PASSWORD\",\"DELETE_ALL\"];\nif(data.length>2)\n{\n    if(data[1].length<=2 &&data[2].length==4)\n    {\n        if(!isNaN(parseInt(data[1]))&&parseInt(data[1])<20 && !isNaN(parseInt(data[2])))\n        {\n            msg.payload=list[parseInt(data[0])-1]+\";\"+data[1]+\";\"+data[2];\n        }\n    }\n}\nelse if (data.length>1)\n{\n    if(!isNaN(parseInt(data[1]))&&parseInt(data[1])<20)\n        {\n            msg.payload=list[parseInt(data[0])-1]+\";\"+data[1];\n        }\n}\nelse\n{\n    if(parseInt(msg.payload.msg)===4)\n    {\n        msg.payload=list[parseInt(msg.payload.msg)-1]\n    }\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 430,
-        "y": 180,
+        "x": 690,
+        "y": 160,
         "wires": [
             [
                 "706e2be0.75a374",
@@ -1004,8 +1021,8 @@
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 590,
-        "y": 300,
+        "x": 900,
+        "y": 180,
         "wires": []
     },
     {
@@ -1086,8 +1103,7 @@
         "y": 220,
         "wires": [
             [
-                "7bf50ee4.c8d238",
-                "18eddaf4.fd7bd5"
+                "6912859b.27aabc"
             ]
         ]
     },
@@ -1101,8 +1117,8 @@
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 410,
-        "y": 240,
+        "x": 690,
+        "y": 220,
         "wires": []
     },
     {
@@ -1124,7 +1140,7 @@
         "type": "function",
         "z": "c716ffd5.d195d",
         "name": "Format Time",
-        "func": "\nif(typeof global.get(\"lastHealthCheck\")=='undefined')\n{\n    global.set(\"lastHealthCheck\",new Date());\n    msg.test2=\"ENTRA\";\n}\nif(isNaN(global.get(\"misses\")))\n{\n    global.set(\"misses\",0);\n}\n\nvar maxMisses=1;\nvar time=4000;\nvar last=global.get(\"lastHealthCheck\");\nmsg.flag=0;\n\nvar diffMs = (new Date() - last); // milliseconds between now & Christmas\n\nmsg.test=global.get(\"lastHealthCheck\")+\" \"+global.get(\"misses\")+\" \"+diffMs;\n\nif(diffMs>time)\n{\n    global.set(\"misses\",global.get(\"misses\")+1);\n}\nif(global.get(\"misses\")>maxMisses)\n{\n    msg.flag=1;\n    msg.headers={\"Content-Type\":\"application/json\"};\n    msg.payload={\n          \"remitente\":\"Hub007@yale.edu.co\",\n          \"destinatarios\":[\n          {\n              \"correo\":\"js.diaz@uniandes.edu.co\"\n          },\n          {\n              \"correo\":\"ja.manrique@uniandes.edu.co\"\n          },\n          {\n              \"correo\":\"cm.sarmiento10@uniandes.edu.co\"\n          }\n          ],\n          \"asunto\":\"CERRADURA FUERA DE LÍNEA\",\n          \"cuerpo\":\"Arduino 007 no está en línea\"\n     \n      };\n}\nreturn msg;\n\n",
+        "func": "\nif(typeof global.get(\"lastHealthCheck\")=='undefined')\n{\n    global.set(\"lastHealthCheck\",new Date());\n    msg.test2=\"ENTRA\";\n}\nif(isNaN(global.get(\"misses\")))\n{\n    global.set(\"misses\",0);\n}\n\nvar maxMisses=1;\nvar time=1000;\nvar last=global.get(\"lastHealthCheck\");\nmsg.flag=0;\n\nvar diffMs = (new Date() - last); // milliseconds between now & Christmas\n\nmsg.test=global.get(\"lastHealthCheck\")+\" \"+global.get(\"misses\")+\" \"+diffMs;\n\nif(diffMs>time)\n{\n    global.set(\"misses\",global.get(\"misses\")+1);\n}\nif(global.get(\"misses\")>maxMisses)\n{\n    msg.flag=1;\n    msg.headers={\"Content-Type\":\"application/json\"};\n    msg.payload={\n          \"remitente\":\"Hub007@yale.edu.co\",\n          \"destinatarios\":[\n          {\n              \"correo\":\"js.diaz@uniandes.edu.co\"\n          },\n          {\n              \"correo\":\"ja.manrique@uniandes.edu.co\"\n          },\n          {\n              \"correo\":\"cm.sarmiento10@uniandes.edu.co\"\n          }\n          ],\n          \"asunto\":\"CERRADURA FUERA DE LÍNEA\",\n          \"cuerpo\":\"Arduino 007 no está en línea\"\n     \n      };\n}\nreturn msg;\n\n",
         "outputs": 1,
         "noerr": 0,
         "x": 390,
@@ -1173,7 +1189,7 @@
         "topic": "emergencyTime",
         "payload": "",
         "payloadType": "date",
-        "repeat": "5",
+        "repeat": "1",
         "crontab": "",
         "once": false,
         "onceDelay": "0",
@@ -1414,10 +1430,10 @@
         "type": "inject",
         "z": "9f25517e.dc5bc8",
         "name": "TIME INTERVAL",
-        "topic": "",
+        "topic": "s.guzmanm@uniandes.edu.co",
         "payload": "",
         "payloadType": "date",
-        "repeat": "5",
+        "repeat": "20",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -1437,11 +1453,12 @@
         "func": "msg.payload={\"Hub\":\"Hub007\"}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 390,
-        "y": 140,
+        "x": 360,
+        "y": 180,
         "wires": [
             [
-                "e8a59ca3.44937"
+                "e8a59ca3.44937",
+                "552e0136.79c81"
             ]
         ]
     },
@@ -1454,10 +1471,12 @@
         "ret": "txt",
         "url": "http://172.24.42.57:9000/yale",
         "tls": "",
-        "x": 580,
-        "y": 140,
+        "x": 570,
+        "y": 120,
         "wires": [
-            []
+            [
+                "6c1d0ddf.357874"
+            ]
         ]
     },
     {
@@ -1664,20 +1683,6 @@
         "wires": []
     },
     {
-        "id": "816dab52.473a78",
-        "type": "debug",
-        "z": "34f6a4a0.c4adbc",
-        "name": "Format",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "x": 280,
-        "y": 200,
-        "wires": []
-    },
-    {
         "id": "be0c295e.e20a78",
         "type": "inject",
         "z": "34f6a4a0.c4adbc",
@@ -1806,31 +1811,15 @@
         "wires": []
     },
     {
-        "id": "7ffab7c1.99c938",
-        "type": "mqtt in",
-        "z": "ddb0bb9c.500fa8",
-        "name": "",
-        "topic": "Centro/Toscana/2-503/alarmas/Arduino007",
-        "qos": "0",
-        "broker": "5d4d54b.bf3e5ac",
-        "x": 160,
-        "y": 460,
-        "wires": [
-            [
-                "ed497d5.501e58"
-            ]
-        ]
-    },
-    {
         "id": "ed497d5.501e58",
         "type": "function",
         "z": "ddb0bb9c.500fa8",
-        "name": "Verify change message",
-        "func": "if (msg.payload==\"1\")\n    global.set(\"emailActivated\",true);\nelse if (msg.payload==\"0\")\n    global.set(\"emailActivated\",false);\nmsg.payload=global.get(\"emailActivated\");\nreturn msg;",
+        "name": "Verify alarm message",
+        "func": "if (msg.payload.msg==\"A\")\n    global.set(\"emailActivated\",true);\nelse if (msg.payload.msg==\"D\")\n    global.set(\"emailActivated\",false);\nmsg.payload=global.get(\"emailActivated\");\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 510,
-        "y": 460,
+        "x": 680,
+        "y": 340,
         "wires": [
             [
                 "9bcf1e39.40561"
@@ -1861,24 +1850,6 @@
         ]
     },
     {
-        "id": "671cce6e.d28b8",
-        "type": "inject",
-        "z": "ddb0bb9c.500fa8",
-        "name": "",
-        "topic": "",
-        "payload": "0",
-        "payloadType": "num",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 370,
-        "y": 580,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "9bcf1e39.40561",
         "type": "debug",
         "z": "ddb0bb9c.500fa8",
@@ -1888,8 +1859,114 @@
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 670,
-        "y": 540,
+        "x": 810,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "f8d2a1ce.ef2ab",
+        "type": "switch",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Verify topic",
+        "property": "flag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 460,
+        "y": 220,
+        "wires": [
+            [
+                "7bf50ee4.c8d238"
+            ],
+            [
+                "ed497d5.501e58"
+            ]
+        ]
+    },
+    {
+        "id": "5843eba3.9d8844",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "EMIAL IS ACTIVATED",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "test",
+        "x": 990,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "6912859b.27aabc",
+        "type": "function",
+        "z": "ddb0bb9c.500fa8",
+        "name": "PUT FLAG",
+        "func": "msg.flag=0;\nindice=msg.payload.msg.split(\";\")[0];\nif(indice==\"A\" || indice==\"D\")\n    msg.flag=1;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 460,
+        "y": 300,
+        "wires": [
+            [
+                "f8d2a1ce.ef2ab",
+                "d3825ae.b9c9fa8"
+            ]
+        ]
+    },
+    {
+        "id": "d3825ae.b9c9fa8",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "MSG FLAG",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "flag",
+        "x": 570,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "552e0136.79c81",
+        "type": "debug",
+        "z": "9f25517e.dc5bc8",
+        "name": "HUB HC",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 550,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "6c1d0ddf.357874",
+        "type": "debug",
+        "z": "9f25517e.dc5bc8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "statusCode",
+        "x": 750,
+        "y": 140,
         "wires": []
     }
 ]

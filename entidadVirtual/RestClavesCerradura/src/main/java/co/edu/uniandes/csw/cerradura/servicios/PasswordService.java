@@ -98,5 +98,31 @@ public class PasswordService {
         
         return msg;
     }
+    
+    @POST
+    @Path("activar/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Msg activatePassword() {
+        Msg msg = new Msg();
+        msg.msg = "A";
+        //falta publicar a mosquitto
+        SimpleMqttClient smc = SimpleMqttClient.getInstance();
+        smc.publish(msg);
+        
+        return msg;
+    }
+    
+    @POST
+    @Path("desactivar/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Msg deactivatePassword() {
+        Msg msg = new Msg();
+        msg.msg = "D";
+        //falta publicar a mosquitto
+        SimpleMqttClient smc = SimpleMqttClient.getInstance();
+        smc.publish(msg);
+        
+        return msg;
+    }
 }
 
