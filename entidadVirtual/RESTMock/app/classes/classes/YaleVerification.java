@@ -57,6 +57,7 @@ public class YaleVerification extends Thread
                         {
                             msj+=mail+" ";
                         }
+                        
                         String mensaje = "DE: " +FROM + " PARA: "+msj;
                         mensaje += "ASUNTO: " + "FALLA EL HUB" + ";" + "CUERPO: " + "EL HUB 007 ESTA FALLANDO EN LA FECHA "+new SimpleDateFormat("yyyy-MM-dd kk:mm:ss").format(new Date());
                         System.out.println(mensaje);

@@ -17,7 +17,7 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">40000</stringProp>
+        <stringProp name="ThreadGroup.num_threads">35000</stringProp>
         <stringProp name="ThreadGroup.ramp_time">60</stringProp>
         <longProp name="ThreadGroup.start_time">1525449949000</longProp>
         <longProp name="ThreadGroup.end_time">1525449949000</longProp>
@@ -27,7 +27,7 @@
       </ThreadGroup>
       <hashTree>
         <net.xmeter.samplers.PubSampler guiclass="net.xmeter.gui.PubSamplerUI" testclass="net.xmeter.samplers.PubSampler" testname="MQTT Pub Sampler" enabled="true">
-          <stringProp name="mqtt.server">172.24.41.182</stringProp>
+          <stringProp name="mqtt.server">172.24.41.183</stringProp>
           <stringProp name="mqtt.port">8083</stringProp>
           <stringProp name="mqtt.version">3.1</stringProp>
           <boolProp name="mqtt.conn_share">false</boolProp>
@@ -51,7 +51,7 @@
           <boolProp name="mqtt.add_timestamp">false</boolProp>
           <stringProp name="mqtt.message_type">String</stringProp>
           <stringProp name="mqtt.message_type_fixed_length">1024</stringProp>
-          <stringProp name="mqtt.message_to_sent">TEST</stringProp>
+          <stringProp name="mqtt.message_to_sent">{&quot;sensetime&quot;:&quot;2018&quot;,&quot;emergency&quot;:{&quot;id&quot;:&quot;Arduino007&quot;,&quot;emergencia&quot;:&quot;2&quot;,&quot;apartamento&quot;:&quot;2-503&quot;,&quot;zona&quot;:&quot;Centro&quot;,&quot;conjunto&quot;:&quot;Toscana&quot;}}</stringProp>
         </net.xmeter.samplers.PubSampler>
         <hashTree/>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="Ver Árbol de Resultados" enabled="true">
