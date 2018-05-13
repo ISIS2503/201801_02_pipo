@@ -18,6 +18,7 @@ r.set('Centro/Toscana/emergencia/aperturaNoPermitida/2-5-3','BridgeCentro,P1Cent
 r.set('Centro/Toscana/fallo/cerraduraFueraDeLinea/2-5-3','BridgeCentro,P1Centro:Hub007')
 r.set('Centro/Toscana/fallo/hubFueraDeLinea/2-5-3','BridgeCentro,P1Centro:Yale')
 r.set('Centro/Toscana/emergencia/bateriaCritica/2-5-3','BridgeCentro,P1Centro:Hub007')
+r.set('Centro/Toscana/hub/2-5-3','Hub007:Yale')
 r.set('Centro/Toscana/2-5-3/alarmas/Arduino007','Hub007:ClavesArduino007')
 r.set('Centro/Test','P1Centro:Hub007')
 r.set('Norte/Test','P1Norte:Hub007')

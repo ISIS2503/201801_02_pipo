@@ -28,11 +28,17 @@
     <div v-if="results">
       <h2>Resultados de la colección:</h2>
       <button v-on:click="results=[]">Limpiar Resultados</button>
-        <ul>
-          <li v-for="result, index in results">
-            [%{index}%] = %{result}%
-          </li>
-        </ul>
+      <ul>
+        <li v-for="result, index in results">
+          <div style="border-left: 2px solid orange; background: whitesmoke">
+            <p>[%{index}%] = Response: [%{result.status}% || Request: [%{parseRequest(result.request)}%]</p>
+            <button v-on:click="toggleResult(index)">%{ shownResults.includes(index) ? "Mostrar menos" : "Mostrar cuerpo"}%</button>
+            <div v-if="shownResults.includes(index)" style="border: 2px solid orange;">
+              %{result.data}%
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </body>
@@ -45,7 +51,8 @@
     data: {
       collections: {},
       collectionIndex: null,
-      results: null
+      results: null,
+      shownResults: []
     },
     mounted: function () {
       //"Import" to vue
@@ -56,14 +63,31 @@
         var collectionToRun = this.collections[this.collectionIndex].peticiones;
         console.log(collectionToRun)
         this.results = [];
-        for(peticion in collectionToRun){
+        this.shownResults = [];
+        for (peticion in collectionToRun) {
+          console.log(collectionToRun[peticion]);
           url = collectionToRun[peticion].url;
           body = collectionToRun[peticion].body;
-          if(!body) body = "{}";
+          if (!body) body = "{}";
           method = collectionToRun[peticion].method;
           this.sendRequest(url, body, method);
         }
         console.log("end")
+      },
+      toggleResult: function (index) {
+        i = this.shownResults.indexOf(index);
+        if (i > -1 /*index is on shown results*/) {
+          this.shownResults.splice(i, 1);//remove it
+        }
+        else {
+          this.shownResults.push(index)
+        }
+
+      },
+      buildRequest: function (response, url, method, body) {
+        response.request.url = url;
+        response.request.method = method;
+        response.request.body = body;
       },
       sendRequest: function (url, _body, method) {
         var _this = this;
@@ -73,49 +97,67 @@
           case 'GET':
             axios.get(url, body)
               .then(function (response) {
+                _this.buildRequest(response, url, method, body)
                 _this.results.push(response)
                 //return response;
               })
               .catch(function (error) {
-                _this.results.push(error);
+                _this.buildRequest(error.response, url, method, body)
+                _this.results.push(error.response);
                 console.log(error);
               });
             break;
           case 'POST':
             axios.post(url, body)
               .then(function (response) {
+                _this.buildRequest(response, url, method, body)
                 _this.results.push(response)
                 //return response;
               })
               .catch(function (error) {
-                _this.results.push(error);
+                _this.buildRequest(error.response, url, method, body)
+                _this.results.push(error.response);
                 console.log(error);
               });
             break;
           case 'PUT':
             axios.put(url, body)
               .then(function (response) {
+                _this.buildRequest(response, url, method, body)
                 _this.results.push(response)
                 //return response;
               })
               .catch(function (error) {
-                _this.results.push(error);
+                _this.buildRequest(error.response, url, method, body)
+                _this.results.push(error.response);
                 console.log(error);
               });
             break;
           case 'DELETE':
             axios.delete(url, body)
               .then(function (response) {
+                _this.buildRequest(response, url, method, body)
                 _this.results.push(response)
                 //return response;
               })
               .catch(function (error) {
-                _this.results.push(error);
+                _this.buildRequest(error.response, url, method, body)
+                _this.results.push(error.response);
                 console.log(error);
               });
             break;
         }
+      },
+      parseRequest: function (request) {
+        str = "";
+
+        str += request.method + " - " + request.url;
+
+        return str;
       }
+    },
+    computed: {
+
     }
   })
 </script>

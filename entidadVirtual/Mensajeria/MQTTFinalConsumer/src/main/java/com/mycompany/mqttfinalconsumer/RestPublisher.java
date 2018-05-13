@@ -40,7 +40,7 @@ public class RestPublisher extends Thread {
             con.setRequestMethod("GET");
             con.setDoOutput(true);
             JSONObject jsonRequest=new JSONObject(mqttMessage.toString());
-            
+            System.out.println(mqttMessage.toString());
             if(jsonRequest.has("emergency"))
             {
                 jsonRequest=jsonRequest.getJSONObject("emergency");

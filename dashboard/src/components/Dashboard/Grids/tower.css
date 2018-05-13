@@ -1,0 +1,56 @@
+.roof {
+  display: inline-block;
+  height: 100px;
+  width: 100%;
+  position: relative;
+  text-align: center;
+  margin-right: 20px; 
+}
+
+.middle-roof {
+  height: 50px;
+  width: 85%;
+  position: absolute;
+  bottom: 20px;
+  overflow: hidden;
+  left: 8%; 
+  background: url(bricks2.jpg);
+  color: rgb(132,96,75);
+  background-size: 100px 100px;
+}
+
+.bottom-roof {
+  display: inline-block;
+  height: 40px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  margin-left: auto;
+  left: 0;
+  overflow: hidden;
+  background: url(bricks2.jpg);
+  color: rgb(132,96,75);
+  background-size: 100px 100px;
+  border: 5px solid white;
+}
+
+.middle-floor{
+  display: inline-block;
+  height: 40px;
+  width: 100%;
+  background:  url(floor.jpg);
+  background-size: 100px 100px;
+}
+
+.bottom-floor {
+  display: inline-block;
+  height: 40px;
+  width: 105%;
+  background: url(floor.jpg);
+  background-size: 100px 100px;
+  position: relative;
+  text-align: center;
+  left:-2.5%;
+  top:-10px;
+  border-top: 1px solid white;
+}
