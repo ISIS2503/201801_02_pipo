@@ -13,16 +13,27 @@
       </b-tab>
     </b-tabs>
   </b-card>
+
+    <div>
+    <md-datepicker v-model="selectedDate" :md-disabled-dates="disabledDates" />
   </div>
+  </div>
+
+  
 </template>
 
 <script>
 export default {
   name: "dashboard",
-  data() {
+  data: function data() {
     return {
-      msg: "Welcome to Your Vue.js App"
-    };
+      selectedDate: null,
+      disabledDates: function disabledDates(date) {
+        var day = date.getDay()
+
+        return day === 6 || day === 0
+      }
+    }
   }
 };
 </script>
