@@ -21,22 +21,28 @@
             <b-container>
                 <b-row>
                     <b-col
-                        v-for="(apartamento, index) in piso.apartamentos"
-                        :key="index"
-                        class="apto"
+                        cols="1"
+                        class="floor-number"
                     >
-                        <div class="apartment-number">
-                            {{apartamento.numero}}
-                        </div>
-                        <div class="apartment-icon">
-                            <div class="apartment-window1">
-                            </div>
-                            <div class="apartment-window2">
-                            </div>
-                            <div class="apartment-door">
-                            </div>
-                        </div>
+                       {{piso.numero}}
                         </b-col>
+                        <b-col
+                            v-for="(apartamento, index) in piso.apartamentos"
+                            :key="index"
+                            class="apto"
+                        >
+                            <div class="apartment-number">
+                                {{apartamento.numero}}
+                            </div>
+                            <div class="apartment-icon">
+                                <div class="apartment-window1">
+                                </div>
+                                <div class="apartment-window2">
+                                </div>
+                                <div class="apartment-door">
+                                </div>
+                            </div>
+                            </b-col>
                 </b-row>
             </b-container>
     </div>
@@ -48,6 +54,10 @@
 
 </div>
 </template>
+
+
+
+
 
 
 
@@ -178,6 +188,10 @@ export default {
 </script>
 
 
+
+
+
+
 <style scoped>
 .above {
     margin-top: 10px;
@@ -206,16 +220,34 @@ export default {
 }
 
 .apartment-number::after {
-   content:'';
-   width: 98%;
-   box-shadow: 0px 0px 8px 2px #000000;
-   top:21px;
-   left:1%;
-   position: absolute;
-  }
+    content: '';
+    width: 98%;
+    box-shadow: 0px 0px 8px 2px #000000;
+    top: 21px;
+    left: 1%;
+    position: absolute;
+}
+
+.floor-number {
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 120px;
+    padding: 0;
+    overflow:hidden;
+    box-shadow: 1px 0px 1px 1px black;
+}
+
+.col-1{
+  display: inline-block;
+        height:118px;
+        position:relative;
+        top:1px;
+}
 
 .apto {
+    display: inline-block;
     padding: 0;
+    vertical-align: middle;
 }
 
 .cuerpo {
@@ -230,5 +262,8 @@ export default {
 
 .container {
     text-align: center;
+    width: 102%;
+    position: relative;
+    left: -10px;
 }
 </style>
