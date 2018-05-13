@@ -138,7 +138,7 @@ public class YaleVerification implements MqttCallback {
                         if(losses.get(hub)>maxLosses)
                         {
                             String[] data=hub.split("/");
-                            String pubMsg="{\"failTime\":\""+new Date().toString()+"\",\"failure\":{\"id\":\""+"Hub "+data[data.length-1]+"\",\"fallo\":\"Hub fuera de línea\",\"apartamento\":\"2-5-3\",\"conjunto\":\"Toscana\",\"zona\":\"Centro\"}}";
+                            String pubMsg="{\"failTime\":\""+new Date().toString()+"\",\"failure\":{\"id\":\""+"Hub "+data[data.length-1]+"\",\"fallo\":\"2\",\"apartamento\":\"2-5-3\",\"conjunto\":\"Toscana\",\"zona\":\"Centro\"}}";
                             System.out.println(pubMsg);
                             int pubQoS = 0;
                             MqttMessage message = new MqttMessage(pubMsg.getBytes());
