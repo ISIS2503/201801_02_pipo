@@ -58,6 +58,7 @@ auth0 = oauth.register(
 
 def checkRole(user_id, auth_type):
   user = db.users.find_one({'auth0_id' : user_id})
+  print("userRole",user['group'])
   if user:
     group = db.groups.find_one({'nombre' : user['group']})
     #Si el usuario existe, se concede la autorización de usuario por defecto
@@ -69,6 +70,7 @@ def checkRole(user_id, auth_type):
 
 def checkScope(user_id, auth_type, scope):
   user = db.users.find_one({'auth0_id' : user_id})
+  print("userScope",user['scope'])
   if not scope:
     return True
   if user:
