@@ -79,6 +79,14 @@
           awesome-vue
         </a>
       </li>
+      <li>
+        <a
+          href="https://github.com/vuejs/awesome-vue"
+          target="_blank"
+        >
+         Dashboard de CM
+        </a>
+      </li>
     </ul>
   </div>
 </template>
