@@ -30,3 +30,13 @@ Se hace la especificación de esta repartición para justificar la no uniformida
 + El alcance de la entidad física se encuentra en la carpeta entidadFisica, mientras que el aseguramiento de servicios se encuentra en entidadVirtual/persistencia/servicios
 + Se tomó como decisión de diseño que la operacin de actualizar claves, agregar usuarios y loggearse fueran hechas con el API de Auth0. En la base de datos de mongo se persiste la información relevante del usuario (correo, username, id de auth0, rol, scope).
 + Se modificó el flujo de node red para simular el cambio de claves en el arduino. Este flujo es llamado por el programa RestClavesCerradura/cerradura/cerradura.servicios
+
+## EXPERIMENTO II FINAL:
++ El link de la parte de la entidad física se encuentra acá: https://youtu.be/1vRMXkxcLVo
++ El alcance de la entidad física se encuentra en la carpeta entidadFisica, mientras que el aseguramiento de servicios se encuentra en entidadVirtual/persistencia/servicios
++ Los usuarios y claves, junto con sus permisos y el script de redis se tienen en la carpeta entidadFisica
++ Los resultados de las nuevas pruebas de carga se encuentran en la carpeta docs junto con el esfuerzo del experimento
++ El servicio de verificación del HealthCheck del hub se implementó como un loop infinito que se inicia con un servicio rest en el RestMOCK
++ La activación y desactivación de alarmas se agregó al REST de claves como una funcionalidad que impacta directamente al hub
++ Se asume que cada inmueble solo tiene un propietario y que todas las claves del Arduino son de este propietario
+

@@ -1,20 +1,17 @@
-package com.m2mci.mqttKafkaBridge;
+package co.edu.uniandes.csw.recursos;
 
-import java.util.Properties;
-
-import kafka.javaapi.producer.Producer;
-import kafka.producer.KeyedMessage;
-import kafka.producer.ProducerConfig;
-
-import org.apache.log4j.Logger;
+import java.io.ByteArrayInputStream;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.IMqttToken;
-import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.kohsuke.args4j.CmdLineException;
+import org.eclipse.paho.client.mqttv3.MqttTopic;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.*;
@@ -30,110 +27,134 @@ import java.security.KeyStore;
 import java.security.Security;
 import java.security.cert.X509Certificate;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.logging.Level;
+public class SimpleMqttClient implements MqttCallback {
 
-public class Bridge implements MqttCallback {
-	private Logger logger = Logger.getLogger(this.getClass().getName());
-	private MqttAsyncClient mqtt;
-	private Producer<String, String> kafkaProducer;
-        private MqttConnectOptions connOpt;
-        
+    MqttClient myClient;
+    MqttConnectOptions connOpt;
+
+    MqttTopic topic;
+    
+    boolean conectado = false;
+    
+    private static SimpleMqttClient client = null;
+
+    static final String BROKER_URL = "ssl://172.24.41.182:8083";
     static final String ROOT = "C:/Users/se.cardenas/Documents/201810_02_pipo/entidadVirtual/ssl";
     static final String CRT_FILE_PATH = "/mosquittoChecho";
     //static final String CTRFilesPath = "/mosquittoCarlos";
     static final String CA_FILE_PATH = "/ca.crt";
     static final String CLIENT_CRT_FILE_PATH = "/server.crt";
     static final String CLIENT_KEY_FILE_PATH = "/server.key";
-    static final String MQTT_USER_NAME = "BridgeCentro";
+    static final String MQTT_USER_NAME = "ClavesArduino007";
     static final String MQTT_PASSWORD = "piporules";
+    
+    //private static SimpleMqttClient mqttClient = null;
+
+    public static SimpleMqttClient getInstance() {
+        if(client==null || !client.conectado) {
+            client = new SimpleMqttClient();
+            client.runClient();
+        }
+        return client;
+    }
+    
+    /**
+     * 
+     * connectionLost
+     * This callback is invoked upon losing the MQTT connection.
+     * 
+     */
+    @Override
+    public void connectionLost(Throwable t) {
+        System.out.println("Connection lost!");
+        // code to reconnect to the broker would go here if desired
+        conectado = false;
+    }
+
+    /**
+     * 
+     * messageArrived
+     * This callback is invoked when a message is received on a subscribed topic.
+     * 
+     */
+    public void messageArrived(MqttTopic topic, MqttMessage message) throws Exception {
+            System.out.println("-------------------------------------------------");
+            System.out.println("| Topic:" + topic.getName());
+            System.out.println("| Message: " + new String(message.getPayload()));
+            System.out.println("-------------------------------------------------");
+    }
 	
-	private void connect(String serverURI, String clientId, String zkConnect) throws MqttException {
-		
-            mqtt = new MqttAsyncClient(serverURI, clientId);
-            mqtt.setCallback(this);
+    /**
+     * 
+     * runClient
+     * The main functionality of this simple example.
+     * Create a MQTT client, connect to broker, pub/sub, disconnect.
+     * 
+     */
+    public void runClient() {
+            // setup MQTT Client
             connOpt = new MqttConnectOptions();
+            connOpt.setCleanSession(true);
             connOpt.setKeepAliveInterval(30);
             connOpt.setMqttVersion(MqttConnectOptions.MQTT_VERSION_3_1);
             connOpt.setUserName(MQTT_USER_NAME);
             connOpt.setPassword(MQTT_PASSWORD.toCharArray());
-
-            //socket factory
+            //connOpt.setConnectionTimeout();
+            // Connect to Broker
             SSLSocketFactory socketFactory;
             try {
+                myClient = new MqttClient(BROKER_URL, MqttClient.generateClientId());
+                myClient.setCallback(this);
                 socketFactory = getSocketFactory(ROOT+CRT_FILE_PATH+CA_FILE_PATH, ROOT+CRT_FILE_PATH+CLIENT_CRT_FILE_PATH, ROOT+CRT_FILE_PATH+CLIENT_KEY_FILE_PATH, "");
                 connOpt.setSocketFactory(socketFactory);
-            } catch (Exception e) {
+                myClient.connect(connOpt);
+                System.out.println("Connected to " + BROKER_URL);
+                conectado = true;
+            } catch (MqttException e) {
                 e.printStackTrace();
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-                
-                
-		IMqttToken token = mqtt.connect(connOpt);
-		Properties props = new Properties();
-		
-		//Updated based on Kafka v0.8.1.1
-		props.put("metadata.broker.list", "localhost:8090");
-        props.put("serializer.class", "kafka.serializer.StringEncoder");
-        props.put("partitioner.class", "example.producer.SimplePartitioner");
-        props.put("request.required.acks", "1");
-		
-		ProducerConfig config = new ProducerConfig(props);
-		kafkaProducer = new Producer<String, String>(config);
-		token.waitForCompletion();
-		logger.info("Connected to MQTT and Kafka");
-	}
+            
 
-	private void reconnect() throws MqttException {
-		IMqttToken token = mqtt.connect(connOpt);
-		token.waitForCompletion();
-	}
-	
-	private void subscribe(String[] mqttTopicFilters) throws MqttException {
-		int[] qos = new int[mqttTopicFilters.length];
-		for (int i = 0; i < qos.length; ++i) {
-			qos[i] = 0;
-		}
-		mqtt.subscribe(mqttTopicFilters, qos);
-	}
+            // setup topic
+            // topics on m2m.io are in the form <domain>/<stuff>/<thing>
+            String myTopic = "Centro/Toscana/2-5-3/claves/Arduino007";
+            topic = myClient.getTopic(myTopic);
+            
+    }
 
-	@Override
-	public void connectionLost(Throwable cause) {
-		logger.warn("Lost connection to MQTT server", cause);
-		while (true) {
-			try {
-				logger.info("Attempting to reconnect to MQTT server");
-				reconnect();
-				logger.info("Reconnected to MQTT server, resuming");
-				return;
-			} catch (MqttException e) {
-				logger.warn("Reconnect failed, retrying in 10 seconds", e);
-			}
-			try {
-				Thread.sleep(10000);
-			} catch (InterruptedException e) {
-			}
-		}
-	}
+    @Override
+    public void messageArrived(String string, MqttMessage mm) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
-	@Override
-	public void deliveryComplete(IMqttDeliveryToken token) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void messageArrived(String topic, MqttMessage message) throws Exception {		
-		byte[] payload = message.getPayload();
-		String x=topic.replaceAll("/","\\.");
-		//Updated based on Kafka v0.8.1.1
-		System.out.println(new String(message.getPayload()));
-		KeyedMessage<String, String> data = new KeyedMessage<String, String>(x, new String(payload));
-		kafkaProducer.send(data);
-	}
-        
+    @Override
+    public void deliveryComplete(IMqttDeliveryToken imdt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void publish(Msg msg) {
+        String pubMsg = "{\"msg\":\"" + msg.msg + "\"}";
+        int pubQoS = 0;
+        MqttMessage message = new MqttMessage(pubMsg.getBytes());
+        message.setQos(pubQoS);
+        message.setRetained(false);
+        // Publish the message
+        System.out.println("Publishing to topic \"" + topic + "\" qos " + pubQoS);
+        MqttDeliveryToken token = null;
+        try {
+            // publish message to broker
+            token = topic.publish(message);
+            // Wait until the message has been delivered to the broker
+            token.waitForCompletion();
+            System.out.println("llegó");
+            //Thread.sleep(100);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     static SSLSocketFactory getSocketFactory (final String caCrtFile, final String crtFile, final String keyFile, 
 	                                          final String password) throws Exception
     {
@@ -183,23 +204,4 @@ public class Bridge implements MqttCallback {
 
         return context.getSocketFactory();
     }
-
-	/**
-	 * @param args
-	 */
-	public static void main(String args[]) {
-		CommandLineParser parser = null;
-		try {
-			parser = new CommandLineParser();
-			parser.parse(args);
-			Bridge bridge = new Bridge();
-			bridge.connect(parser.getServerURI(), parser.getClientId(), parser.getZkConnect());
-			bridge.subscribe(parser.getMqttTopicFilters());
-		} catch (MqttException e) {
-			e.printStackTrace(System.err);
-		} catch (CmdLineException e) {
-			System.err.println(e.getMessage());
-			parser.printUsage(System.err);
-		}
-	}
 }

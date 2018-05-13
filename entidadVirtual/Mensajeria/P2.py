@@ -3,8 +3,8 @@ import requests
 from kafka import KafkaConsumer
 from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
  
-topicos2=("Centro.Toscana.emergencia.aperturaSospechosa.2-503","Centro.Toscana.emergencia.puertaAbierta.2-503",
-         "Centro.Toscana.emergencia.aperturaNoPermitida.3-503","Centro.Toscana.emergencia.bateriaCritica.2-503")
+topicos2=("Centro.Toscana.emergencia.aperturaSospechosa.2-5-3","Centro.Toscana.emergencia.puertaAbierta.2-5-3",
+         "Centro.Toscana.emergencia.aperturaNoPermitida.2-5-3","Centro.Toscana.emergencia.bateriaCritica.2-5-3")
 
 consumer = KafkaConsumer(bootstrap_servers=['172.24.42.70:8090'])
 consumer.subscribe(topicos2)
