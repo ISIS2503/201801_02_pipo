@@ -6,13 +6,12 @@
 
 <script>
 export default {
-  name: 'Filters'
+  name: 'Filters1'
 }
 </script>
 
 <style lang="scss" scoped>
 
-@import "~vue-material/theme/engine";
 
 </style>
 

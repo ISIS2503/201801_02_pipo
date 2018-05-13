@@ -1,8 +1,7 @@
 <template>
   <div class="md-scrollbar">
     <alarm 
-      v-for="alarm, index in filteredAlarms"
-      :key="alarm.timestamp"
+      v-for="(alarm, index) in filteredAlarms" :key="alarm.timestamp"
       tower="alarm.torre"
       apartment="alarm.apartment"
       alarm="alarm.alarm"

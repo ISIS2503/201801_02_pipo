@@ -9,6 +9,7 @@
         <div class="bottom-roof">
         </div>
     </div>
+    <div class="container">
     <div  v-for="(piso, index) in this.unidad.torres[0].pisos" :key="index" >
         <b-container>
             <b-row>
@@ -22,6 +23,11 @@
              </b-row>
          </b-container>
      </div>
+     </div>
+     <div class="middle-floor">
+        </div>
+        <div class="bottom-floor">
+        </div>
 
 </div>
 </template>
@@ -176,12 +182,12 @@ export default {
 .apartment-icon {
   height: 100px;
   width: 100%;
-  background: red; 
+  background: red;
   border: 1px black solid;
 }
 
-.apto{
- padding: 0;
+.apto {
+  padding: 0;
 }
 
 .cuerpo {
@@ -192,5 +198,9 @@ export default {
   height: 600px;
   background: rgb(132, 96, 75);
   border-top: black 1px solid;
+}
+
+.container{
+    text-align: center;
 }
 </style>

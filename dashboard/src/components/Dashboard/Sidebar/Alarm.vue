@@ -32,8 +32,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import "~vue-material/theme/engine";
+<style>
+
 
 md-icon {
   color: #be0000;

@@ -37,6 +37,7 @@ export default {
 <style scoped>
 .principal {
   height: 100vh;
+  margin-right: 5%;
 }
 
 .select {
@@ -46,7 +47,7 @@ export default {
 .lateral {
   position: fixed;
   left: 10px;
-  bottom: 20%;
+  bottom: 22%;
 }
 
 .md-layout {
