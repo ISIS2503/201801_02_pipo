@@ -119,7 +119,7 @@ public class SimpleMqttClient implements MqttCallback {
 
             // setup topic
             // topics on m2m.io are in the form <domain>/<stuff>/<thing>
-            String myTopic = "Centro/Toscana/2-503/claves/Arduino007";
+            String myTopic = "Centro/Toscana/2-5-3/claves/Arduino007";
             topic = myClient.getTopic(myTopic);
             
     }

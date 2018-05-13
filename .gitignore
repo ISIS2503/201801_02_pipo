@@ -3,3 +3,4 @@
 entidadVirtual/MQTTConsumerLatency/target/
 entidadVirtual/Mensajeria/MQTTKafkaBridge/nbactions.xml
 /entidadVirtual/RestClavesCerradura/target/
+/entidadVirtual/Mensajeria/MQTTYaleVerificator/target/
