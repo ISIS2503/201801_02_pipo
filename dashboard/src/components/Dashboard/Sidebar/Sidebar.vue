@@ -39,7 +39,13 @@ export default {
 
     height: 100vh;
     width: 100%;
-    border: 5px yellow solid;
+    border: 5px rgb(254, 209, 0) solid;
+}
+
+#filters1{
+  position:relative;
+  top:0;
+  width:100%;
 }
 
 #filters2{

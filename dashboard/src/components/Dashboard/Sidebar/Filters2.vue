@@ -45,24 +45,27 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-    width: 96%;
+   width: 100%;
     padding: 0;
 }
 
 .container .col {
     height: 6vh;
-    border: 1px yellow solid;
+    border: 1px rgb(254, 209, 0) solid;
 }
 
 .container .col:hover {
     height: 6vh;
     background:black;
     color:white;
-    border: 1px black solid;
+     border:1px rgb(254, 209, 0) solid;
 }
 
 .row{
-    max-width:355px;
+   width: 100%;
+    margin: 0;
+    position: relative;
+    top: -4px;
 }
 
 md-icon{

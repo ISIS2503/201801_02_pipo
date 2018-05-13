@@ -40,6 +40,7 @@ btn btn-secondary dropdown-toggle*/
 .name {
     float: left;
     color: white;
+     line-height: 50px;
 }
 
 .dropdown-container{
