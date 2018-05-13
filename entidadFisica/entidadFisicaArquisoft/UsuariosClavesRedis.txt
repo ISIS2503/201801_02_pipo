@@ -18,6 +18,7 @@
 'Centro/Toscana/emergencia/aperturaNoPermitida/2-5-3','BridgeCentro,P1Centro:Hub007'
 'Centro/Toscana/fallo/cerraduraFueraDeLinea/2-5-3','BridgeCentro,P1Centro:Hub007'
 'Centro/Toscana/fallo/hubFueraDeLinea/2-5-3','BridgeCentro,P1Centro:Yale'
+'Centro/Toscana/hub/2-5-3','Hub007:Yale'
 'Centro/Toscana/emergencia/bateriaCritica/2-5-3','BridgeCentro,P1Centro:Hub007'
 'Centro/Test','P1Centro:Hub007'
 'Norte/Test','P1Norte:Hub007'

@@ -3,7 +3,7 @@
         "id": "a81c23f3.bd483",
         "type": "tab",
         "label": "Telemetry Flow",
-        "disabled": true,
+        "disabled": false,
         "info": ""
     },
     {
@@ -385,6 +385,26 @@
         "willQos": "0",
         "willPayload": "",
         "birthTopic": "Centro/Toscana/fallo/CerraduraFueraDeLinea/2-5-3",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "44a57b55.f2de64",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/hub/2-5-3",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/hub/2-5-3",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/hub/2-5-3",
         "birthQos": "0",
         "birthPayload": ""
     },
@@ -1286,7 +1306,7 @@
         "topic": "s.guzmanm@uniandes.edu.co",
         "payload": "",
         "payloadType": "date",
-        "repeat": "20",
+        "repeat": "25",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -1310,25 +1330,8 @@
         "y": 180,
         "wires": [
             [
-                "e8a59ca3.44937",
-                "552e0136.79c81"
-            ]
-        ]
-    },
-    {
-        "id": "e8a59ca3.44937",
-        "type": "http request",
-        "z": "9f25517e.dc5bc8",
-        "name": "",
-        "method": "POST",
-        "ret": "txt",
-        "url": "http://172.24.42.57:9000/yale",
-        "tls": "",
-        "x": 570,
-        "y": 120,
-        "wires": [
-            [
-                "6c1d0ddf.357874"
+                "552e0136.79c81",
+                "1deb4462.d4fd3c"
             ]
         ]
     },
@@ -1617,20 +1620,6 @@
         "complete": "payload",
         "x": 550,
         "y": 180,
-        "wires": []
-    },
-    {
-        "id": "6c1d0ddf.357874",
-        "type": "debug",
-        "z": "9f25517e.dc5bc8",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "statusCode",
-        "x": 750,
-        "y": 140,
         "wires": []
     },
     {
@@ -2050,6 +2039,19 @@
         "complete": "payload",
         "x": 1310,
         "y": 300,
+        "wires": []
+    },
+    {
+        "id": "1deb4462.d4fd3c",
+        "type": "mqtt out",
+        "z": "9f25517e.dc5bc8",
+        "name": "",
+        "topic": "Centro/Toscana/hub/2-5-3",
+        "qos": "0",
+        "retain": "",
+        "broker": "44a57b55.f2de64",
+        "x": 630,
+        "y": 120,
         "wires": []
     }
 ]
