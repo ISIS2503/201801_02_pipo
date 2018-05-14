@@ -36,15 +36,15 @@ export default {
 
 <style scoped>
 #sidebar {
-
     height: 100vh;
-    width: 100%;
-    border: 5px rgb(254, 209, 0) solid;
+    width: calc(100% - 17px);
+    border: 5px rgb(121, 14, 42) solid;
+    position: relative;
 }
 
 #filters1{
   position:relative;
-  top:0;
+  top:-0.4vh;
   width:100%;
 }
 

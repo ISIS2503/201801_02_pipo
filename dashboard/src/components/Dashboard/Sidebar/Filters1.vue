@@ -37,19 +37,20 @@ export default {
     width: 100%;
     margin: 0;
     position: relative;
-    top: -4px;
+
 }
 
 .container .col {
     height: 6vh;
-    border: 1px rgb(254, 209, 0) solid;
+    border: 1px rgb(121, 14, 42) solid;
 }
 
 .container .col:hover {
     height: 6vh;
-    background: black;
+    background: rgb(77, 77, 77);
     color: white;
-    border:1px rgb(254, 209, 0) solid;
+    border:1px rgb(121, 14, 42) solid;
+    cursor: pointer;
 }
 
 h3 {
@@ -59,7 +60,7 @@ h3 {
 }
 
 .md-tooltip {
-    background: black;
+    background: rgb(77, 77, 77);
     color: white;
 }
 </style>

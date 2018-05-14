@@ -1,3 +1,4 @@
+# Usuarios clave mqtt
 'microcontrolador','Isis2503.'
 'Hub007','4525b5129ae9d1158f98997a1fe5f598'->piporules (Hash md5)
 'P1Centro','ec6ef230f1828039ee794566b9c58adc'->p1 (hash md5)
@@ -8,7 +9,7 @@
 'BridgeCentro','4525b5129ae9d1158f98997a1fe5f598'->pipo rules (hash md5)
 'Yale','4525b5129ae9d1158f98997a1fe5f598'->piporules (Hash md5)
 
-
+# Tópicos, lector, escritor
 'Arduino007.recibir','microcontrolador:Hub007'
 'Arduino007.envio','Hub007:microcontrolador'
 'Centro/Toscana/2-5-3/claves/Arduino007','Hub007:ClavesArduino007'
@@ -24,3 +25,7 @@
 'Norte/Test','P1Norte:Hub007'
 'Sur/Test','P1Sur:Hub007'
 'Periferia/Test','P1Periferia:Hub007'
+# Usuario clave horario hub
+'N:01','5555'
+'C:5555','U:sguzmanm'
+'U:sguzmanm','14:45-21:00,08:00-10:00'

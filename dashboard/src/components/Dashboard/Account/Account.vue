@@ -34,7 +34,7 @@ btn btn-secondary dropdown-toggle*/
 .account {
     padding-top: 5px;
     height: 7vh;
-    background-color: black;
+    background-color: rgb(77, 77, 77);
 }
 
 .name {
@@ -64,7 +64,7 @@ bottom:5px;
 .dropdown-container::after {
   width:11px;
   height:11px;
-  background:black;
+  background:rgb(77, 77, 77);
   position:relative;
   z-index:100;
   content:'';
@@ -77,6 +77,6 @@ bottom:5px;
     top: 2px;
     width: 35px;
     height: 35px;
-    color: black;
+    color: rgb(77, 77, 77);
 }
 </style>
