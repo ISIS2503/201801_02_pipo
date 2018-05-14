@@ -164,11 +164,11 @@ def login():
   return auth0.authorize_redirect(redirect_uri='http://172.24.42.64/callback')
 
 @app.route('/dashboardLogin')
-def login():
+def dashboardL_login():
   return auth0.authorize_redirect(redirect_uri='http://172.24.42.64/dashboardCallback')
 
 @app.route('/dashboardCallback')
-def callback_handling():
+def dashboard_callback_handling():
   # Maneja la respuesta desde el endpoint del token
   #resp = auth0.authorized_response()
   resp = auth0.authorize_access_token()
@@ -196,7 +196,19 @@ def callback_handling():
 @requires_auth(SECURITY)
 @app.route('/security')
 def securityDashboard():
-  return render_template('../../dashboard/dist/index.html')
+  return render_template('dist/index.html')
+
+@app.route('/static/js/<file>')
+def servingJs(file):
+  return send_from_directory('templates/dist/static/js', file)
+
+@app.route('/static/css/<file>')
+def servingCSS(file):
+  return send_from_directory('templates/dist/static/css', file)
+
+@app.route('/static/img/<file>')
+def servingImages(file):
+  return send_from_directory('templates/dist/static/img', file)
 
 @app.route('/welcome/<usuario>')
 @requires_auth(USER)

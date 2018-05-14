@@ -15,10 +15,12 @@
 <script>
 export default {
   name: "Login",
-  methods: {
-    login(){
-
-    }
+  mounted() {
+    var req = new XMLHttpRequest();
+    req.open("GET", document.location, false);
+    req.send(null);
+    var headers = req.getAllResponseHeaders().toLowerCase();
+    console.log(headers);
   }
 };
 </script>
@@ -31,14 +33,13 @@ export default {
   width: 100%;
 }
 
-.login-window{
+.login-window {
   position: absolute;
-  top:25%;
+  top: 25%;
   left: 25%;
   width: 50%;
   background: linear-gradient(45deg, whitesmoke, beige);
   padding: 8%;
   border: lightgrey 2px solid;
 }
-
 </style>
