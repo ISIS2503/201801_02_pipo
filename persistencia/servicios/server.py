@@ -191,12 +191,16 @@ def dashboard_callback_handling():
     insert = db.users.insert_one({ 'auth0_id' :  info['user_id'] , 'username' : info['name'], 'email': info['email'], 'group' : USER,  'scope' : '/*--//--*/', 'horariosPermitidos' : []})
     return redirect('/welcome/' + info['name'])
   else:
-    return redirect('/security')
+    return redirect('/security#/dashboard')
 
-@requires_auth(SECURITY)
 @app.route('/security')
+@requires_auth(SECURITY)
 def securityDashboard():
   return render_template('dist/index.html')
+
+@app.route('/securityLogin')
+def securityLogin():
+  return render_template('loginDist/index.html')
 
 @app.route('/static/js/<file>')
 def servingJs(file):
@@ -209,6 +213,18 @@ def servingCSS(file):
 @app.route('/static/img/<file>')
 def servingImages(file):
   return send_from_directory('templates/dist/static/img', file)
+
+@app.route('/login/static/js/<file>')
+def servingLoginJs(file):
+  return send_from_directory('templates/loginDist/static/js', file)
+
+@app.route('/login/static/css/<file>')
+def servingLoginCSS(file):
+  return send_from_directory('templates/loginDist/static/css', file)
+
+@app.route('/login/static/img/<file>')
+def servingLoginImages(file):
+  return send_from_directory('templates/loginDist/static/img', file)
 
 @app.route('/welcome/<usuario>')
 @requires_auth(USER)

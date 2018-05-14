@@ -9,7 +9,7 @@
                  <md-icon class="md-size-2x md-light icon">person</md-icon>
             </div>
         </template>
-        <b-dropdown-item>Cerrar sesión</b-dropdown-item>
+        <b-dropdown-item href="http://172.24.42.64/logout">Cerrar sesión</b-dropdown-item>
     </b-dropdown>
 </div>
 </template>
