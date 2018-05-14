@@ -14,8 +14,8 @@
 
 
 <script>
-import Grids from './Dashboard/Grids/Grids.vue'
-import Sidebar from './Dashboard/Sidebar/Sidebar.vue'
+import Grids from './Grids/Grids.vue'
+import Sidebar from './Sidebar/Sidebar.vue'
 export default {
     name: "dashboard",
     components: {
