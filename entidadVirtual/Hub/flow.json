@@ -409,6 +409,331 @@
         "birthPayload": ""
     },
     {
+        "id": "aae4e60d.4db808",
+        "type": "redis-config",
+        "z": "",
+        "host": "172.24.41.182",
+        "port": "6379",
+        "dbase": "0",
+        "pass": ""
+    },
+    {
+        "id": "e70048cb.8d5678",
+        "type": "websocket-client",
+        "z": "",
+        "path": "/ws/motors",
+        "wholemsg": "false"
+    },
+    {
+        "id": "46d2c476.4c6f1c",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/k9",
+        "wholemsg": "false"
+    },
+    {
+        "id": "8b2c2fa8.daa85",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "Helvetica Neue",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#000000",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "Helvetica Neue"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#262626",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            }
+        }
+    },
+    {
+        "id": "26ed9c0e.893d34",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard"
+    },
+    {
+        "id": "2c2fcb2d.a5dcb4",
+        "type": "ui_group",
+        "z": "",
+        "name": "Speed",
+        "tab": "26ed9c0e.893d34",
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "225ad44f.dca5bc",
+        "type": "ui_group",
+        "z": "",
+        "name": "Power",
+        "tab": "26ed9c0e.893d34",
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "e7121098.ac0c5",
+        "type": "ui_group",
+        "z": "",
+        "name": "Environment",
+        "tab": "26ed9c0e.893d34",
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "22aa58c3.69b628",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/sensors",
+        "wholemsg": "false"
+    },
+    {
+        "id": "697bd1b2.a1c2c",
+        "type": "serial-port",
+        "z": "",
+        "serialport": "/dev/cu.usbmodem1411",
+        "serialbaud": "57600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": false
+    },
+    {
+        "id": "32172854.379fb8",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/ultrasonic",
+        "wholemsg": "false"
+    },
+    {
+        "id": "2f4c18f9.b0fbd8",
+        "type": "redis-config",
+        "z": "",
+        "host": "{{127.0.0.1}}",
+        "port": "{{6379}}",
+        "dbase": "{{0}}",
+        "pass": ""
+    },
+    {
+        "id": "58b23148.6df7",
+        "type": "websocket-client",
+        "z": "",
+        "path": "/ws/motors",
+        "wholemsg": "false"
+    },
+    {
+        "id": "f922bba7.9b6268",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/k9",
+        "wholemsg": "false"
+    },
+    {
+        "id": "885d6ba7.ea99e8",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "Helvetica Neue",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#000000",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "Helvetica Neue"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#262626",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            }
+        }
+    },
+    {
+        "id": "e39a7de8.17947",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard"
+    },
+    {
+        "id": "65ed7c17.6fbb84",
+        "type": "ui_group",
+        "z": "",
+        "name": "Speed",
+        "tab": "e39a7de8.17947",
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "660f4dd7.dc6c84",
+        "type": "ui_group",
+        "z": "",
+        "name": "Power",
+        "tab": "e39a7de8.17947",
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "dc91c3c3.8d053",
+        "type": "ui_group",
+        "z": "",
+        "name": "Environment",
+        "tab": "e39a7de8.17947",
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "5d840e0.b4c5af4",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/sensors",
+        "wholemsg": "false"
+    },
+    {
+        "id": "3cfa9fb2.40bc8",
+        "type": "serial-port",
+        "z": "",
+        "serialport": "/dev/cu.usbmodem1411",
+        "serialbaud": "57600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": false
+    },
+    {
+        "id": "31b599f9.e3d3b6",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/ultrasonic",
+        "wholemsg": "false"
+    },
+    {
+        "id": "4dee3f25.df503",
+        "type": "redis-config",
+        "z": "",
+        "host": "{{127.0.0.1}}",
+        "port": "{{6379}}",
+        "dbase": "{{0}}",
+        "pass": ""
+    },
+    {
         "id": "24d81772.16ff1",
         "type": "inject",
         "z": "a81c23f3.bd483",
@@ -838,19 +1163,6 @@
         ]
     },
     {
-        "id": "e498ea45.f71cc8",
-        "type": "mqtt out",
-        "z": "ddb0bb9c.500fa8",
-        "name": "",
-        "topic": "Arduino007.recibir",
-        "qos": "0",
-        "retain": "",
-        "broker": "21be8c88.6d7f64",
-        "x": 1070,
-        "y": 60,
-        "wires": []
-    },
-    {
         "id": "9e3af951.bceb98",
         "type": "mqtt in",
         "z": "ddb0bb9c.500fa8",
@@ -886,31 +1198,17 @@
         "type": "function",
         "z": "ddb0bb9c.500fa8",
         "name": "Verify arduino message",
-        "func": "data=msg.payload.msg.split(\";\");\nlist=[\"NEW_PASSWORD\",\"CHANGE_PASSWORD\",\"DELETE_PASSWORD\",\"DELETE_ALL\"];\nif(data.length>2)\n{\n    if(data[1].length<=2 &&data[2].length==4)\n    {\n        if(!isNaN(parseInt(data[1]))&&parseInt(data[1])<20 && !isNaN(parseInt(data[2])))\n        {\n            msg.payload=list[parseInt(data[0])-1]+\";\"+data[1]+\";\"+data[2];\n        }\n    }\n}\nelse if (data.length>1)\n{\n    if(!isNaN(parseInt(data[1]))&&parseInt(data[1])<20)\n        {\n            msg.payload=list[parseInt(data[0])-1]+\";\"+data[1];\n        }\n}\nelse\n{\n    if(parseInt(msg.payload.msg)===4)\n    {\n        msg.payload=list[parseInt(msg.payload.msg)-1]\n    }\n}\nreturn msg;",
+        "func": "data=msg.payload.msg.split(\";\");\nlist=[\"NEW_PASSWORD\",\"CHANGE_PASSWORD\",\"DELETE_PASSWORD\",\"DELETE_ALL\"];\noperaciones=['POST','PUT','DELETE','DELETE'];\noperacion=operaciones[parseInt(data[0])-1];\nclave=\"\";\nnuevaClave=\"\";\nnumero=\"\";\nif(data.length>2)\n{\n    if(data[1].length<=2 &&data[2].length==4)\n    {\n        if(!isNaN(parseInt(data[1]))&&parseInt(data[1])<20 && !isNaN(parseInt(data[2])))\n        {\n            clave=data[2];\n            numero=data[1];\n            msg.pass=list[parseInt(data[0])-1]+\";\"+data[1]+\";\"+data[2];\n        }\n    }\n}\nelse if (data.length>1)\n{\n    if(!isNaN(parseInt(data[1]))&&parseInt(data[1])<20)\n        {\n            numero=data[1];\n            msg.pass=list[parseInt(data[0])-1]+\";\"+data[1];\n        }\n}\nelse\n{\n    if(parseInt(msg.payload.msg)===4)\n    {\n        msg.pass=list[parseInt(msg.payload.msg)-1]\n    }\n}\nglobal.set('arduinoPasswordPayload',msg.pass);\nmsg.payload={'usuario':msg.payload.usuario,'clave':clave,'numero':numero};\nmsg.method=operacion;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 950,
         "y": 140,
         "wires": [
             [
-                "706e2be0.75a374",
-                "e498ea45.f71cc8"
+                "8088a34f.0c6d7",
+                "18eddaf4.fd7bd5"
             ]
         ]
-    },
-    {
-        "id": "706e2be0.75a374",
-        "type": "debug",
-        "z": "ddb0bb9c.500fa8",
-        "name": "Message sent",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "x": 1160,
-        "y": 160,
-        "wires": []
     },
     {
         "id": "f8a969cb.79af",
@@ -924,8 +1222,8 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 130,
-        "y": 260,
+        "x": 150,
+        "y": 240,
         "wires": [
             [
                 "4253ab23.fc4b14"
@@ -937,8 +1235,8 @@
         "type": "random",
         "z": "ddb0bb9c.500fa8",
         "name": "Random emergency",
-        "low": "1",
-        "high": "4",
+        "low": "3",
+        "high": "3",
         "inte": "true",
         "x": 320,
         "y": 340,
@@ -967,7 +1265,7 @@
         "type": "function",
         "z": "ddb0bb9c.500fa8",
         "name": "Merge",
-        "func": "num=parseInt(msg.payload);\nif (num==3)\n{\n    msg.payload=\"{\\\"msg\\\":\\\"\"+num+\";\"+\"01\\\"}\";\n}\nelse if(num<4)\n{\n    msg.payload=\"{\\\"msg\\\":\\\"\"+num+\";\"+\"01\"+\";\"+\"3141\\\"}\";\n}\nelse\n    msg.payload=\"{\\\"msg\\\":\\\"\"+num+\"\\\"}\";\nreturn msg;",
+        "func": "num=parseInt(msg.payload);\nif (num==3)\n{\n    msg.payload=\"{\\\"msg\\\":\\\"\"+num+\";\"+\"01\\\",\\\"usuario\\\":\\\"sguzmanm\\\"}\";\n}\nelse if(num<4)\n{\n    msg.payload=\"{\\\"msg\\\":\\\"\"+num+\";\"+\"01\"+\";\"+\"3143\\\",\\\"usuario\\\":\\\"sguzmanm\\\"}\";\n}\nelse\n    msg.payload=\"{\\\"msg\\\":\\\"\"+num+\"\\\",\\\"usuario\\\":\\\"sguzmanm\\\"}\";\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 510,
@@ -975,7 +1273,7 @@
         "wires": [
             [
                 "d245b00e.344db8",
-                "6912859b.27aabc"
+                "2a630e64.7916f2"
             ]
         ]
     },
@@ -999,14 +1297,14 @@
         "id": "18eddaf4.fd7bd5",
         "type": "debug",
         "z": "ddb0bb9c.500fa8",
-        "name": "Json Conversion",
+        "name": "Arduino message",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 950,
-        "y": 200,
+        "x": 1070,
+        "y": 240,
         "wires": []
     },
     {
@@ -1388,29 +1686,17 @@
         "type": "function",
         "z": "34f6a4a0.c4adbc",
         "name": "GET MQTT MSG",
-        "func": "number=0;\nif(number==0)\n    msg.payload=\"CERRAR\";\nelse\n    msg.payload=\"ABRIR\";\nreturn msg;",
+        "func": "msg.payload={\"clave\":\"5555\"};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 570,
         "y": 480,
         "wires": [
             [
-                "2439fb9.d5c8904"
+                "c4a974a6.5071d8",
+                "59e93c11.c9f354"
             ]
         ]
-    },
-    {
-        "id": "2439fb9.d5c8904",
-        "type": "mqtt out",
-        "z": "34f6a4a0.c4adbc",
-        "name": "",
-        "topic": "Arduino007.recibir",
-        "qos": "",
-        "retain": "",
-        "broker": "21be8c88.6d7f64",
-        "x": 670,
-        "y": 560,
-        "wires": []
     },
     {
         "id": "525dafb4.185a2",
@@ -1640,7 +1926,7 @@
         "type": "function",
         "z": "34f6a4a0.c4adbc",
         "name": "GET MQTT MSG",
-        "func": "res={};\nres.payload=\"CERRAR\";\nmsg.test=global.get(\"Timeout\");\nvar last=global.get(\"arduinoRequestDate\");\nvar time=global.get(\"arduinoTimeout\");\nvar diffMs = (new Date() - last); // milliseconds between now & Christmas\nif(msg.statusCode==200 && diffMs<=time)\n{\n    for (horario in msg.payload)\n    {\n        var data=msg.payload[horario].horaInicio.split(\":\");\n        var inicio=new Date();\n        inicio.setHours(parseInt(data[0]));\n        inicio.setMinutes(parseInt(data[1]));\n        var data=msg.payload[horario].horaFin.split(\":\");\n        fin=new Date();\n        fin.setHours(parseInt(data[0]));\n        fin.setMinutes(parseInt(data[1]));\n        if(new Date()>=inicio && new Date()<=fin)\n            res.payload=\"ABRIR\";\n    }\n    \n}\nreturn res;",
+        "func": "res={};\nres.payload=\"CERRAR\";\nmsg.test=global.get(\"Timeout\");\nvar last=global.get(\"arduinoRequestDate\");\nvar time=global.get(\"arduinoTimeout\");\nvar diffMs = (new Date() - last); // milliseconds between now & Christmas\nif(msg.statusCode==200 && diffMs<=time)\n{\n    res.payload=\"ABRIR\";\n}\nreturn res;",
         "outputs": 1,
         "noerr": 0,
         "x": 830,
@@ -1648,8 +1934,7 @@
         "wires": [
             [
                 "f58759ff.7f50e",
-                "ee1c0c4f.f691",
-                "335e900a.1290a"
+                "ee1c0c4f.f691"
             ]
         ]
     },
@@ -1668,32 +1953,19 @@
         "wires": []
     },
     {
-        "id": "335e900a.1290a",
-        "type": "debug",
-        "z": "34f6a4a0.c4adbc",
-        "name": "TEST",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "test",
-        "x": 1070,
-        "y": 180,
-        "wires": []
-    },
-    {
         "id": "cd7bbca9.598ab8",
         "type": "function",
         "z": "34f6a4a0.c4adbc",
         "name": "Format Physical Entity",
-        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-5-3\";\nvar conjunto=\"Toscana\";\n\ntempArray = msg.payload.split(\"\\t\");\nres.topic = \"entryHub\";\nres.payload = {};\nres.payload = {\"apartamento\": apartamento, \"conjunto\": conjunto,\"codigo\":tempArray[0],\"username\":username,\"password\":password};\n\nglobal.set(\"arduinoRequestDate\",new Date());\nglobal.set(\"arduinoTimeout\",tempArray[2]);\nglobal.set(\"scope\",\"unidadesResidenciales/\"+conjunto+\"/inmuebles/\"+apartamento+\"/horariosHub\");\nreturn res;",
+        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-5-3\";\nvar conjunto=\"Toscana\";\nvar zona=\"Centro\"\n\ntempArray = msg.payload.split(\"\\t\");\nres.topic = \"entryHub\";\nres.payload = {};\nres.payload={\"clave\":tempArray[3]};\nglobal.set(\"arduinoTimeout\",tempArray[2]);\nglobal.set(\"arduinoRequestDate\",new Date());\nreturn res;",
         "outputs": 1,
         "noerr": 0,
         "x": 520,
         "y": 300,
         "wires": [
             [
-                "8c172336.62932"
+                "8c172336.62932",
+                "4a4999d7.cef258"
             ]
         ]
     },
@@ -1789,7 +2061,7 @@
         "type": "function",
         "z": "34f6a4a0.c4adbc",
         "name": "Put id",
-        "func": "msg.payload=\"Arduino007\\t\"+msg.payload+\"\\t\"+5000;\nreturn msg;",
+        "func": "msg.payload=\"Arduino007\\t\"+msg.payload+\"\\t\"+5000+\"\\t\"+5555;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 190,
@@ -1851,56 +2123,6 @@
         ]
     },
     {
-        "id": "c9d6e16e.7f9ab",
-        "type": "inject",
-        "z": "ddb0bb9c.500fa8",
-        "name": "ENABLE ALARMS",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 110,
-        "y": 420,
-        "wires": [
-            [
-                "8a1d6eb5.71309"
-            ]
-        ]
-    },
-    {
-        "id": "8a1d6eb5.71309",
-        "type": "function",
-        "z": "ddb0bb9c.500fa8",
-        "name": "Merge",
-        "func": "   msg.payload=\"{\\\"msg\\\":\\\"\"+msg.payload+\"\\\"}\";\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 290,
-        "y": 440,
-        "wires": [
-            [
-                "3229b24c.e645ee"
-            ]
-        ]
-    },
-    {
-        "id": "3229b24c.e645ee",
-        "type": "debug",
-        "z": "ddb0bb9c.500fa8",
-        "name": "Virtual ENABLE",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "x": 480,
-        "y": 600,
-        "wires": []
-    },
-    {
         "id": "8127e7d7.9ff548",
         "type": "mqtt out",
         "z": "c716ffd5.d195d",
@@ -1918,7 +2140,7 @@
         "type": "function",
         "z": "c716ffd5.d195d",
         "name": "Format Physical Entity",
-        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-5-3\"\nvar conjunto=\"Toscana\"\nvar zona=\"Centro\"\n\n\nres.topic = \"failureHub\";\nres.payload = {};\n\nres.payload = {\"id\": \"Arduino007\", \"fallo\":\"Cerradura fuera de línea\",\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona}\n\nreturn res;",
+        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-5-3\"\nvar conjunto=\"Toscana\"\nvar zona=\"Centro\"\n\n\nres.topic = \"failureHub\";\nres.payload = {};\n\nres.payload = {\"id\": \"Arduino007\", \"fallo\":\"1\",\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona}\n\nreturn res;",
         "outputs": 1,
         "noerr": 0,
         "x": 1140,
@@ -2052,6 +2274,262 @@
         "broker": "44a57b55.f2de64",
         "x": 630,
         "y": 120,
+        "wires": []
+    },
+    {
+        "id": "d114498f.ebe898",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "BD",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 750,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "e5238dec.e9af1",
+        "type": "redis-command",
+        "z": "a81c23f3.bd483",
+        "server": "aae4e60d.4db808",
+        "command": "set",
+        "name": "",
+        "topic": "",
+        "x": 160,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c4a974a6.5071d8",
+        "type": "http request",
+        "z": "34f6a4a0.c4adbc",
+        "name": "POST",
+        "method": "POST",
+        "ret": "txt",
+        "url": "172.24.41.182:8080/arduinoAccess",
+        "tls": "",
+        "x": 800,
+        "y": 540,
+        "wires": [
+            [
+                "5e27aeb.e93835"
+            ]
+        ]
+    },
+    {
+        "id": "5e27aeb.e93835",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "statusCode",
+        "x": 970,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "59e93c11.c9f354",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 820,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "4a4999d7.cef258",
+        "type": "http request",
+        "z": "34f6a4a0.c4adbc",
+        "name": "POST",
+        "method": "POST",
+        "ret": "txt",
+        "url": "172.24.41.182:8080/arduinoAccess",
+        "tls": "",
+        "x": 710,
+        "y": 340,
+        "wires": [
+            [
+                "e00bd0a8.abd328",
+                "3444788f.2d7f98"
+            ]
+        ]
+    },
+    {
+        "id": "c9d6e16e.7f9ab",
+        "type": "inject",
+        "z": "ddb0bb9c.500fa8",
+        "name": "ENABLE ALARMS",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 440,
+        "wires": [
+            [
+                "8a1d6eb5.71309"
+            ]
+        ]
+    },
+    {
+        "id": "8a1d6eb5.71309",
+        "type": "function",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Merge",
+        "func": "   msg.payload=\"{\\\"msg\\\":\\\"\"+msg.payload+\"\\\"}\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 440,
+        "wires": [
+            [
+                "3229b24c.e645ee"
+            ]
+        ]
+    },
+    {
+        "id": "3229b24c.e645ee",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Virtual ENABLE",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 480,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "8088a34f.0c6d7",
+        "type": "http request",
+        "z": "ddb0bb9c.500fa8",
+        "name": "POST",
+        "method": "use",
+        "ret": "txt",
+        "url": "172.24.41.182:8080/passwordAccess",
+        "tls": "",
+        "x": 1150,
+        "y": 180,
+        "wires": [
+            [
+                "1e7171eb.e3385e",
+                "245b38f1.ffbb78"
+            ]
+        ]
+    },
+    {
+        "id": "7e960837.516098",
+        "type": "function",
+        "z": "ddb0bb9c.500fa8",
+        "name": "GET MQTT MSG",
+        "func": "msg.payload=global.get('arduinoPasswordPayload');\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1270,
+        "y": 120,
+        "wires": [
+            [
+                "5293b74c.a7c678",
+                "96c86670.8f6788"
+            ]
+        ]
+    },
+    {
+        "id": "5293b74c.a7c678",
+        "type": "mqtt out",
+        "z": "ddb0bb9c.500fa8",
+        "name": "",
+        "topic": "Arduino007.recibir",
+        "qos": "",
+        "retain": "",
+        "broker": "21be8c88.6d7f64",
+        "x": 1570,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "96c86670.8f6788",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "FINAL RESULT",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1540,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "1e7171eb.e3385e",
+        "type": "switch",
+        "z": "ddb0bb9c.500fa8",
+        "name": "SUCCESSFUL",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "200",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1330,
+        "y": 200,
+        "wires": [
+            [
+                "7e960837.516098"
+            ]
+        ]
+    },
+    {
+        "id": "245b38f1.ffbb78",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "RTA",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "statusCode",
+        "x": 1380,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "3444788f.2d7f98",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "statusCode",
+        "x": 830,
+        "y": 380,
         "wires": []
     }
 ]
