@@ -27,6 +27,9 @@ UR_ADMIN = 'UR_ADMIN'
 PROPERTY_OWNER = 'PROPERTY_OWNER'
 DISABLED = 'DISABLED'
 
+#Tipo de operación
+DEVELOPMENT_MODE = True
+
 #Instalación en windows ---------------------
 #pip install -r requirements.txt
 #En *Powershell*, parado en la carpeta de este archivo, poner las siguientes líneas de código:
@@ -191,7 +194,12 @@ def dashboard_callback_handling():
     insert = db.users.insert_one({ 'auth0_id' :  info['user_id'] , 'username' : info['name'], 'email': info['email'], 'group' : USER,  'scope' : '/*--//--*/', 'horariosPermitidos' : []})
     return redirect('/welcome/' + info['name'])
   else:
-    return redirect('/security#/dashboard')
+    #On development, localhost serves js and HTML
+    if DEVELOPMENT_MODE:
+      return redirect('http://localhost:8080/#/dashboard')
+    #On production, server serves js and HTML
+    else:
+      return redirect('/security#/dashboard')
 
 @app.route('/security')
 @requires_auth(SECURITY)
