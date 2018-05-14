@@ -100,28 +100,7 @@ def requires_auth(auth_type):
         return redirect('/unauthorized')
     return decorated
   return decorator
-
-@app.route('/horariosHub', methods=[POST])
-def confirmarHorariosHubs():
-  # Maneja la respuesta desde el endpoint del token
-  #resp = auth0.authorized_response()
-    if request.method == POST:
-      resp = loads(request.data)
-      url = 'https://' + 'isis2503-jamanrique.auth0.com' + '/userinfo'
-      headers = {'authorization': 'Bearer ' + resp['access_token']}
-      resp = requests.get(url, headers=headers)
-      user_info = resp.json()
-      session['JWT_PAYLOAD'] = user_info
-      session['PROFILE_KEY'] = {
-        'user_id': user_info['sub'],
-        'name': session['JWT_PAYLOAD']['nickname'],
-        'email': user_info['name'],
-        'picture': user_info['picture']
-      }
-      user = db.users.find_one({'auth0_id' : session['PROFILE_KEY']['user_id']})
-      if checkSession(session['PROFILE_KEY']['user_id'], PROPERTY_OWNER, user['scope']):
-       return dumpJson(user['horariosPermitidos'])
-      return "Hubo un error autenticando al usuario",403     
+   
 
 
 @app.route('/testo/<param1>/<param2>')
@@ -834,7 +813,7 @@ def horariosPermitidos(unidad, localID):
       valid = valid and (data['horaInicio'] != None or data['horaInicio'] != "")
       valid = valid and (data['horaFin'] != None or data['horaFin'] != "")
     except KeyError:
-      return "Debe incluir la fecha, el tipo y el id de la emergencia", 400
+      return "Debe incluir la hora de inicio y la hora de fin", 400
 
     if not valid:
       return "Rellene los campos vacíos", 400

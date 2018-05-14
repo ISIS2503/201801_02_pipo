@@ -734,6 +734,26 @@
         "pass": ""
     },
     {
+        "id": "943fed38.2468a",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/2-5-3/horarios",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/2-5-3/horarios",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/2-5-3/horarios",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
         "id": "24d81772.16ff1",
         "type": "inject",
         "z": "a81c23f3.bd483",
@@ -1871,8 +1891,8 @@
         "func": "msg.flag=0;\nindice=msg.payload.msg.split(\";\")[0];\nif(indice==\"A\" || indice==\"D\")\n    msg.flag=1;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 670,
-        "y": 280,
+        "x": 710,
+        "y": 360,
         "wires": [
             [
                 "f8d2a1ce.ef2ab",
@@ -1890,8 +1910,8 @@
         "console": false,
         "tostatus": false,
         "complete": "flag",
-        "x": 830,
-        "y": 360,
+        "x": 630,
+        "y": 160,
         "wires": []
     },
     {
@@ -2082,7 +2102,7 @@
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 300,
+        "x": 290,
         "y": 220,
         "wires": []
     },
@@ -2372,9 +2392,9 @@
         "type": "inject",
         "z": "ddb0bb9c.500fa8",
         "name": "ENABLE ALARMS",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
+        "topic": "s.guzmanm@uniandes.edu.co",
+        "payload": "A",
+        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
@@ -2399,7 +2419,8 @@
         "y": 440,
         "wires": [
             [
-                "3229b24c.e645ee"
+                "3229b24c.e645ee",
+                "6912859b.27aabc"
             ]
         ]
     },
@@ -2421,7 +2442,7 @@
         "id": "8088a34f.0c6d7",
         "type": "http request",
         "z": "ddb0bb9c.500fa8",
-        "name": "POST",
+        "name": "COM",
         "method": "use",
         "ret": "txt",
         "url": "172.24.41.182:8080/passwordAccess",
@@ -2508,13 +2529,13 @@
         "id": "245b38f1.ffbb78",
         "type": "debug",
         "z": "ddb0bb9c.500fa8",
-        "name": "RTA",
+        "name": "PASSWORD RESPONSE",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "statusCode",
-        "x": 1380,
+        "x": 1440,
         "y": 300,
         "wires": []
     },
@@ -2530,6 +2551,172 @@
         "complete": "statusCode",
         "x": 830,
         "y": 380,
+        "wires": []
+    },
+    {
+        "id": "3dcd1067.0e0c6",
+        "type": "mqtt in",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Centro/Toscana/2-5-3/horarios",
+        "topic": "Centro/Toscana/2-5-3/horarios",
+        "qos": "0",
+        "broker": "943fed38.2468a",
+        "x": 160,
+        "y": 720,
+        "wires": [
+            [
+                "1d18fbae.01d614"
+            ]
+        ]
+    },
+    {
+        "id": "1d18fbae.01d614",
+        "type": "json",
+        "z": "ddb0bb9c.500fa8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 400,
+        "y": 740,
+        "wires": [
+            [
+                "6fb0bfb7.c5c0f"
+            ]
+        ]
+    },
+    {
+        "id": "d2feb173.f2198",
+        "type": "inject",
+        "z": "ddb0bb9c.500fa8",
+        "name": "DISABLE ALARMS",
+        "topic": "s.guzmanm@uniandes.edu.co",
+        "payload": "D",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 530,
+        "y": 460,
+        "wires": [
+            [
+                "7265d294.13975c"
+            ]
+        ]
+    },
+    {
+        "id": "7265d294.13975c",
+        "type": "function",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Merge",
+        "func": "   msg.payload=\"{\\\"msg\\\":\\\"\"+msg.payload+\"\\\"}\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 710,
+        "y": 460,
+        "wires": [
+            [
+                "90227cd7.2921",
+                "6912859b.27aabc"
+            ]
+        ]
+    },
+    {
+        "id": "90227cd7.2921",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Virtual ENABLE",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 900,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "ea10d822.3e6638",
+        "type": "inject",
+        "z": "ddb0bb9c.500fa8",
+        "name": "CREATE SCHEDULE",
+        "topic": "s.guzmanm@uniandes.edu.co",
+        "payload": "1",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 160,
+        "y": 820,
+        "wires": [
+            [
+                "543396e4.883358"
+            ]
+        ]
+    },
+    {
+        "id": "543396e4.883358",
+        "type": "function",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Merge",
+        "func": "\nmsg.payload={horaInicio:\"13:00\",horaFin:\"14:00\",usuario:\"sguzmanm\",\"nuevoInicio\":\"13:00\",nuevoFin:\"14:00\",operacion:msg.payload}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 820,
+        "wires": [
+            [
+                "6fb0bfb7.c5c0f"
+            ]
+        ]
+    },
+    {
+        "id": "6fb0bfb7.c5c0f",
+        "type": "function",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Verify arduino message",
+        "func": "operaciones=['POST','PUT','DELETE'];\nmsg.method=operaciones[msg.payload.operacion-1];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 610,
+        "y": 740,
+        "wires": [
+            [
+                "7e752a26.c6b254"
+            ]
+        ]
+    },
+    {
+        "id": "7e752a26.c6b254",
+        "type": "http request",
+        "z": "ddb0bb9c.500fa8",
+        "name": "COM",
+        "method": "use",
+        "ret": "txt",
+        "url": "172.24.41.182:8080/scheduleAccess",
+        "tls": "",
+        "x": 810,
+        "y": 780,
+        "wires": [
+            [
+                "478b064e.d08c48"
+            ]
+        ]
+    },
+    {
+        "id": "478b064e.d08c48",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "SCHEDULE RESPONSE",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "statusCode",
+        "x": 1000,
+        "y": 780,
         "wires": []
     }
 ]
