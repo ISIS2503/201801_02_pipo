@@ -21,16 +21,16 @@
         "info": ""
     },
     {
-        "id": "c716ffd5.d195d",
+        "id": "9f25517e.dc5bc8",
         "type": "tab",
-        "label": "MicrocontrollerHealthcheck Flow",
+        "label": "HubHealthcheckFlow",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "9f25517e.dc5bc8",
+        "id": "c716ffd5.d195d",
         "type": "tab",
-        "label": "HubHealthcheckFlow",
+        "label": "MicrocontrollerHealthcheck Flow",
         "disabled": false,
         "info": ""
     },
@@ -381,10 +381,10 @@
         "compatmode": true,
         "keepalive": "60",
         "cleansession": true,
-        "willTopic": "Centro/Toscana/fallo/CerraduraFueraDeLinea/2-5-3",
+        "willTopic": "Centro/Toscana/fallo/cerraduraFueraDeLinea/2-5-3",
         "willQos": "0",
         "willPayload": "",
-        "birthTopic": "Centro/Toscana/fallo/CerraduraFueraDeLinea/2-5-3",
+        "birthTopic": "Centro/Toscana/fallo/cerraduraFueraDeLinea/2-5-3",
         "birthQos": "0",
         "birthPayload": ""
     },
@@ -754,6 +754,26 @@
         "birthPayload": ""
     },
     {
+        "id": "f342dd7f.73d4d",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/fallo/hubFueraDeLinea/2-5-3",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/fallo/hubFueraDeLinea/2-5-3",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/fallo/hubFueraDeLinea/2-5-3",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
         "id": "24d81772.16ff1",
         "type": "inject",
         "z": "a81c23f3.bd483",
@@ -779,7 +799,7 @@
         "type": "function",
         "z": "a81c23f3.bd483",
         "name": "Format Physical Entity",
-        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-503\"\nvar conjunto=\"Toscana\"\nvar zona=\"Centro\"\n//Set the alarm sending to true by default\nif(typeof global.get(\"emailActivated\")=='undefined')\n{\n    global.set(\"emailActivated\",true);\n}\n\ntempArray = msg.payload.split(\"\\t\");\nres.topic = \"emergencyHub\";\nres.payload = {};\n\nres.payload = {\"id\": tempArray[0], \"emergencia\":tempArray[1][0],\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona}\n\nreturn res;",
+        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-5-3\"\nvar conjunto=\"Toscana\"\nvar zona=\"Centro\"\n//Set the alarm sending to true by default\nif(typeof global.get(\"emailActivated\")=='undefined')\n{\n    global.set(\"emailActivated\",true);\n}\n\ntempArray = msg.payload.split(\"\\t\");\nres.topic = \"emergencyHub\";\nres.payload = {};\n\nres.payload = {\"id\": tempArray[0], \"emergencia\":tempArray[1][0],\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona}\n\nreturn res;",
         "outputs": 1,
         "noerr": 0,
         "x": 540,
@@ -846,7 +866,7 @@
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 420,
+        "x": 400,
         "y": 240,
         "wires": []
     },
@@ -2309,20 +2329,6 @@
         "x": 750,
         "y": 460,
         "wires": []
-    },
-    {
-        "id": "e5238dec.e9af1",
-        "type": "redis-command",
-        "z": "a81c23f3.bd483",
-        "server": "aae4e60d.4db808",
-        "command": "set",
-        "name": "",
-        "topic": "",
-        "x": 160,
-        "y": 400,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "c4a974a6.5071d8",

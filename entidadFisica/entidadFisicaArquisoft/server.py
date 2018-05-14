@@ -19,23 +19,22 @@ def auth():
     print("F",request.form)
     print("A",request.args)
     print("REQ",request)
-    try:
-      auth = request.headers.get('Authorization')
-      token = auth.split(' ')[1]
-      data = base64.b64decode(token).decode("utf-8").split(':')
-      username = data[0]
-      password = bytes(data[1].strip(),'utf-8')
-      m  = hashlib.md5(password)
-      print("PASS",m.hexdigest())
-      print("data: ",data,password)
-      redis=r.get(username).decode('utf-8')
-      print("REDIS",redis)
-      digest=m.hexdigest()
-      print("DIGEST",digest)
-      if redis == digest:
-          response.status_code = 200
-    except:
-      pass
+    auth = request.headers.get('Authorization')
+    token = auth.split(' ')[1]
+    data = base64.b64decode(token).decode("utf-8").split(':')
+    username = data[0]
+    print(username,data[1])
+    password = bytes(data[1].strip()).encode('utf-8')
+    print (password)
+    m  = hashlib.md5(password)
+    print("PASS",m.hexdigest())
+    print("data: ",data,password)
+    redis=r.get(username).decode('utf-8')
+    print("REDIS",redis)
+    digest=m.hexdigest()
+    print("DIGEST",digest)
+    if redis == digest:
+        response.status_code = 200
     return response
 
 @app.route('/superuser', methods=['POST'])
