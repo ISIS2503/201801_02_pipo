@@ -37,8 +37,8 @@ export default {
 <style scoped>
 #sidebar {
     height: 100vh;
-    width: 97%;
-    border: 5px rgb(254, 209, 0) solid;
+    width: calc(100% - 17px);
+    border: 5px rgb(121, 14, 42) solid;
     position: relative;
 }
 
@@ -49,8 +49,7 @@ export default {
 }
 
 #filters2{
-  position:relative;
-  top: 78vh;
+  position:absolute;
   bottom:0;
   width:100%;
 }

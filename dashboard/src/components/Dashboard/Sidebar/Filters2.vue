@@ -139,14 +139,12 @@ export default {
 
 .container .col {
     height: 8vh;
-    border: 1px rgb(254, 209, 0) solid;
     max-height: 4vw;
 }
 
 .container .col:hover {
     height: 8vh;
     color: white;
-    border: 1px rgb(254, 209, 0) solid;
     cursor: pointer;
 }
 

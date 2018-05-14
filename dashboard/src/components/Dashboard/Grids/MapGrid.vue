@@ -2,9 +2,9 @@
 <div>
 
     <div class="above">
-        <md-icon class="next cursor">arrow_back_ios</md-icon>
+        <md-icon class="md-size-2x next cursor">arrow_back_ios</md-icon>
         <h1 class="next tower-name">TORRE 1</h1>
-        <md-icon class="next cursor">arrow_forward_ios</md-icon>
+        <md-icon class="md-size-2x next cursor">arrow_forward_ios</md-icon>
     </div>
 
     <div class="container">
@@ -19,9 +19,9 @@
                 <b-row>
                     <b-col cols="1" class="floor-number" >{{piso.numero}}</b-col>
 
-                        <b-col v-for="(apartamento, index) in piso.apartamentos" :key="index"
+                        <b-col v-for="(apartamento, index) in piso.apartamentos" :key="index" v-on:click="reversedMessage"
                             class="apto">
-                            <div class="apartment-number">
+                            <div class="apartment-number" >
                                 {{apartamento.numero}}
                             </div>
                             <div class="apartment-icon">
@@ -176,6 +176,14 @@ export default {
         ]
       }
     };
+  },
+  methods:{
+    // a computed getter
+    reversedMessage: function () {
+      // `this` points to the vm instance
+      console.log('llega');
+      return 2;
+    }
   }
 };
 </script>
@@ -193,6 +201,15 @@ export default {
 .tower-name {
   font-weight: bold;
   font-size: 3rem;
+}
+
+.cursor{
+  width:55px;
+  height: 55px;
+  background:  rgb(77, 77, 77);
+  color:white;
+  border-radius: 50%;
+  line-height: 55px;
 }
 
 .cursor:hover {
