@@ -15,25 +15,24 @@
             </div>
         </div>
         <div v-for="(piso, index) in this.unidad.torres[0].pisos" :key="index">
-            <b-container>
-                <b-row>
-                    <b-col cols="1" class="floor-number" >{{piso.numero}}</b-col>
+            <div class="md-layout">
+                <!-- <b-row> -->
+                    <div class="floor-number md-layout-item md-size-5">{{piso.numero}}</div>
 
-                        <b-col v-for="(apartamento, index) in piso.apartamentos" :key="index" v-on:click="reversedMessage"
-                            class="apto">
+                        <div v-for="(apartamento, index) in piso.apartamentos" :key="index" v-on:click="reversedMessage" class="apto md-layout-item">
                             <div class="apartment-number" >
                                 {{apartamento.numero}}
                             </div>
-                            <div class="apartment-icon">
-                                <div class="apartment-door">
-                                    <div class="apartment-doorbell"></div>
-                                    <div class="apartment-lock"></div>
+                            <div class="apartment-icon md-layout-item">
+                                <div :id="index"  class="apartment-door">
+                                    <div class="apartment-doorbell"/>
+                                    <div class="apartment-lock"/>
                                 </div>
                             </div>
-                        </b-col>
+                        </div>
 
-                </b-row>
-            </b-container>
+                <!-- </b-row> -->
+            </div>
         </div>
             <div class="middle-floor">
             </div>

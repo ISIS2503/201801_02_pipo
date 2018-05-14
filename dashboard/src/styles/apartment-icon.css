@@ -4,8 +4,9 @@
   width: 100%;
   background: rgb(189, 195, 199);
   border: 1px black solid;
+  display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .apartment-window1 {
@@ -59,12 +60,13 @@
 .apartment-door {
   height: 70px;
   width: 50px;
-  display: inline-block;
+  /* display: inline-block; */
   background-color: rgb(3, 140, 159);
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 1px;
+  position: relative;
+  /* left: 50%;
+  bottom:0px */
+  /*ransform: translateX(-50%);*/
+  /* bottom: 1px; */
 }
 
 .apartment-lock{
