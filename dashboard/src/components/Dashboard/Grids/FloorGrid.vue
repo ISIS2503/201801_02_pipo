@@ -1,7 +1,9 @@
 <template>
 <div>
    <md-card>
-    <p>Piso</p>
+        <div class="name-container">
+            <p class="name">PISOS</p>
+        </div>
     <div class="contenedor">
         <md-button class="md-raised">1</md-button>
         <md-button class="md-raised">2</md-button>
@@ -19,14 +21,35 @@ export default {
 </script>
 
 <style scoped>
-.md-card{
-  display: inline-block;
+.name-container {
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding: 1rem 0;
+    margin: none;
+    background: rgb(77, 77, 77);
+    color: white;
+}
+
+.name {
+    margin: 0 0;
+}
+
+.md-card {
+    display: inline-block;
+    overflow: auto;
+    border: 3px rgb(77, 77, 77) solid;
 }
 .contenedor{
   display: inline-block;
 }
- .md-button {
+
+.md-button {
     display: block;
-    margin: 0;
+    margin: 0;   
+    border-bottom: 3px rgb(77, 77, 77) solid;
+}
+
+.md-button:last-child {
+    border-bottom: none;
 }
 </style>

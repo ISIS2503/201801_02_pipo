@@ -36,20 +36,21 @@ export default {
 
 <style scoped>
 #sidebar {
-
     height: 100vh;
-    width: 100%;
+    width: 97%;
     border: 5px rgb(254, 209, 0) solid;
+    position: relative;
 }
 
 #filters1{
   position:relative;
-  top:0;
+  top:-0.4vh;
   width:100%;
 }
 
 #filters2{
-  position:absolute;
+  position:relative;
+  top: 78vh;
   bottom:0;
   width:100%;
 }
