@@ -27,6 +27,9 @@ UR_ADMIN = 'UR_ADMIN'
 PROPERTY_OWNER = 'PROPERTY_OWNER'
 DISABLED = 'DISABLED'
 
+#Tipo de operación
+DEVELOPMENT_MODE = True
+
 #Instalación en windows ---------------------
 #pip install -r requirements.txt
 #En *Powershell*, parado en la carpeta de este archivo, poner las siguientes líneas de código:
@@ -143,11 +146,11 @@ def login():
   return auth0.authorize_redirect(redirect_uri='http://172.24.42.64/callback')
 
 @app.route('/dashboardLogin')
-def login():
+def dashboardL_login():
   return auth0.authorize_redirect(redirect_uri='http://172.24.42.64/dashboardCallback')
 
 @app.route('/dashboardCallback')
-def callback_handling():
+def dashboard_callback_handling():
   # Maneja la respuesta desde el endpoint del token
   #resp = auth0.authorized_response()
   resp = auth0.authorize_access_token()
@@ -170,12 +173,45 @@ def callback_handling():
     insert = db.users.insert_one({ 'auth0_id' :  info['user_id'] , 'username' : info['name'], 'email': info['email'], 'group' : USER,  'scope' : '/*--//--*/', 'horariosPermitidos' : []})
     return redirect('/welcome/' + info['name'])
   else:
-    return redirect('/security')
+    #On development, localhost serves js and HTML
+    if DEVELOPMENT_MODE:
+      return redirect('http://localhost:8080/#/dashboard')
+    #On production, server serves js and HTML
+    else:
+      return redirect('/security#/dashboard')
 
-@requires_auth(SECURITY)
 @app.route('/security')
+@requires_auth(SECURITY)
 def securityDashboard():
-  return render_template('../../dashboard/dist/index.html')
+  return render_template('dist/index.html')
+
+@app.route('/securityLogin')
+def securityLogin():
+  return render_template('loginDist/index.html')
+
+@app.route('/static/js/<file>')
+def servingJs(file):
+  return send_from_directory('templates/dist/static/js', file)
+
+@app.route('/static/css/<file>')
+def servingCSS(file):
+  return send_from_directory('templates/dist/static/css', file)
+
+@app.route('/static/img/<file>')
+def servingImages(file):
+  return send_from_directory('templates/dist/static/img', file)
+
+@app.route('/login/static/js/<file>')
+def servingLoginJs(file):
+  return send_from_directory('templates/loginDist/static/js', file)
+
+@app.route('/login/static/css/<file>')
+def servingLoginCSS(file):
+  return send_from_directory('templates/loginDist/static/css', file)
+
+@app.route('/login/static/img/<file>')
+def servingLoginImages(file):
+  return send_from_directory('templates/loginDist/static/img', file)
 
 @app.route('/welcome/<usuario>')
 @requires_auth(USER)

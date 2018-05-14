@@ -52,7 +52,7 @@ export default {
 }
 
 .logo{
-  background: url(yale.png);
+  background: url("../../../assets/yale.png");
   background-size:contain;
   width:150px;
   height:150px;
