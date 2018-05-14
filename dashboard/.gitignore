@@ -1,6 +1,6 @@
 .DS_Store
 node_modules/
-/dist/
+#/dist/ Dist es la 'build' simplificada del front que se hostea, se debe subir para que el server pueda hostearla
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

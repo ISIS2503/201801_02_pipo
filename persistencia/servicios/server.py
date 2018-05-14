@@ -163,6 +163,41 @@ def callback_handling():
 def login():
   return auth0.authorize_redirect(redirect_uri='http://172.24.42.64/callback')
 
+@app.route('/dashboardLogin')
+def login():
+  return auth0.authorize_redirect(redirect_uri='http://172.24.42.64/dashboardCallback')
+
+@app.route('/dashboardCallback')
+def callback_handling():
+  # Maneja la respuesta desde el endpoint del token
+  #resp = auth0.authorized_response()
+  resp = auth0.authorize_access_token()
+  url = 'https://' + 'isis2503-jamanrique.auth0.com' + '/userinfo'
+  headers = {'authorization': 'Bearer ' + resp['access_token']}
+  resp = requests.get(url, headers=headers)
+  user_info = resp.json()
+  session['JWT_PAYLOAD'] = user_info
+  session['PROFILE_KEY'] = {
+    'user_id': user_info['sub'],
+    'name': session['JWT_PAYLOAD']['nickname'],
+    'email': user_info['name'],
+    'picture': user_info['picture']
+  }
+
+  #Idealmente con redis pero YOLO
+  user = db.users.find_one({'auth0_id' : user_info['sub']})
+  if not user: #POST User
+    info = session['PROFILE_KEY']
+    insert = db.users.insert_one({ 'auth0_id' :  info['user_id'] , 'username' : info['name'], 'email': info['email'], 'group' : USER,  'scope' : '/*--//--*/', 'horariosPermitidos' : []})
+    return redirect('/welcome/' + info['name'])
+  else:
+    return redirect('/security')
+
+@requires_auth(SECURITY)
+@app.route('/security')
+def securityDashboard():
+  return render_template('../../dashboard/dist/index.html')
+
 @app.route('/welcome/<usuario>')
 @requires_auth(USER)
 def welcome(usuario):

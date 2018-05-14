@@ -6,14 +6,15 @@ import VueMaterial from 'vue-material'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import '../node_modules/bootstrap-vue/dist/bootstrap-vue.css'
 import 'vue-material/dist/vue-material.min.css'
+
+
 import App from './App'
 import router from './router'
-
-
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(VueMaterial)
+
 
 /* eslint-disable no-new */
 new Vue({
