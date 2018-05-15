@@ -43,8 +43,7 @@ export default {
     },
     selectRevision(event){
       console.log('selectRevision: ', event)
-      const filter = {
-        
+      const filter = {        
       }
     }
   }
@@ -55,7 +54,8 @@ export default {
 <style scoped>
 #sidebar {
   height: 100vh;
-  border: 5px rgb(121, 14, 42) solid;
+  width: calc(100% - 17px);
+  border: 5px rgb(77, 77, 77) solid;
   position: relative;
 }
 

@@ -40,5 +40,25 @@ export default {
   background-color: rgb(77, 77, 77);
   color: white;
 }
+.icon-container {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background: white;
+    float: right;
+     content: none;
+     overflow:hidden;
+}
+
+.dropdown-container::after {
+  width:11px;
+  height:11px;
+  background:rgb(77, 77, 77);
+  position:relative;
+  z-index:100;
+  content:'';
+  right:73px;
+  top:10px;
+}
 
 </style>
