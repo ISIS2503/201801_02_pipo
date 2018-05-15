@@ -76,71 +76,85 @@ export default {
 <style lang="scss" scoped>
 .puerta-abierta {
     background: url("../../../assets/puertaAbiertaD.png");
+    background-repeat: no-repeat;
     background-size: contain;
 }
 
 .puerta-abierta-selected{
      background: url("../../../assets/puertaAbierta.png");
     background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .apertura-sospechosa {
     background: url("../../../assets/aperturaSospechosaD.png");
+    background-repeat: no-repeat;
     background-size: contain;
 }
 
 .apertura-sospechosa-selected {
     background: url("../../../assets/aperturaSospechosa.png");
     background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .apertura-no-permitida {
     background: url("../../../assets/aperturaNoPermitidaD.png");
     background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .apertura-no-permitida-selected {
     background: url("../../../assets/aperturaNoPermitida.png");
+    background-repeat: no-repeat;
     background-size: contain;
 }
 
 .bateria-baja {
     background: url("../../../assets/bateriaCriticaD.png");
+    background-repeat: no-repeat;
     background-size: contain;
 }
 
 .bateria-baja-selected {
     background: url("../../../assets/bateriaCritica.png");
+    background-repeat: no-repeat;
     background-size: contain;
 }
 
 .apertura-sospechosa {
     background: url("../../../assets/aperturaSospechosaD.png");
+    background-repeat: no-repeat;
     background-size: contain;
 }
 
 .apertura-sospechosa-selected {
     background: url("../../../assets/aperturaSospechosa.png");
+    background-repeat: no-repeat;
     background-size: contain;
 }
 
 .cerradura-desconectada {
     background: url("../../../assets/cerraduraFueraLineaD.png");
+    background-repeat: no-repeat;
     background-size: contain;
 }
 
 .cerradura-desconectada-selected {
     background: url("../../../assets/cerraduraFueraLinea.png");
+    background-repeat: no-repeat;
     background-size: contain;
 }
 
 .hub-desconectado {
     background: url("../../../assets/hubFueraLineaD.png");
+    background-repeat: no-repeat;
     background-size: contain;
 }
 
 .hub-desconectado-selected {
     background: url("../../../assets/hubFueraLinea.png");
+    background-repeat: no-repeat;
     background-size: contain;
 }
 
@@ -152,25 +166,20 @@ export default {
 .row {
     width: 100%;
     margin: 0;
-    position: relative;
+    position: absolute;
     max-width:460px;
+    bottom: 0;
 }
 
 .container .col {
-    height: 8vh;
+    height: 8.5vh;
     max-height: 4vw;
 }
 
 .container .col:hover {
-    height: 8vh;
+    height: 8.5vh;
     color: white;
     cursor: pointer;
-}
-
-h3 {
-    line-height: 50px;
-    max-height: 6vh;
-    margin: 0;
 }
 
 .md-tooltip {

@@ -54,7 +54,7 @@ export default {
 <style scoped>
 #sidebar {
   height: 100vh;
-  width: calc(100% - 17px);
+  width: calc(100% - 5px);
   border: 5px rgb(77, 77, 77) solid;
   position: relative;
 }
