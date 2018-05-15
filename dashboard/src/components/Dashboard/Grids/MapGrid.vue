@@ -1,7 +1,7 @@
 <template>
 <div class="md-content md-scrollbar">
     <div class="above">
-        <md-icon class="md-size-2x next cursor">arrow_back_ios</md-icon>
+        <md-icon class="md-size-2x next cursor cursor-left">arrow_back_ios</md-icon>
         <h1 class="next tower-name">TORRE 1</h1>
         <md-icon class="md-size-2x next cursor">arrow_forward_ios</md-icon>
     </div>
@@ -211,9 +211,16 @@ export default {
   text-align: center;
 }
 
+
 .cursor:hover {
   cursor: pointer;
 }
+
+.cursor-left{
+  position:relative;
+  padding-left: 11px;
+}
+
 
 .floor-container {
   position: relative;
