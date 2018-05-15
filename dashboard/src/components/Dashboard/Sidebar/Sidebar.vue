@@ -1,13 +1,13 @@
 <template>
 <div id="sidebar">
   <account/>
-  <div id="filters1">
+  <div id="revisionFilters">
     <revision-filters v-on:revision-select="selectRevision"/>
   </div>
 
   <alarm-list v-bind:alarms='alarms' v-bind:fliters='filters'/>
 
-  <div id="filters2">
+  <div id="typeFilters">
     <type-filters v-on:typeSelect="selectType"/>
   </div>
 </div>
@@ -55,18 +55,17 @@ export default {
 <style scoped>
 #sidebar {
   height: 100vh;
-  width: calc(100% - 17px);
   border: 5px rgb(121, 14, 42) solid;
   position: relative;
 }
 
-#filters1 {
-  position: relative;
-  top: -0.4vh;
-  width: 100%;
+#revisionFilters {
+  /* position: relative;
+  /* top: -0.4vh; 
+  width: 100%; */
 }
 
-#filters2 {
+#typeFilters {
   position: absolute;
   bottom: 0;
   width: 100%;

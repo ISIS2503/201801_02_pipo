@@ -1,6 +1,5 @@
 <template>
-<div>
-
+<div class="md-content md-scrollbar">
     <div class="above">
         <md-icon class="md-size-2x next cursor">arrow_back_ios</md-icon>
         <h1 class="next tower-name">TORRE 1</h1>

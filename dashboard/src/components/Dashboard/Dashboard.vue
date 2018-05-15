@@ -4,7 +4,7 @@
         <div class="md-layout-item md-size-75">
             <grids></grids>
         </div>
-        <div class="md-layout-item sidebar-container">
+        <div class="md-layout-item md-size-25 sidebar-container">
             <sidebar class="sidebar"></sidebar>
         </div>
     </div>
@@ -37,9 +37,7 @@ export default {
 
 
 .sidebar-container{
-    position: fixed;
-    right:0;
-    top:0;
-    width:25%;
+  position: fixed;
+  right: 15px;
 }
 </style>
