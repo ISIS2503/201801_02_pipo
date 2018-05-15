@@ -4,6 +4,7 @@ from pymongo import MongoClient, ReturnDocument
 from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
 from functools import wraps
 from six.moves.urllib.parse import urlencode
+from flask_mqtt import Mqtt
 import re
 import http.client
 import os
@@ -42,10 +43,26 @@ DEVELOPMENT_MODE = True
 #DB: Pipo-yale-persistencia
 #COL: unidadesResidenciales / users / groups
 
+elScope = ''
+username = ''
+
 client = MongoClient('localhost', 27017)
 db = client['Pipo-yale-persistencia']
 app = Flask(__name__)
 app.secret_key = "super secret key"
+app.config['MQTT_BROKER_URL'] = '172.24.41.182'
+app.config['MQTT_BROKER_PORT'] = 8083
+app.config['MQTT_USERNAME'] = 'Yale'
+app.config['MQTT_PASSWORD'] = 'piporules'
+app.config['MQTT_KEEPALIVE'] = 5
+
+# Parameters for SSL enabled
+app.config['MQTT_TLS_ENABLED'] = True
+app.config['MQTT_TLS_CA_CERTS'] = 'ca.crt'
+app.config['MQTT_TLS_CERTFILE'] = 'server.crt'
+app.config['MQTT_TLS_KEYFILE'] = 'server.key'
+
+mqtt = Mqtt(app)
 oauth = OAuth(app)
 auth0 = oauth.register(
   'auth0',
@@ -68,11 +85,12 @@ def checkRole(user_id, auth_type):
     if auth_type == USER:
       return True
     if group:
-      return auth_type in group['roles']
+	  return auth_type in group['roles']
   return False
 
 def checkScope(user_id, auth_type, scope):
   user = db.users.find_one({'auth0_id' : user_id})
+  username = user['username']
   print("userScope",user['scope'])
   if not scope:
     return True
@@ -82,22 +100,23 @@ def checkScope(user_id, auth_type, scope):
 
 def checkSession(user_id, auth_type, scope):
   print('uid: ', user_id, 'auth: ', auth_type, 'scope: ', scope)
+  userId = user_id
   return checkRole(user_id, auth_type) and checkScope(user_id, auth_type, scope)
 
 def requires_auth(auth_type):
   def decorator(func, *args1):
     @wraps(func)
     def decorated(*args, **kwargs):
-      scope = ''
+      elScope = ''
       print('a',args)
       print('kwa',kwargs)
       for arg in kwargs:
-        scope += kwargs[arg] + '/'
-      scope = scope[:-1]
+        elScope += kwargs[arg] + '/'
+      elScope = elScope[:-1]
 
       if 'PROFILE_KEY' not in session:
           return redirect('/login')
-      elif checkSession(session['PROFILE_KEY']['user_id'], auth_type, scope):
+      elif checkSession(session['PROFILE_KEY']['user_id'], auth_type, elScope):
         return func(*args, **kwargs)
       else:
         return redirect('/unauthorized')
@@ -627,6 +646,107 @@ def claves(unidad, localID):
     if result == None:
       return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     return dumpJson(nuevo)
+
+
+@app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/gestionClaves", methods=[POST, PUT, DELETE])
+@requires_auth(PROPERTY_OWNER)
+def gestionClaves(unidad, localID):
+  data = {}
+  if request.data:
+    data = loads(request.data)
+  if request.method == POST or request.method == PUT:
+    if request.data == None or request.data == "":
+      return "Debe enviar información", 400
+    
+    valid = True
+    try:
+      valid = valid and (data['combinacion'] != None or data['combinacion'] != "")
+    except KeyError:
+      return "Debe incluir la combinación a incluir", 400
+
+    if not valid:
+      return "rellene los campos vacíos", 400
+	
+	combinacion = data['combinacion']
+    valid = valid and len(combinacion) == 4
+	
+	if not valid:
+      return "La combinación debe tener exactamente 4 caracteres", 400
+	
+	try:
+	  valid = valid and (data['indice'] != None or data['indice'] != "")
+	except KeyError:
+	  return "Debe incluir el índice", 400
+	
+	if not valid:
+      return "rellene los campos vacíos", 400
+	
+	indice = data['indice']
+	
+	valid = valid and indice >= 0 and indice < 20
+	
+	if not valid:
+	  return "Debe ingresar un índice válido"
+
+    respuesta = []
+    unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    if unidadRes == None:
+      return "No existe ninguna unidad residencial con ese nombre", 404
+    for inmueble in unidadRes['inmuebles']:
+      if inmueble['localID'] == localID:
+        respuesta = inmueble
+        break
+    if respuesta == []:
+      return "No existe ningún inmueble en esa unidad residencial con ese localID", 404;
+    
+	msg = ";"+str(indice)+";"+str(combinacion)
+	if request.method == POST:
+	  msg = "1"+msg
+	else:
+	  msg = "2"+msg
+	
+	message = {"msg":msg, "usuario":username}
+	topic = "Centro/"+elScope+"/claves"
+	mqtt.publish(topic, str(message))
+	return message, 200
+	
+  elif request.method == DELETE:
+    
+	if request.data == None or request.data == "":
+      return "Debe enviar información", 400
+	
+	valid = True
+	indice = ""
+	try:
+	  indice = data['indice']
+	except KeyError:
+	  return "Debe enviar el índice de la clave a eliminar", 400
+	
+	valid = valid and (valid != None or valid == "")
+	if not valid:
+	  return "Debe enviar el índice de la clave a eliminar", 400
+	
+	valid = valid and indice >= 0 and indice < 20
+	if not valid:
+	  return "Debe ingresar un índice válido"
+	
+    if unidadRes == None:
+      return "No existe ninguna unidad residencial con ese nombre", 404
+    for inmueble in unidadRes['inmuebles']:
+      if inmueble['localID'] == localID:
+        respuesta = inmueble
+        break
+    if respuesta == []:
+      return "No existe ningún inmueble en esa unidad residencial con ese localID", 404;
+    
+	msg = "3;"+str(indice)
+	message = {"msg":msg, "usuario":username}
+	topic = "Centro/"+elScope+"/claves"
+	mqtt.publish(topic, str(message))
+	return message, 200
+	
+	
+
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/emergencias", methods=[GET, POST])
 @requires_auth(PROPERTY_OWNER)
