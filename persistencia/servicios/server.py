@@ -196,7 +196,7 @@ def dashboard_callback_handling():
   else:
     #On development, localhost serves js and HTML
     if DEVELOPMENT_MODE:
-      return redirect('http://localhost:8080/#/dashboard')
+      return redirect('http://localhost:8080/#/dashboard/' + session['PROFILE_KEY']['name'])
     #On production, server serves js and HTML
     else:
       return redirect('/security#/dashboard')
