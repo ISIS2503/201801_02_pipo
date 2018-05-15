@@ -14,6 +14,9 @@
 
 
 <script>
+
+import axios from 'axios';
+
 import Grids from "./Grids/Grids.vue";
 import Sidebar from "./Sidebar/Sidebar.vue";
 export default {
@@ -26,13 +29,16 @@ export default {
     return {
       websocketConnected: false,
       //Contains incoming alarms & failures
-      emergencies: []
+      emergencies: [],
+      //Contains tower info retrieved from REST services
+      towers: []
     };
   },
   methods: {
     //Initializes SocketIO and declares event listener for emergencies
     initWebsocket() {
       const serverIP = "http://172.24.42.64";
+
       const namespace = "/securityWebsocket";
       //Conectarse al servidor
       let socket = io.connect(serverIP + namespace);
@@ -57,11 +63,57 @@ export default {
     },
     //Retireves information from server and parses it to fit front-end structure
     initData(){
+      const user = this.$route.params.username
+      
+      axios.get('http://172.24.42.64/users/' + user).then(userResponse =>{
 
+        //Make another HTTP request, depending on the UR assigned to the user
+        axios.get('http://172.24.42.64/unidadesResidenciales/' + userResponse.data.scope + '/inmuebles').then(URResponse => {
+        const UR = URResponse.data
+        let parsed_UR = {}
+
+
+        for(property of UR){
+          //info[0] = torre // [1] = piso // [2] = número
+          info = property.localID.split('-')
+          if(propertyTowerNotInUR(property, parsed_UR)){
+            parsed_UR.push({
+              "number" : info[0],
+              "floors": []
+            })
+          }
+
+          if(floorNotInTower(property, parsed_UR[])){
+
+          }
+        }
+        
+      })
+      .catch(error => {
+        console.log(error)
+      });
+
+      }).catch(error => {
+
+      })
+
+      
+    },
+    propertyTowerNotInUR(property, parsed_UR){
+      let isInUR = false
+      const towerNumber = property.localID.split('-')[0]
+      for(tower of parsed_UR){
+        if(parsed_UR[tower].number === towerNumber)
+        {
+          isInUR = true
+          break
+        }
+      }
+      return isInUR
     }
   },
   mounted() {
-    this.initWebsocket()
+    //this.initWebsocket()
     this.initData()
   }
 };

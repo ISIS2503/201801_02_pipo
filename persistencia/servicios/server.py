@@ -28,7 +28,7 @@ PROPERTY_OWNER = 'PROPERTY_OWNER'
 DISABLED = 'DISABLED'
 
 #Tipo de operación
-DEVELOPMENT_MODE = True
+DEVELOPMENT_MODE = False
 
 #Instalación en windows ---------------------
 #pip install -r requirements.txt
@@ -178,7 +178,7 @@ def dashboard_callback_handling():
       return redirect('http://localhost:8080/#/dashboard/' + session['PROFILE_KEY']['name'])
     #On production, server serves js and HTML
     else:
-      return redirect('/security#/dashboard')
+      return redirect('/security#/dashboard/' + session['PROFILE_KEY']['name'])
 
 @app.route('/security')
 @requires_auth(SECURITY)
@@ -359,10 +359,9 @@ def crearUnidad():
       return "Ya existe una unidad residencial con ese nombre", 400
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles", methods=[GET, POST])
-@requires_auth(UR_ADMIN)
+@requires_auth(SECURITY)
 def imuebles(unidad):
   if request.method == GET:
-    respuesta = []
     unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
     if unidad == None:
       return "{}", 404
