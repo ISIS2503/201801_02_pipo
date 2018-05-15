@@ -449,10 +449,10 @@ void loop() {
        boolean comparacion=compareKey(currentKey);
 
        if(comparacion){
-        currentKey = "";
         comparacion=false;
         timeConfirmacion = millis();
-        Serial.println('0;'+tiempoTimeout);
+        Serial.println(boardId+"\t+"'0'+"\t"+tiempoTimeout+"\t"+currentKey);
+        currentKey = "";
         esperandoConfirmacion=true;
        }
        else

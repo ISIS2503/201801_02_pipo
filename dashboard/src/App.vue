@@ -23,4 +23,9 @@ export default {
     max-width: 100%;
     overflow-x: hidden;
 }
+
+.md-list{
+  background: whitesmoke;
+  padding: 0px;
+}
 </style>

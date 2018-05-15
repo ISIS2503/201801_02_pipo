@@ -1,64 +1,53 @@
 <template>
-<div class="account">
-    <h2 class="name">
-        {{name}}
-    </h2>
-    <b-dropdown variant="link" class="dropdown-container">
-        <template slot="text">
-            <div class="icon-container">
-                 <md-icon class="md-size-2x md-light icon">person</md-icon>
-            </div>
-        </template>
-        <b-dropdown-item href="http://172.24.42.64/logout">Cerrar sesión</b-dropdown-item>
-    </b-dropdown>
+<div class="account md-layout">
+  <h2 class="name">
+      {{name}}
+  </h2>
+  <md-menu md-direction="bottom-end" :md-offset-x="0.1" :md-offset-y="0.1">
+    <md-button md-menu-trigger class="md-icon-button md-accent">
+      <md-icon class="md-size-2x">account_circle</md-icon>
+    </md-button>
+    <md-menu-content>
+      <md-menu-item href="http://172.24.42.64/logout">Cerrar sesión</md-menu-item>
+    </md-menu-content>
+  </md-menu>
 </div>
 </template>
 
 <script>
 export default {
-    name: "Account",
-    data: function () {
-        return {
-            name: "Toscana"
-        };
-    }
+  name: "Account",
+  data: function() {
+    return {
+      name: "Toscana"
+    };
+  }
 };
 </script>
 
 
 
 <style scoped>
-/* ddown1__BV_toggle_ 
-btn btn-secondary dropdown-toggle*/
+.md-icon-button{
+  color: white;
+}
 
 .account {
-    padding-top: 5px;
-    height: 7vh;
-    background-color: rgb(77, 77, 77);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  background-color: rgb(77, 77, 77);
+  color: white;
 }
-
-.name {
-    float: left;
-    color: white;
-     line-height: 50px;
-}
-
-.dropdown-container{
-border-top:none;
-float:right;
-bottom:5px;
-}
-
 .icon-container {
     height: 50px;
     width: 50px;
     border-radius: 50%;
     background: white;
     float: right;
-    border: 1px yellow solid;
      content: none;
      overflow:hidden;
-
 }
 
 .dropdown-container::after {
@@ -72,11 +61,4 @@ bottom:5px;
   top:10px;
 }
 
-.icon {
-    position: relative;
-    top: 2px;
-    width: 35px;
-    height: 35px;
-    color: rgb(77, 77, 77);
-}
 </style>

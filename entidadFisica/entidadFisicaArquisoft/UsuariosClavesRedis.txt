@@ -25,6 +25,7 @@
 'Norte/Test','P1Norte:Hub007'
 'Sur/Test','P1Sur:Hub007'
 'Periferia/Test','P1Periferia:Hub007'
+'Centro/Toscana/2-5-3/horarios','Hub007:Yale'
 # Usuario clave horario hub
 'N:01','5555'
 'C:5555','U:sguzmanm'

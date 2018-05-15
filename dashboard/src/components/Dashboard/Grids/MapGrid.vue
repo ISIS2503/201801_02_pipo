@@ -1,6 +1,5 @@
 <template>
-<div>
-
+<div class="md-content md-scrollbar">
     <div class="above">
         <md-icon class="md-size-2x next cursor">arrow_back_ios</md-icon>
         <h1 class="next tower-name">TORRE 1</h1>
@@ -15,25 +14,24 @@
             </div>
         </div>
         <div v-for="(piso, index) in this.unidad.torres[0].pisos" :key="index">
-            <b-container>
-                <b-row>
-                    <b-col cols="1" class="floor-number" >{{piso.numero}}</b-col>
+            <div class="md-layout">
+                <!-- <b-row> -->
+                    <div class="floor-number md-layout-item md-size-5">{{piso.numero}}</div>
 
-                        <b-col v-for="(apartamento, index) in piso.apartamentos" :key="index" v-on:click="reversedMessage"
-                            class="apto">
+                        <div v-for="(apartamento, index) in piso.apartamentos" :key="index" v-on:click="reversedMessage" class="apto md-layout-item">
                             <div class="apartment-number" >
                                 {{apartamento.numero}}
                             </div>
-                            <div class="apartment-icon">
-                                <div class="apartment-door">
-                                    <div class="apartment-doorbell"></div>
-                                    <div class="apartment-lock"></div>
+                            <div class="apartment-icon md-layout-item">
+                                <div :id="index"  class="apartment-door">
+                                    <div class="apartment-doorbell"/>
+                                    <div class="apartment-lock"/>
                                 </div>
                             </div>
-                        </b-col>
+                        </div>
 
-                </b-row>
-            </b-container>
+                <!-- </b-row> -->
+            </div>
         </div>
             <div class="middle-floor">
             </div>
@@ -210,6 +208,7 @@ export default {
   color:white;
   border-radius: 50%;
   line-height: 55px;
+  text-align: center;
 }
 
 .cursor:hover {
@@ -231,20 +230,15 @@ export default {
 .apartment-number {
   height: 50px;
   width: 100%;
-  border: 1px black solid;
+  border: 1px rgb(77, 77, 77) solid;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   line-height: 50px;
   font-weight: bold;
   font-size: 2rem;
+  position: relative;
 }
 
-.apartment-number::after {
-  content: "";
-  width: 98%;
-  box-shadow: 0px 0px 8px 2px #000000;
-  top: 51px;
-  left: 1%;
-  position: absolute;
-}
+
 
 .floor-number {
   vertical-align: middle;
@@ -279,7 +273,7 @@ export default {
   top: -5px;
   height: 600px;
   background: rgb(132, 96, 75);
-  border-top: black 1px solid;
+  border-top: rgb(77, 77, 77) 1px solid;
 }
 
 .container {

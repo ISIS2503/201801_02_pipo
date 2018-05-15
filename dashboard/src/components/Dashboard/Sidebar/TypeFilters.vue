@@ -3,22 +3,22 @@
 
     <b-container>
         <b-row>
-            <b-col class="puerta-abierta">
+            <b-col class="puerta-abierta" v-bind:class="{ 'puerta-abierta-selected': puertaAbiertaSelected }" v-on:click="select('puertaAbierta')">
                 <md-tooltip md-direction="top">Puerta abierta</md-tooltip>
             </b-col>
-            <b-col class="apertura-sospechosa">
+            <b-col class="apertura-sospechosa" v-bind:class="{ 'apertura-sospechosa-selected': aperturaSospechosaSelected }" v-on:click="select('aperturaSospechosa')">
                 <md-tooltip md-direction="top">Apertura sospechosa</md-tooltip>
             </b-col>
-            <b-col class="apertura-no-permitida">
+            <b-col class="apertura-no-permitida" v-bind:class="{ 'apertura-no-permitida-selected': aperturaNoPermitidaSelected }" v-on:click="select('aperturaNoPermitida')">
                 <md-tooltip md-direction="top">Apertura no permitida</md-tooltip>
             </b-col>
-            <b-col class="bateria-baja">
+            <b-col class="bateria-baja" v-bind:class="{ 'bateria-baja-selected': bateriaBajaSelected }" v-on:click="select('bateriaBaja')">
                 <md-tooltip md-direction="top">Batería baja</md-tooltip>
             </b-col>
-            <b-col class="cerradura-desconectada">
+            <b-col class="cerradura-desconectada" v-bind:class="{ 'cerradura-desconectada-selected': cerraduraDesconectadaSelected }" v-on:click="select('cerraduraDesconectada')">
                 <md-tooltip md-direction="top">Cerradura desconectada</md-tooltip>
             </b-col>
-            <b-col class="hub-desconectado">
+            <b-col class="hub-desconectado" v-bind:class="{ 'hub-desconectado-selected': hubDesconectadoSelected }" v-on:click="select('hubDesconectado')">
                 <md-tooltip md-direction="top">Hub desconectado</md-tooltip>
             </b-col>
         </b-row>
@@ -32,8 +32,41 @@
 
 <script>
 export default {
-    name: 'Filters2'
-}
+    name: 'TypeFitlers',
+    data(){
+    return {
+      puertaAbiertaSelected: true,
+      aperturaSospechosaSelected: true,
+      aperturaNoPermitidaSelected: true,
+      bateriaBajaSelected: true,
+      cerraduraDesconectadaSelected: true,
+      hubDesconectadoSelected: true
+    }    
+  },
+  methods:{
+    select(type){
+      if(type === 'puertaAbierta'){
+        this.puertaAbiertaSelected = !this.puertaAbiertaSelected;
+      }
+      else if(type === 'aperturaSospechosa'){
+        this.aperturaSospechosaSelected = !this.aperturaSospechosaSelected;
+      }
+      else if(type === 'aperturaNoPermitida'){
+        this.aperturaNoPermitidaSelected = !this.aperturaNoPermitidaSelected;
+      }
+      else if(type === 'bateriaBaja'){
+        this.bateriaBajaSelected = !this.bateriaBajaSelected;
+      }
+      else if(type === 'cerraduraDesconectada'){
+        this.cerraduraDesconectadaSelected = !this.cerraduraDesconectadaSelected;
+      }
+      else if(type === 'hubDesconectado'){
+        this.hubDesconectadoSelected = !this.hubDesconectadoSelected;
+      }
+      this.$emit('revision-select', type)
+    }
+  }
+};
 </script>
 
 
@@ -47,10 +80,10 @@ export default {
     background-size: contain;
 }
 
-.puerta-abierta:hover {
-    background: url("../../../assets/puertaAbierta.png");
-    background-repeat: no-repeat;
+.puerta-abierta-selected{
+     background: url("../../../assets/puertaAbierta.png");
     background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .apertura-sospechosa {
@@ -59,19 +92,19 @@ export default {
     background-size: contain;
 }
 
-.apertura-sospechosa:hover {
+.apertura-sospechosa-selected {
     background: url("../../../assets/aperturaSospechosa.png");
-    background-repeat: no-repeat;
     background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .apertura-no-permitida {
     background: url("../../../assets/aperturaNoPermitidaD.png");
-    background-repeat: no-repeat;
     background-size: contain;
+    background-repeat: no-repeat;
 }
 
-.apertura-no-permitida:hover {
+.apertura-no-permitida-selected {
     background: url("../../../assets/aperturaNoPermitida.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -83,20 +116,20 @@ export default {
     background-size: contain;
 }
 
-.bateria-baja:hover {
+.bateria-baja-selected {
     background: url("../../../assets/bateriaCritica.png");
     background-repeat: no-repeat;
     background-size: contain;
 }
 
 .apertura-sospechosa {
-    background: url("../../../assets/puertaAbiertaD.png");
+    background: url("../../../assets/aperturaSospechosaD.png");
     background-repeat: no-repeat;
     background-size: contain;
 }
 
-.apertura-sospechosa:hover {
-    background: url("../../../assets/puertaAbierta.png");
+.apertura-sospechosa-selected {
+    background: url("../../../assets/aperturaSospechosa.png");
     background-repeat: no-repeat;
     background-size: contain;
 }
@@ -107,7 +140,7 @@ export default {
     background-size: contain;
 }
 
-.cerradura-desconectada:hover {
+.cerradura-desconectada-selected {
     background: url("../../../assets/cerraduraFueraLinea.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -119,7 +152,7 @@ export default {
     background-size: contain;
 }
 
-.hub-desconectado:hover {
+.hub-desconectado-selected {
     background: url("../../../assets/hubFueraLinea.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -133,25 +166,20 @@ export default {
 .row {
     width: 100%;
     margin: 0;
-    position: relative;
+    position: absolute;
     max-width:460px;
+    bottom: 0;
 }
 
 .container .col {
-    height: 8vh;
+    height: 8.5vh;
     max-height: 4vw;
 }
 
 .container .col:hover {
-    height: 8vh;
+    height: 8.5vh;
     color: white;
     cursor: pointer;
-}
-
-h3 {
-    line-height: 50px;
-    max-height: 6vh;
-    margin: 0;
 }
 
 .md-tooltip {
