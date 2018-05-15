@@ -55,7 +55,6 @@ bottom:5px;
     border-radius: 50%;
     background: white;
     float: right;
-    border: 1px yellow solid;
      content: none;
      overflow:hidden;
 
