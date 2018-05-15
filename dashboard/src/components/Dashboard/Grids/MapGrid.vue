@@ -208,6 +208,7 @@ export default {
   color:white;
   border-radius: 50%;
   line-height: 55px;
+  text-align: center;
 }
 
 .cursor:hover {
@@ -229,21 +230,15 @@ export default {
 .apartment-number {
   height: 50px;
   width: 100%;
-  border: 1px black solid;
+  border: 1px rgb(77, 77, 77) solid;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   line-height: 50px;
   font-weight: bold;
   font-size: 2rem;
   position: relative;
 }
 
-.apartment-number::after {
-  content: "";
-  width: 98%;
-  box-shadow: 0px 0px 8px 2px #000000;
-  top: 52.4px;
-  left: 1%;
-  position: absolute;
-}
+
 
 .floor-number {
   vertical-align: middle;
@@ -278,7 +273,7 @@ export default {
   top: -5px;
   height: 600px;
   background: rgb(132, 96, 75);
-  border-top: black 1px solid;
+  border-top: rgb(77, 77, 77) 1px solid;
 }
 
 .container {

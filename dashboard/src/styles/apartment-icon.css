@@ -3,7 +3,7 @@
   height: 100px;
   width: 100%;
   background: rgb(189, 195, 199);
-  border: 1px black solid;
+  border: 1px rgb(77, 77, 77) solid;
   display: flex;
   justify-content: center;
   align-items: flex-end;
