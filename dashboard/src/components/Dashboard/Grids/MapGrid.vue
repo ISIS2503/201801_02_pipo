@@ -233,13 +233,14 @@ export default {
   line-height: 50px;
   font-weight: bold;
   font-size: 2rem;
+  position: relative;
 }
 
 .apartment-number::after {
   content: "";
   width: 98%;
   box-shadow: 0px 0px 8px 2px #000000;
-  top: 51px;
+  top: 52.4px;
   left: 1%;
   position: absolute;
 }
