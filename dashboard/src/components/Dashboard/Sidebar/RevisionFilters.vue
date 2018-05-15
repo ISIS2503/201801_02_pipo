@@ -7,7 +7,7 @@
                 v-on:click="select('revised')"
                 v-bind:class="{ 'not-checked-selected': revisedSelected }"
             >
-                <md-tooltip md-direction="bottom">Por revisar</md-tooltip>
+                <md-tooltip md-direction="bottom">Mostrar alarmas por revisar</md-tooltip>
                 </b-col>
                 <b-col
                     v-on:click="select('not-revised')"
@@ -57,10 +57,11 @@ export default {
     width: 100%;
     margin: 0;
     position: relative;
+     background: rgb(77, 77, 77);
 }
 
 .checked {  
-    background: rgb(34, 34, 34) url("../../../assets/checkedD.png") center;
+    background:  url("../../../assets/checkedD.png") center;
     background-repeat: no-repeat;
     background-size: contain;
     margin: 0 auto;
@@ -68,7 +69,7 @@ export default {
 }
 
 .checked-selected {
-    background: rgb(77, 77, 77) url("../../../assets/checked.png") center;
+    background:url("../../../assets/checked.png") center;
     background-repeat: no-repeat;
     background-size: contain;
     margin: 0 auto;
@@ -76,7 +77,7 @@ export default {
 }
 
 .not-checked {  
-    background: rgb(34, 34, 34) url("../../../assets/porRevisarD.png") center;
+    background: url("../../../assets/porRevisarD.png") center;
     background-repeat: no-repeat;
     background-size: contain;
     margin: 0 auto;
@@ -84,7 +85,7 @@ export default {
 }
 
 .not-checked-selected {  
-      background: rgb(77, 77, 77) url("../../../assets/porRevisar.png") center;
+      background: url("../../../assets/porRevisar.png") center;
       background-repeat: no-repeat;
     background-size: contain;
     margin: 0 auto;
