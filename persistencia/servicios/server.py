@@ -69,7 +69,7 @@ app.secret_key = "super secret key"
 #app.config['MQTT_TLS_KEYFILE'] = 'server.key'
 #app.config['MQTT_TLS_VERSION'] = ssl.PROTOCOL_TLSv1_1
 
-#producer = KafkaProducer(bootstrap_servers='localhost:8090')
+producer = KafkaProducer(bootstrap_servers='localhost:8090')
 
 oauth = OAuth(app)
 auth0 = oauth.register(
@@ -118,16 +118,19 @@ def requires_auth(auth_type):
   def decorator(func, *args1):
     @wraps(func)
     def decorated(*args, **kwargs):
-      elScope = ''
+      scope = ''
+	  elScope = ''
       print('a',args)
       print('kwa',kwargs)
       for arg in kwargs:
-        elScope += kwargs[arg] + '/'
+		scope += kwargs[arg] + '/'
+        elScope += kwargs[arg] + '.'
       elScope = elScope[:-1]
+	  scope = scope[:-1]
 
       if 'PROFILE_KEY' not in session:
           return redirect('/login')
-      elif checkSession(session['PROFILE_KEY']['user_id'], auth_type, elScope):
+      elif checkSession(session['PROFILE_KEY']['user_id'], auth_type, scope):
         return func(*args, **kwargs)
       else:
         return redirect('/unauthorized')
@@ -717,9 +720,9 @@ def gestionClaves(unidad, localID):
       msg = "2"+msg
     
     message = {"msg":msg, "usuario":username}
-    topic = "Centro/"+elScope+"/claves"
-	
-    client.publish(topic, str(message))
+    topic = "Centro."+elScope+".claves"
+	print(topic)
+    producer.send(topic, str(message))
     return message, 200
     
   elif request.method == DELETE:
@@ -753,8 +756,9 @@ def gestionClaves(unidad, localID):
     
     msg = "3;"+str(indice)
     message = {"msg":msg, "usuario":username}
-    topic = "Centro/"+elScope+"/claves"
-    mqtt.publish(topic, str(message))
+    topic = "Centro."+elScope+".claves"
+	print(topic)
+    producer.send(topic, str(message))
     return message, 200
     
     
