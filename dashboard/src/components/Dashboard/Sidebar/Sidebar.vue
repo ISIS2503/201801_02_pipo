@@ -1,11 +1,11 @@
 <template>
 <div id="sidebar">
-  <account/>
+  <account :ur-name="urName"/>
   <div id="revisionFilters">
     <revision-filters v-on:revision-select="selectRevision"/>
   </div>
 
-  <alarm-list v-bind:alarms='alarms' v-bind:fliters='filters'/>
+  <alarm-list v-bind:emergencies='emergencies' v-bind:fliters='filters'/>
 
   <div id="typeFilters">
     <type-filters v-on:typeSelect="selectType"/>
@@ -31,7 +31,7 @@ export default {
     RevisionFilters,
     TypeFilters
   },
-  props: ['alarms'],
+  props: ['emergencies', 'urName'],
   data(){
     return {
       filters: []

@@ -13,7 +13,7 @@
             <div class="bottom-roof">
             </div>
         </div>
-        <div v-for="(piso, index) in this.unidad.torres[0].pisos" :key="index">
+        <div v-for="(piso, index) in ur.torres[0].pisos" :key="index">
             <div class="md-layout">
                 <!-- <b-row> -->
                     <div class="floor-number md-layout-item md-size-5">{{piso.numero}}</div>
@@ -48,6 +48,7 @@ import "../../../styles/tower.css";
 import "../../../styles/apartment-icon.css";
 export default {
   name: "MapGrid",
+  props: ['ur'],
   data: function() {
     return {
       unidad: {
@@ -182,6 +183,9 @@ export default {
       console.log('llega');
       return 2;
     }
+  },
+  mounted(){
+    this.torres = this.ur; //set unidad to prop
   }
 };
 </script>
