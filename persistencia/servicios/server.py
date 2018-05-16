@@ -52,7 +52,7 @@ DEVELOPMENT_MODE = True
 elScope = ''
 username = ''
 
-client = MongoClient('172.24.42.64', 27017)
+client = MongoClient('localhost', 27017)
 db = client['Pipo-yale-persistencia']
 app = Flask(__name__)
 app.secret_key = "super secret key"
@@ -69,7 +69,7 @@ app.secret_key = "super secret key"
 #app.config['MQTT_TLS_KEYFILE'] = 'server.key'
 #app.config['MQTT_TLS_VERSION'] = ssl.PROTOCOL_TLSv1_1
 
-producer = KafkaProducer(bootstrap_servers='localhost:8090')
+producer = KafkaProducer(bootstrap_servers='172.24.42.70:8090')
 
 oauth = OAuth(app)
 auth0 = oauth.register(
@@ -712,15 +712,16 @@ def gestionClaves(unidad, localID):
     if respuesta == []:
       return "No existe ningún inmueble en esa unidad residencial con ese localID", 404;
     
-    msg = ";"+str(indice)+";"+str(combinacion)
+    msg = ";"+str(indice)+";"+combinacion
     if request.method == POST:
       msg = "1"+msg
     else:
       msg = "2"+msg
     
-    message = {"msg":msg, "usuario":username}
+    message = '{"msg":"'+msg+'", "usuario":"'+username+'"}'
     topic = "Centro."+elScope+".claves"
-    producer.send(topic, str(message))
+    print(topic)
+    producer.send(topic, message)
     return message, 200
     
   elif request.method == DELETE:
@@ -753,9 +754,10 @@ def gestionClaves(unidad, localID):
       return "No existe ningún inmueble en esa unidad residencial con ese localID", 404;
     
     msg = "3;"+str(indice)
-    message = {"msg":msg, "usuario":username}
+    message = '{"msg":"'+msg+'", "usuario":"'+username+'"}'
     topic = "Centro."+elScope+".claves"
-    producer.send(topic, str(message))
+    print(topic)
+    producer.send(topic, message)
     return message, 200
     
     
