@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="md-layout-item">
-            <map-grid></map-grid>
+            <map-grid :ur="ur"></map-grid>
         </div>
     </div>
 </div>
@@ -30,7 +30,8 @@ export default {
     TowerGrid,
     FloorGrid,
     MapGrid
-  }
+  },
+  props: ['ur']
 };
 </script>
 
