@@ -1,7 +1,7 @@
 <template>
 <div class="account md-layout">
   <h2 class="name">
-      {{name}}
+      {{urName}}
   </h2>
   <md-menu md-direction="bottom-end" :md-offset-x="0.1" :md-offset-y="0.1">
     <md-button md-menu-trigger class="md-icon-button md-accent">
@@ -17,11 +17,7 @@
 <script>
 export default {
   name: "Account",
-  data: function() {
-    return {
-      name: "Toscana"
-    };
-  }
+  props: ['urName']
 };
 </script>
 

@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for, send_from_directory
+from flask_cors import CORS
 from authlib.flask.client import OAuth
 from pymongo import MongoClient, ReturnDocument
 from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
@@ -45,6 +46,7 @@ DEVELOPMENT_MODE = False
 client = MongoClient('localhost', 27017)
 db = client['Pipo-yale-persistencia']
 app = Flask(__name__)
+CORS(app)
 app.secret_key = "super secret key"
 oauth = OAuth(app)
 auth0 = oauth.register(
@@ -936,7 +938,7 @@ def usuario(usuario):
   if request.data:
     data = loads(request.data)
   if request.method == GET:
-    user = db.users.find({'username': usuario})
+    user = db.users.find_one({'username': usuario})
     return dumpJson(user)
   elif request.method == PUT:
     name = data['nombre']
