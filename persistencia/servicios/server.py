@@ -4,12 +4,19 @@ from pymongo import MongoClient, ReturnDocument
 from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
 from functools import wraps
 from six.moves.urllib.parse import urlencode
-from flask_mqtt import Mqtt
+import paho.mqtt.client as mqtt
 import re
 import http.client
 import os
 import json
 import requests
+import ssl
+
+#Constantes para conexión mqtt
+broker_address = "172.24.41.182"
+port = 8083
+user = "Yale"
+password = "piporules"
 
 #Constantes métodos REST
 GET = 'GET'
@@ -46,23 +53,23 @@ DEVELOPMENT_MODE = True
 elScope = ''
 username = ''
 
-client = MongoClient('localhost', 27017)
+client = MongoClient('172.24.42.64', 27017)
 db = client['Pipo-yale-persistencia']
 app = Flask(__name__)
 app.secret_key = "super secret key"
-app.config['MQTT_BROKER_URL'] = '172.24.41.182'
-app.config['MQTT_BROKER_PORT'] = 8083
-app.config['MQTT_USERNAME'] = 'Yale'
-app.config['MQTT_PASSWORD'] = 'piporules'
-app.config['MQTT_KEEPALIVE'] = 5
+#app.config['MQTT_BROKER_URL'] = '172.24.41.182'
+#app.config['MQTT_BROKER_PORT'] = 8083
+#app.config['MQTT_USERNAME'] = 'Yale'
+#app.config['MQTT_PASSWORD'] = 'piporules'
+#app.config['MQTT_KEEPALIVE'] = 5
 
 # Parameters for SSL enabled
-app.config['MQTT_TLS_ENABLED'] = True
-app.config['MQTT_TLS_CA_CERTS'] = 'ca.crt'
-app.config['MQTT_TLS_CERTFILE'] = 'server.crt'
-app.config['MQTT_TLS_KEYFILE'] = 'server.key'
+#app.config['MQTT_TLS_ENABLED'] = True
+#app.config['MQTT_TLS_CA_CERTS'] = 'ca.crt'
+#app.config['MQTT_TLS_CERTFILE'] = 'server.crt'
+#app.config['MQTT_TLS_KEYFILE'] = 'server.key'
+#app.config['MQTT_TLS_VERSION'] = ssl.PROTOCOL_TLSv1_1
 
-mqtt = Mqtt(app)
 oauth = OAuth(app)
 auth0 = oauth.register(
   'auth0',
@@ -76,6 +83,14 @@ auth0 = oauth.register(
   }
 )
 
+
+client = mqtt.Client()
+client.username_pw_set(user, password=password)
+client.tls_set(ca_certs="ca.pem", certfile="server.crt", keyfile="server.key", cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_1)
+client.tls_insecure_set(False)
+client.connect(broker_address, port=port)
+#client.loop_start()
+
 def checkRole(user_id, auth_type):
   user = db.users.find_one({'auth0_id' : user_id})
   print("userRole",user['group'])
@@ -85,7 +100,7 @@ def checkRole(user_id, auth_type):
     if auth_type == USER:
       return True
     if group:
-	  return auth_type in group['roles']
+      return auth_type in group['roles']
   return False
 
 def checkScope(user_id, auth_type, scope):
@@ -666,27 +681,27 @@ def gestionClaves(unidad, localID):
 
     if not valid:
       return "rellene los campos vacíos", 400
-	
-	combinacion = data['combinacion']
+    
+    combinacion = data['combinacion']
     valid = valid and len(combinacion) == 4
-	
-	if not valid:
+    
+    if not valid:
       return "La combinación debe tener exactamente 4 caracteres", 400
-	
-	try:
-	  valid = valid and (data['indice'] != None or data['indice'] != "")
-	except KeyError:
-	  return "Debe incluir el índice", 400
-	
-	if not valid:
+    
+    try:
+      valid = valid and (data['indice'] != None or data['indice'] != "")
+    except KeyError:
+      return "Debe incluir el índice", 400
+    
+    if not valid:
       return "rellene los campos vacíos", 400
-	
-	indice = data['indice']
-	
-	valid = valid and indice >= 0 and indice < 20
-	
-	if not valid:
-	  return "Debe ingresar un índice válido"
+    
+    indice = data['indice']
+    
+    valid = valid and indice >= 0 and indice < 20
+    
+    if not valid:
+      return "Debe ingresar un índice válido"
 
     respuesta = []
     unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
@@ -699,37 +714,38 @@ def gestionClaves(unidad, localID):
     if respuesta == []:
       return "No existe ningún inmueble en esa unidad residencial con ese localID", 404;
     
-	msg = ";"+str(indice)+";"+str(combinacion)
-	if request.method == POST:
-	  msg = "1"+msg
-	else:
-	  msg = "2"+msg
+    msg = ";"+str(indice)+";"+str(combinacion)
+    if request.method == POST:
+      msg = "1"+msg
+    else:
+      msg = "2"+msg
+    
+    message = {"msg":msg, "usuario":username}
+    topic = "Centro/"+elScope+"/claves"
 	
-	message = {"msg":msg, "usuario":username}
-	topic = "Centro/"+elScope+"/claves"
-	mqtt.publish(topic, str(message))
-	return message, 200
-	
+    client.publish(topic, str(message))
+    return message, 200
+    
   elif request.method == DELETE:
     
-	if request.data == None or request.data == "":
+    if request.data == None or request.data == "":
       return "Debe enviar información", 400
-	
-	valid = True
-	indice = ""
-	try:
-	  indice = data['indice']
-	except KeyError:
-	  return "Debe enviar el índice de la clave a eliminar", 400
-	
-	valid = valid and (valid != None or valid == "")
-	if not valid:
-	  return "Debe enviar el índice de la clave a eliminar", 400
-	
-	valid = valid and indice >= 0 and indice < 20
-	if not valid:
-	  return "Debe ingresar un índice válido"
-	
+    
+    valid = True
+    indice = ""
+    try:
+      indice = data['indice']
+    except KeyError:
+      return "Debe enviar el índice de la clave a eliminar", 400
+    
+    valid = valid and (valid != None or valid == "")
+    if not valid:
+      return "Debe enviar el índice de la clave a eliminar", 400
+    
+    valid = valid and indice >= 0 and indice < 20
+    if not valid:
+      return "Debe ingresar un índice válido"
+    
     if unidadRes == None:
       return "No existe ninguna unidad residencial con ese nombre", 404
     for inmueble in unidadRes['inmuebles']:
@@ -739,13 +755,13 @@ def gestionClaves(unidad, localID):
     if respuesta == []:
       return "No existe ningún inmueble en esa unidad residencial con ese localID", 404;
     
-	msg = "3;"+str(indice)
-	message = {"msg":msg, "usuario":username}
-	topic = "Centro/"+elScope+"/claves"
-	mqtt.publish(topic, str(message))
-	return message, 200
-	
-	
+    msg = "3;"+str(indice)
+    message = {"msg":msg, "usuario":username}
+    topic = "Centro/"+elScope+"/claves"
+    mqtt.publish(topic, str(message))
+    return message, 200
+    
+    
 
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/emergencias", methods=[GET, POST])
