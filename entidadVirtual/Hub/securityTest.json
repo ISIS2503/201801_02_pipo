@@ -1,32 +1,32 @@
 [
     {
-        "id": "2dff75f6.78347a",
+        "id": "541dcb45.f3862c",
         "type": "tab",
         "label": "Speed Security Test",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "98589edb.95d07",
+        "id": "2529ba28.8b9346",
         "type": "function",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Format Time",
-        "func": "var res = {};\n\n\nres.payload = new Date(msg.payload);\nres.topic = msg.topic;\n\nreturn res;",
+        "func": "var res = {};\n\n\nres.payload = msg.payload;\nres.topic = msg.topic;\n\nreturn res;",
         "outputs": 1,
         "noerr": 0,
         "x": 370,
-        "y": 340,
+        "y": 360,
         "wires": [
             [
-                "9d62d26a.81724",
-                "2ab7ac48.ad1e24"
+                "28638fff.a7e2d",
+                "2d99dea7.c090fa"
             ]
         ]
     },
     {
-        "id": "83be3bd9.4c4158",
+        "id": "1b954245.445006",
         "type": "inject",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Send Time",
         "topic": "emergencyTime",
         "payload": "",
@@ -39,15 +39,15 @@
         "y": 260,
         "wires": [
             [
-                "88f697fe.9b5dc8",
-                "98589edb.95d07"
+                "43ec9b3.7d7afe4",
+                "2529ba28.8b9346"
             ]
         ]
     },
     {
-        "id": "9d62d26a.81724",
+        "id": "28638fff.a7e2d",
         "type": "debug",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "After Format 2",
         "active": true,
         "tosidebar": true,
@@ -59,9 +59,9 @@
         "wires": []
     },
     {
-        "id": "2ab7ac48.ad1e24",
+        "id": "2d99dea7.c090fa",
         "type": "function",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Merge 2 Messages",
         "func": "context.data = context.data || {};\n\nswitch (msg.topic) \n{\n    case \"emergencyTime\":\n        context.data.sensetime = msg.payload;\n        msg = null;\n        break;\n    case \"emergencyHub\":\n        context.data.emergency = msg.payload;\n        context.flag=msg.payload.emergencia;\n        msg = null;\n        break;\n    default:\n        msg = null;\n    \tbreak;\n}\n\nif(context.flag!=null && context.data.sensetime != null && context.data.emergency != null) \n{\n\tres = {};\n    res.payload = JSON.stringify(context.data);\n    res.flag=context.flag;\n    res.topic = \"emergencyHub\";\n    context.data = null;\n    res.test=global.get(\"emailActivated\");\n    return res;\n}",
         "outputs": 1,
@@ -70,16 +70,16 @@
         "y": 280,
         "wires": [
             [
-                "1edf82d4.84110d",
-                "310003c6.4fa79c",
-                "7448a598.1bd5ec"
+                "a226227e.116b3",
+                "dd5aa822.eca508",
+                "134fd40c.9a34b4"
             ]
         ]
     },
     {
-        "id": "88f697fe.9b5dc8",
+        "id": "43ec9b3.7d7afe4",
         "type": "debug",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Before Format 2",
         "active": true,
         "tosidebar": true,
@@ -91,9 +91,9 @@
         "wires": []
     },
     {
-        "id": "453b2ff6.f0c4f",
+        "id": "8ce5ab70.50ce48",
         "type": "function",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Format Physical Entity",
         "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-503\"\nvar conjunto=\"Toscana\"\nvar zona=\"Centro\"\n//Set the alarm sending to true by default\nif(typeof global.get(\"emailActivated\")=='undefined')\n{\n    global.set(\"emailActivated\",true);\n}\n\ntempArray = msg.payload.split(\"\\t\");\nres.topic = \"emergencyHub\";\nres.payload = {};\n\nres.payload = {\"id\": tempArray[0], \"emergencia\":tempArray[1][0],\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona}\n\nreturn res;",
         "outputs": 1,
@@ -102,15 +102,15 @@
         "y": 220,
         "wires": [
             [
-                "3ece6a26.9b5876",
-                "2ab7ac48.ad1e24"
+                "fd8feda6.aa1b8",
+                "2d99dea7.c090fa"
             ]
         ]
     },
     {
-        "id": "1edf82d4.84110d",
+        "id": "a226227e.116b3",
         "type": "debug",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Flag",
         "active": true,
         "tosidebar": true,
@@ -122,9 +122,9 @@
         "wires": []
     },
     {
-        "id": "310003c6.4fa79c",
+        "id": "dd5aa822.eca508",
         "type": "debug",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Merge",
         "active": true,
         "tosidebar": true,
@@ -136,9 +136,9 @@
         "wires": []
     },
     {
-        "id": "3ece6a26.9b5876",
+        "id": "fd8feda6.aa1b8",
         "type": "debug",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "After Format",
         "active": true,
         "tosidebar": true,
@@ -150,9 +150,9 @@
         "wires": []
     },
     {
-        "id": "7448a598.1bd5ec",
+        "id": "134fd40c.9a34b4",
         "type": "switch",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Classify emergency",
         "property": "flag",
         "propertyType": "msg",
@@ -185,27 +185,27 @@
         "y": 280,
         "wires": [
             [
-                "2f8b3e12.90c4f2",
-                "2378cef6.0b5c12"
+                "4a880ab8.53045c",
+                "f1ac6215.71ea1"
             ],
             [
-                "1c50163.5f74fea",
-                "c1eb8c4c.e1ea1"
+                "49c79a13.35ab54",
+                "6616a61d.7c91a"
             ],
             [
-                "7152a2a6.d310cc",
-                "ee95d67f.6213d8"
+                "e5b0df38.6524f",
+                "4825538c.5344ac"
             ],
             [
-                "cd6dd69e.28fec8",
-                "f798ca10.2e87f8"
+                "f5ab461b.8a8008",
+                "d53e47c9.f9606"
             ]
         ]
     },
     {
-        "id": "887066c1.0f9ac8",
+        "id": "664a3dcb.218a14",
         "type": "function",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Physical Entity mock",
         "func": "msg.flag=msg.payload.split(\"\\t\")[1][0];\nreturn msg;",
         "outputs": 1,
@@ -214,15 +214,15 @@
         "y": 100,
         "wires": [
             [
-                "be201a81.12a7d8",
-                "453b2ff6.f0c4f"
+                "cd08d78e.a11ca",
+                "8ce5ab70.50ce48"
             ]
         ]
     },
     {
-        "id": "2f8b3e12.90c4f2",
+        "id": "4a880ab8.53045c",
         "type": "mqtt out",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Emergency 1",
         "topic": "Centro/Toscana/emergencia/puertaAbierta/2-5-3",
         "qos": "0",
@@ -233,9 +233,9 @@
         "wires": []
     },
     {
-        "id": "2378cef6.0b5c12",
+        "id": "f1ac6215.71ea1",
         "type": "debug",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "After Merge 1 ",
         "active": true,
         "tosidebar": true,
@@ -247,9 +247,9 @@
         "wires": []
     },
     {
-        "id": "1c50163.5f74fea",
+        "id": "49c79a13.35ab54",
         "type": "mqtt out",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Emergency 2",
         "topic": "Centro/Toscana/emergencia/aperturaSospechosa/2-5-3",
         "qos": "0",
@@ -260,9 +260,9 @@
         "wires": []
     },
     {
-        "id": "c1eb8c4c.e1ea1",
+        "id": "6616a61d.7c91a",
         "type": "debug",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "After Merge 2",
         "active": true,
         "tosidebar": true,
@@ -274,9 +274,9 @@
         "wires": []
     },
     {
-        "id": "7152a2a6.d310cc",
+        "id": "e5b0df38.6524f",
         "type": "mqtt out",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Emergency 3",
         "topic": "Centro/Toscana/emergencia/aperturaNoPermitida/2-5-3",
         "qos": "0",
@@ -287,9 +287,9 @@
         "wires": []
     },
     {
-        "id": "ee95d67f.6213d8",
+        "id": "4825538c.5344ac",
         "type": "debug",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "After Merge 3",
         "active": true,
         "tosidebar": true,
@@ -301,9 +301,9 @@
         "wires": []
     },
     {
-        "id": "cd6dd69e.28fec8",
+        "id": "f5ab461b.8a8008",
         "type": "mqtt out",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Emergency 4",
         "topic": "Centro/Toscana/emergencia/bateriaCritica/2-5-3",
         "qos": "0",
@@ -314,9 +314,9 @@
         "wires": []
     },
     {
-        "id": "f798ca10.2e87f8",
+        "id": "d53e47c9.f9606",
         "type": "debug",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "After Merge 4",
         "active": true,
         "tosidebar": true,
@@ -328,9 +328,9 @@
         "wires": []
     },
     {
-        "id": "be201a81.12a7d8",
+        "id": "cd08d78e.a11ca",
         "type": "debug",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Before Format 1",
         "active": true,
         "tosidebar": true,
@@ -342,9 +342,9 @@
         "wires": []
     },
     {
-        "id": "f752d0aa.91655",
+        "id": "cf17bdbc.64bb",
         "type": "function",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Put id",
         "func": "msg.payload=\"Arduino007\\t\"+msg.payload;\nreturn msg;",
         "outputs": 1,
@@ -353,14 +353,14 @@
         "y": 100,
         "wires": [
             [
-                "887066c1.0f9ac8"
+                "664a3dcb.218a14"
             ]
         ]
     },
     {
-        "id": "fe005297.a1b48",
+        "id": "39cf195f.75c646",
         "type": "random",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Random emergency",
         "low": "1",
         "high": "4",
@@ -369,14 +369,14 @@
         "y": 60,
         "wires": [
             [
-                "f752d0aa.91655"
+                "cf17bdbc.64bb"
             ]
         ]
     },
     {
-        "id": "d7634c62.5b426",
+        "id": "1f895ef3.bd8321",
         "type": "inject",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "INTERVALO DE EMERGENCIAS",
         "topic": "",
         "payload": "",
@@ -389,14 +389,14 @@
         "y": 40,
         "wires": [
             [
-                "fe005297.a1b48"
+                "39cf195f.75c646"
             ]
         ]
     },
     {
-        "id": "488682c0.9e8b8c",
+        "id": "f486b1ae.f99cf8",
         "type": "mqtt out",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Failure 1",
         "topic": "Centro/Toscana/emergencia/cerraduraFueraDeLinea/2-5-3",
         "qos": "0",
@@ -407,9 +407,9 @@
         "wires": []
     },
     {
-        "id": "6e044bb4.888dc4",
+        "id": "5449dad3.d6f6d4",
         "type": "switch",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Classify failure",
         "property": "flag",
         "propertyType": "msg",
@@ -432,19 +432,19 @@
         "y": 680,
         "wires": [
             [
-                "488682c0.9e8b8c",
-                "9b981931.e86458"
+                "f486b1ae.f99cf8",
+                "b8f059ac.ce50d8"
             ],
             [
-                "626ffa69.a922a4",
-                "14f1bd76.3e55c3"
+                "8b0f0221.b5ea38",
+                "6206937.de5ae6c"
             ]
         ]
     },
     {
-        "id": "9b981931.e86458",
+        "id": "b8f059ac.ce50d8",
         "type": "debug",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "After Merge 1 ",
         "active": true,
         "tosidebar": true,
@@ -456,9 +456,9 @@
         "wires": []
     },
     {
-        "id": "626ffa69.a922a4",
+        "id": "8b0f0221.b5ea38",
         "type": "mqtt out",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Failure 2",
         "topic": "Centro/Toscana/fallo/hubFueraDeLinea/2-5-3",
         "qos": "0",
@@ -469,9 +469,9 @@
         "wires": []
     },
     {
-        "id": "14f1bd76.3e55c3",
+        "id": "6206937.de5ae6c",
         "type": "debug",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "After Merge 2",
         "active": true,
         "tosidebar": true,
@@ -483,9 +483,9 @@
         "wires": []
     },
     {
-        "id": "1dd8bdf6.67acb2",
+        "id": "68a170bb.f2c2d8",
         "type": "function",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Merge 2 Messages",
         "func": "context.data = context.data || {};\n\nswitch (msg.topic) \n{\n    case \"failureTime\":\n        context.data.sensetime = msg.payload;\n        msg = null;\n        break;\n    case \"failureHub\":\n        context.data.failure = msg.payload;\n        msg = null;\n        break;\n    default:\n        msg = null;\n    \tbreak;\n}\n\nif(context.data.sensetime != null && context.data.failure != null) \n{\n\tres = {};\n    res.payload = JSON.stringify(context.data);\n    res.topic = \"failureHub\";\n    context.data = null;\n    return res;\n}",
         "outputs": 1,
@@ -494,33 +494,33 @@
         "y": 680,
         "wires": [
             [
-                "382fe5ac.338f9a",
-                "10c517be.26fdf8",
-                "6e044bb4.888dc4"
+                "472cf590.58736c",
+                "351bee4b.206f52",
+                "5449dad3.d6f6d4"
             ]
         ]
     },
     {
-        "id": "44a278a1.f7ffd8",
+        "id": "cdd9dd8a.152268",
         "type": "function",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Format Time",
-        "func": "var res = {};\n\n\nres.payload = new Date(msg.payload);\nres.topic = msg.topic;\n\nreturn res;",
+        "func": "var res = {};\n\n\nres.payload =msg.payload;\nres.topic = msg.topic;\n\nreturn res;",
         "outputs": 1,
         "noerr": 0,
         "x": 390,
         "y": 740,
         "wires": [
             [
-                "693ddab3.c8abd4",
-                "1dd8bdf6.67acb2"
+                "2502784c.0c5f78",
+                "68a170bb.f2c2d8"
             ]
         ]
     },
     {
-        "id": "382fe5ac.338f9a",
+        "id": "472cf590.58736c",
         "type": "debug",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Flag",
         "active": true,
         "tosidebar": true,
@@ -532,9 +532,9 @@
         "wires": []
     },
     {
-        "id": "10c517be.26fdf8",
+        "id": "351bee4b.206f52",
         "type": "debug",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Merge",
         "active": true,
         "tosidebar": true,
@@ -546,9 +546,9 @@
         "wires": []
     },
     {
-        "id": "2fa2ef9b.32df8",
+        "id": "376ffda7.1c60d2",
         "type": "function",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Format Physical Entity",
         "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-5-3\"\nvar conjunto=\"Toscana\"\nvar zona=\"Centro\"\n\n\nres.topic = \"failureHub\";\nres.payload = {};\n\nres.payload = {\"id\": \"Arduino007\", \"fallo\":\"1\",\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona}\n\nreturn res;",
         "outputs": 1,
@@ -557,15 +557,15 @@
         "y": 620,
         "wires": [
             [
-                "241cd993.9a8a56",
-                "1dd8bdf6.67acb2"
+                "69a9f368.929b54",
+                "68a170bb.f2c2d8"
             ]
         ]
     },
     {
-        "id": "693ddab3.c8abd4",
+        "id": "2502784c.0c5f78",
         "type": "debug",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "After Format 2",
         "active": true,
         "tosidebar": true,
@@ -577,9 +577,9 @@
         "wires": []
     },
     {
-        "id": "c7960122.3f878",
+        "id": "62f97ba9.e4f85c",
         "type": "inject",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Send Time",
         "topic": "failureTime",
         "payload": "",
@@ -592,15 +592,15 @@
         "y": 660,
         "wires": [
             [
-                "e0dc4a5f.f926e8",
-                "44a278a1.f7ffd8"
+                "b03e27fb.6ecce8",
+                "cdd9dd8a.152268"
             ]
         ]
     },
     {
-        "id": "241cd993.9a8a56",
+        "id": "69a9f368.929b54",
         "type": "debug",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "After Format",
         "active": true,
         "tosidebar": true,
@@ -612,9 +612,9 @@
         "wires": []
     },
     {
-        "id": "e0dc4a5f.f926e8",
+        "id": "b03e27fb.6ecce8",
         "type": "debug",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Before Format 2",
         "active": true,
         "tosidebar": true,
@@ -626,9 +626,9 @@
         "wires": []
     },
     {
-        "id": "39f30fde.d76cb",
+        "id": "32051cf1.edda4c",
         "type": "function",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Physical Entity mock",
         "func": "msg.flag=msg.payload.split(\"\\t\")[1][0];\nreturn msg;",
         "outputs": 1,
@@ -637,15 +637,15 @@
         "y": 500,
         "wires": [
             [
-                "67a3d221.6938ec",
-                "2fa2ef9b.32df8"
+                "8219f68c.b8aea",
+                "376ffda7.1c60d2"
             ]
         ]
     },
     {
-        "id": "67a3d221.6938ec",
+        "id": "8219f68c.b8aea",
         "type": "debug",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Before Format 1",
         "active": true,
         "tosidebar": true,
@@ -657,9 +657,9 @@
         "wires": []
     },
     {
-        "id": "6230e316.12ba4c",
+        "id": "c531495e.519108",
         "type": "function",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Put id",
         "func": "msg.payload=\"Arduino007\\t\"+msg.payload;\nreturn msg;",
         "outputs": 1,
@@ -668,14 +668,14 @@
         "y": 500,
         "wires": [
             [
-                "39f30fde.d76cb"
+                "32051cf1.edda4c"
             ]
         ]
     },
     {
-        "id": "1ff4804.0b3a98",
+        "id": "7e64cb91.52abcc",
         "type": "random",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "Random failure",
         "low": "1",
         "high": "4",
@@ -684,14 +684,14 @@
         "y": 460,
         "wires": [
             [
-                "6230e316.12ba4c"
+                "c531495e.519108"
             ]
         ]
     },
     {
-        "id": "11fc078.8ade2f9",
+        "id": "9526887.f5f56f8",
         "type": "inject",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "INTERVALO DE FALLOS",
         "topic": "",
         "payload": "",
@@ -704,14 +704,14 @@
         "y": 440,
         "wires": [
             [
-                "1ff4804.0b3a98"
+                "7e64cb91.52abcc"
             ]
         ]
     },
     {
-        "id": "4dd8666e.4b50f8",
+        "id": "beb4a069.1d0278",
         "type": "comment",
-        "z": "2dff75f6.78347a",
+        "z": "541dcb45.f3862c",
         "name": "CONFIGURAR TIEMPOS",
         "info": "Agregar el tiempo entre emergencias y fallos en los nodos de intervalo",
         "x": 110,
