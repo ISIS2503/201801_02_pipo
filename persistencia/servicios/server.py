@@ -115,27 +115,26 @@ def checkSession(user_id, auth_type, scope):
   return checkRole(user_id, auth_type) and checkScope(user_id, auth_type, scope)
 
 def requires_auth(auth_type):
-  def decorator(func, *args1):
-    @wraps(func)
-    def decorated(*args, **kwargs):
-      scope = ''
-	  elScope = ''
-      print('a',args)
-      print('kwa',kwargs)
-      for arg in kwargs:
-		scope += kwargs[arg] + '/'
-        elScope += kwargs[arg] + '.'
-      elScope = elScope[:-1]
-	  scope = scope[:-1]
-
-      if 'PROFILE_KEY' not in session:
-          return redirect('/login')
-      elif checkSession(session['PROFILE_KEY']['user_id'], auth_type, scope):
-        return func(*args, **kwargs)
-      else:
-        return redirect('/unauthorized')
-    return decorated
-  return decorator
+	def decorator(func, *args1):
+		@wraps(func)
+		def decorated(*args, **kwargs):
+			scope = ''
+			elScope = ''
+			print('a',args)
+			print('kwa',kwargs)
+			for arg in kwargs:
+				scope += kwargs[arg] + '/'
+				elScope += kwargs[arg] + '.'
+			scope = scope[:-1]
+			elScope = elScope[:-1]
+			if 'PROFILE_KEY' not in session:
+				return redirect('/login')
+			elif checkSession(session['PROFILE_KEY']['user_id'], auth_type, scope):
+				return func(*args, **kwargs)
+			else:
+				return redirect('/unauthorized')
+		return decorated
+	return decorator
    
 
 
@@ -721,7 +720,6 @@ def gestionClaves(unidad, localID):
     
     message = {"msg":msg, "usuario":username}
     topic = "Centro."+elScope+".claves"
-	print(topic)
     producer.send(topic, str(message))
     return message, 200
     
@@ -757,7 +755,6 @@ def gestionClaves(unidad, localID):
     msg = "3;"+str(indice)
     message = {"msg":msg, "usuario":username}
     topic = "Centro."+elScope+".claves"
-	print(topic)
     producer.send(topic, str(message))
     return message, 200
     
