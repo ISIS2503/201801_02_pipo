@@ -4,13 +4,12 @@ from pymongo import MongoClient, ReturnDocument
 from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
 from functools import wraps
 from six.moves.urllib.parse import urlencode
-import paho.mqtt.client as mqtt
+from kafka import KafkaProducer
 import re
 import http.client
 import os
 import json
 import requests
-import ssl
 
 #Constantes para conexión mqtt
 broker_address = "172.24.41.182"
@@ -70,6 +69,8 @@ app.secret_key = "super secret key"
 #app.config['MQTT_TLS_KEYFILE'] = 'server.key'
 #app.config['MQTT_TLS_VERSION'] = ssl.PROTOCOL_TLSv1_1
 
+#producer = KafkaProducer(bootstrap_servers='localhost:8090')
+
 oauth = OAuth(app)
 auth0 = oauth.register(
   'auth0',
@@ -84,12 +85,7 @@ auth0 = oauth.register(
 )
 
 
-client = mqtt.Client()
-client.username_pw_set(user, password=password)
-client.tls_set(ca_certs="ca.pem", certfile="server.crt", keyfile="server.key", cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_1)
-client.tls_insecure_set(False)
-client.connect(broker_address, port=port)
-#client.loop_start()
+
 
 def checkRole(user_id, auth_type):
   user = db.users.find_one({'auth0_id' : user_id})
