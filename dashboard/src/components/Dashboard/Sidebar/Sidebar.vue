@@ -34,17 +34,22 @@ export default {
   props: ['alarms', 'urName'],
   data(){
     return {
-      filters: []
+      filters: {
+        revised: false,
+        notRevised: false,
+        emergencies: [],
+        failures: []
+      }
     }
   },
   methods:{
-    selectType(event){
-      console.log('selectType: ', event)
+    selectType(selection){
+      console.log('selectType: ', selection)
     },
-    selectRevision(event){
-      console.log('selectRevision: ', event)
-      const filter = {        
-      }
+    selectRevision(selection){
+      console.log('selectRevision: ', selection)
+      this.filters[selection] = !this.filters[selection]
+      console.log(this.filters)
     }
   }
 };

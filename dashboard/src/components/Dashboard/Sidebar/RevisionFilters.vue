@@ -33,7 +33,7 @@ export default {
         select(type) {
             if (type === 'revised') {
                 this.revisedSelected = !this.revisedSelected
-            } else if (type === 'not-revised') {
+            } else if (type === 'notRevised') {
                 this.notRevisedSelected = !this.notRevisedSelected
             }
             this.$emit('revision-select', type)

@@ -60,7 +60,7 @@ export default {
         let normalizedAlarm = {};
         //'desanidar' atributos
         if (alarm.emergency) {
-          for (var attribute of alarm.emergency)
+          for (var attribute of Object.keys(alarm.emergency))
             normalizedAlarm[attribute] = alarm.emergency[attribute];
           normalizedAlarm.type = 'emergency'
         } else if (alarm.failure) {
@@ -72,6 +72,7 @@ export default {
           console.log('Alarma inválida!')
         }
         normalizedAlarm.sensetime = alarm.sensetime;
+        normalizedAlarm.revised = false;
 
         _this.alarms.push(normalizedAlarm);
       });
