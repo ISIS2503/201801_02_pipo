@@ -31,7 +31,7 @@ export default {
     FloorGrid,
     MapGrid
   },
-  props: ['ur']
+  props: ['ur', 'alarms']
 };
 </script>
 

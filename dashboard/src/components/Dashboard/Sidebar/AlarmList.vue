@@ -1,10 +1,8 @@
 <template>
   <div class="md-scrollbar">
     <alarm 
-      v-for="(emergency, index) in filteredEmergencies" :key="index"
-      tower="emergency.torre"
-      apartment="emergency.apartment"
-      alarm="emergency.alarm"
+      v-for="(alarm, index) in filteredAlarms" :key="index"
+      alarm="alarm"
     />
   </div>
 </template>
@@ -16,15 +14,15 @@ export default {
   components:{
     Alarm
   },
-  props: ["emergencies", 'filters'],
+  props: ['alarms', 'filters'],
   data() {
     return {
       revisedEmergencies: []
     }
   },
   computed:{
-    filteredEmergencies(){
-      return emergencies
+    filteredAlarms(){
+      return alarms
     }
   }
 };

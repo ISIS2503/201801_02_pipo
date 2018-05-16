@@ -2,10 +2,10 @@
 <div class="dashboard">
     <div class="md-layout">
         <div class="md-layout-item md-size-75">
-            <grids :ur="UR"/>
+            <grids :ur="UR" :alarms="alarms"/>
         </div>
         <div class="md-layout-item md-size-25 sidebar-container">
-            <sidebar :emergencies="emergencies" :ur-name="UR.name" class="sidebar"/>
+            <sidebar :alarms="alarms" :ur-name="UR.name" class="sidebar"/>
         </div>
     </div>
 </div>
@@ -28,13 +28,13 @@ export default {
     return {
       websocketConnected: false,
       //Contains incoming alarms & failures
-      emergencies: [],
+      alarms: [],
       //Contains tower info retrieved from REST services
       UR: {}
     };
   },
   methods: {
-    //Initializes SocketIO and declares event listener for emergencies
+    //Initializes SocketIO and declares event listener for alarms
     initWebsocket() {
       const serverIP = "http://172.24.42.33:8070";
 
@@ -46,23 +46,34 @@ export default {
         console.log("Eureka");
       });
 
+      socket.on("disconnect", () => {
+        console.log("RIP conn");
+      });
+
       const _this = this;
       // Event handler for server receive data.
       socket.on(this.UR.name, msg => {
-        /* if (_this.websocketConnected) */ {
-          console.log(msg);
-          //Convert to js object
-          const emergency = JSON.parse(msg);
-          console.log(emergency);
-          _this.emergencies.push(emergency);
-        } /* else {
-          if (msg == "Connected") _this.websocketConnected = true;
-          else
-            console.log(
-              "El Websocket aún no ha sido inicializado, se esperaba 'Connected' se recibió: ",
-              msg
-            );
-        } */
+        //Convert to js object
+        const alarm = JSON.parse(msg);
+        console.log(alarm);
+
+        let normalizedAlarm = {};
+        //'desanidar' atributos
+        if (alarm.emergency) {
+          for (var attribute of alarm.emergency)
+            normalizedAlarm[attribute] = alarm.emergency[attribute];
+          normalizedAlarm.type = 'emergency'
+        } else if (alarm.failure) {
+          for (var attribute of alarm.failure)
+            normalizedAlarm[attribute] = alarm.faliure[attribute];
+          normalizedAlarm.type = 'failure'
+        }
+        else{
+          console.log('Alarma inválida!')
+        }
+        normalizedAlarm.sensetime = alarm.sensetime;
+
+        _this.alarms.push(normalizedAlarm);
       });
     },
     //Retireves information from server and parses it to fit front-end structure
@@ -138,23 +149,12 @@ export default {
                   currentFloorNumber = parseInt(params[1]);
                   currentTowerNumber = parseInt(params[0]);
                 }
-                /* if(propertyTowerNotInUR(property, parsed_UR)){
-            parsed_UR.push({
-              "number" : info[0],
-              "floors": []
-            })
-          }
-
-          if(floorNotInTower(property, parsed_UR)){
-
-          }*/
               }
               console.log(parsed_UR);
               this.UR = parsed_UR;
 
-              //Websocket initialization needs UR to be initialized
+              //Websocket initialization requires UR to be initialized
               this.initWebsocket();
-
             })
             .catch(error => {
               console.log(error);
@@ -165,17 +165,6 @@ export default {
         });
 
       console.log(UR_temp);
-    },
-    propertyTowerNotInUR(property, parsed_UR) {
-      let isInUR = false;
-      const towerNumber = property.localID.split("-")[0];
-      for (tower of parsed_UR.towers) {
-        if (parsed_UR[tower].number === towerNumber) {
-          isInUR = true;
-          break;
-        }
-      }
-      return isInUR;
     },
     addPropertyTo(property, parsed_UR) {
       towerIndex = -1;

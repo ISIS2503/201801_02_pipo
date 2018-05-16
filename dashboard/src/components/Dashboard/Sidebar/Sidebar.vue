@@ -5,7 +5,7 @@
     <revision-filters v-on:revision-select="selectRevision"/>
   </div>
 
-  <alarm-list v-bind:emergencies='emergencies' v-bind:fliters='filters'/>
+  <alarm-list v-bind:alarms='alarms' v-bind:fliters='filters'/>
 
   <div id="typeFilters">
     <type-filters v-on:typeSelect="selectType"/>
@@ -31,7 +31,7 @@ export default {
     RevisionFilters,
     TypeFilters
   },
-  props: ['emergencies', 'urName'],
+  props: ['alarms', 'urName'],
   data(){
     return {
       filters: []
@@ -57,12 +57,6 @@ export default {
   width: calc(100% - 5px);
   border: 5px rgb(77, 77, 77) solid;
   position: relative;
-}
-
-#revisionFilters {
-  /* position: relative;
-  /* top: -0.4vh; 
-  width: 100%; */
 }
 
 #typeFilters {
