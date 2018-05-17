@@ -5,10 +5,14 @@
     <revision-filters v-on:revision-select="selectRevision"/>
   </div>
 
-  <alarm-list v-bind:alarms='alarms' v-bind:fliters='filters'/>
+  <alarm-list v-bind:alarms='alarms' v-bind:filters='filters'/>
 
   <div id="typeFilters">
-    <type-filters v-on:typeSelect="selectType"/>
+    <type-filters v-on:type-select="selectType"/>
+  </div>
+
+  <div id="detail">
+    <detail :detail="detail"/>
   </div>
 </div>
 </template>
@@ -21,6 +25,7 @@ import AlarmList from "./AlarmList.vue";
 import Detail from "./Detail.vue";
 import RevisionFilters from "./RevisionFilters.vue";
 import TypeFilters from "./TypeFilters.vue";
+import index from "vue";
 export default {
   name: "Sidebar",
   components: {
@@ -31,8 +36,8 @@ export default {
     RevisionFilters,
     TypeFilters
   },
-  props: ['alarms', 'urName'],
-  data(){
+  props: ["alarms", "urName", 'detail'],
+  data() {
     return {
       filters: {
         revised: false,
@@ -40,16 +45,32 @@ export default {
         emergencies: [],
         failures: []
       }
-    }
+    };
   },
-  methods:{
-    selectType(selection){
-      console.log('selectType: ', selection)
+  methods: {
+    selectType(selection) {
+      console.log("selectType: ", selection);
+      const index = parseInt(selection.split("-")[1]);
+      if (selection[0] === "e") {
+        if (this.filters.emergencies.includes(index)) {
+          deleteIndex = this.filters.emergencies.indexOf(index);
+          this.filters.emergencies.splice(deleteIndex, 1);
+        } else {
+          this.filters.emergencies.push(index);
+        }
+      } else if (selection[0] === "f") {
+        if (this.filters.failures.includes(index)) {
+          deleteIndex = this.filters.failures.indexOf(index);
+          this.filters.failures.splice(deleteIndex, 1);
+        } else {
+          this.filters.failures.push(index);
+        }
+      }
     },
-    selectRevision(selection){
-      console.log('selectRevision: ', selection)
-      this.filters[selection] = !this.filters[selection]
-      console.log(this.filters)
+    selectRevision(selection) {
+      console.log("selectRevision: ", selection);
+      this.filters[selection] = !this.filters[selection];
+      console.log(this.filters);
     }
   }
 };

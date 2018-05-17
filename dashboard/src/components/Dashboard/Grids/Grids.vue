@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="md-layout-item">
-            <map-grid :ur="ur"></map-grid>
+            <map-grid v-on:select-detail="$emit('select-detail', $event)" :ur="ur"></map-grid>
         </div>
     </div>
 </div>

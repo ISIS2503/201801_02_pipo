@@ -22,37 +22,29 @@ export default {
   props: ['alarm'],
   data(){
     return{
-      alarmMessage:''
+
     }
   },
   computed:{
     tower(){
-      return alarm.apartamento[0]
+      return this.alarm.apartamento[0]
     },
     apartament(){
-      return '' + alarm.apartamento[2] + '0' + alarm.apartamento[4]
+      return '' + this.alarm.apartamento[2] + '0' + this.alarm.apartamento[4]
     },
     alarmMessage(){
-      if(alarm.type === 'emergency')
-        return emergencyTypes[parseInt(alarm.emergencia)]
-      else if (alarm.type === 'failure')
-        return emergencyTypes[parseInt(alarm.failure)];
+      if(this.alarm.type === 'emergency')
+        return emergencyTypes[parseInt(this.alarm.emergencia)]
+      else if (this.alarm.type === 'failure')
+        return emergencyTypes[parseInt(this.alarm.failure)];
       else{
-        console.log(alarm)
+        console.log(this.alarm)
         return 'Emergencia desconocida';
       }
     },
     timeMessage(){
-      return new Date(alarm.sensetime)
+      return new Date(this.alarm.sensetime)
     }
-  },
-  methods:{
-    parseAlarm(){
-      return this.alarm
-    }
-  },
-  mounted(){
-    this.alarmMessage = this.parseAlarm()
   }
 }
 </script>

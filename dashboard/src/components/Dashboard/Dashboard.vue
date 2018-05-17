@@ -2,10 +2,10 @@
 <div class="dashboard">
     <div class="md-layout">
         <div class="md-layout-item md-size-75">
-            <grids :ur="UR" :alarms="alarms"/>
+            <grids v-on:select-detail="selectDetail" :ur="UR" :alarms="alarms"/>
         </div>
         <div class="md-layout-item md-size-25 sidebar-container">
-            <sidebar :alarms="alarms" :ur-name="UR.name" class="sidebar"/>
+            <sidebar :detail="userDetail" :alarms="alarms" :ur-name="UR.name" class="sidebar"/>
         </div>
     </div>
 </div>
@@ -30,7 +30,8 @@ export default {
       //Contains incoming alarms & failures
       alarms: [],
       //Contains tower info retrieved from REST services
-      UR: {}
+      UR: {},
+      userDetail: null
     };
   },
   methods: {
@@ -62,14 +63,14 @@ export default {
         if (alarm.emergency) {
           for (var attribute of Object.keys(alarm.emergency))
             normalizedAlarm[attribute] = alarm.emergency[attribute];
-          normalizedAlarm.type = 'emergency'
+          normalizedAlarm.type = "emergency";
         } else if (alarm.failure) {
-          for (var attribute of alarm.failure)
+          for (var attribute of Object.keys(alarm.failure))
             normalizedAlarm[attribute] = alarm.faliure[attribute];
-          normalizedAlarm.type = 'failure'
-        }
-        else{
-          console.log('Alarma inválida!')
+          normalizedAlarm.type = "failure";
+        } else {
+          console.log("Alarma inválida!");
+          normalizedAlarm.type = "unknown";
         }
         normalizedAlarm.sensetime = alarm.sensetime;
         normalizedAlarm.revised = false;
@@ -221,6 +222,23 @@ export default {
         return -parseInt(paramsb[0]) + parseInt(paramsa[0]);
       });
       return UR_temp;
+    },
+    selectDetail(auth0_owner) {
+      console.log("SelectDetail: ", auth0_owner);
+      const _this = this;
+      axios
+        .get(
+          "http://172.24.42.64/users/checkAuth0/" +
+            this.UR.name +
+            "/" +
+            auth0_owner
+        )
+        .then(response => {
+          _this.userDetail = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
   mounted() {

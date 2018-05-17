@@ -45,25 +45,39 @@ export default {
   },
   methods:{
     select(type){
+        let category = ''
+        let index = -1
       if(type === 'puertaAbierta'){
         this.puertaAbiertaSelected = !this.puertaAbiertaSelected;
+        category = 'emergency'
+        index = 1
       }
       else if(type === 'aperturaSospechosa'){
         this.aperturaSospechosaSelected = !this.aperturaSospechosaSelected;
+        category = 'emergency'
+        index = 2
       }
       else if(type === 'aperturaNoPermitida'){
         this.aperturaNoPermitidaSelected = !this.aperturaNoPermitidaSelected;
+        category = 'emergency'
+        index = 3
       }
       else if(type === 'bateriaBaja'){
         this.bateriaBajaSelected = !this.bateriaBajaSelected;
+        category = 'emergency'
+        index = 4
       }
       else if(type === 'cerraduraDesconectada'){
         this.cerraduraDesconectadaSelected = !this.cerraduraDesconectadaSelected;
+        category = 'failure'
+        index = 1
       }
       else if(type === 'hubDesconectado'){
         this.hubDesconectadoSelected = !this.hubDesconectadoSelected;
+        category = 'failure'
+        index = 2
       }
-      this.$emit('revision-select', type)
+      this.$emit('revision-select', category + '-' + index)
     }
   }
 };

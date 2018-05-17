@@ -4,15 +4,15 @@
         <b-row>
             <b-col
                 class="not-checked"
-                v-on:click="select('revised')"
-                v-bind:class="{ 'not-checked-selected': revisedSelected }"
+                v-on:click="select('notRevised')"
+                v-bind:class="{ 'not-checked-selected': notRevisedSelected }"
             >
                 <md-tooltip md-direction="bottom">Mostrar alarmas por revisar</md-tooltip>
                 </b-col>
                 <b-col
-                    v-on:click="select('not-revised')"
+                    v-on:click="select('revised')"
                     class="checked"
-                    v-bind:class="{ 'checked-selected': notRevisedSelected }"
+                    v-bind:class="{ 'checked-selected': revisedSelected }"
                 >
                     <md-tooltip md-direction="bottom">Mostrar alarmas revisadas</md-tooltip>
                     </b-col>
@@ -38,15 +38,7 @@ export default {
             }
             this.$emit('revision-select', type)
         }
-    },
-  computed: {
-    notRevised() {
-      if (this.notRevisedSelected) return "not-revised";
-    },
-    revised() {
-      if (this.revisedSelected) return "revised";
     }
-  }
 };
 </script>
 <style lang="scss" scoped>

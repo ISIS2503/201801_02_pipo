@@ -1,28 +1,42 @@
 <template>
   <div class="md-scrollbar">
-    <alarm 
-      v-for="(alarm, index) in filteredAlarms" :key="index"
-      alarm="alarm"
-    />
+    <div v-for="(alarm, index) in alarms" :key="index">
+      <alarm :alarm="alarm"/>
+    </div>
   </div>
 </template>
 
 <script>
-import Alarm from './Alarm'
+import Alarm from "./Alarm";
 export default {
   name: "AlarmList",
-  components:{
+  components: {
     Alarm
   },
-  props: ['alarms', 'filters'],
+  props: ["alarms", "filters"],
   data() {
     return {
-      revisedEmergencies: []
-    }
+      revisedAlarms: []
+    };
   },
-  computed:{
-    filteredAlarms(){
-      return alarms
+  computed: {
+    filteredAlarms() {
+      let filtered = [];
+
+      filtered = this.alarms
+        .filter(alarm => (this.filters.revised ? !alarm.revised : true))
+        .filter(alarm => (this.filters.notRevised ? alarm.revised : true))
+        .filter(alarm => {
+          if (alarm.type === "emergency") {
+            return !this.filters.emergencies.includes(parseInt(alarm.emergencia)) //Si lo incluye, está dentro de los filtros, es decir, debe retornar falso
+          } else if (alarm.type === "failure") {
+            return !this.filters.faliures.includes(parseInt(alarm.falla)) //Si lo incluye, está dentro de los filtros, es decir, debe retornar falso
+          } else {
+            return true; //nunca filtrar errores desconocidos
+          }
+        });
+
+      return filtered;
     }
   }
 };

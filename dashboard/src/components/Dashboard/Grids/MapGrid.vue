@@ -18,7 +18,11 @@
                 <!-- <b-row> -->
                     <div class="floor-number md-layout-item md-size-5">{{piso.numero}}</div>
 
-                        <div v-for="(apartamento, index) in piso.apartamentos" :key="index" v-on:click="reversedMessage" class="apto md-layout-item">
+                        <div v-for="(apartamento, index) in piso.apartamentos" 
+                          :key="index" 
+                          v-on:click="selectProperty(apartamento.owner)" 
+                          class="apto md-layout-item"
+                        >
                             <div class="apartment-number" >
                                 {{apartamento.numero}}
                             </div>
@@ -48,7 +52,7 @@ import "../../../styles/tower.css";
 import "../../../styles/apartment-icon.css";
 export default {
   name: "MapGrid",
-  props: ['ur'],
+  props: ["ur"],
   data: function() {
     return {
       unidad: {
@@ -176,15 +180,12 @@ export default {
       }
     };
   },
-  methods:{
-    // a computed getter
-    reversedMessage: function () {
-      // `this` points to the vm instance
-      console.log('llega');
-      return 2;
+  methods: {
+    selectProperty: function(auth0_owner) {
+      this.$emit("select-detail", auth0_owner);
     }
   },
-  mounted(){
+  mounted() {
     this.torres = this.ur; //set unidad to prop
   }
 };
@@ -205,26 +206,24 @@ export default {
   font-size: 3rem;
 }
 
-.cursor{
-  width:55px;
+.cursor {
+  width: 55px;
   height: 55px;
-  background:  rgb(77, 77, 77);
-  color:white;
+  background: rgb(77, 77, 77);
+  color: white;
   border-radius: 50%;
   line-height: 55px;
   text-align: center;
 }
 
-
 .cursor:hover {
   cursor: pointer;
 }
 
-.cursor-left{
-  position:relative;
+.cursor-left {
+  position: relative;
   padding-left: 11px;
 }
-
 
 .floor-container {
   position: relative;
@@ -242,14 +241,12 @@ export default {
   height: 50px;
   width: 100%;
   border: 1px rgb(77, 77, 77) solid;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   line-height: 50px;
   font-weight: bold;
   font-size: 2rem;
   position: relative;
 }
-
-
 
 .floor-number {
   vertical-align: middle;
