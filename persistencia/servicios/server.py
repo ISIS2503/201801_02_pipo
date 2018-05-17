@@ -736,10 +736,9 @@ def gestionClaves(unidad, localID):
     
     msg = ";"+str(indice)+combinacion
     msg = operacion+msg
-    
+    print("holamundo")
     message = '{"msg":"'+msg+'", "usuario":"'+username+'"}'
     topic = "Centro."+elScope+".claves"
-    print(topic)
     producer.send(topic, message.encode('utf-8'))
     return message, 200
     
