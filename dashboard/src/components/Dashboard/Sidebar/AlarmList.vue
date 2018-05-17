@@ -8,7 +8,7 @@
 
 <script>
 
-const defaultAlarm = {sensetime: 1526576385325, id:"Arduino 007", emergencia: "3", apartamento: "2-5-3", conjunto: "Toscana" , zona: "Centro"}
+const defaultAlarm = {sensetime: 1526576385325, id:"Arduino 007", timestamp: new Date().getTime(), emergencia: "3", apartamento: "2-5-3", conjunto: "Toscana" , zona: "Centro"}
 
 
 import Alarm from "./Alarm";
