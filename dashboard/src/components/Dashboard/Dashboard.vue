@@ -84,6 +84,7 @@ export default {
           normalizedAlarm.type = "unknown";
         }
         normalizedAlarm.sensetime = alarm.sensetime;
+        normalizedAlarm.timestamp = new Date().getTime();
         normalizedAlarm.revised = false;
 
         _this.alarms.push(normalizedAlarm);
