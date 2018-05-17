@@ -6,6 +6,9 @@ import kafka.javaapi.producer.Producer;
 import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
 
+import org.apache.kafka.clients.consumer.*;
+import org.apache.kafka.clients.consumer.Consumer;
+
 import org.apache.log4j.Logger;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
@@ -34,6 +37,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.logging.Level;
 
 public class Bridge implements MqttCallback {
@@ -184,22 +188,23 @@ public class Bridge implements MqttCallback {
         return context.getSocketFactory();
     }
 
-	/**
-	 * @param args
-	 */
-	public static void main(String args[]) {
-		CommandLineParser parser = null;
-		try {
-			parser = new CommandLineParser();
-			parser.parse(args);
-			Bridge bridge = new Bridge();
-			bridge.connect(parser.getServerURI(), parser.getClientId(), parser.getZkConnect());
-			bridge.subscribe(parser.getMqttTopicFilters());
-		} catch (MqttException e) {
-			e.printStackTrace(System.err);
-		} catch (CmdLineException e) {
-			System.err.println(e.getMessage());
-			parser.printUsage(System.err);
-		}
-	}
+    /**
+     * @param args
+     */
+    public static void main(String args[]) {
+        Properties props = new Properties();
+        props.put("bootstrap.servers", "localhost:8090");
+        props.put("group.id", "test");
+        props.put("enable.auto.commit", "true");
+        props.put("auto.commit.interval.ms", "1000");
+        props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
+        consumer.subscribe(Arrays.asList("Centro.Toscana.2-5-3.claves", "Centro.Toscana.2-5-3.horarios"));
+        while (true) {
+            ConsumerRecords<String, String> records = consumer.poll(100);
+            for (ConsumerRecord<String, String> record : records)
+                System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), record.value());
+        }
+    }
 }
