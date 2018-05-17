@@ -11,8 +11,8 @@
     <type-filters v-on:type-select="selectType"/>
   </div>
 
-  <div id="detail" v-if="detail">
-    <detail :detail="detail"/>
+  <div id="detail" v-if="defaultDetail">
+    <detail :detail="defaultDetail"/>
   </div>
 </div>
 </template>
@@ -36,14 +36,42 @@ export default {
     RevisionFilters,
     TypeFilters
   },
-  props: ["alarms", "urName", 'detail'],
+  props: ["alarms", "urName", "detail"],
   data() {
     return {
       filters: {
         revised: false,
         notRevised: false,
         emergencies: [],
-        failures: []
+        failures: [],
+
+      /* tempora defualt...-------------- */
+
+        defaultDetail: {
+          user: {
+            auth0_id: "auth0|5adcd6a941aacd1daa8999d1",
+            username: "s.guzmanm",
+            email: "checho@uniflayes.edu.ko",
+            group: "PROPERTY_OWNER",
+            scope: "Tosacana/2-4-5",
+            horariosPermitidos : [],
+            edad: "24",
+            nombre: "Sergio Guzmán",
+            telefono: "312641236"
+          },
+          localID: "2-4-5",
+          alarm: {
+            sensetime: 1526576385325,
+            id: "Arduino 007",
+            emergencia: "3",
+            apartamento: "2-5-3",
+            conjunto: "Toscana",
+            zona: "Centro"
+          }
+        }
+
+      /*-------- temodral default --------*/ 
+
       }
     };
   },
@@ -72,9 +100,9 @@ export default {
       this.filters[selection] = !this.filters[selection];
       console.log(this.filters);
     },
-    scrollToAlarm(alarm){
+    scrollToAlarm(alarm) {
       //Pass event
-      this.$emit('scroll-to-alarm', alarm)
+      this.$emit("scroll-to-alarm", alarm);
     }
   }
 };

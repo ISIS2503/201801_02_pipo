@@ -7,6 +7,10 @@
 </template>
 
 <script>
+
+const defaultAlarm = {sensetime: 1526576385325, id:"Arduino 007", emergencia: "3", apartamento: "2-5-3", conjunto: "Toscana" , zona: "Centro"}
+
+
 import Alarm from "./Alarm";
 export default {
   name: "AlarmList",
@@ -16,7 +20,7 @@ export default {
   props: ["alarms", "filters"],
   data() {
     return {
-      revisedAlarms: []
+      
     };
   },
   methods:{
@@ -44,6 +48,9 @@ export default {
 
       return filtered.reverse();
     }
+  },
+  mounted(){
+    setInterval(()=> this.alarms.push(defaultAlarm), 30000)
   }
 };
 </script>
