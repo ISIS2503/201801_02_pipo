@@ -32,7 +32,8 @@ export default {
   props: ['alarm'],
   data(){
     return{
-
+      howLong:'',
+      startTimestamp:alarm.timestamp
     }
   },
   methods:{
@@ -41,7 +42,21 @@ export default {
     },
     scrollToAlarm(){
       this.$emit('scroll-to-alarm', this.alarm)
-    }
+    },
+     hace(){
+      var timestamp = startTimestamp;
+      const now = moment();
+      const expiration = moment(parseInt(timestamp));
+
+      // get the difference between the moments
+      const diff = now.diff(expiration);
+
+      //express as a duration
+      const diffDuration = moment.duration(diff);
+
+
+$('#output > tbody:last').append('<tr><td>' + 'pipo' + '</td><td>' +diffDuration.hours() + ' ' + diffDuration.minutes() +' ' + diffDuration.seconds()+'</td></tr>');
+}
   },
   computed:{
     tower(){
@@ -63,6 +78,9 @@ export default {
     timeMessage(){
       return new Date(this.alarm.sensetime) //TODO check time alarms
     }
+  },
+  mounted(){
+    setInterval(this.hace,1000)
   }
 }
 </script>
