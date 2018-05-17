@@ -11,7 +11,7 @@
     <type-filters v-on:type-select="selectType"/>
   </div>
 
-  <div id="detail">
+  <div id="detail" v-if="detail">
     <detail :detail="detail"/>
   </div>
 </div>

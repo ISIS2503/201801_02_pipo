@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="md-layout-item">
-      <map-grid v-on:select-detail="$emit('select-detail', ...arguments)" :ur="ur" :alarms="alarms" />
+      <map-grid v-on:select-detail="passSelectDetail(...arguments)" :ur="ur" :alarms="alarms" />
     </div>
   </div>
 </div>
@@ -31,7 +31,13 @@ export default {
     FloorGrid,
     MapGrid
   },
-  props: ["ur", "alarms"]
+  props: ["ur", "alarms"],
+  methods:{
+    passSelectDetail(localID, owner, alarm){
+      console.log(localID, ' /// ', owner, ' /// ', alarm)
+      this.$emit('select-detail', localID, owner, alarm)
+    }
+  }
 };
 </script>
 

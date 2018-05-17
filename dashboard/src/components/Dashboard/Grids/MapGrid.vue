@@ -1,25 +1,31 @@
 <template>
+
 <div class="md-content md-scrollbar">
     <div class="above">
-        <md-icon class="md-size-2x next cursor cursor-left" @click="previousTower">arrow_back_ios</md-icon>
-        <h1 class="next tower-name">Torre {{torres[towerIndex]}}</h1>
-        <md-icon class="md-size-2x next cursor" @click="nextTower">arrow_forward_ios</md-icon>
+      <div @click="previousTower" class="icon-container">
+        <md-icon class="md-size-2x next cursor cursor-left">arrow_back_ios</md-icon>
+      </div>
+        <h1 class="next tower-name">Torre {{ur.torres[towerIndex].numero}}</h1>
+      <div @click="nextTower" class="icon-container">
+        <md-icon class="md-size-2x next cursor">arrow_forward_ios</md-icon>
+      </div>
     </div>
 
-    <div class="container">
+    <div class="container" v-if="ur.torres[towerIndex]">
         <div class="roof">
-            <div class="middle-roof">
-            </div>
-            <div class="bottom-roof">
-            </div>
+            <div class="middle-roof"/>            
+            <div class="bottom-roof"/>            
         </div>
+
         <div v-for="(piso, index) in ur.torres[towerIndex].pisos" :key="index">
             <div class="md-layout">
                 <!-- <b-row> -->
                     <div class="floor-number md-layout-item md-size-5">{{piso.numero}}</div>
 
-                        <div v-for="(apartamento, index) in piso.apartamentos" 
+                        <div
+                          v-for="(apartamento, index) in piso.apartamentos" 
                           :key="index"
+                          v-if="ur.torres[towerIndex].pisos"
                           v-on:click="selectProperty('' + ur.torres[towerIndex].numero + '-' + piso.numero + '-' + apartamento.numero, apartamento.owner)" 
                           class="apto md-layout-item"
                         >
@@ -37,10 +43,8 @@
                 <!-- </b-row> -->
             </div>
         </div>
-            <div class="middle-floor">
-            </div>
-            <div class="bottom-floor">
-            </div>
+            <div class="middle-floor" />
+            <div class="bottom-floor" />
     </div>
 
 
@@ -52,7 +56,7 @@ import "../../../styles/tower.css";
 import "../../../styles/apartment-icon.css";
 export default {
   name: "MapGrid",
-  props: ["ur", 'alarms'],
+  props: ["ur", "alarms"],
   data: function() {
     return {
       unidad: {
@@ -176,29 +180,36 @@ export default {
               }
             ]
           }
-        ],
-        towerIndex: 0
-      }
+        ]
+      },
+      towerIndex: 0,
+      boolean: true
     };
   },
   methods: {
     selectProperty: function(localID, auth0_owner) {
-      let selectedAlarm = undefined
-      for(var alarm of this.alarms){
-        if(alarma.apartamento === localID){
-          selectedAlarm = alarm
-        }          
+      let selectedAlarm = undefined;
+      for (var alarm of this.alarms) {
+        if (alarma.apartamento === localID) {
+          selectedAlarm = alarm;
+        }
       }
 
       this.$emit("select-detail", localID, auth0_owner, selectedAlarm);
     },
-    previousTower(){
-      if(this.torres[towerIndex-1])
-        this.towerIndex -= 1
+    previousTower() {
+      this.towerIndex = (this.towerIndex-1+this.ur.torres.length)%this.ur.torres.length;
     },
-    nextTower(){
-      if(this.torres[towerIndex+1])
-        this.towerIndex += 1
+    nextTower() {
+      this.towerIndex = (this.towerIndex+1)%this.ur.torres.length;
+    }
+  },
+  computed: {
+    urrr() {
+      return this.ur;
+    },
+    towri() {
+      return this.towerIndex;
     }
   },
   mounted() {
@@ -210,6 +221,9 @@ export default {
 <style scoped>
 .above {
   margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .next {
@@ -220,6 +234,10 @@ export default {
 .tower-name {
   font-weight: bold;
   font-size: 3rem;
+}
+
+.icon-container{
+  display:flex;
 }
 
 .cursor {
@@ -288,6 +306,10 @@ export default {
   display: inline-block;
   padding: 0;
   vertical-align: middle;
+}
+
+.apto:hover, .apto:active{
+  cursor: pointer;
 }
 
 .cuerpo {

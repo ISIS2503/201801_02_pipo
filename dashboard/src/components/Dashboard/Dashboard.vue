@@ -2,7 +2,8 @@
 <div class="dashboard">
     <div class="md-layout">
         <div class="md-layout-item md-size-75">
-            <grids 
+            <grids
+              v-if="UR"
               v-on:select-detail="selectDetail(...arguments)"
               :ur="UR"
               :alarms="alarms"
@@ -40,7 +41,7 @@ export default {
       //Contains incoming alarms & failures
       alarms: [],
       //Contains tower info retrieved from REST services
-      UR: {},
+      UR: {torres:[{numero:'cargando'}]},
       detailSelected: null
     };
   },
@@ -124,16 +125,16 @@ export default {
                   numero: parseInt(params[2]),
                   owner: property.owner_user_id
                 };
-                console.log(
+                /* console.log(
                   "t" + currentTowerNumber + " " + parseInt(params[0]) - 1
                 );
                 console.log(
                   "f" + currentFloorNumber + " " + parseInt(params[1])
-                );
+                ); */
                 if (currentTowerNumber === parseInt(params[0])) {
                   if (currentFloorNumber === parseInt(params[1])) {
-                    console.log(currentTowerNumber);
-                    console.log(parsed_UR);
+                    /* console.log(currentTowerNumber);
+                    console.log(parsed_UR); */
                     parsed_UR.torres[towerCounter].pisos[
                       floorCounter
                     ].apartamentos.push(currentProperty);
@@ -175,8 +176,6 @@ export default {
         .catch(error => {
           console.log(error);
         });
-
-      console.log(UR_temp);
     },
     addPropertyTo(property, parsed_UR) {
       towerIndex = -1;
