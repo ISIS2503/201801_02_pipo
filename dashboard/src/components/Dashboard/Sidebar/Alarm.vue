@@ -101,15 +101,19 @@ align-items: center;
 
 h2{
   font-size: 2rem;
+  margin:0;
 }
 
 h3{
-  font-size: 2.5rem;
+  font-size: 2.2rem;
+  margin:0;
 }
 
 .alarm-message{
   color: rgb(223, 0, 22);
   font-weight: bold;
+  font-size:1.5rem;
+  margin:0;
   
 }
 
