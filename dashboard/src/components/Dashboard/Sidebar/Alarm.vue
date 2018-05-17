@@ -1,14 +1,14 @@
 <template>
   <div class="container md-layout" @click="scrollToAlarm">
-    <div class="md-layout-item md-size-30 left-container">
-      <md-icon class="md-size-2x type-icon">lock_open</md-icon>
+    <div class="md-layout-item md-size-35 left-container">
+      <div class="type-icon"></div>
     </div>
     <div class="md-layout-item md-size-45 center-container">
       <h2>Torre {{tower}}</h2>
       <h3>Apto {{apartment}}</h3>
-      <p>{{alarmMessage}}</p>
+      <p class="alarm-message">{{alarmMessage}}</p>
     </div>
-    <div class="md-layout-item md-size md-size-25 right-container">
+    <div class="md-layout-item md-size md-size-20 right-container">
       <div class="revise-button">
         <md-button v-if="!alarm.revised" class="md-icon-button" @click="alarmRevised">
           <md-icon class="md-size-2x">
@@ -90,8 +90,9 @@ $('#output > tbody:last').append('<tr><td>' + 'pipo' + '</td><td>' +diffDuration
 .container {
   display: flex;
   justify-content: space-between;
-  padding: 8px;
-  border: 4px #be0000 solid;
+  padding: 0px;
+  margin-top: 2px;
+  border: 4px rgb(223, 0, 22) solid;
 }
 
 .left-container{
@@ -102,6 +103,11 @@ $('#output > tbody:last').append('<tr><td>' + 'pipo' + '</td><td>' +diffDuration
 
 .type-icon{
   flex: 1;
+  background: url('../../../assets/aperturaNoPermitida.png');
+  height: 100%;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .center-container{
@@ -112,11 +118,21 @@ align-items: center;
 }
 
 h2{
-  font-size: 7rem;
+  font-size: 2rem;
+  margin:0;
 }
 
 h3{
-  font-size: 4rem;
+  font-size: 2.2rem;
+  margin:0;
+}
+
+.alarm-message{
+  color: rgb(223, 0, 22);
+  font-weight: bold;
+  font-size:1.5rem;
+  margin:0;
+  
 }
 
 .right-container{
@@ -137,7 +153,7 @@ h3{
 }
 
 md-icon {
-  color: #be0000;
+  color: rgb(223, 0, 22);
   padding-left: 8px;
   padding-right: 8px;
 }
