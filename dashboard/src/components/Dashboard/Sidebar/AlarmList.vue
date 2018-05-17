@@ -1,7 +1,7 @@
 <template>
   <div class="md-scrollbar">
     <div v-for="(alarm, index) in alarms" :key="index">
-      <alarm :alarm="alarm"/>
+      <alarm @scroll-to-alarm="scrollToAlarm(...arguments)" :alarm="alarm"/>
     </div>
   </div>
 </template>
@@ -18,6 +18,12 @@ export default {
     return {
       revisedAlarms: []
     };
+  },
+  methods:{
+    scrollToAlarm(alarm){
+      //Pass event
+      this.$emit('scroll-to-alarm', alarm)
+    }
   },
   computed: {
     filteredAlarms() {

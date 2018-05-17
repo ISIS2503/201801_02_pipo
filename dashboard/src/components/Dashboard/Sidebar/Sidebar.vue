@@ -5,7 +5,7 @@
     <revision-filters v-on:revision-select="selectRevision"/>
   </div>
 
-  <alarm-list v-bind:alarms='alarms' v-bind:filters='filters'/>
+  <alarm-list @scroll-to-alarm="scrollToAlarm(...arguments)" v-bind:alarms='alarms' v-bind:filters='filters'/>
 
   <div id="typeFilters">
     <type-filters v-on:type-select="selectType"/>
@@ -71,6 +71,10 @@ export default {
       console.log("selectRevision: ", selection);
       this.filters[selection] = !this.filters[selection];
       console.log(this.filters);
+    },
+    scrollToAlarm(alarm){
+      //Pass event
+      this.$emit('scroll-to-alarm', alarm)
     }
   }
 };

@@ -1,21 +1,21 @@
 <template>
 <div class="principal">
-    <div class="md-layout">
-        <div class="md-layout-item md-size-15">
-            <div class="lateral">
-              <div class="logo"></div>
-                <div class="md-layout-item md-size-100">
-                    <tower-Grid class="towers select"></tower-Grid>
-                </div>
-                <div class="md-layout-item md-size-100">
-                    <floor-grid class="floors select"></floor-grid>
-                </div>
-            </div>
-        </div>
-        <div class="md-layout-item">
-            <map-grid v-on:select-detail="$emit('select-detail', $event)" :ur="ur"></map-grid>
-        </div>
+  <div class="md-layout">
+    <div class="md-layout-item md-size-15">
+      <div class="lateral">
+        <div class="logo"></div>
+          <div class="md-layout-item md-size-100">
+              <tower-Grid class="towers select"></tower-Grid>
+          </div>
+          <div class="md-layout-item md-size-100">
+              <floor-grid class="floors select"></floor-grid>
+          </div>
+      </div>
     </div>
+    <div class="md-layout-item">
+      <map-grid v-on:select-detail="$emit('select-detail', ...arguments)" :ur="ur" :alarms="alarms" />
+    </div>
+  </div>
 </div>
 </template>
 
@@ -31,7 +31,7 @@ export default {
     FloorGrid,
     MapGrid
   },
-  props: ['ur', 'alarms']
+  props: ["ur", "alarms"]
 };
 </script>
 
@@ -52,16 +52,15 @@ export default {
   bottom: 22%;
 }
 
-.logo{
+.logo {
   background: url("../../../assets/yale.png");
-  background-size:contain;
-  width:150px;
-  height:150px;
+  background-size: contain;
+  width: 150px;
+  height: 150px;
   position: fixed;
-  left:0;
-  top:0;
+  left: 0;
+  top: 0;
 }
-
 
 .floors {
   margin-top: 100px;
@@ -71,11 +70,9 @@ export default {
   margin-bottom: 50px;
 }
 
-
 .md-layout {
   min-height: 100vh;
 }
-
 
 .md-layout-item {
   margin: auto 0;

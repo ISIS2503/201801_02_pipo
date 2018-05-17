@@ -1,9 +1,9 @@
 <template>
 <div class="md-content md-scrollbar">
     <div class="above">
-        <md-icon class="md-size-2x next cursor cursor-left">arrow_back_ios</md-icon>
-        <h1 class="next tower-name">TORRE 1</h1>
-        <md-icon class="md-size-2x next cursor">arrow_forward_ios</md-icon>
+        <md-icon class="md-size-2x next cursor cursor-left" @click="previousTower">arrow_back_ios</md-icon>
+        <h1 class="next tower-name">Torre {{torres[towerIndex]}}</h1>
+        <md-icon class="md-size-2x next cursor" @click="nextTower">arrow_forward_ios</md-icon>
     </div>
 
     <div class="container">
@@ -13,14 +13,14 @@
             <div class="bottom-roof">
             </div>
         </div>
-        <div v-for="(piso, index) in ur.torres[0].pisos" :key="index">
+        <div v-for="(piso, index) in ur.torres[towerIndex].pisos" :key="index">
             <div class="md-layout">
                 <!-- <b-row> -->
                     <div class="floor-number md-layout-item md-size-5">{{piso.numero}}</div>
 
                         <div v-for="(apartamento, index) in piso.apartamentos" 
-                          :key="index" 
-                          v-on:click="selectProperty(apartamento.owner)" 
+                          :key="index"
+                          v-on:click="selectProperty('' + ur.torres[towerIndex].numero + '-' + piso.numero + '-' + apartamento.numero, apartamento.owner)" 
                           class="apto md-layout-item"
                         >
                             <div class="apartment-number" >
@@ -52,7 +52,7 @@ import "../../../styles/tower.css";
 import "../../../styles/apartment-icon.css";
 export default {
   name: "MapGrid",
-  props: ["ur"],
+  props: ["ur", 'alarms'],
   data: function() {
     return {
       unidad: {
@@ -176,13 +176,29 @@ export default {
               }
             ]
           }
-        ]
+        ],
+        towerIndex: 0
       }
     };
   },
   methods: {
-    selectProperty: function(auth0_owner) {
-      this.$emit("select-detail", auth0_owner);
+    selectProperty: function(localID, auth0_owner) {
+      let selectedAlarm = undefined
+      for(var alarm of this.alarms){
+        if(alarma.apartamento === localID){
+          selectedAlarm = alarm
+        }          
+      }
+
+      this.$emit("select-detail", localID, auth0_owner, selectedAlarm);
+    },
+    previousTower(){
+      if(this.torres[towerIndex-1])
+        this.towerIndex -= 1
+    },
+    nextTower(){
+      if(this.torres[towerIndex+1])
+        this.towerIndex += 1
     }
   },
   mounted() {

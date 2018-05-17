@@ -2,10 +2,20 @@
 <div class="dashboard">
     <div class="md-layout">
         <div class="md-layout-item md-size-75">
-            <grids v-on:select-detail="selectDetail" :ur="UR" :alarms="alarms"/>
+            <grids 
+              v-on:select-detail="selectDetail(...arguments)"
+              :ur="UR"
+              :alarms="alarms"
+            />
         </div>
         <div class="md-layout-item md-size-25 sidebar-container">
-            <sidebar :detail="userDetail" :alarms="alarms" :ur-name="UR.name" class="sidebar"/>
+            <sidebar 
+              :detail="detailSelected"
+              :alarms="alarms"
+              :ur-name="UR.name"
+              class="sidebar"
+              @scroll-to-alarm="scrollToAlarm(...arguments)"
+            />
         </div>
     </div>
 </div>
@@ -31,7 +41,7 @@ export default {
       alarms: [],
       //Contains tower info retrieved from REST services
       UR: {},
-      userDetail: null
+      detailSelected: null
     };
   },
   methods: {
@@ -223,7 +233,8 @@ export default {
       });
       return UR_temp;
     },
-    selectDetail(auth0_owner) {
+    selectDetail(localID, auth0_owner, selectedAlarm) {
+      console.log("localID: ", localID);
       console.log("SelectDetail: ", auth0_owner);
       const _this = this;
       axios
@@ -234,11 +245,17 @@ export default {
             auth0_owner
         )
         .then(response => {
-          _this.userDetail = response.data;
+          _this.detailSelected = {};
+          _this.detailSelected.user = response.data;
+          _this.detailSelected.localID = localID;
+          _this.detailSelected.alarm = selectedAlarm; //May be undefined
         })
         .catch(error => {
           console.log(error);
         });
+    },
+    scrollToAlarm() {
+      //TODO Tower, change & Scroll
     }
   },
   mounted() {
