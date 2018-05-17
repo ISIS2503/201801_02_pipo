@@ -929,6 +929,17 @@ def listarUsuarios():
     respuesta.append(doc)
   return dumpJson(respuesta)
 
+@app.route('/users/checkAuth0/<ur_name>/<auth0_id>', methods=[GET])
+@requires_auth(SECURITY)
+def checkAuth0(ur_name, auth0_id):
+  unidad = db.unidadesResidenciales.find_one({ 'nombre' : ur_name })
+  respuesta = {}
+  for inmueble in unidad['inmuebles']:
+    if inmueble['owner_user_id'] == auth0_id:
+      respuesta = {'username' : inmueble['owner_user']}
+      return dumpJson(respuesta)
+  return dumpJson(respuesta), 404
+
 @app.route('/users/<usuario>', methods=[GET, PUT, DELETE])
 @requires_auth(USER)
 def usuario(usuario):
