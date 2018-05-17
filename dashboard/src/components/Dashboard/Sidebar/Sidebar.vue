@@ -1,6 +1,6 @@
 <template>
 <div id="sidebar">
-  <account/>
+  <account :ur-name="urName"/>
   <div id="revisionFilters">
     <revision-filters v-on:revision-select="selectRevision"/>
   </div>
@@ -31,20 +31,25 @@ export default {
     RevisionFilters,
     TypeFilters
   },
-  props: ['alarms'],
+  props: ['alarms', 'urName'],
   data(){
     return {
-      filters: []
+      filters: {
+        revised: false,
+        notRevised: false,
+        emergencies: [],
+        failures: []
+      }
     }
   },
   methods:{
-    selectType(event){
-      console.log('selectType: ', event)
+    selectType(selection){
+      console.log('selectType: ', selection)
     },
-    selectRevision(event){
-      console.log('selectRevision: ', event)
-      const filter = {        
-      }
+    selectRevision(selection){
+      console.log('selectRevision: ', selection)
+      this.filters[selection] = !this.filters[selection]
+      console.log(this.filters)
     }
   }
 };
@@ -57,12 +62,6 @@ export default {
   width: calc(100% - 5px);
   border: 5px rgb(77, 77, 77) solid;
   position: relative;
-}
-
-#revisionFilters {
-  /* position: relative;
-  /* top: -0.4vh; 
-  width: 100%; */
 }
 
 #typeFilters {

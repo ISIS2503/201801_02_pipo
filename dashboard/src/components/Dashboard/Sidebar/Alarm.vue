@@ -13,12 +13,37 @@
 </template>
 
 <script>
+
+const emergencyTypes = [null, 'Puerta abierta', 'Apertura sospechosa', 'Apertura no permitida', 'Batería baja']
+const failureTypes = [null, 'Cerradura fuera de línea', 'Hub fuera de línea']
+
 export default {
   name: "Alarm",
-  props: ['tower', 'apartment', 'alarm'],
+  props: ['alarm'],
   data(){
     return{
       alarmMessage:''
+    }
+  },
+  computed:{
+    tower(){
+      return alarm.apartamento[0]
+    },
+    apartament(){
+      return '' + alarm.apartamento[2] + '0' + alarm.apartamento[4]
+    },
+    alarmMessage(){
+      if(alarm.type === 'emergency')
+        return emergencyTypes[parseInt(alarm.emergencia)]
+      else if (alarm.type === 'failure')
+        return emergencyTypes[parseInt(alarm.failure)];
+      else{
+        console.log(alarm)
+        return 'Emergencia desconocida';
+      }
+    },
+    timeMessage(){
+      return new Date(alarm.sensetime)
     }
   },
   methods:{
@@ -33,8 +58,6 @@ export default {
 </script>
 
 <style scoped>
-
-
 md-icon {
   color: #be0000;
   padding-left: 8px;
