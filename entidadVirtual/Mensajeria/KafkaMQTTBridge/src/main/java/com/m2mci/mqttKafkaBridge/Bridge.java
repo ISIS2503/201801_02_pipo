@@ -129,13 +129,7 @@ public class Bridge implements MqttCallback {
 	}
 
 	@Override
-	public void messageArrived(String topic, MqttMessage message) throws Exception {		
-		byte[] payload = message.getPayload();
-		String x=topic.replaceAll("/","\\.");
-		//Updated based on Kafka v0.8.1.1
-		System.out.println(new String(message.getPayload()));
-		KeyedMessage<String, String> data = new KeyedMessage<String, String>(x, new String(payload));
-		kafkaProducer.send(data);
+	public void messageArrived(String topic, MqttMessage message) throws Exception {
 	}
         
     static SSLSocketFactory getSocketFactory (final String caCrtFile, final String crtFile, final String keyFile, 
@@ -201,10 +195,11 @@ public class Bridge implements MqttCallback {
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Arrays.asList("Centro.Toscana.2-5-3.claves", "Centro.Toscana.2-5-3.horarios"));
+        System.out.println("ya");
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);
             for (ConsumerRecord<String, String> record : records)
-                System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), record.value());
+                System.out.printf("offset = %d, key = %s, value = %s%n, topic = %s%n", record.offset(), record.key(), record.value(), record.topic());
         }
     }
 }
