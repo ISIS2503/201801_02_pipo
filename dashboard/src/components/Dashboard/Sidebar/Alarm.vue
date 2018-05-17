@@ -1,19 +1,24 @@
 <template>
   <div class="container md-layout" @click="scrollToAlarm">
-    <div class="md-layout-item md-size-15">
-      <md-icon class="md-size-2x">lock_open</md-icon>
+    <div class="md-layout-item md-size-30 left-container">
+      <md-icon class="md-size-2x type-icon">lock_open</md-icon>
     </div>
-    <div class="md-layout-item md-size-85">
+    <div class="md-layout-item md-size-45 center-container">
       <h2>Torre {{tower}}</h2>
       <h3>Apto {{apartment}}</h3>
       <p>{{alarmMessage}}</p>
     </div>
-    <md-button v-if="!alarm.revised" class="md-icon-button" @click="alarmRevised">
-      <md-icon>
-        done_outline
-      </md-icon>
-    </md-button>
-    <p class="time">{{timeMessage}}</p>
+    <div class="md-layout-item md-size md-size-25 right-container">
+      <div class="revise-button">
+        <md-button v-if="!alarm.revised" class="md-icon-button" @click="alarmRevised">
+          <md-icon class="md-size-2x">
+            done_outline
+          </md-icon>
+        </md-button>
+        <p v-if="!alarm.revised" class="icon-tooltip">Revisado</p>
+      </div>
+      <p class="time">{{timeMessage}}</p>
+    </div>
   </div>
 </template>
 
@@ -63,15 +68,60 @@ export default {
 </script>
 
 <style scoped>
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border: 4px #be0000 solid;
+}
+
+.left-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.type-icon{
+  flex: 1;
+}
+
+.center-container{
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+align-items: center;
+}
+
+h2{
+  font-size: 7rem;
+}
+
+h3{
+  font-size: 4rem;
+}
+
+.right-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.revise-button{
+  box-shadow: 0px 0px 0px 2px #696969;
+  transform: box-shadow 0.2s ease-in;
+  background: whitesmoke;
+}
+
+.revise-button:hover{
+  box-shadow: 0px 0px 0px 3px #696969;
+}
+
 md-icon {
   color: #be0000;
   padding-left: 8px;
   padding-right: 8px;
-}
-
-.container {
-  padding: 8px;
-  border: 8px #be0000 solid;
 }
 
 .time{
