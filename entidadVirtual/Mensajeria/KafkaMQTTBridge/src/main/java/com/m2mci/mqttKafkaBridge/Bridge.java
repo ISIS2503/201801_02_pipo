@@ -39,6 +39,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.logging.Level;
+import org.eclipse.paho.client.mqttv3.MqttClient;
 
 public class Bridge implements MqttCallback {
 	private Logger logger = Logger.getLogger(this.getClass().getName());
@@ -54,8 +55,10 @@ public class Bridge implements MqttCallback {
     static final String CLIENT_KEY_FILE_PATH = "/server.key";
     static final String MQTT_USER_NAME = "BridgeCentro";
     static final String MQTT_PASSWORD = "piporules";
+    
+    boolean connected = false;
 	
-	private void connect(String serverURI, String clientId, String zkConnect) throws MqttException {
+	private void connect(String serverURI, String clientId) throws MqttException {
 		
             mqtt = new MqttAsyncClient(serverURI, clientId);
             mqtt.setCallback(this);
@@ -76,17 +79,8 @@ public class Bridge implements MqttCallback {
                 
                 
 		IMqttToken token = mqtt.connect(connOpt);
-		Properties props = new Properties();
-		
-		//Updated based on Kafka v0.8.1.1
-		props.put("metadata.broker.list", "localhost:8090");
-        props.put("serializer.class", "kafka.serializer.StringEncoder");
-        props.put("partitioner.class", "example.producer.SimplePartitioner");
-        props.put("request.required.acks", "1");
-		
-		ProducerConfig config = new ProducerConfig(props);
-		kafkaProducer = new Producer<String, String>(config);
 		token.waitForCompletion();
+                connected = true;
 		logger.info("Connected to MQTT and Kafka");
 	}
 
@@ -95,16 +89,10 @@ public class Bridge implements MqttCallback {
 		token.waitForCompletion();
 	}
 	
-	private void subscribe(String[] mqttTopicFilters) throws MqttException {
-		int[] qos = new int[mqttTopicFilters.length];
-		for (int i = 0; i < qos.length; ++i) {
-			qos[i] = 0;
-		}
-		mqtt.subscribe(mqttTopicFilters, qos);
-	}
 
 	@Override
 	public void connectionLost(Throwable cause) {
+                connected = false;
 		logger.warn("Lost connection to MQTT server", cause);
 		while (true) {
 			try {
@@ -185,7 +173,7 @@ public class Bridge implements MqttCallback {
     /**
      * @param args
      */
-    public static void main(String args[]) {
+    public static void main(String args[])   {
         Properties props = new Properties();
         props.put("bootstrap.servers", "localhost:8090");
         props.put("group.id", "test");
@@ -195,11 +183,31 @@ public class Bridge implements MqttCallback {
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Arrays.asList("Centro.Toscana.2-5-3.claves", "Centro.Toscana.2-5-3.horarios"));
-        System.out.println("ya");
+        Bridge b = new Bridge();
+        try {
+            b.connect("172.24.41.182",MqttClient.generateClientId());
+        } catch (MqttException ex) {
+            java.util.logging.Logger.getLogger(Bridge.class.getName()).log(Level.SEVERE, null, ex);
+        }
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);
-            for (ConsumerRecord<String, String> record : records)
-                System.out.printf("offset = %d, key = %s, value = %s%n, topic = %s%n", record.offset(), record.key(), record.value(), record.topic());
+            for (ConsumerRecord<String, String> record : records) {
+                System.out.println(b.connected);
+                if(!b.connected) {
+                    b = new Bridge();
+                    try {
+                        b.connect("172.24.41.182",MqttClient.generateClientId());
+                    } catch (MqttException ex) {
+                        java.util.logging.Logger.getLogger(Bridge.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                try {
+                    b.mqtt.publish(record.topic().replaceAll(".", "/"), new MqttMessage(record.value().getBytes()));
+                } catch (MqttException ex) {
+                    java.util.logging.Logger.getLogger(Bridge.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                System.out.printf("value = %s%n, topic = %s%n", record.value(), record.topic());
+            }
         }
     }
 }
