@@ -668,8 +668,6 @@ def claves(unidad, localID):
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/gestionClaves", methods=[POST, PUT])
 @requires_auth(PROPERTY_OWNER)
 def gestionClaves(unidad, localID):
-  print("elScope adentro: "+elScope)
-  print("username adentro: "+username)
   data = {}
   if request.data:
     data = loads(request.data)
@@ -736,12 +734,32 @@ def gestionClaves(unidad, localID):
     
     msg = ";"+str(indice)+combinacion
     msg = operacion+msg
-    print("holamundo")
     message = '{"msg":"'+msg+'", "usuario":"'+username+'"}'
     topic = "Centro."+elScope+".claves"
     producer.send(topic, message.encode('utf-8'))
     return message, 200
     
+
+@app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/gestionClaves/borrarTodo", methods=[DELETE])
+@requires_auth(PROPERTY_OWNER)
+def borrarClaves(unidad, localID):
+  if request.method == DELETE:
+    respuesta = []
+    unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    if unidadRes == None:
+      return "No existe ninguna unidad residencial con ese nombre", 404
+    for inmueble in unidadRes['inmuebles']:
+      if inmueble['localID'] == localID:
+        respuesta = inmueble
+        break
+    if respuesta == []:
+      return "No existe ningún inmueble en esa unidad residencial con ese localID", 404
+    
+    msg = "4"
+    message = '{"msg":"'+msg+'", "usuario":"'+username+'"}'
+    topic = "Centro."+elScope+".claves"
+    producer.send(topic, message.encode('utf-8'))
+    return message, 200
 
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/emergencias", methods=[GET, POST])
@@ -979,9 +997,12 @@ def horariosPermitidos(unidad, localID):
     if not valid:
       return "El formato de la hora de fin es incorrecto", 400
 
+
+    horaInicio = data['horaInicio']
+    horaFin = data['horaFin']
     sanitizedData = {}
-    sanitizedData['horaInicio'] = data['horaInicio']
-    sanitizedData['horaFin'] = data['horaFin']
+    sanitizedData['horaInicio'] = horaInicio
+    sanitizedData['horaFin'] = horaFin
 
     #Esta linea busca los documentos que tengan la propiedad nombre == unidad
     #Y luego inserta a el valor del campo inmuebles[x].hub.cerradura.horariosPermitidos el nuevo horario
@@ -991,6 +1012,13 @@ def horariosPermitidos(unidad, localID):
     return_document=ReturnDocument.AFTER)
     if result == None:
       return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
+    
+    op = 1
+    if request.method == PUT:
+      op = 2
+    message = '{"horaInicio":"'+horaInicio+'","horaFin":"'+horaFin+'","usuario":"'+username+'","operacion":'+str(op)+'}'
+    topic = "Centro."+elScope+".claves"
+    producer.send(topic, message.encode('utf-8'))
     return dumpJson(result)
   elif request.method == DELETE:
     result = db.users.find_one_and_update({'auth0_id' : session['PROFILE_KEY']['user_id']},
@@ -998,6 +1026,9 @@ def horariosPermitidos(unidad, localID):
     return_document=ReturnDocument.AFTER)
     if result == None:
       return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
+    message = '{"usuario":"'+username+'","operacion":3}'
+    topic = "Centro."+elScope+".claves"
+    producer.send(topic, message.encode('utf-8'))
     return dumpJson(result)
 
 
