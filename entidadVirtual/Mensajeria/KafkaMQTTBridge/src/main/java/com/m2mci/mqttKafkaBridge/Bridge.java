@@ -53,8 +53,9 @@ public class Bridge implements MqttCallback {
     static final String CA_FILE_PATH = "/ca.crt";
     static final String CLIENT_CRT_FILE_PATH = "/server.crt";
     static final String CLIENT_KEY_FILE_PATH = "/server.key";
-    static final String MQTT_USER_NAME = "BridgeCentro";
+    static final String MQTT_USER_NAME = "Yale";
     static final String MQTT_PASSWORD = "piporules";
+    static final String BROKER_URL = "ssl://172.24.41.182:8083";
     
     boolean connected = false;
 	
@@ -185,28 +186,28 @@ public class Bridge implements MqttCallback {
         consumer.subscribe(Arrays.asList("Centro.Toscana.2-5-3.claves", "Centro.Toscana.2-5-3.horarios"));
         Bridge b = new Bridge();
         try {
-            b.connect("172.24.41.182",MqttClient.generateClientId());
+            b.connect(BROKER_URL,MqttClient.generateClientId());
         } catch (MqttException ex) {
             java.util.logging.Logger.getLogger(Bridge.class.getName()).log(Level.SEVERE, null, ex);
         }
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);
-            for (ConsumerRecord<String, String> record : records) {
-                System.out.println(b.connected);
-                if(!b.connected) {
-                    b = new Bridge();
-                    try {
-                        b.connect("172.24.41.182",MqttClient.generateClientId());
-                    } catch (MqttException ex) {
-                        java.util.logging.Logger.getLogger(Bridge.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
+            if(!b.connected) {
+                b = new Bridge();
                 try {
-                    b.mqtt.publish(record.topic().replaceAll(".", "/"), new MqttMessage(record.value().getBytes()));
+                    b.connect(BROKER_URL,MqttClient.generateClientId());
                 } catch (MqttException ex) {
-                    java.util.logging.Logger.getLogger(Bridge.class.getName()).log(Level.SEVERE, null, ex);
+                    ex.printStackTrace();
                 }
-                System.out.printf("value = %s%n, topic = %s%n", record.value(), record.topic());
+            }
+            for (ConsumerRecord<String, String> record : records) {
+                try {
+                    System.out.println(record.topic().replaceAll("\\.", "/"));
+                    b.mqtt.publish(record.topic().replaceAll("\\.", "/"), new MqttMessage(record.value().getBytes()));
+                } catch (MqttException ex) {
+                    ex.printStackTrace();
+                }
+                System.out.printf("value = %s, topic = %s%n", record.value(), record.topic());
             }
         }
     }
