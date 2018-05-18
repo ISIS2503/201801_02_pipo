@@ -103,7 +103,11 @@ export default {
         _this.UR.torres[dir[0]].pisos[dir[1]].apartamentos[dir[2]].alarmas.push(
           normalizedAlarm
         );
-      });
+         
+       _this.$refs.grids.pushAlarm(dir,normalizedAlarm);
+      }
+      );
+      console.log(this.UR);
     },
     //Retireves information from server and parses it to fit front-end structure
     initData() {

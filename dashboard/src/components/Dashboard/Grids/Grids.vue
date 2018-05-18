@@ -64,6 +64,9 @@ export default {
     },
     towerSelected(number){
       this.towerIndex=parseInt(number);
+    },
+    pushAlarm(dir,alarm){
+      this.$refs.mapgrid.pushAlarm(dir,alarm);
     }
   }
 };
@@ -96,13 +99,6 @@ export default {
   top: 0;
 }
 
-.floors {
-  margin-top: 100px;
-}
-
-.towers {
-  margin-bottom: 50px;
-}
 
 .md-layout {
   min-height: 100vh;

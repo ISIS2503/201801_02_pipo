@@ -239,6 +239,9 @@ export default {
       boolean: true
     };
   },
+  computed: {
+    
+  },
   methods: {
     selectProperty: function(localID, auth0_owner) {
       let selectedAlarm = undefined;
@@ -276,16 +279,30 @@ export default {
 
      //this.$scrollTo(apto, 1000);
     },
+    pushAlarm(dir,alarm){
+      console.log('llega1');
+      var apto=this.ur.torres[dir[0]].pisos[dir[1]].apartamentos[dir[2]];
+      apto.alarmas.push(alarm);
+       console.log('llega2');
+      let apto1= document.getElementById(alarm.apartamento);
+       console.log('llega3', apto1);
+      apto1.classList.remove("apto")
+       console.log('llega4');
+      apto1.classList.remove("md-layout-item")
+       console.log('llega5');
+      apto1.classList.add(alarm.normalType)
+      apto1.classList.add("with-alarm")
+     console.log('llega6');
+    },
     assignIcon(apartamento) {
       let classObject = {};
       if (apartamento.alarmas.length>0) {
-        classObject[apartamento.alarmas[0].normalType] = true;
+        classObject[apartamento.alarmas[0].normalType] = true;        
+       console.log('renderIzado');
       }
       else{
        classObject["apto md-layout-item"]=true;
       }
-      console.log(classObject);
-
       return classObject;
     }
   },
