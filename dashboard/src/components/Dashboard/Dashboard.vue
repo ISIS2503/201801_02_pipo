@@ -82,6 +82,8 @@ export default {
           normalizedAlarm.type = "failure";
         } else {
           console.log("Alarma inválida!");
+          if(alarm.fallo)
+            console.log("Este man tiene fallo!")
           normalizedAlarm.type = "unknown";
         }
         normalizedAlarm.sensetime = alarm.sensetime;

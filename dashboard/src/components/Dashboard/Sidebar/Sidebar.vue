@@ -81,14 +81,14 @@ export default {
       const index = parseInt(selection.split("-")[1]);
       if (selection[0] === "e") {
         if (this.filters.emergencies.includes(index)) {
-          deleteIndex = this.filters.emergencies.indexOf(index);
+          const deleteIndex = this.filters.emergencies.indexOf(index);
           this.filters.emergencies.splice(deleteIndex, 1);
         } else {
           this.filters.emergencies.push(index);
         }
       } else if (selection[0] === "f") {
         if (this.filters.failures.includes(index)) {
-          deleteIndex = this.filters.failures.indexOf(index);
+          const deleteIndex = this.filters.failures.indexOf(index);
           this.filters.failures.splice(deleteIndex, 1);
         } else {
           this.filters.failures.push(index);

@@ -14,8 +14,8 @@
       
       <h2 class="owner">Propietario</h2>
       <div class="revise-button">
-        <md-button class="md-icon-button" @click="alarmRevised">
-          <md-icon class="md-size-2x">
+        <md-button class="md-icon-button md-size-2x" @click="alarmRevised">
+          <md-icon class="">
             done_outline
           </md-icon>
         </md-button>
@@ -135,7 +135,7 @@ h2 {
 
 
 .revise-button {
-  display: inline-block;
+  /*display: inline-block; ver advertencia de vscode*/
   box-shadow: 0px 0px 0px 2px #696969;
   transform: box-shadow 0.2s ease-in;
   background: whitesmoke;
@@ -161,9 +161,12 @@ h2 {
   right:0;
 }
 
+.icon-tooltip{
+  text-align: center;
+  margin: 0;
+}
 
 .close .md-icon{  
   color:white;
-  
 }
 </style>

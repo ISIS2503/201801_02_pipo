@@ -1,5 +1,5 @@
 <template>
-  <div class="container md-layout" @click="scrollToAlarm">
+  <div class="container md-layout" :target="alarm.revised ? 'revised' : 'not-revised' " @click="scrollToAlarm">
     <div class="md-layout-item md-size-35 left-container">
       <div class="type-icon" :class="assignIcon"></div>
     </div>
@@ -14,13 +14,13 @@
         <p class="time"><md-icon class="time-icon">access_time</md-icon>{{howLongStr}}</p>
       </div>
 
-      <div class="revise-button">
-        <md-button v-if="!alarm.revised" class="md-icon-button" @click="alarmRevised">
-          <md-icon class="md-size-2x">
+      <div v-if="!alarm.revised" class="revise-button">
+        <md-button class="md-icon-button" @click="alarmRevised">
+          <md-icon>
             done_outline
           </md-icon>
         </md-button>
-        <p v-if="!alarm.revised" class="icon-tooltip">Revisar</p>
+        <p class="icon-tooltip">Revisar</p>
       </div>
       
     </div>
@@ -54,7 +54,8 @@ export default {
   },
   methods: {
     alarmRevised() {
-      this.alarm.revised = true; //TODO see if it produces reactivity changes
+      /* this.alarm.revised = true; //TODO see if it produces reactivity changes */
+      this.$emit('alarm-revised', this.alarm)
     },
     scrollToAlarm() {
       this.$emit("scroll-to-alarm", this.alarm);
@@ -235,7 +236,7 @@ h3 {
 .right-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
 }
 
