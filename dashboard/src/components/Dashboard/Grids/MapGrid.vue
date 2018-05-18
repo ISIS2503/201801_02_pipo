@@ -58,10 +58,10 @@ import "../../../styles/tower.css";
 import "../../../styles/apartment-icon.css";
 export default {
   name: "MapGrid",
-  props: ["urTODOCORRECTELDEFAULTESTAACTIVO", "alarms", "towerIndex"],
+  props: ["ur", "alarms", "towerIndex"],
   data: function() {
     return {
-      ur: {
+      urDEFAULT: {
         nombre: "toscana",
         torres: [
           {
