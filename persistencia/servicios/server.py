@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for, send_from_directory
+from flask_cors import CORS
 from authlib.flask.client import OAuth
 from pymongo import MongoClient, ReturnDocument
 from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
@@ -35,7 +36,7 @@ PROPERTY_OWNER = 'PROPERTY_OWNER'
 DISABLED = 'DISABLED'
 
 #Tipo de operación
-DEVELOPMENT_MODE = True
+DEVELOPMENT_MODE = False
 
 #Instalación en windows ---------------------
 #pip install -r requirements.txt
@@ -55,6 +56,7 @@ username = ''
 client = MongoClient('localhost', 27017)
 db = client['Pipo-yale-persistencia']
 app = Flask(__name__)
+CORS(app)
 app.secret_key = "super secret key"
 #app.config['MQTT_BROKER_URL'] = '172.24.41.182'
 #app.config['MQTT_BROKER_PORT'] = 8083
@@ -214,7 +216,7 @@ def dashboard_callback_handling():
       return redirect('http://localhost:8080/#/dashboard/' + session['PROFILE_KEY']['name'])
     #On production, server serves js and HTML
     else:
-      return redirect('/security#/dashboard')
+      return redirect('/security#/dashboard/' + session['PROFILE_KEY']['name'])
 
 @app.route('/security')
 @requires_auth(SECURITY)
@@ -395,10 +397,9 @@ def crearUnidad():
       return "Ya existe una unidad residencial con ese nombre", 400
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles", methods=[GET, POST])
-@requires_auth(UR_ADMIN)
+@requires_auth(SECURITY)
 def imuebles(unidad):
   if request.method == GET:
-    respuesta = []
     unidad = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
     if unidad == None:
       return "{}", 404
@@ -1210,6 +1211,21 @@ def listarUsuarios():
     respuesta.append(doc)
   return dumpJson(respuesta)
 
+@app.route('/users/checkAuth0/<ur_name>/<auth0_id>', methods=[GET])
+@requires_auth(SECURITY)
+def checkAuth0(ur_name, auth0_id):
+  print('auth0_id: ', auth0_id)
+  unidad = db.unidadesResidenciales.find_one({ 'nombre' : ur_name })
+  respuesta = {}
+  for inmueble in unidad['inmuebles']:
+    try:
+      if inmueble['owner_user_id'] == auth0_id: #If there is someone in the UR with that auth0_id, return their data
+        user = db.users.find_one({'auth0_id': auth0_id})
+        return dumpJson(user)
+    except KeyError:
+      print('missing owner_user_id: ', inmueble['localID'])
+  return dumpJson(respuesta), 404
+
 @app.route('/users/<usuario>', methods=[GET, PUT, DELETE])
 @requires_auth(USER)
 def usuario(usuario):
@@ -1217,7 +1233,7 @@ def usuario(usuario):
   if request.data:
     data = loads(request.data)
   if request.method == GET:
-    user = db.users.find({'username': usuario})
+    user = db.users.find_one({'username': usuario})
     return dumpJson(user)
   elif request.method == PUT:
     name = data['nombre']

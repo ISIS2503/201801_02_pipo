@@ -1,35 +1,81 @@
 <template>
   <div class="md-scrollbar">
-    <alarm 
-      v-for="(alarm, index) in filteredAlarms" :key="alarm.timestamp"
-      tower="alarm.torre"
-      apartment="alarm.apartment"
-      alarm="alarm.alarm"
-    />
+    <div v-for="(alarm, index) in filteredAlarms" :key="index">
+      <alarm 
+        @scroll-to-alarm="scrollToAlarm(...arguments)" 
+        :alarm="alarm"
+        @alarm-revised="alarmRevised(...arguments)"
+       />
+    </div>
   </div>
 </template>
 
 <script>
-import Alarm from './Alarm'
+
+const defaultAlarm = {sensetime: 1526576385325, id:"Arduino 007", timestamp: new Date().getTime(), emergencia: "3", apartamento: "2-5-3", conjunto: "Toscana" , zona: "Centro", normalType: "e-4"}
+
+
+import Alarm from "./Alarm";
 export default {
   name: "AlarmList",
-  components:{
+  components: {
     Alarm
   },
-  props: ["alarms"],
+  props: ["alarms", "filters"],
   data() {
     return {
-      filters: []
+      
+    };
+  },
+  methods:{
+    scrollToAlarm(alarm){
+      //Pass event
+      this.$emit('scroll-to-alarm', alarm)
+    },
+    alarmRevised(alarm){
+      alarm.revised = true
     }
   },
-  computed:{
-    filteredAlarms(){
-      return alarms
+  computed: {
+    filteredAlarms() {
+      let filtered = [];
+
+      filtered = this.alarms
+        .filter(alarm => (this.filters.revised ? !alarm.revised : true))
+        .filter(alarm => (this.filters.notRevised ? alarm.revised : true))
+        .filter(alarm => {
+          if (alarm.emergencia) {
+            console.log(this.filters.emergencies, alarm.emergencia)
+            return !this.filters.emergencies.includes(parseInt(alarm.emergencia)) //Si lo incluye, está dentro de los filtros, es decir, debe retornar falso
+          } else if (alarm.failure) {
+            return !this.filters.faliures.includes(parseInt(alarm.falla)) //Si lo incluye, está dentro de los filtros, es decir, debe retornar falso
+          } else {
+            return true; //nunca filtrar errores desconocidos
+          }
+        });
+
+        let test = []
+        for(var alarmm of filtered){
+          test.push(alarmm.timestamp)
+        }
+        /* console.log(test);
+
+        console.log(test.reverse()); */
+
+      return filtered.slice().reverse();
     }
+  },
+  mounted(){
+    setInterval(()=> this.alarms.push(Object.assign({}, defaultAlarm)), 4000)
   }
 };
 </script>
 
 <style scoped>
 
+.md-scrollbar{
+  width:calc(100% + 9px);
+  max-height:81%;
+ overflow: scroll;
+}
 </style>

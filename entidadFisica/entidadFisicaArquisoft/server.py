@@ -112,9 +112,10 @@ def passwordAccess():
     if clave != None and clave !="":
       viejo = r.get('C:'+str(clave))
       claveAntigua=r.get('N:'+numero)
-      print (viejo,claveAntigua)
+      print ("HOLA",viejo,claveAntigua)
       if (claveAntigua==None) and (request.method == 'PUT' or request.method == 'DELETE') or (claveAntigua!=None and request.method == 'POST'):
         return response
+      print("VIEJO",viejo)
       if request.method == 'POST' and (viejo==None or viejo==""):
         r.set('C:'+str(clave),'U:'+usuario)
         r.set('N:'+numero,str(clave))
@@ -129,7 +130,8 @@ def passwordAccess():
       if request.method != 'DELETE':
         return response
       if numero!="" and numero !=None:
-        r.delete("N:"+numero)
+        r.delete("C:"+r.get("N:"+numero))
+	r.delete("N:"+numero)
         response.status_code=200
       else:
         for key in r.keys('*'):
@@ -172,14 +174,14 @@ def scheduleaccess():
             remplazo=''
             viejo=viejo.replace(','+completo,remplazo)
             viejo=viejo.replace(completo+',',remplazo)
-          elif request.method=='PUT' and nuevoInicio!='' and nuevoInicio!=None and nuevoFin!='' and nuevoFin!=None :
+          elif request.method=='PUT' and nuevoInicio!="" and nuevoInicio!=None and nuevoFin!='' and nuevoFin!=None :
             nuevoInicio=data['nuevoInicio']
             nuevoFin=data['nuevoFin']
             remplazo=str(nuevoInicio)+"-"+str(nuevoFin)
             viejo=viejo.replace(','+completo,','+remplazo)
             viejo=viejo.replace(completo+',',remplazo+',')
-            r.set('U:'+str(usuario),viejo)
-            response.status_code=200
+          r.set('U:'+str(usuario),viejo)
+          response.status_code=200
     return response
 
 

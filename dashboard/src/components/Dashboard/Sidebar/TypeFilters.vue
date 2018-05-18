@@ -32,8 +32,8 @@
 
 <script>
 export default {
-    name: 'TypeFitlers',
-    data(){
+  name: "TypeFitlers",
+  data() {
     return {
       puertaAbiertaSelected: true,
       aperturaSospechosaSelected: true,
@@ -41,29 +41,39 @@ export default {
       bateriaBajaSelected: true,
       cerraduraDesconectadaSelected: true,
       hubDesconectadoSelected: true
-    }    
+    };
   },
-  methods:{
-    select(type){
-      if(type === 'puertaAbierta'){
+  methods: {
+    select(type) {
+      let category = "";
+      let index = -1;
+      if (type === "puertaAbierta") {
         this.puertaAbiertaSelected = !this.puertaAbiertaSelected;
-      }
-      else if(type === 'aperturaSospechosa'){
+        category = "emergency";
+        index = 1;
+      } else if (type === "aperturaSospechosa") {
         this.aperturaSospechosaSelected = !this.aperturaSospechosaSelected;
-      }
-      else if(type === 'aperturaNoPermitida'){
+        category = "emergency";
+        index = 2;
+      } else if (type === "aperturaNoPermitida") {
         this.aperturaNoPermitidaSelected = !this.aperturaNoPermitidaSelected;
-      }
-      else if(type === 'bateriaBaja'){
+        category = "emergency";
+        index = 3;
+      } else if (type === "bateriaBaja") {
         this.bateriaBajaSelected = !this.bateriaBajaSelected;
-      }
-      else if(type === 'cerraduraDesconectada'){
-        this.cerraduraDesconectadaSelected = !this.cerraduraDesconectadaSelected;
-      }
-      else if(type === 'hubDesconectado'){
+        category = "emergency";
+        index = 4;
+      } else if (type === "cerraduraDesconectada") {
+        this.cerraduraDesconectadaSelected = !this
+          .cerraduraDesconectadaSelected;
+        category = "failure";
+        index = 1;
+      } else if (type === "hubDesconectado") {
         this.hubDesconectadoSelected = !this.hubDesconectadoSelected;
+        category = "failure";
+        index = 2;
       }
-      this.$emit('revision-select', type)
+      this.$emit("type-select", category + "-" + index);
     }
   }
 };
@@ -75,115 +85,117 @@ export default {
 
 <style lang="scss" scoped>
 .puerta-abierta {
-    background: url("../../../assets/puertaAbiertaD.png");
-    background-repeat: no-repeat;
-    background-size: contain;
+  background: url("../../../assets/puertaAbiertaD.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
-.puerta-abierta-selected{
-     background: url("../../../assets/puertaAbierta.png");
-    background-size: contain;
-    background-repeat: no-repeat;
+.puerta-abierta-selected {
+  background: url("../../../assets/puertaAbierta.png");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .apertura-sospechosa {
-    background: url("../../../assets/aperturaSospechosaD.png");
-    background-repeat: no-repeat;
-    background-size: contain;
+  background: url("../../../assets/aperturaSospechosaD.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .apertura-sospechosa-selected {
-    background: url("../../../assets/aperturaSospechosa.png");
-    background-size: contain;
-    background-repeat: no-repeat;
+  background: url("../../../assets/aperturaSospechosa.png");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .apertura-no-permitida {
-    background: url("../../../assets/aperturaNoPermitidaD.png");
-    background-size: contain;
-    background-repeat: no-repeat;
+  background: url("../../../assets/aperturaNoPermitidaD.png");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .apertura-no-permitida-selected {
-    background: url("../../../assets/aperturaNoPermitida.png");
-    background-repeat: no-repeat;
-    background-size: contain;
+  background: url("../../../assets/aperturaNoPermitida.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .bateria-baja {
-    background: url("../../../assets/bateriaCriticaD.png");
-    background-repeat: no-repeat;
-    background-size: contain;
+  background: url("../../../assets/bateriaCriticaD.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .bateria-baja-selected {
-    background: url("../../../assets/bateriaCritica.png");
-    background-repeat: no-repeat;
-    background-size: contain;
+  background: url("../../../assets/bateriaCritica.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .apertura-sospechosa {
-    background: url("../../../assets/aperturaSospechosaD.png");
-    background-repeat: no-repeat;
-    background-size: contain;
+  background: url("../../../assets/aperturaSospechosaD.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .apertura-sospechosa-selected {
-    background: url("../../../assets/aperturaSospechosa.png");
-    background-repeat: no-repeat;
-    background-size: contain;
+  background: url("../../../assets/aperturaSospechosa.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .cerradura-desconectada {
-    background: url("../../../assets/cerraduraFueraLineaD.png");
-    background-repeat: no-repeat;
-    background-size: contain;
+  background: url("../../../assets/cerraduraFueraLineaD.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .cerradura-desconectada-selected {
-    background: url("../../../assets/cerraduraFueraLinea.png");
-    background-repeat: no-repeat;
-    background-size: contain;
+  background: url("../../../assets/cerraduraFueraLinea.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .hub-desconectado {
-    background: url("../../../assets/hubFueraLineaD.png");
-    background-repeat: no-repeat;
-    background-size: contain;
+  background: url("../../../assets/hubFueraLineaD.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .hub-desconectado-selected {
-    background: url("../../../assets/hubFueraLinea.png");
-    background-repeat: no-repeat;
-    background-size: contain;
+  background: url("../../../assets/hubFueraLinea.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .container {
-    width: 100%;
-    padding: 0;
+  width: 100%;
+  padding: 0;
+  background: rgb(77, 77, 77);
 }
 
 .row {
-    width: 100%;
-    margin: 0;
-    position: absolute;
-    max-width:460px;
-    bottom: 0;
+  width: 100%;
+  margin: 0;
+  position: absolute;
+  max-width: 460px;
+  bottom: 0;
+  border-top:rgb(77, 77, 77) 5px solid;
 }
 
 .container .col {
-    height: 8.5vh;
-    max-height: 4vw;
+  height: 8.5vh;
+  max-height: 4vw;
 }
 
 .container .col:hover {
-    height: 8.5vh;
-    color: white;
-    cursor: pointer;
+  height: 8.5vh;
+  color: white;
+  cursor: pointer;
 }
 
 .md-tooltip {
-    background: rgb(77, 77, 77);
-    color: white;
+  background: rgb(77, 77, 77);
+  color: white;
 }
 </style>
