@@ -5,9 +5,7 @@
             <p class="name">PISOS</p>
         </div>
     <div class="contenedor">
-        <md-button class="md-raised">1</md-button>
-        <md-button class="md-raised">2</md-button>
-        <md-button class="md-raised">3</md-button>
+        <md-button v-on="selectPiso(torre.numero)" v-for="(torre, index) in ur.torres" class="md-raised" :key="index">{{torre.numero}}</md-button>
     </div>
     </md-card>
 </div>
@@ -16,7 +14,19 @@
 
 <script>
 export default {
-  name: 'FloorGrid'
+  name: 'FloorGrid',
+   props: ["ur", "tower-index"],
+   computed: {
+       floorResume(){
+           let resp= []
+           let floorNumber= this.ur.torres[towerIndex].pisos.length;
+           let div= parseInt(floorNumber/6);
+           for (let i = 0; i< floorNumber; i+=(div+1)) {
+               resp.unshift(this.ur.torres[towerIndex].pisos[i].numero);           
+           }
+           return resp;
+       }
+   }
 }
 </script>
 

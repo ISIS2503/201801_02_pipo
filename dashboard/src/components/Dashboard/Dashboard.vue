@@ -7,6 +7,7 @@
               v-on:select-detail="selectDetail(...arguments)"
               :ur="UR"
               :alarms="alarms"
+              ref="grids"
             />
         </div>
         <div class="md-layout-item md-size-25 sidebar-container">
@@ -86,6 +87,13 @@ export default {
         normalizedAlarm.sensetime = alarm.sensetime;
         normalizedAlarm.timestamp = new Date().getTime();
         normalizedAlarm.revised = false;
+        
+        if(normalizedAlarm.emergency)
+          normalizedAlarm.normalType = 'e-' + normalizedAlarm.emergency
+        else if(normalizedAlarm.failure)
+          normalizedAlarm.normalType = 'f-' + normalizedAlarm.failure
+        else
+          normalizedAlarm.normalType = 'unknown'          
 
         _this.alarms.push(normalizedAlarm);
       });
@@ -254,8 +262,8 @@ export default {
           console.log(error);
         });
     },
-    scrollToAlarm() {
-      //TODO Tower, change & Scroll
+    scrollToAlarm(alarm) {
+      this.$refs.grids.scrollToAlarm(alarm);
     }
   },
   mounted() {

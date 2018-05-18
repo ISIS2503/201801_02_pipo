@@ -5,15 +5,26 @@
       <div class="lateral">
         <div class="logo"></div>
           <div class="md-layout-item md-size-100">
-              <tower-Grid class="towers select"></tower-Grid>
+              <tower-Grid :ur="ur" 
+              v-on:select-tower="selectTower(...arguments)" 
+              class="towers select"></tower-Grid>
           </div>
           <div class="md-layout-item md-size-100">
-              <floor-grid class="floors select"></floor-grid>
+              <floor-grid :ur="ur"
+               :tower-index="towerIndex"
+               class="floors select"></floor-grid>
           </div>
       </div>
     </div>
     <div class="md-layout-item">
-      <map-grid v-on:select-detail="passSelectDetail(...arguments)" :ur="ur" :alarms="alarms" />
+      <map-grid
+        v-on:select-detail="passSelectDetail(...arguments)" 
+        v-on:select-tower="towerSelected(...arguments)" 
+        :ur="ur"
+        :alarms="alarms" 
+        :tower-index="towerIndex"
+        ref="mapgrid"
+      />
     </div>
   </div>
 </div>
@@ -32,10 +43,25 @@ export default {
     MapGrid
   },
   props: ["ur", "alarms"],
-  methods:{
-    passSelectDetail(localID, owner, alarm){
-      console.log(localID, ' /// ', owner, ' /// ', alarm)
-      this.$emit('select-detail', localID, owner, alarm)
+  data() {
+    return {
+      towerIndex: 0
+    };
+  },
+  methods: {
+    passSelectDetail(localID, owner, alarm) {
+      console.log(localID, " /// ", owner, " /// ", alarm);
+      this.$emit("select-detail", localID, owner, alarm);
+    },
+    scrollToAlarm(alarm) {
+      this.towerIndex = parseInt(alarm.localID.split("-")[0]);
+      this.$refs.mapgrid.scrollToAlarm(alarm);
+    },
+    selectTower(number){
+       this.towerIndex = parseInt(number);
+    },
+    towerSelected(number){
+      this.towerIndex=parseInt(number);
     }
   }
 };

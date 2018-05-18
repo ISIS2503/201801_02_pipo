@@ -11,8 +11,8 @@
     <type-filters v-on:type-select="selectType"/>
   </div>
 
-  <div id="detail" v-if="defaultDetail">
-    <detail :detail="defaultDetail"/>
+  <div id="detail" v-if="defaultDetail && !closed">
+    <detail @close="close" :detail="defaultDetail"/>
   </div>
 </div>
 </template>
@@ -43,8 +43,10 @@ export default {
         revised: false,
         notRevised: false,
         emergencies: [],
-        failures: [],
-
+        failures: []
+      },
+      closed: false,
+      
       /* tempora defualt...-------------- */
 
         defaultDetail: {
@@ -71,8 +73,6 @@ export default {
         }
 
       /*-------- temodral default --------*/ 
-
-      }
     };
   },
   methods: {
@@ -102,7 +102,11 @@ export default {
     },
     scrollToAlarm(alarm) {
       //Pass event
+      this.closed = false;
       this.$emit("scroll-to-alarm", alarm);
+    },
+    close(){
+      this.closed = true;
     }
   }
 };
@@ -121,5 +125,11 @@ export default {
   position: absolute;
   bottom: 0;
   width: 100%;
+}
+
+#detail{
+  position: fixed;
+  right:calc(25% + 20px);
+  bottom:0;
 }
 </style>

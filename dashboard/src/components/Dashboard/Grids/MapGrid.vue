@@ -5,7 +5,7 @@
       <div @click="previousTower" class="icon-container">
         <md-icon class="md-size-2x next cursor cursor-left">arrow_back_ios</md-icon>
       </div>
-        <h1 class="next tower-name">Torre {{ur.torres[towerIndex].numero}}</h1>
+        <h1 class="next tower-name">TORRE {{ur.torres[towerIndex].numero}}</h1>
       <div @click="nextTower" class="icon-container">
         <md-icon class="md-size-2x next cursor">arrow_forward_ios</md-icon>
       </div>
@@ -26,8 +26,9 @@
                           v-for="(apartamento, index) in piso.apartamentos" 
                           :key="index"
                           v-if="ur.torres[towerIndex].pisos"
-                          v-on:click="selectProperty('' + ur.torres[towerIndex].numero + '-' + piso.numero + '-' + apartamento.numero, apartamento.owner)" 
-                          class="apto md-layout-item"
+                          v-on:click="selectProperty('' + ur.torres[towerIndex].numero + '-' + piso.numero + '-' + apartamento.numero, apartamento.owner)"
+                          v-scroll-to="'#' + ur.torres[towerIndex].numero + '-' + piso.numero + '-' + apartamento.numero"
+                          :class="assignIcon(apartamento)"
                         >
                             <div class="apartment-number" >
                                 {{apartamento.numero}}
@@ -56,7 +57,7 @@ import "../../../styles/tower.css";
 import "../../../styles/apartment-icon.css";
 export default {
   name: "MapGrid",
-  props: ["ur", "alarms"],
+  props: ["ur", "alarms", "tower-index"],
   data: function() {
     return {
       unidad: {
@@ -182,7 +183,6 @@ export default {
           }
         ]
       },
-      towerIndex: 0,
       boolean: true
     };
   },
@@ -198,18 +198,32 @@ export default {
       this.$emit("select-detail", localID, auth0_owner, selectedAlarm);
     },
     previousTower() {
-      this.towerIndex = (this.towerIndex-1+this.ur.torres.length)%this.ur.torres.length;
+      this.towerIndex =
+        (this.towerIndex - 1 + this.ur.torres.length) % this.ur.torres.length;
+         this.$emit("select-tower", towerIndex);
     },
     nextTower() {
-      this.towerIndex = (this.towerIndex+1)%this.ur.torres.length;
-    }
-  },
-  computed: {
-    urrr() {
-      return this.ur;
+      this.towerIndex = (this.towerIndex + 1) % this.ur.torres.length;
+       this.$emit("select-tower", towerIndex);
     },
-    towri() {
-      return this.towerIndex;
+    scrollToAlarm(alarm) {
+      //Colorar el grid
+      ur.torres[alarm.localID.split("-")[0]].pisos[
+        alarm.localID.split("-")[1]
+      ].apartamentos[alarm.localID.split("-")[2]].alarma = alarm;
+      this.$scrollTo("#" + alarm.localID, 1000);
+    },
+    assignIcon(apartamento) {
+      let classObject = {};
+      if (apartamento.alarma) {
+        classObject[apartamento.alarma.normalType] = true;
+      }
+      else{
+       classObject["apto md-layout-item"]=true;
+      }
+      console.log(classObject);
+
+      return classObject;
     }
   },
   mounted() {
@@ -236,8 +250,8 @@ export default {
   font-size: 3rem;
 }
 
-.icon-container{
-  display:flex;
+.icon-container {
+  display: flex;
 }
 
 .cursor {
@@ -295,6 +309,42 @@ export default {
   border-radius: 15% 0 0 15%;
 }
 
+/* Puerta abierta */
+.e-1{
+
+  background: url("../../../assets/puertaAbierta.png");
+}
+
+/* Apertura sospechosa */
+.e-2{
+
+  background: url("../../../assets/aperturaSospechosa.png");
+}
+
+/* Apertura no permitida */
+.e-3{
+
+  background: url("../../../assets/aperturaNoPermitida.png");
+}
+
+/* Batería baja */
+.e-4{
+
+  background: url("../../../assets/bateriaCritica.png");
+}
+
+/* Cerradura fuera de linea */
+.f-1{
+  
+  background: url("../../../assets/cerraduraFueraLinea.png");
+}
+
+/* Hub fuer de linea */
+.f-2{
+  
+  background: url("../../../assets/hubFueraLinea.png");
+}
+
 .col-1 {
   display: inline-block;
   height: 118px;
@@ -308,7 +358,8 @@ export default {
   vertical-align: middle;
 }
 
-.apto:hover, .apto:active{
+.apto:hover,
+.apto:active {
   cursor: pointer;
 }
 

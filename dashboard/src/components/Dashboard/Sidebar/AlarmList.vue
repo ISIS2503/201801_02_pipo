@@ -1,6 +1,6 @@
 <template>
   <div class="md-scrollbar">
-    <div v-for="(alarm, index) in alarms" :key="index">
+    <div v-for="(alarm, index) in filteredAlarms" :key="index">
       <alarm @scroll-to-alarm="scrollToAlarm(...arguments)" :alarm="alarm"/>
     </div>
   </div>
@@ -8,7 +8,7 @@
 
 <script>
 
-const defaultAlarm = {sensetime: 1526576385325, id:"Arduino 007", timestamp: new Date().getTime(), emergencia: "3", apartamento: "2-5-3", conjunto: "Toscana" , zona: "Centro"}
+const defaultAlarm = {sensetime: 1526576385325, id:"Arduino 007", timestamp: new Date().getTime(), emergencia: "3", apartamento: "2-5-3", conjunto: "Toscana" , zona: "Centro", normalType: "e-2"}
 
 
 import Alarm from "./Alarm";
@@ -46,15 +46,24 @@ export default {
           }
         });
 
-      return filtered.reverse();
+        console.log(filtered);
+
+        console.log(filtered.reverse());
+
+      return filtered.slice().reverse();
     }
   },
   mounted(){
-    setInterval(()=> this.alarms.push(defaultAlarm), 30000)
+    setInterval(()=> this.alarms.push(defaultAlarm), 4000)
   }
 };
 </script>
 
 <style scoped>
 
+.md-scrollbar{
+  width:calc(100% + 9px);
+  max-height:81%;
+ overflow: scroll;
+}
 </style>
