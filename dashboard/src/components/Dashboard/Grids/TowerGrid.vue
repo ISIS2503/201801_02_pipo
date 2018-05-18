@@ -1,21 +1,24 @@
 <template>
 <div>
-    <md-card>
-        <div class="name-container">
-            <p class="name">TORRE</p>
+  <md-card>
+    <div class="name-container">
+      <p class="name">{{ur.torres.length > 1 ? 'TORRES' : 'TORRE'}}</p>
+    </div>
+    <div class="container">
+      <div class="towerContainer" v-for="(torre, index) in ur.torres" :key="index">
+        <div @click="selectTower(torre.numero)" :class="{ activeTower: towerIndex == parseInt(torre.numero) }">
+          <md-button class="md-raised" :key="index">{{torre.numero}}</md-button>
         </div>
-
-        <div class="contenedor">
-            <md-button v-on="selectTower(torre.numero)" v-for="(torre, index) in ur.torres" class="md-raised" :key="index">{{torre.numero}}</md-button>
-        </div>
-    </md-card>
+      </div>
+    </div>
+  </md-card>
 </div>
 </template>
 
 <script>
 export default {
     name: "TowerGrid",
-   props: ["ur"],
+   props: ["ur", 'tower-index'],
    methods: {
        selectTower(numero){
           this.$emit("select-tower", numero);
@@ -43,15 +46,18 @@ export default {
     border: 3px rgb(77, 77, 77) solid;
 }
 
-.contenedor {
+.container {
     display: inline-block;
 }
 
 .md-button {
     display: block;
-    margin: 0;
-   
+    margin: 0;   
     border-bottom: 3px rgb(77, 77, 77) solid;
+}
+
+.active-tower{
+    background-color: aqua;
 }
 
 .md-button:last-child {

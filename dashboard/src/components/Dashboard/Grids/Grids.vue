@@ -5,9 +5,12 @@
       <div class="lateral">
         <div class="logo"></div>
           <div class="md-layout-item md-size-100">
-              <tower-Grid :ur="ur" 
-              v-on:select-tower="selectTower(...arguments)" 
-              class="towers select"></tower-Grid>
+              <tower-Grid 
+                :ur="ur" 
+                :tower-index="towerIndex"
+                v-on:select-tower="selectTower(...arguments)" 
+                class="towers select"
+              />
           </div>
           <div class="md-layout-item md-size-100">
               <floor-grid :ur="ur"
