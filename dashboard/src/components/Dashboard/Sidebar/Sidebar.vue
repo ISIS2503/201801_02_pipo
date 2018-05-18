@@ -68,7 +68,8 @@ export default {
             emergencia: "3",
             apartamento: "2-5-3",
             conjunto: "Toscana",
-            zona: "Centro"
+            zona: "Centro",
+            revised: false
           }
         }
 

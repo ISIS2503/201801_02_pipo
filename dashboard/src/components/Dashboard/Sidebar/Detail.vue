@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :target="detail.alarm ? ( detail.alarm.revised ? 'revised' : '' ) : 'revised' ">
     <div class="close">
     <div class="close-button" @click="emitClose"><md-button class="md-icon-button"><md-icon>close</md-icon></md-button></div>
     </div>
@@ -8,12 +8,14 @@
     <h1>
       TORRE {{tower}} - APTO {{apartment}}
     </h1>
-    <h2 class="error" v-if="detail.alarm">{{alarmMessage}}</h2>
+    <div v-if="detail.alarm">
+      <h2 class="error" :class="{'revised-message' : detail.alarm.revised}">{{alarmMessage}}</h2>
+    </div>
     </div>
     <div class="info">
       
       <h2 class="owner">Propietario</h2>
-      <div class="revise-button">
+      <div class="revise-button" v-if="detail.alarm ? !detail.alarm.revised : false">
         <md-button class="md-icon-button md-size-2x" @click="alarmRevised">
           <md-icon class="">
             done_outline
@@ -56,7 +58,7 @@ export default {
       this.$emit("close");
     },
     alarmRevised(){
-
+      this.detail.alarm.revised = true
     }
   },
   mounted() {
@@ -95,12 +97,24 @@ export default {
   position: relative;
 }
 
+[target="revised"]{
+  border: 5px rgb(56, 165, 48) solid;
+}
+
 h1 {
   background: rgb(223, 0, 22);
   color: white;
   margin: 0;
   padding-top: 30px;
   padding: 0 10px;
+}
+
+[target="revised"] h1{
+  background:  rgb(56, 165, 48);
+}
+
+.revised-message{
+  background:  rgb(56, 165, 48);
 }
 
 .detailed-info p {
@@ -128,6 +142,7 @@ h2 {
   color: white;
 }
 
+
 .info {
   text-align: left;
   padding: 0 10px;
@@ -154,6 +169,11 @@ h2 {
   position:relative;
   height:40px;
 }
+
+[target="revised"] .close{
+  background:  rgb(56, 165, 48);
+}
+
 .close-button {
   display:block;
   top: 0;
