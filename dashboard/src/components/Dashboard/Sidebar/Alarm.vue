@@ -1,5 +1,5 @@
 <template>
-  <div class="container md-layout" @click="scrollToAlarm">
+  <div class="container md-layout" :target="alarm.revised ? 'revised' : 'not-revised' " @click="scrollToAlarm">
     <div class="md-layout-item md-size-35 left-container">
       <div class="type-icon" :class="assignIcon"></div>
     </div>
@@ -10,17 +10,24 @@
     </div>
     <div class="md-layout-item md-size md-size-20 right-container">
 
+<div v-if="alarm.revised" class="button-delete" @click="alarmDeleted">
+        <md-button class="md-icon-button">
+          <md-icon>
+            delete
+          </md-icon>
+        </md-button>
+      </div>
       <div  class="time-container">
         <p class="time"><md-icon class="time-icon">access_time</md-icon>{{howLongStr}}</p>
       </div>
 
-      <div class="revise-button">
-        <md-button v-if="!alarm.revised" class="md-icon-button" @click="alarmRevised">
-          <md-icon class="md-size-2x">
+      <div v-if="!alarm.revised" class="revise-button" @click="alarmRevised">
+        <md-button class="md-icon-button">
+          <md-icon>
             done_outline
           </md-icon>
         </md-button>
-        <p v-if="!alarm.revised" class="icon-tooltip">Revisar</p>
+        <p class="icon-tooltip">Revisar</p>
       </div>
       
     </div>
@@ -54,7 +61,12 @@ export default {
   },
   methods: {
     alarmRevised() {
-      this.alarm.revised = true; //TODO see if it produces reactivity changes
+      /* this.alarm.revised = true; //TODO see if it produces reactivity changes */
+      this.$emit("alarm-revised", this.alarm);
+    },
+    alarmDeleted() {
+      /* this.alarm.revised = true; //TODO see if it produces reactivity changes */
+      this.$emit("alarm-deleted", this.alarm);
     },
     scrollToAlarm() {
       this.$emit("scroll-to-alarm", this.alarm);
@@ -87,13 +99,13 @@ export default {
       ); // Ex: 3-4-2 => apartment 402
     },
     alarmMessage() {
-      if (this.alarm.type === "emergency")
+      if (this.alarm.emergencia)
         return emergencyTypes[parseInt(this.alarm.emergencia)];
-      else if (this.alarm.type === "failure")
+      else if (this.alarm.failure)
         return emergencyTypes[parseInt(this.alarm.failure)];
       else {
         //TODO may not work depending on structure
-        console.log(this.alarm);
+        console.log("Unknown Alarm: ",this.alarm);
         return "Emergencia desconocida";
       }
     },
@@ -115,14 +127,10 @@ export default {
       }
       return resp;
     },
-    assignIcon(){
-      let classObject = {}
-
+    assignIcon() {
+      let classObject = {};
       classObject[this.alarm.normalType] = true;
-
-      console.log(classObject)
-
-      return classObject
+      return classObject;
     }
   },
   mounted() {
@@ -144,10 +152,20 @@ export default {
   transform: border-width 0.3s ease-in;
 }
 
-.container:hover,.container:active{
-  cursor:pointer;
+[target="revised"] {
+  border: 4px rgb(56, 165, 48) solid;
+}
+
+.container:hover,
+.container:active {
+  cursor: pointer;
   background-color: lightgray;
   border-color: rgb(133, 6, 19);
+}
+
+[target="revised"]:hover,
+[target="revised"]:active {
+  border: 4px rgb(24, 97, 18) solid;
 }
 
 .left-container {
@@ -157,45 +175,61 @@ export default {
 }
 
 /* Puerta abierta */
-.e-1{
-
+.e-1 {
   background: url("../../../assets/puertaAbierta.png");
 }
 
-/* Apertura sospechosa */
-.e-2{
+[target="revised"] .e-1 {
+  background: url("../../../assets/puertaAbiertaV.png");
+}
 
+/* Apertura sospechosa */
+.e-2 {
   background: url("../../../assets/aperturaSospechosa.png");
 }
 
-/* Apertura no permitida */
-.e-3{
+[target="revised"] .e-2 {
+  background: url("../../../assets/aperturaSospechosaV.png");
+}
 
+/* Apertura no permitida */
+.e-3 {
   background: url("../../../assets/aperturaNoPermitida.png");
 }
 
-/* Batería baja */
-.e-4{
+[target="revised"] .e-3 {
+  background: url("../../../assets/aperturaNoPermitidaV.png");
+}
 
+/* Batería baja */
+.e-4 {
   background: url("../../../assets/bateriaCritica.png");
 }
 
+[target="revised"] .e-4 {
+  background: url("../../../assets/bateriaCriticaV.png");
+}
+
 /* Cerradura fuera de linea */
-.f-1{
-  
+.f-1 {
   background: url("../../../assets/cerraduraFueraLinea.png");
 }
 
+[target="revised"] .f-1 {
+  background: url("../../../assets/cerraduraFueraLineaV.png");
+}
+
 /* Hub fuer de linea */
-.f-2{
-  
+.f-2 {
   background: url("../../../assets/hubFueraLinea.png");
 }
 
+[target="revised"] .f-2 {
+  background: url("../../../assets/hubFueraLineaV.png");
+}
 
-
-
-.type-icon {
+[target="revised"] .type-icon,
+[target="not-revised"] .type-icon {
   flex: 1;
   height: 100%;
   width: 100%;
@@ -208,11 +242,11 @@ export default {
   flex-direction: column;
   justify-content: space-around;
   align-items: left;
-  text-align:left;
+  text-align: left;
 }
 
-p{
-  margin:0;
+p {
+  margin: 0;
 }
 
 h2 {
@@ -232,18 +266,22 @@ h3 {
   margin: 0;
 }
 
+[target="revised"] .alarm-message {
+  color: rgb(56, 165, 48);
+}
+
 .right-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  position:relative;
 }
 
 .revise-button {
   box-shadow: 0px 0px 0px 2px #696969;
   transform: box-shadow 0.2s ease-in;
   background: whitesmoke;
-  margin-top:2px;
+  margin-top: 2px;
 }
 
 .revise-button:hover {
@@ -256,12 +294,26 @@ md-icon {
   padding-right: 8px;
 }
 
-.time-container{
-  margin-right:15px;
+.button-delete {
+  top: 0;
+  right: 0;
+  background: rgb(56, 165, 48);
+  max-width: 50px;
+  margin: 0;
+  position:relative;
+  left:40%;
+}
+
+[target="revised"] md-icon {
+  color: rgb(56, 165, 48);
+}
+
+.time-container {
+  margin-right: 15px;
 }
 
 .time {
-  width:100px;
+  width: 100px;
   color: #696969;
 }
 </style>

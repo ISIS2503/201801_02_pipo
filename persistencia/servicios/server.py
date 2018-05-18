@@ -5,11 +5,18 @@ from pymongo import MongoClient, ReturnDocument
 from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
 from functools import wraps
 from six.moves.urllib.parse import urlencode
+from kafka import KafkaProducer
 import re
 import http.client
 import os
 import json
 import requests
+
+#Constantes para conexión mqtt
+broker_address = "172.24.41.182"
+port = 8083
+user = "Yale"
+password = "piporules"
 
 #Constantes métodos REST
 GET = 'GET'
@@ -43,11 +50,29 @@ DEVELOPMENT_MODE = False
 #DB: Pipo-yale-persistencia
 #COL: unidadesResidenciales / users / groups
 
+elScope = ''
+username = ''
+
 client = MongoClient('localhost', 27017)
 db = client['Pipo-yale-persistencia']
 app = Flask(__name__)
 CORS(app)
 app.secret_key = "super secret key"
+#app.config['MQTT_BROKER_URL'] = '172.24.41.182'
+#app.config['MQTT_BROKER_PORT'] = 8083
+#app.config['MQTT_USERNAME'] = 'Yale'
+#app.config['MQTT_PASSWORD'] = 'piporules'
+#app.config['MQTT_KEEPALIVE'] = 5
+
+# Parameters for SSL enabled
+#app.config['MQTT_TLS_ENABLED'] = True
+#app.config['MQTT_TLS_CA_CERTS'] = 'ca.crt'
+#app.config['MQTT_TLS_CERTFILE'] = 'server.crt'
+#app.config['MQTT_TLS_KEYFILE'] = 'server.key'
+#app.config['MQTT_TLS_VERSION'] = ssl.PROTOCOL_TLSv1_1
+
+producer = KafkaProducer(bootstrap_servers='172.24.42.70:8090')
+
 oauth = OAuth(app)
 auth0 = oauth.register(
   'auth0',
@@ -60,6 +85,9 @@ auth0 = oauth.register(
     'scope': 'openid profile'
   }
 )
+
+
+
 
 def checkRole(user_id, auth_type):
   user = db.users.find_one({'auth0_id' : user_id})
@@ -75,6 +103,9 @@ def checkRole(user_id, auth_type):
 
 def checkScope(user_id, auth_type, scope):
   user = db.users.find_one({'auth0_id' : user_id})
+  global username
+  username = user['username']
+  print("username afuera: "+username)
   print("userScope",user['scope'])
   if not scope:
     return True
@@ -84,27 +115,32 @@ def checkScope(user_id, auth_type, scope):
 
 def checkSession(user_id, auth_type, scope):
   print('uid: ', user_id, 'auth: ', auth_type, 'scope: ', scope)
+  userId = user_id
   return checkRole(user_id, auth_type) and checkScope(user_id, auth_type, scope)
 
 def requires_auth(auth_type):
-  def decorator(func, *args1):
-    @wraps(func)
-    def decorated(*args, **kwargs):
-      scope = ''
-      print('a',args)
-      print('kwa',kwargs)
-      for arg in kwargs:
-        scope += kwargs[arg] + '/'
-      scope = scope[:-1]
-
-      if 'PROFILE_KEY' not in session:
-          return redirect('/login')
-      elif checkSession(session['PROFILE_KEY']['user_id'], auth_type, scope):
-        return func(*args, **kwargs)
-      else:
-        return redirect('/unauthorized')
-    return decorated
-  return decorator
+	def decorator(func, *args1):
+		@wraps(func)
+		def decorated(*args, **kwargs):
+			global elScope
+			scope = ''
+			elScope = ''
+			print('a',args)
+			print('kwa',kwargs)
+			for arg in kwargs:
+				scope += kwargs[arg] + '/'
+				elScope += kwargs[arg] + '.'
+			scope = scope[:-1]
+			elScope = elScope[:-1]
+			print(elScope)
+			if 'PROFILE_KEY' not in session:
+				return redirect('/login')
+			elif checkSession(session['PROFILE_KEY']['user_id'], auth_type, scope):
+				return func(*args, **kwargs)
+			else:
+				return redirect('/unauthorized')
+		return decorated
+	return decorator
    
 
 
@@ -629,6 +665,104 @@ def claves(unidad, localID):
       return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     return dumpJson(nuevo)
 
+
+@app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/gestionClaves", methods=[POST, PUT, DELETE])
+@requires_auth(PROPERTY_OWNER)
+def gestionClaves(unidad, localID):
+  data = {}
+  if request.data:
+    data = loads(request.data)
+  valid = True
+  try:
+    valid = valid and (data['indice'] != None or data['indice'] != "")
+  except KeyError:
+    return "Debe incluir el índice", 400
+  if not valid:
+    return "rellene los campos vacíos", 400
+  indice = data['indice']
+  if request.method == POST or request.method == PUT:
+    if request.data == None or request.data == "":
+      return "Debe enviar información", 400
+    
+    valid = True
+    
+    valid = valid and indice >= 0 and indice < 20
+    
+    if not valid:
+      return "Debe ingresar un índice válido"
+    
+    esBorrado = False
+    operacion = "1"
+    if request.method == PUT:
+      try:
+        valid = valid and (data['esBorrado'] != None or data['esBorrado'] != "")
+      except KeyError:
+        return "Debe incluir la operación", 400
+      
+      op = data['esBorrado']
+      valid = valid and (op==0 or op==1)
+      if not valid:
+        return "Debe incluir una operación válida", 400
+      if op==1:
+        esBorrado = True
+      operacion = str(op+2)
+    combinacion = ""
+    if not esBorrado:
+      try:
+        valid = valid and (data['combinacion'] != None or data['combinacion'] != "")
+      except KeyError:
+        return "Debe incluir la combinación a incluir", 400
+
+      if not valid:
+        return "rellene los campos vacíos", 400
+      
+      combinacion = data['combinacion']
+      valid = valid and len(combinacion) == 4
+      
+      if not valid:
+        return "La combinación debe tener exactamente 4 caracteres", 400
+      combinacion = ";"+combinacion
+    respuesta = []
+    unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    if unidadRes == None:
+      return "No existe ninguna unidad residencial con ese nombre", 404
+    for inmueble in unidadRes['inmuebles']:
+      if inmueble['localID'] == localID:
+        respuesta = inmueble
+        break
+    if respuesta == []:
+      return "No existe ningún inmueble en esa unidad residencial con ese localID", 404
+    
+    msg = ";"+str(indice)+combinacion
+    msg = operacion+msg
+    message = '{"msg":"'+msg+'", "usuario":"'+username+'"}'
+    topic = "Centro."+elScope+".claves"
+    producer.send(topic, message.encode('utf-8'))
+    return message, 200
+    
+
+@app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/gestionClaves/borrarTodo", methods=[DELETE])
+@requires_auth(PROPERTY_OWNER)
+def borrarClaves(unidad, localID):
+  if request.method == DELETE:
+    respuesta = []
+    unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
+    if unidadRes == None:
+      return "No existe ninguna unidad residencial con ese nombre", 404
+    for inmueble in unidadRes['inmuebles']:
+      if inmueble['localID'] == localID:
+        respuesta = inmueble
+        break
+    if respuesta == []:
+      return "No existe ningún inmueble en esa unidad residencial con ese localID", 404
+    
+    msg = "4"
+    message = '{"msg":"'+msg+'", "usuario":"'+username+'"}'
+    topic = "Centro."+elScope+".claves"
+    producer.send(topic, message.encode('utf-8'))
+    return message, 200
+
+
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/emergencias", methods=[GET, POST])
 @requires_auth(PROPERTY_OWNER)
 def emergencias(unidad, localID):
@@ -833,14 +967,16 @@ def fallosP2(unidad, localID):
       return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     return dumpJson(result)
 
-@app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/horariosPermitidos", methods=[GET, POST, DELETE])
+@app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/horariosPermitidos", methods=[GET, POST, PUT])
 @requires_auth(PROPERTY_OWNER)
 def horariosPermitidos(unidad, localID):
+  print("data: ")
+  print(request.data)
   if request.method == GET:
     respuesta = []
     user = db.users.find_one({'auth0_id' : session['PROFILE_KEY']['user_id']})
     return dumpJson(user['horariosPermitidos'])
-  elif request.method == POST or request.method == PUT:
+  elif request.method == POST:
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
     
@@ -863,11 +999,19 @@ def horariosPermitidos(unidad, localID):
     valid = valid and re.search(TIME_REGEX, data['horaFin']) and int(data['horaFin'].split(":")[0]) < 24
     if not valid:
       return "El formato de la hora de fin es incorrecto", 400
-
+    
+    horaInicio = data['horaInicio']
+    horaFin = data['horaFin']
     sanitizedData = {}
-    sanitizedData['horaInicio'] = data['horaInicio']
-    sanitizedData['horaFin'] = data['horaFin']
-
+    sanitizedData['horaInicio'] = horaInicio
+    sanitizedData['horaFin'] = horaFin
+    
+    user = db.users.find_one({'auth0_id' : session['PROFILE_KEY']['user_id']})
+    if user == None:
+      return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
+    
+    if sanitizedData in user['horariosPermitidos']:
+      return "El horario a agregar ya existe", 400
     #Esta linea busca los documentos que tengan la propiedad nombre == unidad
     #Y luego inserta a el valor del campo inmuebles[x].hub.cerradura.horariosPermitidos el nuevo horario
     #inmuebles[x] corresponde al elemento tal que inmuebles[x].localID == identificador local del inmueble
@@ -876,14 +1020,150 @@ def horariosPermitidos(unidad, localID):
     return_document=ReturnDocument.AFTER)
     if result == None:
       return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
+    
+    message = '{"horaInicio":"'+horaInicio+'","horaFin":"'+horaFin+'","usuario":"'+username+'","operacion":1}'
+    topic = "Centro."+elScope+".horarios"
+    producer.send(topic, message.encode('utf-8'))
     return dumpJson(result)
+  elif request.method == PUT:
+    if request.data == None or request.data == "":
+      return "Debe enviar información", 400
+    
+    data = loads(request.data)
+    valid = True
+    try:
+      valid = valid and (data['esBorrado'] != None or data['esBorrado'] != "")
+    except KeyError:
+      return "Debe incluir la hora de inicio y la hora de fin", 400
+    if data['esBorrado'] == 0:
+      try:
+        valid = valid and (data['horaInicio'] != None or data['horaInicio'] != "")
+        valid = valid and (data['horaFin'] != None or data['horaFin'] != "")
+      except KeyError:
+        return "Debe incluir la hora de inicio y la hora de fin", 400
+
+      if not valid:
+        return "Rellene los campos vacíos", 400
+
+      #Verificar expresión regular y que las horas sean menores que 24
+      valid = valid and re.search(TIME_REGEX, data['horaInicio']) and int(data['horaInicio'].split(":")[0]) < 24
+      if not valid:
+        return "El formato de la hora de inicio es incorrecto", 400
+
+      valid = valid and re.search(TIME_REGEX, data['horaFin']) and int(data['horaFin'].split(":")[0]) < 24
+      if not valid:
+        return "El formato de la hora de fin es incorrecto", 400
+      
+      horaInicio = data['horaInicio']
+      horaFin = data['horaFin']
+      
+      try:
+        valid = valid and (data['nuevoInicio'] != None or data['nuevoInicio'] != "")
+        valid = valid and (data['nuevoFin'] != None or data['nuevoFin'] != "")
+      except KeyError:
+        return "Debe incluir la nueva hora de inicio y la nueva hora de fin", 400
+
+      if not valid:
+        return "Rellene los campos vacíos", 400
+
+      #Verificar expresión regular y que las horas sean menores que 24
+      valid = valid and re.search(TIME_REGEX, data['nuevoInicio']) and int(data['nuevoInicio'].split(":")[0]) < 24
+      if not valid:
+        return "El formato de la nueva hora de inicio es incorrecto", 400
+
+      valid = valid and re.search(TIME_REGEX, data['nuevoFin']) and int(data['nuevoFin'].split(":")[0]) < 24
+      if not valid:
+        return "El formato de la nueva hora de fin es incorrecto", 400
+      
+      nuevoInicio = data['nuevoInicio']
+      nuevoFin = data['nuevoFin']
+
+      user = db.users.find_one({'auth0_id' : session['PROFILE_KEY']['user_id']})
+      if user == None:
+        return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
+      hPermitidos = user['horariosPermitidos']
+      if hPermitidos == None or len(hPermitidos)==0:
+        return "El horario a cambiar no existe", 400
+      
+      band = False
+      for hper in hPermitidos:
+        if hper['horaInicio'] == horaInicio and hper['horaFin'] == horaFin:
+          hper['horaInicio'] = nuevoInicio
+          hper['horaFin'] = nuevoFin
+          band = True
+          break
+      
+      if not band:
+        return "El horario a cambiar no existe", 400
+      
+      result = db.users.find_one_and_update({'auth0_id' : session['PROFILE_KEY']['user_id']},
+      {'$set': {'horariosPermitidos': hPermitidos}},
+      return_document=ReturnDocument.AFTER)
+      if result == None:
+        return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
+      message = '{"usuario":"'+username+'","operacion":2, "horaInicio":"'+horaInicio+'", "horaFin":"'+horaFin+'", "nuevoInicio":"'+nuevoInicio+'", "nuevoFin":"'+nuevoFin+'"}'
+      topic = "Centro."+elScope+".horarios"
+      print(message)
+      producer.send(topic, message.encode('utf-8'))
+      return dumpJson(result)
+    #hperm = hPermitidos[0]
+    #horaInicioAnterior = hperm['horaInicio']
+    #horaFinAnterior = hperm['horaFin']
+    #message = ', "horaInicio":"'+horaInicioAnterior+'","horaFin":"'+horaFinAnterior+'"'
+    elif data['esBorrado'] == 1:
+      if request.data == None or request.data == "":
+        return "Debe enviar información", 400
+      data = loads(request.data)
+      valid = True
+      try:
+        valid = valid and (data['horaInicio'] != None or data['horaInicio'] != "")
+        valid = valid and (data['horaFin'] != None or data['horaFin'] != "")
+      except KeyError:
+        return "Debe incluir la hora de inicio y la hora de fin", 400
+
+      if not valid:
+        return "Rellene los campos vacíos", 400
+
+      #Verificar expresión regular y que las horas sean menores que 24
+      valid = valid and re.search(TIME_REGEX, data['horaInicio']) and int(data['horaInicio'].split(":")[0]) < 24
+      if not valid:
+        return "El formato de la hora de inicio es incorrecto", 400
+
+      valid = valid and re.search(TIME_REGEX, data['horaFin']) and int(data['horaFin'].split(":")[0]) < 24
+      if not valid:
+        return "El formato de la hora de fin es incorrecto", 400
+      
+      horaInicio = data['horaInicio']
+      horaFin = data['horaFin']
+      
+      user = db.users.find_one({'auth0_id' : session['PROFILE_KEY']['user_id']})
+      if user == None:
+        return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
+      hPermitidos = user['horariosPermitidos']
+      if hPermitidos == None or len(hPermitidos)==0:
+        return "El horario a eliminar no existe", 400
+      
+      sanitizedData = {}
+      sanitizedData['horaInicio'] = horaInicio
+      sanitizedData['horaFin'] = horaFin
+      if sanitizedData in hPermitidos:
+        hPermitidos.remove(sanitizedData)
+      else:
+        return "El horario a eliminar no existe", 400
+      result = db.users.find_one_and_update({'auth0_id' : session['PROFILE_KEY']['user_id']},
+      {'$set': {'horariosPermitidos': hPermitidos}},
+      return_document=ReturnDocument.AFTER)
+      if result == None:
+        return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
+      message = '{"usuario":"'+username+'","operacion":3, "horaInicio":"'+horaInicio+'", "horaFin":"'+horaFin+'"}'
+      topic = "Centro."+elScope+".horarios"
+      print(message)
+      producer.send(topic, message.encode('utf-8'))
+      return dumpJson(result)
+    else:
+      return "La operación dada no es válida", 400
   elif request.method == DELETE:
-    result = db.users.find_one_and_update({'auth0_id' : session['PROFILE_KEY']['user_id']},
-    {'$set': {'horariosPermitidos': []}},
-    return_document=ReturnDocument.AFTER)
-    if result == None:
-      return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
-    return dumpJson(result)
+    return "holi", 200
 
 
 @app.route("/unidadesResidenciales/<unidad>/emergencias", methods=[GET])

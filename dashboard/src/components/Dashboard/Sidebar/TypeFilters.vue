@@ -171,6 +171,7 @@ export default {
 .container {
   width: 100%;
   padding: 0;
+  background: rgb(77, 77, 77);
 }
 
 .row {
@@ -179,6 +180,7 @@ export default {
   position: absolute;
   max-width: 460px;
   bottom: 0;
+  border-top:rgb(77, 77, 77) 5px solid;
 }
 
 .container .col {

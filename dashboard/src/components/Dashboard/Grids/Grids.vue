@@ -5,9 +5,12 @@
       <div class="lateral">
         <div class="logo"></div>
           <div class="md-layout-item md-size-100">
-              <tower-Grid :ur="ur" 
-              v-on:select-tower="selectTower(...arguments)" 
-              class="towers select"></tower-Grid>
+              <tower-Grid 
+                :ur="ur" 
+                :tower-index="towerIndex"
+                v-on:select-tower="selectTower(...arguments)" 
+                class="towers select"
+              />
           </div>
           <div class="md-layout-item md-size-100">
               <floor-grid :ur="ur"
@@ -50,11 +53,10 @@ export default {
   },
   methods: {
     passSelectDetail(localID, owner, alarm) {
-      console.log(localID, " /// ", owner, " /// ", alarm);
       this.$emit("select-detail", localID, owner, alarm);
     },
     scrollToAlarm(alarm) {
-      this.towerIndex = parseInt(alarm.localID.split("-")[0]);
+      this.towerIndex = parseInt(alarm.apartamento.split("-")[0]);
       this.$refs.mapgrid.scrollToAlarm(alarm);
     },
     selectTower(number){

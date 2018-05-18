@@ -17,6 +17,7 @@
               :ur-name="UR.name"
               class="sidebar"
               @scroll-to-alarm="scrollToAlarm(...arguments)"
+              ref="sidebar"
             />
         </div>
     </div>
@@ -82,11 +83,16 @@ export default {
           normalizedAlarm.type = "failure";
         } else {
           console.log("Alarma inválida!");
+          if(alarm.fallo)
+            console.log("Este man tiene fallo!")
           normalizedAlarm.type = "unknown";
         }
         normalizedAlarm.sensetime = alarm.sensetime;
         normalizedAlarm.timestamp = new Date().getTime();
         normalizedAlarm.revised = false;
+        
+        let dir= normalizedAlarm.apartamento.split('-');
+        this.UR.torres[dir[0]].pisos[dir[1]].apartamentos[dir[2]].alarmas.push(alarm)
         
         if(normalizedAlarm.emergency)
           normalizedAlarm.normalType = 'e-' + normalizedAlarm.emergency
@@ -132,7 +138,8 @@ export default {
                 // addPropertyTo(property, parsed_UR); Propiedad utilizable si lo de ordenar no funciona
                 let currentProperty = {
                   numero: parseInt(params[2]),
-                  owner: property.owner_user_id
+                  owner: property.owner_user_id,
+                  alarmas:[]
                 };
                 /* console.log(
                   "t" + currentTowerNumber + " " + parseInt(params[0]) - 1
@@ -242,8 +249,6 @@ export default {
       return UR_temp;
     },
     selectDetail(localID, auth0_owner, selectedAlarm) {
-      console.log("localID: ", localID);
-      console.log("SelectDetail: ", auth0_owner);
       const _this = this;
       axios
         .get(
@@ -257,9 +262,39 @@ export default {
           _this.detailSelected.user = response.data;
           _this.detailSelected.localID = localID;
           _this.detailSelected.alarm = selectedAlarm; //May be undefined
+
+          this.$refs.sidebar.openDetail()
         })
         .catch(error => {
           console.log(error);
+
+          /* tempora defualt...-------------- */
+        _this.detailSelected = {
+          user: {
+            auth0_id: "auth0|5adcd6a941aacd1daa8999d1",
+            username: "s.guzmanm",
+            email: "checho@uniflayes.edu.ko",
+            group: "PROPERTY_OWNER",
+            scope: "Tosacana/2-4-5",
+            horariosPermitidos : [],
+            edad: "24",
+            nombre: "Sergio Guzmán",
+            telefono: "312641236"
+          },
+          localID: "2-4-5",
+          alarm: {
+            sensetime: 1526576385325,
+            id: "Arduino 007",
+            emergencia: "3",
+            apartamento: "2-5-3",
+            conjunto: "Toscana",
+            zona: "Centro",
+            revised: false
+          }
+        };
+        this.$refs.sidebar.openDetail()
+      /*-------- temodral default --------*/ 
+
         });
     },
     scrollToAlarm(alarm) {

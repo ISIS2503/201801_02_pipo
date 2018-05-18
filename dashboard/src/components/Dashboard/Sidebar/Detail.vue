@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :target="detail.alarm ? ( detail.alarm.revised ? 'revised' : '' ) : 'revised' ">
     <div class="close">
     <div class="close-button" @click="emitClose"><md-button class="md-icon-button"><md-icon>close</md-icon></md-button></div>
     </div>
@@ -8,14 +8,16 @@
     <h1>
       TORRE {{tower}} - APTO {{apartment}}
     </h1>
-    <h2 class="error" v-if="detail.alarm">{{alarmMessage}}</h2>
+    <div v-if="detail.alarm">
+      <h2 class="error" v-if="!detail.alarm.revised" :class="{'revised-message' : detail.alarm.revised}">{{alarmMessage}}</h2>
+    </div>
     </div>
     <div class="info">
       
       <h2 class="owner">Propietario</h2>
-      <div class="revise-button">
-        <md-button class="md-icon-button" @click="alarmRevised">
-          <md-icon class="md-size-2x">
+      <div class="revise-button" v-if="detail.alarm ? !detail.alarm.revised : false">
+        <md-button class="md-icon-button md-size-2x" @click="alarmRevised">
+          <md-icon class="">
             done_outline
           </md-icon>
         </md-button>
@@ -56,7 +58,7 @@ export default {
       this.$emit("close");
     },
     alarmRevised(){
-
+      this.detail.alarm.revised = true
     }
   },
   mounted() {
@@ -74,12 +76,11 @@ export default {
       ); // Ex: 3-4-2 => apartment 402
     },
     alarmMessage() {
-      if (this.detail.alarm.type === "emergency")
-        return emergencyTypes[parseInt(this.alarm.emergencia)];
-      else if (this.detail.alarm.type === "failure")
-        return emergencyTypes[parseInt(this.alarm.failure)];
+      if (this.detail.alarm.emergencia) //TODO may not work depending on structure
+        return emergencyTypes[parseInt(this.detail.alarm.emergencia)];
+      else if (this.detail.alarm.failure)
+        return emergencyTypes[parseInt(this.detail.alarm.failure)];
       else {
-        //TODO may not work depending on structure
         console.log(this.alarm);
         return "Emergencia desconocida";
       }
@@ -91,8 +92,13 @@ export default {
 <style scoped>
 .container {
   border: 5px rgb(223, 0, 22) solid;
+  background: whitesmoke;
   padding: 0;
   position: relative;
+}
+
+[target="revised"]{
+  border: 5px rgb(56, 165, 48) solid;
 }
 
 h1 {
@@ -101,6 +107,14 @@ h1 {
   margin: 0;
   padding-top: 30px;
   padding: 0 10px;
+}
+
+[target="revised"] h1{
+  background:  rgb(56, 165, 48);
+}
+
+.revised-message{
+  background:  rgb(56, 165, 48);
 }
 
 .detailed-info p {
@@ -128,6 +142,7 @@ h2 {
   color: white;
 }
 
+
 .info {
   text-align: left;
   padding: 0 10px;
@@ -135,7 +150,7 @@ h2 {
 
 
 .revise-button {
-  display: inline-block;
+  /*display: inline-block; ver advertencia de vscode*/
   box-shadow: 0px 0px 0px 2px #696969;
   transform: box-shadow 0.2s ease-in;
   background: whitesmoke;
@@ -154,6 +169,11 @@ h2 {
   position:relative;
   height:40px;
 }
+
+[target="revised"] .close{
+  background:  rgb(56, 165, 48);
+}
+
 .close-button {
   display:block;
   top: 0;
@@ -161,9 +181,12 @@ h2 {
   right:0;
 }
 
+.icon-tooltip{
+  text-align: center;
+  margin: 0;
+}
 
 .close .md-icon{  
   color:white;
-  
 }
 </style>

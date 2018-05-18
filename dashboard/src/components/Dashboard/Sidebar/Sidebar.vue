@@ -11,8 +11,8 @@
     <type-filters v-on:type-select="selectType"/>
   </div>
 
-  <div id="detail" v-if="defaultDetail && !closed">
-    <detail @close="close" :detail="defaultDetail"/>
+  <div id="detail" v-if="detail && !closed">
+    <detail @close="close" :detail="detail"/>
   </div>
 </div>
 </template>
@@ -45,50 +45,22 @@ export default {
         emergencies: [],
         failures: []
       },
-      closed: false,
-      
-      /* tempora defualt...-------------- */
-
-        defaultDetail: {
-          user: {
-            auth0_id: "auth0|5adcd6a941aacd1daa8999d1",
-            username: "s.guzmanm",
-            email: "checho@uniflayes.edu.ko",
-            group: "PROPERTY_OWNER",
-            scope: "Tosacana/2-4-5",
-            horariosPermitidos : [],
-            edad: "24",
-            nombre: "Sergio Guzmán",
-            telefono: "312641236"
-          },
-          localID: "2-4-5",
-          alarm: {
-            sensetime: 1526576385325,
-            id: "Arduino 007",
-            emergencia: "3",
-            apartamento: "2-5-3",
-            conjunto: "Toscana",
-            zona: "Centro"
-          }
-        }
-
-      /*-------- temodral default --------*/ 
+      closed: false
     };
   },
   methods: {
     selectType(selection) {
-      console.log("selectType: ", selection);
       const index = parseInt(selection.split("-")[1]);
       if (selection[0] === "e") {
         if (this.filters.emergencies.includes(index)) {
-          deleteIndex = this.filters.emergencies.indexOf(index);
+          const deleteIndex = this.filters.emergencies.indexOf(index);
           this.filters.emergencies.splice(deleteIndex, 1);
         } else {
           this.filters.emergencies.push(index);
         }
       } else if (selection[0] === "f") {
         if (this.filters.failures.includes(index)) {
-          deleteIndex = this.filters.failures.indexOf(index);
+          const deleteIndex = this.filters.failures.indexOf(index);
           this.filters.failures.splice(deleteIndex, 1);
         } else {
           this.filters.failures.push(index);
@@ -96,9 +68,7 @@ export default {
       }
     },
     selectRevision(selection) {
-      console.log("selectRevision: ", selection);
       this.filters[selection] = !this.filters[selection];
-      console.log(this.filters);
     },
     scrollToAlarm(alarm) {
       //Pass event
@@ -107,6 +77,10 @@ export default {
     },
     close(){
       this.closed = true;
+    },
+    openDetail(){
+      console.log('llega', this.detail)
+      this.closed = false;
     }
   }
 };
