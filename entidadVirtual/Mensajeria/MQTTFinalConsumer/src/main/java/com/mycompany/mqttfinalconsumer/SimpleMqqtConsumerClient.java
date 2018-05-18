@@ -1,5 +1,11 @@
 package com.mycompany.mqttfinalconsumer;
 
+import com.corundumstudio.socketio.AckRequest;
+import com.corundumstudio.socketio.Configuration;
+import com.corundumstudio.socketio.SocketIOClient;
+import com.corundumstudio.socketio.SocketIONamespace;
+import com.corundumstudio.socketio.SocketIOServer;
+import com.corundumstudio.socketio.listener.DataListener;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -25,6 +31,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -38,10 +47,10 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
  */
 public class SimpleMqqtConsumerClient implements MqttCallback {
 
-    private static String url="http://172.24.42.57:9000/mensaje";
-    static int contador=0;
-    static long[] sumatoria=new long[100000];
-    
+    private static String url = "http://172.24.42.57:9000/mensaje";
+    static int contador = 0;
+    static long[] sumatoria = new long[100000];
+
     static final String ROOT = "C:/Users/s.guzmanm/Documents/201810_02_pipo/entidadVirtual/ssl";
     static final String CRT_FILE_PATH = "/mosquittoChecho";
     //static final String CTRFilesPath = "/mosquittoCarlos";
@@ -50,75 +59,80 @@ public class SimpleMqqtConsumerClient implements MqttCallback {
     static final String CLIENT_KEY_FILE_PATH = "/server.key";
     static final String MQTT_USER_NAME = "P1Centro";
     static final String MQTT_PASSWORD = "p1";
-    
+    static WebSocketManager webSocketManager;
+
     public void connectionLost(Throwable throwable) {
         System.out.println("Connection to MQTT broker lost!");
     }
 
     public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
-        new RestPublisher(mqttMessage,url,contador).start();
+        //new RestPublisher(mqttMessage,url,contador).start();                
+        webSocketManager.publish(mqttMessage);
+        //server.getBroadcastOperations().sendEvent("emergency", mqttMessage.toString());
         ++contador;
     }
 
     public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
         // not used in this example
     }
-  
-    public static void main (String[] args)
-    {
-        try
-        {
+
+    public static void main(String[] args) {
+        try {           
+
+            webSocketManager = new WebSocketManager();
             System.out.println("Message not received:\n\t");
-            MqttClient client=new MqttClient("ssl://172.24.41.182:8083", MqttClient.generateClientId());
-            client.setCallback(new SimpleMqqtConsumerClient() );
+            MqttClient client = new MqttClient("ssl://172.24.41.182:8083", MqttClient.generateClientId());
+            client.setCallback(new SimpleMqqtConsumerClient());
             MqttConnectOptions connOpt = new MqttConnectOptions();
             connOpt.setKeepAliveInterval(30);
             connOpt.setMqttVersion(MqttConnectOptions.MQTT_VERSION_3_1);
             connOpt.setUserName(MQTT_USER_NAME);
             connOpt.setPassword(MQTT_PASSWORD.toCharArray());
             
+          
+
             //socket factory
-            SSLSocketFactory socketFactory = getSocketFactory(ROOT+CRT_FILE_PATH+CA_FILE_PATH, ROOT+CRT_FILE_PATH+CLIENT_CRT_FILE_PATH, ROOT+CRT_FILE_PATH+CLIENT_KEY_FILE_PATH, "");
+            SSLSocketFactory socketFactory = getSocketFactory(ROOT + CRT_FILE_PATH + CA_FILE_PATH, ROOT + CRT_FILE_PATH + CLIENT_CRT_FILE_PATH, ROOT + CRT_FILE_PATH + CLIENT_KEY_FILE_PATH, "");
             connOpt.setSocketFactory(socketFactory);
-            
+
+               
             client.connect(connOpt);
             client.subscribe("Centro/Toscana/#");
-            new Contador().start();
-        }
-        catch(Exception e)
-        {
+            //new Contador().start();
+            
+            
+        } catch (Exception e) {
             System.out.println(contador);
             e.printStackTrace();
         }
-    
+
     }
-    
-    static SSLSocketFactory getSocketFactory (final String caCrtFile, final String crtFile, final String keyFile, 
-	                                          final String password) throws Exception
-    {
+
+    static SSLSocketFactory getSocketFactory(final String caCrtFile, final String crtFile, final String keyFile,
+            final String password) throws Exception {
         Security.addProvider(new BouncyCastleProvider());
 
         // load CA certificate
         PEMReader reader = new PEMReader(new InputStreamReader(new ByteArrayInputStream(Files.readAllBytes(Paths.get(caCrtFile)))));
-        X509Certificate caCert = (X509Certificate)reader.readObject();
+        X509Certificate caCert = (X509Certificate) reader.readObject();
         reader.close();
 
         // load client certificate
         reader = new PEMReader(new InputStreamReader(new ByteArrayInputStream(Files.readAllBytes(Paths.get(crtFile)))));
-        X509Certificate cert = (X509Certificate)reader.readObject();
+        X509Certificate cert = (X509Certificate) reader.readObject();
         reader.close();
 
         // load client private key
         reader = new PEMReader(
-            new InputStreamReader(new ByteArrayInputStream(Files.readAllBytes(Paths.get(keyFile)))),
-            new PasswordFinder() {
-                @Override
-                public char[] getPassword() {
-                        return password.toCharArray();
-                }
+                new InputStreamReader(new ByteArrayInputStream(Files.readAllBytes(Paths.get(keyFile)))),
+                new PasswordFinder() {
+            @Override
+            public char[] getPassword() {
+                return password.toCharArray();
             }
+        }
         );
-        KeyPair key = (KeyPair)reader.readObject();
+        KeyPair key = (KeyPair) reader.readObject();
         reader.close();
 
         // CA certificate is used to authenticate server
