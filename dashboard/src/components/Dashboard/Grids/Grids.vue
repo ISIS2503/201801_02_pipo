@@ -56,11 +56,11 @@ export default {
       this.$emit("select-detail", localID, owner, alarm);
     },
     scrollToAlarm(alarm) {
-      this.towerIndex = parseInt(alarm.apartamento.split("-")[0]);
+      this.towerIndex = parseInt(alarm.apartamento.split("-")[0])-1;
       this.$refs.mapgrid.scrollToAlarm(alarm);
     },
     selectTower(number){
-       this.towerIndex = parseInt(number);
+       this.towerIndex = parseInt(number)-1;
     },
     towerSelected(number){
       this.towerIndex=parseInt(number);

@@ -101,7 +101,7 @@ export default {
     alarmMessage() {
       if (this.alarm.emergencia)
         return emergencyTypes[parseInt(this.alarm.emergencia)];
-      else if (this.alarm.failure)
+      else if (this.alarm.fallo)
         return emergencyTypes[parseInt(this.alarm.failure)];
       else {
         //TODO may not work depending on structure

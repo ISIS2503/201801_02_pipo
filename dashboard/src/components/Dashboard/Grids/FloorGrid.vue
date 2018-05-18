@@ -26,6 +26,11 @@ export default {
            }
            return resp;
        }
+   },
+   methods:{
+       selectPiso(number){
+
+       }
    }
 }
 </script>

@@ -58,10 +58,10 @@ import "../../../styles/tower.css";
 import "../../../styles/apartment-icon.css";
 export default {
   name: "MapGrid",
-  props: ["urTODOCORRECTELDEFAULTESTAACTIVO", "alarms", "towerIndex"],
+  props: ["ur", "alarms", "towerIndex"],
   data: function() {
     return {
-      ur: {
+      urPP: {
         nombre: "toscana",
         torres: [
           {
@@ -253,11 +253,11 @@ export default {
     previousTower() {
       this.towerIndex =
         (this.towerIndex - 1 + this.ur.torres.length) % this.ur.torres.length;
-         this.$emit("select-tower", towerIndex);
+         this.$emit("tower-selected", this.towerIndex);
     },
     nextTower() {
       this.towerIndex = (this.towerIndex + 1) % this.ur.torres.length;
-       this.$emit("select-tower", towerIndex);
+       this.$emit("tower-selected", this.towerIndex);
     },
     scrollToAlarm(alarm) {
       //Colorar el grid
