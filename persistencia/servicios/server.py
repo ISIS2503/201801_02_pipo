@@ -1021,7 +1021,7 @@ def horariosPermitidos(unidad, localID):
       return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     
     message = '{"horaInicio":"'+horaInicio+'","horaFin":"'+horaFin+'","usuario":"'+username+'","operacion":1}'
-    topic = "Centro."+elScope+".claves"
+    topic = "Centro."+elScope+".horarios"
     producer.send(topic, message.encode('utf-8'))
     return dumpJson(result)
   elif request.method == PUT:
@@ -1101,7 +1101,7 @@ def horariosPermitidos(unidad, localID):
       if result == None:
         return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
       message = '{"usuario":"'+username+'","operacion":2, "horaInicio":"'+horaInicio+'", "horaFin":"'+horaFin+'", "nuevoInicio":"'+nuevoInicio+'", "nuevoFin":"'+nuevoFin+'"}'
-      topic = "Centro."+elScope+".claves"
+      topic = "Centro."+elScope+".horarios"
       print(message)
       producer.send(topic, message.encode('utf-8'))
       return dumpJson(result)
@@ -1142,12 +1142,12 @@ def horariosPermitidos(unidad, localID):
       if hPermitidos == None or len(hPermitidos)==0:
         return "El horario a eliminar no existe", 400
       
-      lenAnterior = len(hPermitidos)
       sanitizedData = {}
       sanitizedData['horaInicio'] = horaInicio
       sanitizedData['horaFin'] = horaFin
-      hPermitidos.remove(sanitizedData)
-      if len(hPermitidos) == lenAnterior:
+      if sanitizedData in hPermitidos:
+        hPermitidos.remove(sanitizedData)
+      else:
         return "El horario a eliminar no existe", 400
       result = db.users.find_one_and_update({'auth0_id' : session['PROFILE_KEY']['user_id']},
       {'$set': {'horariosPermitidos': hPermitidos}},
@@ -1155,7 +1155,7 @@ def horariosPermitidos(unidad, localID):
       if result == None:
         return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
       message = '{"usuario":"'+username+'","operacion":3, "horaInicio":"'+horaInicio+'", "horaFin":"'+horaFin+'"}'
-      topic = "Centro."+elScope+".claves"
+      topic = "Centro."+elScope+".horarios"
       print(message)
       producer.send(topic, message.encode('utf-8'))
       return dumpJson(result)
