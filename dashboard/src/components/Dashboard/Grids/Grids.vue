@@ -53,11 +53,10 @@ export default {
   },
   methods: {
     passSelectDetail(localID, owner, alarm) {
-      console.log(localID, " /// ", owner, " /// ", alarm);
       this.$emit("select-detail", localID, owner, alarm);
     },
     scrollToAlarm(alarm) {
-      this.towerIndex = parseInt(alarm.localID.split("-")[0]);
+      this.towerIndex = parseInt(alarm.apartamento.split("-")[0]);
       this.$refs.mapgrid.scrollToAlarm(alarm);
     },
     selectTower(number){

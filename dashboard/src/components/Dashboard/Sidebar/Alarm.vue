@@ -99,13 +99,13 @@ export default {
       ); // Ex: 3-4-2 => apartment 402
     },
     alarmMessage() {
-      if (this.alarm.type === "emergency")
+      if (this.alarm.emergencia)
         return emergencyTypes[parseInt(this.alarm.emergencia)];
-      else if (this.alarm.type === "failure")
+      else if (this.alarm.failure)
         return emergencyTypes[parseInt(this.alarm.failure)];
       else {
         //TODO may not work depending on structure
-        console.log(this.alarm);
+        console.log("Unknown Alarm: ",this.alarm);
         return "Emergencia desconocida";
       }
     },
@@ -129,11 +129,7 @@ export default {
     },
     assignIcon() {
       let classObject = {};
-
       classObject[this.alarm.normalType] = true;
-
-      console.log(classObject);
-
       return classObject;
     }
   },

@@ -9,7 +9,7 @@
       TORRE {{tower}} - APTO {{apartment}}
     </h1>
     <div v-if="detail.alarm">
-      <h2 class="error" :class="{'revised-message' : detail.alarm.revised}">{{alarmMessage}}</h2>
+      <h2 class="error" v-if="!detail.alarm.revised" :class="{'revised-message' : detail.alarm.revised}">{{alarmMessage}}</h2>
     </div>
     </div>
     <div class="info">
@@ -76,12 +76,11 @@ export default {
       ); // Ex: 3-4-2 => apartment 402
     },
     alarmMessage() {
-      if (this.detail.alarm.type === "emergency")
-        return emergencyTypes[parseInt(this.alarm.emergencia)];
-      else if (this.detail.alarm.type === "failure")
-        return emergencyTypes[parseInt(this.alarm.failure)];
+      if (this.detail.alarm.emergencia) //TODO may not work depending on structure
+        return emergencyTypes[parseInt(this.detail.alarm.emergencia)];
+      else if (this.detail.alarm.failure)
+        return emergencyTypes[parseInt(this.detail.alarm.failure)];
       else {
-        //TODO may not work depending on structure
         console.log(this.alarm);
         return "Emergencia desconocida";
       }
@@ -93,6 +92,7 @@ export default {
 <style scoped>
 .container {
   border: 5px rgb(223, 0, 22) solid;
+  background: whitesmoke;
   padding: 0;
   position: relative;
 }
