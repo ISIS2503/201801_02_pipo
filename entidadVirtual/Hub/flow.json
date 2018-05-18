@@ -1,1 +1,3810 @@
-[{"id":"a81c23f3.bd483","type":"tab","label":"Telemetry Flow","disabled":false,"info":""},{"id":"34f6a4a0.c4adbc","type":"tab","label":"CorrectEntry Flow","disabled":false,"info":""},{"id":"ddb0bb9c.500fa8","type":"tab","label":"PrivatePopertyOwnerFlow","disabled":false,"info":""},{"id":"9f25517e.dc5bc8","type":"tab","label":"HubHealthcheckFlow","disabled":false,"info":""},{"id":"c716ffd5.d195d","type":"tab","label":"MicrocontrollerHealthcheck Flow","disabled":false,"info":""},{"id":"c8e3a915.9cf118","type":"mqtt-broker","z":"","name":"","broker":"172.24.42.33","port":"8083","tls":"b43d730.8b5731","clientid":"","usetls":false,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"","willQos":"0","willPayload":"","birthTopic":"","birthQos":"0","birthPayload":""},{"id":"9e2cc79c.317298","type":"mqtt-broker","z":"","name":"","broker":"172.24.42.70","port":"8083","tls":"b43d730.8b5731","clientid":"","usetls":false,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"","willQos":"0","willPayload":"","birthTopic":"","birthQos":"0","birthPayload":""},{"id":"d459177c.3d905","type":"mqtt-broker","z":"","name":"Arduino007WriterConnection","broker":"172.24.41.182","port":"8083","tls":"b43d730.8b5731","clientid":"","usetls":true,"compatmode":true,"keepalive":"10","cleansession":true,"willTopic":"Arduino007.recibir","willQos":"0","willPayload":"","birthTopic":"","birthQos":"0","birthPayload":""},{"id":"b43d730.8b5731","type":"tls-config","z":"","name":"CONF ARQUISOFT","cert":"","key":"","ca":"/Users/SIS/s.guzmanm/Documents/ssl/m2mqtt_ca.crt","certname":"","keyname":"","caname":"","verifyservercert":false},{"id":"7864308b.b44098","type":"mqtt-broker","z":"","name":"Centro/Toscana/2-5-3/claves","broker":"172.24.41.182","port":"8083","tls":"b43d730.8b5731","clientid":"","usetls":true,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"Centro/Toscana/2-5-3/claves","willQos":"0","willPayload":"","birthTopic":"Centro/Toscana/2-5-3/claves","birthQos":"0","birthPayload":""},{"id":"95b6be9c.590918","type":"mqtt-broker","z":"","name":"Arduino007.envio","broker":"172.24.41.182","port":"8083","tls":"b43d730.8b5731","clientid":"","usetls":true,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"Arduino007.envio","willQos":"0","willPayload":"","birthTopic":"Arduino007.envio","birthQos":"0","birthPayload":""},{"id":"66020ec3.36326","type":"mqtt-broker","z":"","name":"Centro/Toscana/emergencia/puertaAbierta/2-5-3","broker":"172.24.41.182","port":"8083","tls":"b43d730.8b5731","clientid":"","usetls":true,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"Centro/Toscana/emergencia/puertaAbierta/2-5-3","willQos":"0","willPayload":"","birthTopic":"Centro/Toscana/emergencia/puertaAbierta/2-5-3","birthQos":"0","birthPayload":""},{"id":"6bf30e21.7143f","type":"mqtt-broker","z":"","name":"Centro/Toscana/emergencia/aperturaSospechosa/2-5-3","broker":"172.24.41.182","port":"8083","tls":"b43d730.8b5731","clientid":"","usetls":true,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"Centro/Toscana/emergencia/aperturaSospechosa/2-5-3","willQos":"0","willPayload":"","birthTopic":"Centro/Toscana/emergencia/aperturaSospechosa/2-5-3","birthQos":"0","birthPayload":""},{"id":"dec95f12.953088","type":"mqtt-broker","z":"","name":"Centro/Toscana/emergencia/aperturaNoPermitida/2-5-3","broker":"172.24.41.182","port":"8083","tls":"b43d730.8b5731","clientid":"","usetls":true,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"Centro/Toscana/emergencia/aperturaNoPermitida/2-5-3","willQos":"0","willPayload":"","birthTopic":"Centro/Toscana/emergencia/aperturaNoPermitida/2-5-3","birthQos":"0","birthPayload":""},{"id":"d61fe174.7f0c2","type":"mqtt-broker","z":"","name":"Centro/Toscana/emergencia/bateriaCritica/2-5-3","broker":"172.24.41.182","port":"8083","tls":"b43d730.8b5731","clientid":"","usetls":true,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"Centro/Toscana/emergencia/bateriaCritica/2-5-3","willQos":"0","willPayload":"","birthTopic":"Centro/Toscana/emergencia/bateriaCritica/2-5-3","birthQos":"0","birthPayload":""},{"id":"21be8c88.6d7f64","type":"mqtt-broker","z":"","name":"Arduino007.recibir","broker":"172.24.41.182","port":"8083","tls":"b43d730.8b5731","clientid":"","usetls":true,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"Arduino007.recibir","willQos":"0","willPayload":"","birthTopic":"Arduino007.recibir","birthQos":"0","birthPayload":""},{"id":"6286e69c.ab1e4","type":"mqtt-broker","z":"","name":"Centro/Toscana/apertura/2-503","broker":"172.24.41.182","port":"8083","clientid":"","usetls":false,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"Centro/Toscana/apertura/2-503","willQos":"0","willPayload":"","birthTopic":"Centro/Toscana/apertura/2-503","birthQos":"0","birthPayload":""},{"id":"5d4d54b.bf3e5ac","type":"mqtt-broker","z":"","name":"Centro/Toscana/2-503/alarmas/Arduino007","broker":"172.24.41.182","port":"8083","tls":"b43d730.8b5731","clientid":"","usetls":true,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"Centro/Toscana/2-503/alarmas/Arduino007","willQos":"0","willPayload":"","birthTopic":"Centro/Toscana/2-503/alarmas/Arduino007","birthQos":"0","birthPayload":""},{"id":"39d8c307.06b4a4","type":"tls-config","z":"","name":"CONF MANRIQUE","cert":"","key":"","ca":"/Users/SIS/ja.manrique/ssl/m2mqtt_ca.crt","certname":"","keyname":"","caname":"","verifyservercert":false},{"id":"423d96e9.1578","type":"mqtt-broker","z":"","name":"TEST","broker":"172.24.41.183","port":"8083","tls":"7286d002.605868","clientid":"","usetls":true,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"","willQos":"0","willPayload":"","birthTopic":"","birthQos":"0","birthPayload":""},{"id":"e199261a.efb0f8","type":"mqtt-broker","z":"","broker":"172.23.65.161","port":"8083","clientid":"","usetls":false,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"","willQos":"0","willPayload":"","birthTopic":"","birthQos":"0","birthPayload":""},{"id":"7286d002.605868","type":"tls-config","z":"","name":"CONF CARLOS","cert":"","key":"","ca":"/Users/SIS/cm.sarmiento10/Documents/ssl/m2mqtt_ca.crt","certname":"","keyname":"","caname":"","verifyservercert":false},{"id":"84bc4f24.36d058","type":"mqtt-broker","z":"","broker":"172.23.65.161","port":"8083","clientid":"","usetls":false,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"","willQos":"0","willPayload":"","birthTopic":"","birthQos":"0","birthPayload":""},{"id":"fd5fe0d5.a2ccd","type":"mqtt-broker","z":"","name":"Centro/Toscana/fallo/cerraduraFueraDeLinea/2-5-3","broker":"172.24.41.182","port":"8083","tls":"b43d730.8b5731","clientid":"","usetls":true,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"Centro/Toscana/fallo/cerraduraFueraDeLinea/2-5-3","willQos":"0","willPayload":"","birthTopic":"Centro/Toscana/fallo/cerraduraFueraDeLinea/2-5-3","birthQos":"0","birthPayload":""},{"id":"44a57b55.f2de64","type":"mqtt-broker","z":"","name":"Centro/Toscana/hub/2-5-3","broker":"172.24.41.182","port":"8083","tls":"b43d730.8b5731","clientid":"","usetls":true,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"Centro/Toscana/hub/2-5-3","willQos":"0","willPayload":"","birthTopic":"Centro/Toscana/hub/2-5-3","birthQos":"0","birthPayload":""},{"id":"aae4e60d.4db808","type":"redis-config","z":"","host":"172.24.41.182","port":"6379","dbase":"0","pass":""},{"id":"e70048cb.8d5678","type":"websocket-client","z":"","path":"/ws/motors","wholemsg":"false"},{"id":"46d2c476.4c6f1c","type":"websocket-listener","z":"","path":"/ws/k9","wholemsg":"false"},{"id":"8b2c2fa8.daa85","type":"ui_base","theme":{"name":"theme-dark","lightTheme":{"default":"#0094CE","baseColor":"#0094CE","baseFont":"Helvetica Neue","edited":true,"reset":false},"darkTheme":{"default":"#097479","baseColor":"#000000","baseFont":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif","edited":true,"reset":false},"customTheme":{"name":"Untitled Theme 1","default":"#4B7930","baseColor":"#4B7930","baseFont":"Helvetica Neue"},"themeState":{"base-color":{"default":"#097479","value":"#097479","edited":false},"page-titlebar-backgroundColor":{"value":"#000000","edited":false},"page-backgroundColor":{"value":"#111111","edited":false},"page-sidebar-backgroundColor":{"value":"#000000","edited":false},"group-textColor":{"value":"#262626","edited":false},"group-borderColor":{"value":"#555555","edited":false},"group-backgroundColor":{"value":"#333333","edited":false},"widget-textColor":{"value":"#eeeeee","edited":false},"widget-backgroundColor":{"value":"#000000","edited":false},"widget-borderColor":{"value":"#333333","edited":false},"base-font":{"value":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"}}}},{"id":"26ed9c0e.893d34","type":"ui_tab","z":"","name":"Home","icon":"dashboard"},{"id":"2c2fcb2d.a5dcb4","type":"ui_group","z":"","name":"Speed","tab":"26ed9c0e.893d34","disp":true,"width":"6"},{"id":"225ad44f.dca5bc","type":"ui_group","z":"","name":"Power","tab":"26ed9c0e.893d34","disp":true,"width":"6"},{"id":"e7121098.ac0c5","type":"ui_group","z":"","name":"Environment","tab":"26ed9c0e.893d34","disp":true,"width":"6"},{"id":"22aa58c3.69b628","type":"websocket-listener","z":"","path":"/ws/sensors","wholemsg":"false"},{"id":"697bd1b2.a1c2c","type":"serial-port","z":"","serialport":"/dev/cu.usbmodem1411","serialbaud":"57600","databits":"8","parity":"none","stopbits":"1","newline":"\\n","bin":"false","out":"char","addchar":false},{"id":"32172854.379fb8","type":"websocket-listener","z":"","path":"/ws/ultrasonic","wholemsg":"false"},{"id":"2f4c18f9.b0fbd8","type":"redis-config","z":"","host":"{{127.0.0.1}}","port":"{{6379}}","dbase":"{{0}}","pass":""},{"id":"58b23148.6df7","type":"websocket-client","z":"","path":"/ws/motors","wholemsg":"false"},{"id":"f922bba7.9b6268","type":"websocket-listener","z":"","path":"/ws/k9","wholemsg":"false"},{"id":"885d6ba7.ea99e8","type":"ui_base","theme":{"name":"theme-dark","lightTheme":{"default":"#0094CE","baseColor":"#0094CE","baseFont":"Helvetica Neue","edited":true,"reset":false},"darkTheme":{"default":"#097479","baseColor":"#000000","baseFont":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif","edited":true,"reset":false},"customTheme":{"name":"Untitled Theme 1","default":"#4B7930","baseColor":"#4B7930","baseFont":"Helvetica Neue"},"themeState":{"base-color":{"default":"#097479","value":"#097479","edited":false},"page-titlebar-backgroundColor":{"value":"#000000","edited":false},"page-backgroundColor":{"value":"#111111","edited":false},"page-sidebar-backgroundColor":{"value":"#000000","edited":false},"group-textColor":{"value":"#262626","edited":false},"group-borderColor":{"value":"#555555","edited":false},"group-backgroundColor":{"value":"#333333","edited":false},"widget-textColor":{"value":"#eeeeee","edited":false},"widget-backgroundColor":{"value":"#000000","edited":false},"widget-borderColor":{"value":"#333333","edited":false},"base-font":{"value":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"}}}},{"id":"e39a7de8.17947","type":"ui_tab","z":"","name":"Home","icon":"dashboard"},{"id":"65ed7c17.6fbb84","type":"ui_group","z":"","name":"Speed","tab":"e39a7de8.17947","disp":true,"width":"6"},{"id":"660f4dd7.dc6c84","type":"ui_group","z":"","name":"Power","tab":"e39a7de8.17947","disp":true,"width":"6"},{"id":"dc91c3c3.8d053","type":"ui_group","z":"","name":"Environment","tab":"e39a7de8.17947","disp":true,"width":"6"},{"id":"5d840e0.b4c5af4","type":"websocket-listener","z":"","path":"/ws/sensors","wholemsg":"false"},{"id":"3cfa9fb2.40bc8","type":"serial-port","z":"","serialport":"/dev/cu.usbmodem1411","serialbaud":"57600","databits":"8","parity":"none","stopbits":"1","newline":"\\n","bin":"false","out":"char","addchar":false},{"id":"31b599f9.e3d3b6","type":"websocket-listener","z":"","path":"/ws/ultrasonic","wholemsg":"false"},{"id":"4dee3f25.df503","type":"redis-config","z":"","host":"{{127.0.0.1}}","port":"{{6379}}","dbase":"{{0}}","pass":""},{"id":"943fed38.2468a","type":"mqtt-broker","z":"","name":"Centro/Toscana/2-5-3/horarios","broker":"172.24.41.182","port":"8083","tls":"b43d730.8b5731","clientid":"","usetls":true,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"Centro/Toscana/2-5-3/horarios","willQos":"0","willPayload":"","birthTopic":"Centro/Toscana/2-5-3/horarios","birthQos":"0","birthPayload":""},{"id":"f342dd7f.73d4d","type":"mqtt-broker","z":"","name":"Centro/Toscana/fallo/hubFueraDeLinea/2-5-3","broker":"172.24.41.182","port":"8083","tls":"b43d730.8b5731","clientid":"","usetls":true,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"Centro/Toscana/fallo/hubFueraDeLinea/2-5-3","willQos":"0","willPayload":"","birthTopic":"Centro/Toscana/fallo/hubFueraDeLinea/2-5-3","birthQos":"0","birthPayload":""},{"id":"24d81772.16ff1","type":"inject","z":"a81c23f3.bd483","name":"Send Time","topic":"emergencyTime","payload":"","payloadType":"date","repeat":"1","crontab":"","once":false,"onceDelay":"0","x":150,"y":220,"wires":[["5a28159e.ed1894","6d1eae87.85925"]]},{"id":"cda3dec6.d81e98","type":"function","z":"a81c23f3.bd483","name":"Format Physical Entity","func":"var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-5-3\"\nvar conjunto=\"Toscana\"\nvar zona=\"Centro\"\n//Set the alarm sending to true by default\nif(typeof global.get(\"emailActivated\")=='undefined')\n{\n    global.set(\"emailActivated\",true);\n}\n\ntempArray = msg.payload.split(\"\\t\");\nres.topic = \"emergencyHub\";\nres.payload = {};\n\nres.payload = {\"id\": tempArray[0], \"emergencia\":tempArray[1][0],\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona}\n\nreturn res;","outputs":1,"noerr":0,"x":540,"y":180,"wires":[["dad6b47.267ddc8","e68a0d3a.e27a88"]]},{"id":"6d1eae87.85925","type":"function","z":"a81c23f3.bd483","name":"Format Time","func":"var res = {};\n\n\nres.payload = msg.payload;\nres.topic = msg.topic;\n\nreturn res;","outputs":1,"noerr":0,"x":390,"y":300,"wires":[["f0db5c46.f3f48","e68a0d3a.e27a88"]]},{"id":"4052f2a1.f8529c","type":"debug","z":"a81c23f3.bd483","name":"Before Format 1","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":700,"y":20,"wires":[]},{"id":"dad6b47.267ddc8","type":"debug","z":"a81c23f3.bd483","name":"After Format","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":710,"y":140,"wires":[]},{"id":"5a28159e.ed1894","type":"debug","z":"a81c23f3.bd483","name":"Before Format 2","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":400,"y":220,"wires":[]},{"id":"f0db5c46.f3f48","type":"debug","z":"a81c23f3.bd483","name":"After Format 2","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":640,"y":320,"wires":[]},{"id":"e68a0d3a.e27a88","type":"function","z":"a81c23f3.bd483","name":"Merge 2 Messages","func":"context.data = context.data || {};\n\nswitch (msg.topic) \n{\n    case \"emergencyTime\":\n        context.data.sensetime = msg.payload;\n        msg = null;\n        break;\n    case \"emergencyHub\":\n        context.data.emergency = msg.payload;\n        context.flag=msg.payload.emergencia;\n        msg = null;\n        break;\n    default:\n        msg = null;\n    \tbreak;\n}\n\nif(context.flag!=null && context.data.sensetime != null && context.data.emergency != null) \n{\n\tres = {};\n    res.payload = JSON.stringify(context.data);\n    res.flag=context.flag;\n    res.topic = \"emergencyHub\";\n    context.data = null;\n    res.test=global.get(\"emailActivated\");\n    return res;\n}","outputs":1,"noerr":0,"x":750,"y":240,"wires":[["fd8f5986.edef08","4f8d0b1a.d37044","6318c0ff.7b8ff","5843eba3.9d8844"]]},{"id":"19797ae6.0376c5","type":"debug","z":"a81c23f3.bd483","name":"After Merge 1 ","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":1340,"y":140,"wires":[]},{"id":"89415c67.8be7f","type":"mqtt out","z":"a81c23f3.bd483","name":"Emergency 1","topic":"Centro/Toscana/emergencia/puertaAbierta/2-5-3","qos":"0","retain":"false","broker":"66020ec3.36326","x":1290,"y":60,"wires":[]},{"id":"faff2eb0.303eb","type":"switch","z":"a81c23f3.bd483","name":"Classify emergency","property":"flag","propertyType":"msg","rules":[{"t":"eq","v":"1","vt":"str"},{"t":"eq","v":"2","vt":"str"},{"t":"eq","v":"3","vt":"str"},{"t":"eq","v":"4","vt":"str"}],"checkall":"false","repair":false,"outputs":4,"x":1070,"y":240,"wires":[["89415c67.8be7f","19797ae6.0376c5"],["476f2563.86810c","e6167352.0908c"],["60765d6d.1f8954","514d4c4b.e2e4cc"],["babeddaf.a72b28","82f8f459.1c6258"]]},{"id":"476f2563.86810c","type":"mqtt out","z":"a81c23f3.bd483","name":"Emergency 2","topic":"Centro/Toscana/emergencia/aperturaSospechosa/2-5-3","qos":"0","retain":"false","broker":"6bf30e21.7143f","x":1350,"y":200,"wires":[]},{"id":"e6167352.0908c","type":"debug","z":"a81c23f3.bd483","name":"After Merge 2","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":1420,"y":260,"wires":[]},{"id":"60765d6d.1f8954","type":"mqtt out","z":"a81c23f3.bd483","name":"Emergency 3","topic":"Centro/Toscana/emergencia/aperturaNoPermitida/2-5-3","qos":"0","retain":"false","broker":"dec95f12.953088","x":1390,"y":320,"wires":[]},{"id":"514d4c4b.e2e4cc","type":"debug","z":"a81c23f3.bd483","name":"After Merge 3","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":1400,"y":380,"wires":[]},{"id":"babeddaf.a72b28","type":"mqtt out","z":"a81c23f3.bd483","name":"Emergency 4","topic":"Centro/Toscana/emergencia/bateriaCritica/2-5-3","qos":"0","retain":"false","broker":"d61fe174.7f0c2","x":1270,"y":440,"wires":[]},{"id":"82f8f459.1c6258","type":"debug","z":"a81c23f3.bd483","name":"After Merge 4","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":1220,"y":500,"wires":[]},{"id":"fd8f5986.edef08","type":"debug","z":"a81c23f3.bd483","name":"Flag","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"flag","x":850,"y":340,"wires":[]},{"id":"4f8d0b1a.d37044","type":"debug","z":"a81c23f3.bd483","name":"Merge","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":890,"y":100,"wires":[]},{"id":"a028253.4efa758","type":"mqtt in","z":"a81c23f3.bd483","name":"","topic":"Arduino007.envio","qos":"0","broker":"95b6be9c.590918","x":220,"y":160,"wires":[["d74b3c82.68db38"]]},{"id":"34478d11.7e0e72","type":"inject","z":"a81c23f3.bd483","name":"","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":100,"y":20,"wires":[["94223766.9bee9"]]},{"id":"94223766.9bee9","type":"random","z":"a81c23f3.bd483","name":"Random emergency","low":"1","high":"4","inte":"true","x":260,"y":20,"wires":[["2f5bea78.c63806"]]},{"id":"d74b3c82.68db38","type":"function","z":"a81c23f3.bd483","name":"Physical Entity mock","func":"msg.flag=msg.payload.split(\"\\t\")[1][0];\nreturn msg;","outputs":1,"noerr":0,"x":460,"y":60,"wires":[["4052f2a1.f8529c","bf17128b.931cc8"]]},{"id":"bf17128b.931cc8","type":"switch","z":"a81c23f3.bd483","name":"Is emergency","property":"flag","propertyType":"msg","rules":[{"t":"gt","v":"0","vt":"str"}],"checkall":"false","repair":false,"outputs":1,"x":700,"y":60,"wires":[["cda3dec6.d81e98"]]},{"id":"2f5bea78.c63806","type":"function","z":"a81c23f3.bd483","name":"Put id","func":"msg.payload=\"Arduino007\\t\"+msg.payload;\nreturn msg;","outputs":1,"noerr":0,"x":170,"y":60,"wires":[["d74b3c82.68db38"]]},{"id":"9e3af951.bceb98","type":"mqtt in","z":"ddb0bb9c.500fa8","name":"","topic":"Centro/Toscana/2-5-3/claves","qos":"0","broker":"7864308b.b44098","x":140,"y":100,"wires":[["3ca1ebdb.7d11ec","2a630e64.7916f2"]]},{"id":"3ca1ebdb.7d11ec","type":"debug","z":"ddb0bb9c.500fa8","name":"Virtual entity","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":370,"y":40,"wires":[]},{"id":"7bf50ee4.c8d238","type":"function","z":"ddb0bb9c.500fa8","name":"Verify arduino message","func":"data=msg.payload.msg.split(\";\");\nlist=[\"NEW_PASSWORD\",\"CHANGE_PASSWORD\",\"DELETE_PASSWORD\",\"DELETE_ALL\"];\noperaciones=['POST','PUT','DELETE','DELETE'];\noperacion=operaciones[parseInt(data[0])-1];\nclave=\"\";\nnuevaClave=\"\";\nnumero=\"\";\nif(data.length>2)\n{\n    if(data[1].length<=2 &&data[2].length==4)\n    {\n        if(!isNaN(parseInt(data[1]))&&parseInt(data[1])<20 && !isNaN(parseInt(data[2])))\n        {\n            clave=data[2];\n            numero=data[1];\n            msg.pass=list[parseInt(data[0])-1]+\";\"+data[1]+\";\"+data[2];\n        }\n    }\n}\nelse if (data.length>1)\n{\n    if(!isNaN(parseInt(data[1]))&&parseInt(data[1])<20)\n        {\n            numero=data[1];\n            msg.pass=list[parseInt(data[0])-1]+\";\"+data[1];\n        }\n}\nelse\n{\n    if(parseInt(msg.payload.msg)===4)\n    {\n        msg.pass=list[parseInt(msg.payload.msg)-1]\n    }\n}\nglobal.set('arduinoPasswordPayload',msg.pass);\nmsg.payload={'usuario':msg.payload.usuario,'clave':clave,'numero':numero};\nmsg.method=operacion;\nreturn msg;","outputs":1,"noerr":0,"x":950,"y":140,"wires":[["8088a34f.0c6d7","18eddaf4.fd7bd5"]]},{"id":"f8a969cb.79af","type":"inject","z":"ddb0bb9c.500fa8","name":"INJECT PASSWORD CHANGE","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":150,"y":240,"wires":[["4253ab23.fc4b14"]]},{"id":"4253ab23.fc4b14","type":"random","z":"ddb0bb9c.500fa8","name":"Random emergency","low":"3","high":"3","inte":"true","x":320,"y":340,"wires":[["e45e2d1.7441ed"]]},{"id":"d245b00e.344db8","type":"debug","z":"ddb0bb9c.500fa8","name":"Virtual mock","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":410,"y":260,"wires":[]},{"id":"e45e2d1.7441ed","type":"function","z":"ddb0bb9c.500fa8","name":"Merge","func":"num=parseInt(msg.payload);\nif (num==3)\n{\n    msg.payload=\"{\\\"msg\\\":\\\"\"+num+\";\"+\"01\\\",\\\"usuario\\\":\\\"sguzmanm\\\"}\";\n}\nelse if(num<4)\n{\n    msg.payload=\"{\\\"msg\\\":\\\"\"+num+\";\"+\"01\"+\";\"+\"3143\\\",\\\"usuario\\\":\\\"sguzmanm\\\"}\";\n}\nelse\n    msg.payload=\"{\\\"msg\\\":\\\"\"+num+\"\\\",\\\"usuario\\\":\\\"sguzmanm\\\"}\";\n\nreturn msg;","outputs":1,"noerr":0,"x":510,"y":360,"wires":[["d245b00e.344db8","2a630e64.7916f2"]]},{"id":"2a630e64.7916f2","type":"json","z":"ddb0bb9c.500fa8","name":"","property":"payload","action":"obj","pretty":false,"x":420,"y":200,"wires":[["6912859b.27aabc"]]},{"id":"18eddaf4.fd7bd5","type":"debug","z":"ddb0bb9c.500fa8","name":"Arduino message","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":1070,"y":240,"wires":[]},{"id":"6b82f3bf.6f0894","type":"function","z":"c716ffd5.d195d","name":"Reset Health Check","func":"global.set(\"lastHealthCheck\",new Date());\nglobal.set(\"misses\",0);","outputs":1,"noerr":0,"x":520,"y":180,"wires":[[]]},{"id":"2aafec8.6b2b714","type":"function","z":"c716ffd5.d195d","name":"Format Time","func":"\nif(typeof global.get(\"lastHealthCheck\")=='undefined')\n{\n    global.set(\"lastHealthCheck\",new Date());\n    msg.test2=\"ENTRA\";\n}\nif(isNaN(global.get(\"misses\")))\n{\n    global.set(\"misses\",0);\n}\n\nvar maxMisses=1;\nvar time=10000;\nvar last=global.get(\"lastHealthCheck\");\nmsg.flag=0;\n\nvar diffMs = (new Date() - last); // milliseconds between now & Christmas\n\nmsg.test=global.get(\"lastHealthCheck\")+\" \"+global.get(\"misses\")+\" \"+diffMs;\n\nif(diffMs>time)\n{\n    global.set(\"misses\",global.get(\"misses\")+1);\n}\nif(global.get(\"misses\")>maxMisses)\n{\n    msg.flag=1;\n    msg.headers={\"Content-Type\":\"application/json\"};\n    msg.payload={\n          \"remitente\":\"Hub007@yale\",\n          \"destinatarios\":[\n          {\n              \"correo\":\"js.diaz@uniandes.edu.co\"\n          },\n          {\n              \"correo\":\"ja.manrique@uniandes.edu.co\"\n          },\n          {\n              \"correo\":\"cm.sarmiento10@uniandes.edu.co\"\n          }\n          ],\n          \"asunto\":\"CERRADURA FUERA DE LÍNEA\",\n          \"cuerpo\":\"Arduino 007 no está en línea\"\n     \n      };\n}\nreturn msg;\n\n","outputs":1,"noerr":0,"x":390,"y":260,"wires":[["d79095c2.2370f","665aef84.14ef","fe5494b0.364cb8","6e9aa67a.0b96a8","ce675edd.24ebb8"]]},{"id":"1b4f8040.0998b","type":"switch","z":"c716ffd5.d195d","name":"Is correct entry?","property":"flag","propertyType":"msg","rules":[{"t":"eq","v":"5","vt":"str"}],"checkall":"false","repair":false,"outputs":1,"x":560,"y":100,"wires":[["6b82f3bf.6f0894","54856cbb.86e424"]]},{"id":"514c60e6.97d12","type":"inject","z":"c716ffd5.d195d","name":"Healthcheck Verification","topic":"emergencyTime","payload":"","payloadType":"date","repeat":"10","crontab":"","once":false,"onceDelay":"0","x":170,"y":220,"wires":[["3c514c4a.76bf04","2aafec8.6b2b714"]]},{"id":"d79095c2.2370f","type":"debug","z":"c716ffd5.d195d","name":"HC3","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":350,"y":400,"wires":[]},{"id":"f5cf0e6d.904338","type":"function","z":"c716ffd5.d195d","name":"Physical Entity mock","func":"msg.flag=msg.payload.split(\"\\t\")[1][0];\nreturn msg;","outputs":1,"noerr":0,"x":260,"y":100,"wires":[["21463b73.1a206c","1b4f8040.0998b"]]},{"id":"3c514c4a.76bf04","type":"debug","z":"c716ffd5.d195d","name":"HC2","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":390,"y":220,"wires":[]},{"id":"21463b73.1a206c","type":"debug","z":"c716ffd5.d195d","name":"FLAG1","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":510,"y":40,"wires":[]},{"id":"25ca698.9691016","type":"random","z":"c716ffd5.d195d","name":"Random emergency","low":"5","high":"5","inte":"true","x":300,"y":20,"wires":[["debe76c9.6e646"]]},{"id":"29cfc44d.90d17c","type":"inject","z":"c716ffd5.d195d","name":"","topic":"s.guzmanm@uniandes.edu.co","payload":"","payloadType":"date","repeat":"11","crontab":"","once":false,"onceDelay":0.1,"x":80,"y":20,"wires":[["25ca698.9691016"]]},{"id":"ede1b737.188af","type":"mqtt in","z":"c716ffd5.d195d","name":"","topic":"Arduino007.envio","qos":"0","broker":"95b6be9c.590918","x":80,"y":160,"wires":[["91c2374.9ae15c8","f5cf0e6d.904338"]]},{"id":"debe76c9.6e646","type":"function","z":"c716ffd5.d195d","name":"Put id","func":"msg.payload=msg.payload+\"\\t3141\";\nreturn msg;","outputs":1,"noerr":0,"x":190,"y":60,"wires":[[]]},{"id":"665aef84.14ef","type":"switch","z":"c716ffd5.d195d","name":"Is emergency?","property":"flag","propertyType":"msg","rules":[{"t":"eq","v":"1","vt":"str"}],"checkall":"false","repair":false,"outputs":1,"x":680,"y":240,"wires":[["c7412491.606b18","3272489b.b734c8"]]},{"id":"fe5494b0.364cb8","type":"debug","z":"c716ffd5.d195d","name":"HC4","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"flag","x":540,"y":380,"wires":[]},{"id":"c7412491.606b18","type":"debug","z":"c716ffd5.d195d","name":"HC5","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":790,"y":380,"wires":[]},{"id":"6e9aa67a.0b96a8","type":"debug","z":"c716ffd5.d195d","name":"TEST","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"test","x":120,"y":380,"wires":[]},{"id":"ce675edd.24ebb8","type":"debug","z":"c716ffd5.d195d","name":"TEST2","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"test2","x":250,"y":440,"wires":[]},{"id":"6bf43a36.a4b31c","type":"inject","z":"9f25517e.dc5bc8","name":"TIME INTERVAL","topic":"s.guzmanm@uniandes.edu.co","payload":"","payloadType":"date","repeat":"25","crontab":"","once":false,"onceDelay":0.1,"x":130,"y":160,"wires":[["4cea937a.702394"]]},{"id":"4cea937a.702394","type":"function","z":"9f25517e.dc5bc8","name":"HEALTHCHECK","func":"msg.payload={\"Hub\":\"Hub007\"}\nreturn msg;","outputs":1,"noerr":0,"x":360,"y":180,"wires":[["552e0136.79c81","1deb4462.d4fd3c"]]},{"id":"54856cbb.86e424","type":"debug","z":"c716ffd5.d195d","name":"HC","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":700,"y":160,"wires":[]},{"id":"91c2374.9ae15c8","type":"debug","z":"c716ffd5.d195d","name":"HCheck","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":300,"y":160,"wires":[]},{"id":"be0c295e.e20a78","type":"inject","z":"34f6a4a0.c4adbc","name":"ACEPTAR","topic":"s.guzmanm@uniandes.edu.co","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":200,"y":420,"wires":[["8db5adda.8b52b"]]},{"id":"8db5adda.8b52b","type":"function","z":"34f6a4a0.c4adbc","name":"GET MQTT MSG","func":"msg.payload={\"clave\":\"5555\"};\nreturn msg;","outputs":1,"noerr":0,"x":570,"y":480,"wires":[["c4a974a6.5071d8","59e93c11.c9f354"]]},{"id":"525dafb4.185a2","type":"mqtt out","z":"34f6a4a0.c4adbc","name":"","topic":"Arduino007.recibir","qos":"","retain":"","broker":"21be8c88.6d7f64","x":670,"y":720,"wires":[]},{"id":"87f290d6.3f3ca","type":"function","z":"34f6a4a0.c4adbc","name":"GET MQTT MSG","func":"number=1\nif(number==0)\n    msg.payload=\"CERRAR\";\nelse\n    msg.payload=\"ABRIR\";\nreturn msg;","outputs":1,"noerr":0,"x":570,"y":640,"wires":[["525dafb4.185a2"]]},{"id":"8e6707a9.61eac8","type":"inject","z":"34f6a4a0.c4adbc","name":"RECHAZAR","topic":"s.guzmanm@uniandes.edu.co","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":210,"y":580,"wires":[["87f290d6.3f3ca"]]},{"id":"b1ce02a1.7fe8c","type":"function","z":"c716ffd5.d195d","name":"Reinicio arduino","func":"global.set(\"misses\",0);\nreturn msg;","outputs":1,"noerr":0,"x":1490,"y":260,"wires":[["8127e7d7.9ff548"]]},{"id":"ed497d5.501e58","type":"function","z":"ddb0bb9c.500fa8","name":"Verify alarm message","func":"if (msg.payload.msg==\"A\")\n    global.set(\"emailActivated\",true);\nelse if (msg.payload.msg==\"D\")\n    global.set(\"emailActivated\",false);\nmsg.payload=global.get(\"emailActivated\");\nreturn msg;","outputs":1,"noerr":0,"x":940,"y":320,"wires":[["9bcf1e39.40561"]]},{"id":"6318c0ff.7b8ff","type":"switch","z":"a81c23f3.bd483","name":"Email is activated?","property":"emailActivated","propertyType":"global","rules":[{"t":"true"}],"checkall":"true","repair":false,"outputs":1,"x":970,"y":160,"wires":[["faff2eb0.303eb"]]},{"id":"9bcf1e39.40561","type":"debug","z":"ddb0bb9c.500fa8","name":"GLOBAL EMAIL","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":1070,"y":420,"wires":[]},{"id":"f8d2a1ce.ef2ab","type":"switch","z":"ddb0bb9c.500fa8","name":"Verify topic","property":"flag","propertyType":"msg","rules":[{"t":"eq","v":"0","vt":"str"},{"t":"eq","v":"1","vt":"str"}],"checkall":"true","repair":false,"outputs":2,"x":720,"y":200,"wires":[["7bf50ee4.c8d238"],["ed497d5.501e58"]]},{"id":"5843eba3.9d8844","type":"debug","z":"a81c23f3.bd483","name":"EMIAL IS ACTIVATED","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"test","x":990,"y":300,"wires":[]},{"id":"6912859b.27aabc","type":"function","z":"ddb0bb9c.500fa8","name":"PUT FLAG","func":"msg.flag=0;\nindice=msg.payload.msg.split(\";\")[0];\nif(indice==\"A\" || indice==\"D\")\n    msg.flag=1;\nreturn msg;","outputs":1,"noerr":0,"x":710,"y":360,"wires":[["f8d2a1ce.ef2ab","d3825ae.b9c9fa8"]]},{"id":"d3825ae.b9c9fa8","type":"debug","z":"ddb0bb9c.500fa8","name":"MSG FLAG","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"flag","x":630,"y":160,"wires":[]},{"id":"552e0136.79c81","type":"debug","z":"9f25517e.dc5bc8","name":"HUB HC","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":550,"y":180,"wires":[]},{"id":"f58759ff.7f50e","type":"mqtt out","z":"34f6a4a0.c4adbc","name":"","topic":"Arduino007.recibir","qos":"","retain":"","broker":"21be8c88.6d7f64","x":1080,"y":340,"wires":[]},{"id":"e00bd0a8.abd328","type":"function","z":"34f6a4a0.c4adbc","name":"GET MQTT MSG","func":"res={};\nres.payload=\"CERRAR\";\nmsg.test=global.get(\"Timeout\");\nvar last=global.get(\"arduinoRequestDate\");\nvar time=global.get(\"arduinoTimeout\");\nvar diffMs = (new Date() - last); // milliseconds between now & Christmas\nif(msg.statusCode==200 && diffMs<=time)\n{\n    res.payload=\"ABRIR\";\n}\nreturn res;","outputs":1,"noerr":0,"x":830,"y":280,"wires":[["f58759ff.7f50e","ee1c0c4f.f691"]]},{"id":"ee1c0c4f.f691","type":"debug","z":"34f6a4a0.c4adbc","name":"msg result","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":1090,"y":240,"wires":[]},{"id":"cd7bbca9.598ab8","type":"function","z":"34f6a4a0.c4adbc","name":"Format Physical Entity","func":"var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-5-3\";\nvar conjunto=\"Toscana\";\nvar zona=\"Centro\"\n\ntempArray = msg.payload.split(\"\\t\");\nres.topic = \"entryHub\";\nres.payload = {};\nres.payload={\"clave\":tempArray[3]};\nglobal.set(\"arduinoTimeout\",tempArray[2]);\nglobal.set(\"arduinoRequestDate\",new Date());\nreturn res;","outputs":1,"noerr":0,"x":520,"y":300,"wires":[["8c172336.62932","4a4999d7.cef258"]]},{"id":"8c172336.62932","type":"debug","z":"34f6a4a0.c4adbc","name":"After Format","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":750,"y":160,"wires":[]},{"id":"c2818a40.bea788","type":"switch","z":"34f6a4a0.c4adbc","name":"Is correct entry?","property":"flag","propertyType":"msg","rules":[{"t":"eq","v":"0","vt":"str"}],"checkall":"false","repair":false,"outputs":1,"x":580,"y":100,"wires":[["cd7bbca9.598ab8"]]},{"id":"bf0a8711.72761","type":"function","z":"34f6a4a0.c4adbc","name":"Physical Entity mock","func":"msg.flag=msg.payload.split(\"\\t\")[1];\nreturn msg;","outputs":1,"noerr":0,"x":260,"y":120,"wires":[["c2818a40.bea788","f11155c6.522e1"]]},{"id":"f11155c6.522e1","type":"debug","z":"34f6a4a0.c4adbc","name":"Before Format 1","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":540,"y":60,"wires":[]},{"id":"98342d12.4458a8","type":"mqtt in","z":"34f6a4a0.c4adbc","name":"","topic":"Arduino007.envio","qos":"0","broker":"95b6be9c.590918","x":120,"y":180,"wires":[["bf0a8711.72761","a430a835.f23778"]]},{"id":"9735429e.c7973","type":"function","z":"34f6a4a0.c4adbc","name":"Put id","func":"msg.payload=\"Arduino007\\t\"+msg.payload+\"\\t\"+5000+\"\\t\"+5555;\nreturn msg;","outputs":1,"noerr":0,"x":190,"y":80,"wires":[["bf0a8711.72761"]]},{"id":"a430a835.f23778","type":"debug","z":"34f6a4a0.c4adbc","name":"HOLA","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":290,"y":220,"wires":[]},{"id":"85d5c560.7df24","type":"random","z":"34f6a4a0.c4adbc","name":"Random emergency","low":"0","high":"0","inte":"true","x":240,"y":40,"wires":[["9735429e.c7973"]]},{"id":"a3b78923.8bd4d","type":"inject","z":"34f6a4a0.c4adbc","name":"","topic":"s.guzmanm@uniandes.edu.co","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":80,"y":40,"wires":[["85d5c560.7df24"]]},{"id":"8127e7d7.9ff548","type":"mqtt out","z":"c716ffd5.d195d","name":"","topic":"Centro/Toscana/fallo/cerraduraFueraDeLinea/2-5-3","qos":"","retain":"","broker":"fd5fe0d5.a2ccd","x":1890,"y":280,"wires":[]},{"id":"3272489b.b734c8","type":"function","z":"c716ffd5.d195d","name":"Format Physical Entity","func":"var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-5-3\"\nvar conjunto=\"Toscana\"\nvar zona=\"Centro\"\n\n\nres.topic = \"failureHub\";\nres.payload = {};\n\nres.payload = {\"id\": \"Arduino007\", \"fallo\":\"1\",\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona}\n\nreturn res;","outputs":1,"noerr":0,"x":1140,"y":360,"wires":[["3dd8b5c5.fe437a","e27f4768.fa36c8"]]},{"id":"3dd8b5c5.fe437a","type":"function","z":"c716ffd5.d195d","name":"Merge 2 Messages","func":"context.data = context.data || {};\n\nswitch (msg.topic) \n{\n    case \"failureTime\":\n        context.data.sensetime = msg.payload;\n        msg = null;\n        break;\n    case \"failureHub\":\n        context.data.failure = msg.payload;\n        msg = null;\n        break;\n    default:\n        msg = null;\n    \tbreak;\n}\n\nif(context.data.sensetime != null && context.data.failure != null) \n{\n\tres = {};\n    res.payload = JSON.stringify(context.data);\n    res.topic = \"failureHub\";\n    context.data = null;\n    return res;\n}","outputs":1,"noerr":0,"x":1430,"y":440,"wires":[["b1ce02a1.7fe8c","6f69fa7.4e93e04"]]},{"id":"67bf5d91.e22844","type":"debug","z":"c716ffd5.d195d","name":"After Format 2","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":1340,"y":560,"wires":[]},{"id":"d079fd37.b2365","type":"function","z":"c716ffd5.d195d","name":"Format Time","func":"var res = {};\n\n\nres.payload = msg.payload;\nres.topic = msg.topic;\n\nreturn res;","outputs":1,"noerr":0,"x":1110,"y":540,"wires":[["67bf5d91.e22844","3dd8b5c5.fe437a"]]},{"id":"8617c210.423be","type":"debug","z":"c716ffd5.d195d","name":"Before Format 2","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":1120,"y":480,"wires":[]},{"id":"10c00f47.4b2011","type":"inject","z":"c716ffd5.d195d","name":"Send Time","topic":"failureTime","payload":"","payloadType":"date","repeat":"1","crontab":"","once":false,"onceDelay":"0","x":850,"y":460,"wires":[["8617c210.423be","d079fd37.b2365"]]},{"id":"6f69fa7.4e93e04","type":"debug","z":"c716ffd5.d195d","name":"MENSAJE SPEED","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":1700,"y":520,"wires":[]},{"id":"e27f4768.fa36c8","type":"debug","z":"c716ffd5.d195d","name":"POST FORMAT","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":1310,"y":300,"wires":[]},{"id":"1deb4462.d4fd3c","type":"mqtt out","z":"9f25517e.dc5bc8","name":"","topic":"Centro/Toscana/hub/2-5-3","qos":"0","retain":"","broker":"44a57b55.f2de64","x":630,"y":120,"wires":[]},{"id":"d114498f.ebe898","type":"debug","z":"34f6a4a0.c4adbc","name":"BD","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":750,"y":460,"wires":[]},{"id":"c4a974a6.5071d8","type":"http request","z":"34f6a4a0.c4adbc","name":"POST","method":"POST","ret":"txt","url":"172.24.41.182:8080/arduinoAccess","tls":"","x":800,"y":540,"wires":[["5e27aeb.e93835"]]},{"id":"5e27aeb.e93835","type":"debug","z":"34f6a4a0.c4adbc","name":"","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"statusCode","x":970,"y":560,"wires":[]},{"id":"59e93c11.c9f354","type":"debug","z":"34f6a4a0.c4adbc","name":"","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"false","x":820,"y":500,"wires":[]},{"id":"4a4999d7.cef258","type":"http request","z":"34f6a4a0.c4adbc","name":"POST","method":"POST","ret":"txt","url":"172.24.41.182:8080/arduinoAccess","tls":"","x":710,"y":340,"wires":[["e00bd0a8.abd328","3444788f.2d7f98"]]},{"id":"c9d6e16e.7f9ab","type":"inject","z":"ddb0bb9c.500fa8","name":"ENABLE ALARMS","topic":"s.guzmanm@uniandes.edu.co","payload":"A","payloadType":"str","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":110,"y":440,"wires":[["8a1d6eb5.71309"]]},{"id":"8a1d6eb5.71309","type":"function","z":"ddb0bb9c.500fa8","name":"Merge","func":"   msg.payload=\"{\\\"msg\\\":\\\"\"+msg.payload+\"\\\"}\";\nreturn msg;","outputs":1,"noerr":0,"x":290,"y":440,"wires":[["3229b24c.e645ee","6912859b.27aabc"]]},{"id":"3229b24c.e645ee","type":"debug","z":"ddb0bb9c.500fa8","name":"Virtual ENABLE","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":480,"y":600,"wires":[]},{"id":"8088a34f.0c6d7","type":"http request","z":"ddb0bb9c.500fa8","name":"COM","method":"use","ret":"txt","url":"172.24.41.182:8080/passwordAccess","tls":"","x":1150,"y":180,"wires":[["1e7171eb.e3385e","245b38f1.ffbb78"]]},{"id":"7e960837.516098","type":"function","z":"ddb0bb9c.500fa8","name":"GET MQTT MSG","func":"msg.payload=global.get('arduinoPasswordPayload');\nreturn msg;","outputs":1,"noerr":0,"x":1270,"y":120,"wires":[["5293b74c.a7c678","96c86670.8f6788"]]},{"id":"5293b74c.a7c678","type":"mqtt out","z":"ddb0bb9c.500fa8","name":"","topic":"Arduino007.recibir","qos":"","retain":"","broker":"21be8c88.6d7f64","x":1570,"y":140,"wires":[]},{"id":"96c86670.8f6788","type":"debug","z":"ddb0bb9c.500fa8","name":"FINAL RESULT","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":1540,"y":80,"wires":[]},{"id":"1e7171eb.e3385e","type":"switch","z":"ddb0bb9c.500fa8","name":"SUCCESSFUL","property":"statusCode","propertyType":"msg","rules":[{"t":"eq","v":"200","vt":"str"}],"checkall":"true","repair":false,"outputs":1,"x":1330,"y":200,"wires":[["7e960837.516098"]]},{"id":"245b38f1.ffbb78","type":"debug","z":"ddb0bb9c.500fa8","name":"PASSWORD RESPONSE","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"statusCode","x":1440,"y":300,"wires":[]},{"id":"3444788f.2d7f98","type":"debug","z":"34f6a4a0.c4adbc","name":"","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"statusCode","x":830,"y":380,"wires":[]},{"id":"3dcd1067.0e0c6","type":"mqtt in","z":"ddb0bb9c.500fa8","name":"Centro/Toscana/2-5-3/horarios","topic":"Centro/Toscana/2-5-3/horarios","qos":"0","broker":"943fed38.2468a","x":160,"y":720,"wires":[["1d18fbae.01d614"]]},{"id":"1d18fbae.01d614","type":"json","z":"ddb0bb9c.500fa8","name":"","property":"payload","action":"","pretty":false,"x":400,"y":740,"wires":[["6fb0bfb7.c5c0f"]]},{"id":"d2feb173.f2198","type":"inject","z":"ddb0bb9c.500fa8","name":"DISABLE ALARMS","topic":"s.guzmanm@uniandes.edu.co","payload":"D","payloadType":"str","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":530,"y":460,"wires":[["7265d294.13975c"]]},{"id":"7265d294.13975c","type":"function","z":"ddb0bb9c.500fa8","name":"Merge","func":"   msg.payload=\"{\\\"msg\\\":\\\"\"+msg.payload+\"\\\"}\";\nreturn msg;","outputs":1,"noerr":0,"x":710,"y":460,"wires":[["90227cd7.2921","6912859b.27aabc"]]},{"id":"90227cd7.2921","type":"debug","z":"ddb0bb9c.500fa8","name":"Virtual ENABLE","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":900,"y":620,"wires":[]},{"id":"ea10d822.3e6638","type":"inject","z":"ddb0bb9c.500fa8","name":"CREATE SCHEDULE","topic":"s.guzmanm@uniandes.edu.co","payload":"1","payloadType":"str","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":160,"y":820,"wires":[["543396e4.883358"]]},{"id":"543396e4.883358","type":"function","z":"ddb0bb9c.500fa8","name":"Merge","func":"\nmsg.payload={horaInicio:\"13:00\",horaFin:\"14:00\",usuario:\"sguzmanm\",\"nuevoInicio\":\"13:00\",nuevoFin:\"14:00\",operacion:msg.payload}\nreturn msg;","outputs":1,"noerr":0,"x":330,"y":820,"wires":[["6fb0bfb7.c5c0f"]]},{"id":"6fb0bfb7.c5c0f","type":"function","z":"ddb0bb9c.500fa8","name":"Verify arduino message","func":"operaciones=['POST','PUT','DELETE'];\nmsg.method=operaciones[msg.payload.operacion-1];\nreturn msg;","outputs":1,"noerr":0,"x":610,"y":740,"wires":[["7e752a26.c6b254"]]},{"id":"7e752a26.c6b254","type":"http request","z":"ddb0bb9c.500fa8","name":"COM","method":"use","ret":"txt","url":"172.24.41.182:8080/scheduleAccess","tls":"","x":810,"y":780,"wires":[["478b064e.d08c48"]]},{"id":"478b064e.d08c48","type":"debug","z":"ddb0bb9c.500fa8","name":"SCHEDULE RESPONSE","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"statusCode","x":1000,"y":780,"wires":[]}]
+[
+    {
+        "id": "a81c23f3.bd483",
+        "type": "tab",
+        "label": "Telemetry Flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "34f6a4a0.c4adbc",
+        "type": "tab",
+        "label": "CorrectEntry Flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "ddb0bb9c.500fa8",
+        "type": "tab",
+        "label": "PrivatePopertyOwnerFlow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "9f25517e.dc5bc8",
+        "type": "tab",
+        "label": "HubHealthcheckFlow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c716ffd5.d195d",
+        "type": "tab",
+        "label": "MicrocontrollerHealthcheck Flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "541dcb45.f3862c",
+        "type": "tab",
+        "label": "Speed Security Test",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "246b32f6.82522e",
+        "type": "tab",
+        "label": "Device closing",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "dad5415e.45edb",
+        "type": "tab",
+        "label": "Remote opening and closing",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c8e3a915.9cf118",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "172.24.42.33",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "9e2cc79c.317298",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "172.24.42.70",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "d459177c.3d905",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Arduino007WriterConnection",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "10",
+        "cleansession": true,
+        "willTopic": "Arduino007.recibir",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "b43d730.8b5731",
+        "type": "tls-config",
+        "z": "",
+        "name": "CONF ARQUISOFT",
+        "cert": "",
+        "key": "",
+        "ca": "/Users/SIS/s.guzmanm/Documents/ssl/m2mqtt_ca.crt",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "verifyservercert": false
+    },
+    {
+        "id": "7864308b.b44098",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/2-5-3/claves",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/2-5-3/claves",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/2-5-3/claves",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "95b6be9c.590918",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Arduino007.envio",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Arduino007.envio",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Arduino007.envio",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "66020ec3.36326",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/emergencia/puertaAbierta/2-5-3",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/emergencia/puertaAbierta/2-5-3",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/emergencia/puertaAbierta/2-5-3",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "6bf30e21.7143f",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/emergencia/aperturaSospechosa/2-5-3",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/emergencia/aperturaSospechosa/2-5-3",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/emergencia/aperturaSospechosa/2-5-3",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "dec95f12.953088",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/emergencia/aperturaNoPermitida/2-5-3",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/emergencia/aperturaNoPermitida/2-5-3",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/emergencia/aperturaNoPermitida/2-5-3",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "d61fe174.7f0c2",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/emergencia/bateriaCritica/2-5-3",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/emergencia/bateriaCritica/2-5-3",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/emergencia/bateriaCritica/2-5-3",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "21be8c88.6d7f64",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Arduino007.recibir",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Arduino007.recibir",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Arduino007.recibir",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "6286e69c.ab1e4",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/apertura/2-503",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/apertura/2-503",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/apertura/2-503",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "5d4d54b.bf3e5ac",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/2-503/alarmas/Arduino007",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/2-503/alarmas/Arduino007",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/2-503/alarmas/Arduino007",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "39d8c307.06b4a4",
+        "type": "tls-config",
+        "z": "",
+        "name": "CONF MANRIQUE",
+        "cert": "",
+        "key": "",
+        "ca": "/Users/SIS/ja.manrique/ssl/m2mqtt_ca.crt",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "verifyservercert": false
+    },
+    {
+        "id": "423d96e9.1578",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "TEST",
+        "broker": "172.24.41.183",
+        "port": "8083",
+        "tls": "7286d002.605868",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "e199261a.efb0f8",
+        "type": "mqtt-broker",
+        "z": "",
+        "broker": "172.23.65.161",
+        "port": "8083",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "7286d002.605868",
+        "type": "tls-config",
+        "z": "",
+        "name": "CONF CARLOS",
+        "cert": "",
+        "key": "",
+        "ca": "/Users/SIS/cm.sarmiento10/Documents/ssl/m2mqtt_ca.crt",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "verifyservercert": false
+    },
+    {
+        "id": "84bc4f24.36d058",
+        "type": "mqtt-broker",
+        "z": "",
+        "broker": "172.23.65.161",
+        "port": "8083",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "fd5fe0d5.a2ccd",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/fallo/cerraduraFueraDeLinea/2-5-3",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/fallo/cerraduraFueraDeLinea/2-5-3",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/fallo/cerraduraFueraDeLinea/2-5-3",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "44a57b55.f2de64",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/hub/2-5-3",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/hub/2-5-3",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/hub/2-5-3",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "aae4e60d.4db808",
+        "type": "redis-config",
+        "z": "",
+        "host": "172.24.41.182",
+        "port": "6379",
+        "dbase": "0",
+        "pass": ""
+    },
+    {
+        "id": "e70048cb.8d5678",
+        "type": "websocket-client",
+        "z": "",
+        "path": "/ws/motors",
+        "wholemsg": "false"
+    },
+    {
+        "id": "46d2c476.4c6f1c",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/k9",
+        "wholemsg": "false"
+    },
+    {
+        "id": "8b2c2fa8.daa85",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "Helvetica Neue",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#000000",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "Helvetica Neue"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#262626",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            }
+        }
+    },
+    {
+        "id": "26ed9c0e.893d34",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard"
+    },
+    {
+        "id": "2c2fcb2d.a5dcb4",
+        "type": "ui_group",
+        "z": "",
+        "name": "Speed",
+        "tab": "26ed9c0e.893d34",
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "225ad44f.dca5bc",
+        "type": "ui_group",
+        "z": "",
+        "name": "Power",
+        "tab": "26ed9c0e.893d34",
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "e7121098.ac0c5",
+        "type": "ui_group",
+        "z": "",
+        "name": "Environment",
+        "tab": "26ed9c0e.893d34",
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "22aa58c3.69b628",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/sensors",
+        "wholemsg": "false"
+    },
+    {
+        "id": "697bd1b2.a1c2c",
+        "type": "serial-port",
+        "z": "",
+        "serialport": "/dev/cu.usbmodem1411",
+        "serialbaud": "57600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": false
+    },
+    {
+        "id": "32172854.379fb8",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/ultrasonic",
+        "wholemsg": "false"
+    },
+    {
+        "id": "2f4c18f9.b0fbd8",
+        "type": "redis-config",
+        "z": "",
+        "host": "{{127.0.0.1}}",
+        "port": "{{6379}}",
+        "dbase": "{{0}}",
+        "pass": ""
+    },
+    {
+        "id": "58b23148.6df7",
+        "type": "websocket-client",
+        "z": "",
+        "path": "/ws/motors",
+        "wholemsg": "false"
+    },
+    {
+        "id": "f922bba7.9b6268",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/k9",
+        "wholemsg": "false"
+    },
+    {
+        "id": "885d6ba7.ea99e8",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "Helvetica Neue",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#000000",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "Helvetica Neue"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#262626",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            }
+        }
+    },
+    {
+        "id": "e39a7de8.17947",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard"
+    },
+    {
+        "id": "65ed7c17.6fbb84",
+        "type": "ui_group",
+        "z": "",
+        "name": "Speed",
+        "tab": "e39a7de8.17947",
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "660f4dd7.dc6c84",
+        "type": "ui_group",
+        "z": "",
+        "name": "Power",
+        "tab": "e39a7de8.17947",
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "dc91c3c3.8d053",
+        "type": "ui_group",
+        "z": "",
+        "name": "Environment",
+        "tab": "e39a7de8.17947",
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "5d840e0.b4c5af4",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/sensors",
+        "wholemsg": "false"
+    },
+    {
+        "id": "3cfa9fb2.40bc8",
+        "type": "serial-port",
+        "z": "",
+        "serialport": "/dev/cu.usbmodem1411",
+        "serialbaud": "57600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": false
+    },
+    {
+        "id": "31b599f9.e3d3b6",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/ultrasonic",
+        "wholemsg": "false"
+    },
+    {
+        "id": "4dee3f25.df503",
+        "type": "redis-config",
+        "z": "",
+        "host": "{{127.0.0.1}}",
+        "port": "{{6379}}",
+        "dbase": "{{0}}",
+        "pass": ""
+    },
+    {
+        "id": "943fed38.2468a",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/2-5-3/horarios",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/2-5-3/horarios",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/2-5-3/horarios",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "f342dd7f.73d4d",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Centro/Toscana/fallo/hubFueraDeLinea/2-5-3",
+        "broker": "172.24.41.182",
+        "port": "8083",
+        "tls": "b43d730.8b5731",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "Centro/Toscana/fallo/hubFueraDeLinea/2-5-3",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "Centro/Toscana/fallo/hubFueraDeLinea/2-5-3",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "24d81772.16ff1",
+        "type": "inject",
+        "z": "a81c23f3.bd483",
+        "name": "Send Time",
+        "topic": "emergencyTime",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "0",
+        "x": 150,
+        "y": 220,
+        "wires": [
+            [
+                "5a28159e.ed1894",
+                "6d1eae87.85925"
+            ]
+        ]
+    },
+    {
+        "id": "cda3dec6.d81e98",
+        "type": "function",
+        "z": "a81c23f3.bd483",
+        "name": "Format Physical Entity",
+        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-5-3\"\nvar conjunto=\"Toscana\"\nvar zona=\"Centro\"\n//Set the alarm sending to true by default\nif(typeof global.get(\"emailActivated\")=='undefined')\n{\n    global.set(\"emailActivated\",true);\n}\n\ntempArray = msg.payload.split(\"\\t\");\nres.topic = \"emergencyHub\";\nres.payload = {};\n\nres.payload = {\"id\": tempArray[0], \"emergencia\":tempArray[1][0],\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona}\n\nreturn res;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 540,
+        "y": 180,
+        "wires": [
+            [
+                "dad6b47.267ddc8",
+                "e68a0d3a.e27a88"
+            ]
+        ]
+    },
+    {
+        "id": "6d1eae87.85925",
+        "type": "function",
+        "z": "a81c23f3.bd483",
+        "name": "Format Time",
+        "func": "var res = {};\n\n\nres.payload = msg.payload;\nres.topic = msg.topic;\n\nreturn res;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 300,
+        "wires": [
+            [
+                "f0db5c46.f3f48",
+                "e68a0d3a.e27a88"
+            ]
+        ]
+    },
+    {
+        "id": "4052f2a1.f8529c",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "Before Format 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 700,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "dad6b47.267ddc8",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "After Format",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 710,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "5a28159e.ed1894",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "Before Format 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 400,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "f0db5c46.f3f48",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "After Format 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 640,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "e68a0d3a.e27a88",
+        "type": "function",
+        "z": "a81c23f3.bd483",
+        "name": "Merge 2 Messages",
+        "func": "context.data = context.data || {};\n\nswitch (msg.topic) \n{\n    case \"emergencyTime\":\n        context.data.sensetime = msg.payload;\n        msg = null;\n        break;\n    case \"emergencyHub\":\n        context.data.emergency = msg.payload;\n        context.flag=msg.payload.emergencia;\n        msg = null;\n        break;\n    default:\n        msg = null;\n    \tbreak;\n}\n\nif(context.flag!=null && context.data.sensetime != null && context.data.emergency != null) \n{\n\tres = {};\n    res.payload = JSON.stringify(context.data);\n    res.flag=context.flag;\n    res.topic = \"emergencyHub\";\n    context.data = null;\n    res.test=global.get(\"emailActivated\");\n    return res;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 750,
+        "y": 240,
+        "wires": [
+            [
+                "fd8f5986.edef08",
+                "4f8d0b1a.d37044",
+                "6318c0ff.7b8ff",
+                "5843eba3.9d8844"
+            ]
+        ]
+    },
+    {
+        "id": "19797ae6.0376c5",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "After Merge 1 ",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1340,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "89415c67.8be7f",
+        "type": "mqtt out",
+        "z": "a81c23f3.bd483",
+        "name": "Emergency 1",
+        "topic": "Centro/Toscana/emergencia/puertaAbierta/2-5-3",
+        "qos": "0",
+        "retain": "false",
+        "broker": "66020ec3.36326",
+        "x": 1290,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "faff2eb0.303eb",
+        "type": "switch",
+        "z": "a81c23f3.bd483",
+        "name": "Classify emergency",
+        "property": "flag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "4",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 4,
+        "x": 1070,
+        "y": 240,
+        "wires": [
+            [
+                "89415c67.8be7f",
+                "19797ae6.0376c5"
+            ],
+            [
+                "476f2563.86810c",
+                "e6167352.0908c"
+            ],
+            [
+                "60765d6d.1f8954",
+                "514d4c4b.e2e4cc"
+            ],
+            [
+                "babeddaf.a72b28",
+                "82f8f459.1c6258"
+            ]
+        ]
+    },
+    {
+        "id": "476f2563.86810c",
+        "type": "mqtt out",
+        "z": "a81c23f3.bd483",
+        "name": "Emergency 2",
+        "topic": "Centro/Toscana/emergencia/aperturaSospechosa/2-5-3",
+        "qos": "0",
+        "retain": "false",
+        "broker": "6bf30e21.7143f",
+        "x": 1350,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "e6167352.0908c",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "After Merge 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1420,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "60765d6d.1f8954",
+        "type": "mqtt out",
+        "z": "a81c23f3.bd483",
+        "name": "Emergency 3",
+        "topic": "Centro/Toscana/emergencia/aperturaNoPermitida/2-5-3",
+        "qos": "0",
+        "retain": "false",
+        "broker": "dec95f12.953088",
+        "x": 1390,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "514d4c4b.e2e4cc",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "After Merge 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1400,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "babeddaf.a72b28",
+        "type": "mqtt out",
+        "z": "a81c23f3.bd483",
+        "name": "Emergency 4",
+        "topic": "Centro/Toscana/emergencia/bateriaCritica/2-5-3",
+        "qos": "0",
+        "retain": "false",
+        "broker": "d61fe174.7f0c2",
+        "x": 1270,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "82f8f459.1c6258",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "After Merge 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1220,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "fd8f5986.edef08",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "Flag",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "flag",
+        "x": 850,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "4f8d0b1a.d37044",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "Merge",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 890,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "a028253.4efa758",
+        "type": "mqtt in",
+        "z": "a81c23f3.bd483",
+        "name": "",
+        "topic": "Arduino007.envio",
+        "qos": "0",
+        "broker": "95b6be9c.590918",
+        "x": 220,
+        "y": 160,
+        "wires": [
+            [
+                "d74b3c82.68db38"
+            ]
+        ]
+    },
+    {
+        "id": "34478d11.7e0e72",
+        "type": "inject",
+        "z": "a81c23f3.bd483",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 20,
+        "wires": [
+            [
+                "94223766.9bee9"
+            ]
+        ]
+    },
+    {
+        "id": "94223766.9bee9",
+        "type": "random",
+        "z": "a81c23f3.bd483",
+        "name": "Random emergency",
+        "low": "1",
+        "high": "4",
+        "inte": "true",
+        "x": 260,
+        "y": 20,
+        "wires": [
+            [
+                "2f5bea78.c63806"
+            ]
+        ]
+    },
+    {
+        "id": "d74b3c82.68db38",
+        "type": "function",
+        "z": "a81c23f3.bd483",
+        "name": "Physical Entity mock",
+        "func": "msg.flag=msg.payload.split(\"\\t\")[1][0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 460,
+        "y": 60,
+        "wires": [
+            [
+                "4052f2a1.f8529c",
+                "bf17128b.931cc8"
+            ]
+        ]
+    },
+    {
+        "id": "bf17128b.931cc8",
+        "type": "switch",
+        "z": "a81c23f3.bd483",
+        "name": "Is emergency",
+        "property": "flag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 700,
+        "y": 60,
+        "wires": [
+            [
+                "cda3dec6.d81e98"
+            ]
+        ]
+    },
+    {
+        "id": "2f5bea78.c63806",
+        "type": "function",
+        "z": "a81c23f3.bd483",
+        "name": "Put id",
+        "func": "msg.payload=\"Arduino007\\t\"+msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 170,
+        "y": 60,
+        "wires": [
+            [
+                "d74b3c82.68db38"
+            ]
+        ]
+    },
+    {
+        "id": "9e3af951.bceb98",
+        "type": "mqtt in",
+        "z": "ddb0bb9c.500fa8",
+        "name": "",
+        "topic": "Centro/Toscana/2-5-3/claves",
+        "qos": "0",
+        "broker": "7864308b.b44098",
+        "x": 140,
+        "y": 100,
+        "wires": [
+            [
+                "3ca1ebdb.7d11ec",
+                "2a630e64.7916f2"
+            ]
+        ]
+    },
+    {
+        "id": "3ca1ebdb.7d11ec",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Virtual entity",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 370,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "7bf50ee4.c8d238",
+        "type": "function",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Verify arduino message",
+        "func": "data=msg.payload.msg.split(\";\");\nlist=[\"NEW_PASSWORD\",\"CHANGE_PASSWORD\",\"DELETE_PASSWORD\",\"DELETE_ALL\"];\noperaciones=['POST','PUT','DELETE','DELETE'];\noperacion=operaciones[parseInt(data[0])-1];\nclave=\"\";\nnuevaClave=\"\";\nnumero=\"\";\nif(data.length>2)\n{\n    if(data[1].length<=2 &&data[2].length==4)\n    {\n        if(!isNaN(parseInt(data[1]))&&parseInt(data[1])<20 && !isNaN(parseInt(data[2])))\n        {\n            clave=data[2];\n            numero=data[1];\n            msg.pass=list[parseInt(data[0])-1]+\";\"+data[1]+\";\"+data[2];\n        }\n    }\n}\nelse if (data.length>1)\n{\n    if(!isNaN(parseInt(data[1]))&&parseInt(data[1])<20)\n        {\n            numero=data[1];\n            msg.pass=list[parseInt(data[0])-1]+\";\"+data[1];\n        }\n}\nelse\n{\n    if(parseInt(msg.payload.msg)===4)\n    {\n        msg.pass=list[parseInt(msg.payload.msg)-1]\n    }\n}\nglobal.set('arduinoPasswordPayload',msg.pass);\nmsg.payload={'usuario':msg.payload.usuario,'clave':clave,'numero':numero};\nmsg.method=operacion;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 950,
+        "y": 140,
+        "wires": [
+            [
+                "8088a34f.0c6d7",
+                "18eddaf4.fd7bd5"
+            ]
+        ]
+    },
+    {
+        "id": "f8a969cb.79af",
+        "type": "inject",
+        "z": "ddb0bb9c.500fa8",
+        "name": "INJECT PASSWORD CHANGE",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 150,
+        "y": 240,
+        "wires": [
+            [
+                "4253ab23.fc4b14"
+            ]
+        ]
+    },
+    {
+        "id": "4253ab23.fc4b14",
+        "type": "random",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Random emergency",
+        "low": "3",
+        "high": "3",
+        "inte": "true",
+        "x": 320,
+        "y": 340,
+        "wires": [
+            [
+                "e45e2d1.7441ed"
+            ]
+        ]
+    },
+    {
+        "id": "d245b00e.344db8",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Virtual mock",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 410,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "e45e2d1.7441ed",
+        "type": "function",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Merge",
+        "func": "num=parseInt(msg.payload);\nif (num==3)\n{\n    msg.payload=\"{\\\"msg\\\":\\\"\"+num+\";\"+\"01\\\",\\\"usuario\\\":\\\"sguzmanm\\\"}\";\n}\nelse if(num<4)\n{\n    msg.payload=\"{\\\"msg\\\":\\\"\"+num+\";\"+\"01\"+\";\"+\"3143\\\",\\\"usuario\\\":\\\"sguzmanm\\\"}\";\n}\nelse\n    msg.payload=\"{\\\"msg\\\":\\\"\"+num+\"\\\",\\\"usuario\\\":\\\"sguzmanm\\\"}\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 510,
+        "y": 360,
+        "wires": [
+            [
+                "d245b00e.344db8",
+                "2a630e64.7916f2"
+            ]
+        ]
+    },
+    {
+        "id": "2a630e64.7916f2",
+        "type": "json",
+        "z": "ddb0bb9c.500fa8",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 420,
+        "y": 200,
+        "wires": [
+            [
+                "6912859b.27aabc"
+            ]
+        ]
+    },
+    {
+        "id": "18eddaf4.fd7bd5",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Arduino message",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1070,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "6b82f3bf.6f0894",
+        "type": "function",
+        "z": "c716ffd5.d195d",
+        "name": "Reset Health Check",
+        "func": "global.set(\"lastHealthCheck\",new Date());\nglobal.set(\"misses\",0);",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 520,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2aafec8.6b2b714",
+        "type": "function",
+        "z": "c716ffd5.d195d",
+        "name": "Format Time",
+        "func": "\nif(typeof global.get(\"lastHealthCheck\")=='undefined')\n{\n    global.set(\"lastHealthCheck\",new Date());\n    msg.test2=\"ENTRA\";\n}\nif(isNaN(global.get(\"misses\")))\n{\n    global.set(\"misses\",0);\n}\n\nvar maxMisses=1;\nvar time=10000;\nvar last=global.get(\"lastHealthCheck\");\nmsg.flag=0;\n\nvar diffMs = (new Date() - last); // milliseconds between now & Christmas\n\nmsg.test=global.get(\"lastHealthCheck\")+\" \"+global.get(\"misses\")+\" \"+diffMs;\n\nif(diffMs>time)\n{\n    global.set(\"misses\",global.get(\"misses\")+1);\n}\nif(global.get(\"misses\")>maxMisses)\n{\n    msg.flag=1;\n    msg.headers={\"Content-Type\":\"application/json\"};\n    msg.payload={\n          \"remitente\":\"Hub007@yale\",\n          \"destinatarios\":[\n          {\n              \"correo\":\"js.diaz@uniandes.edu.co\"\n          },\n          {\n              \"correo\":\"ja.manrique@uniandes.edu.co\"\n          },\n          {\n              \"correo\":\"cm.sarmiento10@uniandes.edu.co\"\n          }\n          ],\n          \"asunto\":\"CERRADURA FUERA DE LÍNEA\",\n          \"cuerpo\":\"Arduino 007 no está en línea\"\n     \n      };\n}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 260,
+        "wires": [
+            [
+                "d79095c2.2370f",
+                "665aef84.14ef",
+                "fe5494b0.364cb8",
+                "6e9aa67a.0b96a8",
+                "ce675edd.24ebb8"
+            ]
+        ]
+    },
+    {
+        "id": "1b4f8040.0998b",
+        "type": "switch",
+        "z": "c716ffd5.d195d",
+        "name": "Is correct entry?",
+        "property": "flag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "5",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 560,
+        "y": 100,
+        "wires": [
+            [
+                "6b82f3bf.6f0894",
+                "54856cbb.86e424"
+            ]
+        ]
+    },
+    {
+        "id": "514c60e6.97d12",
+        "type": "inject",
+        "z": "c716ffd5.d195d",
+        "name": "Healthcheck Verification",
+        "topic": "emergencyTime",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "0",
+        "x": 170,
+        "y": 220,
+        "wires": [
+            [
+                "3c514c4a.76bf04",
+                "2aafec8.6b2b714"
+            ]
+        ]
+    },
+    {
+        "id": "d79095c2.2370f",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "HC3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 350,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "f5cf0e6d.904338",
+        "type": "function",
+        "z": "c716ffd5.d195d",
+        "name": "Physical Entity mock",
+        "func": "msg.flag=msg.payload.split(\"\\t\")[1][0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 260,
+        "y": 100,
+        "wires": [
+            [
+                "21463b73.1a206c",
+                "1b4f8040.0998b"
+            ]
+        ]
+    },
+    {
+        "id": "3c514c4a.76bf04",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "HC2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 390,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "21463b73.1a206c",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "FLAG1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 510,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "25ca698.9691016",
+        "type": "random",
+        "z": "c716ffd5.d195d",
+        "name": "Random emergency",
+        "low": "5",
+        "high": "5",
+        "inte": "true",
+        "x": 300,
+        "y": 20,
+        "wires": [
+            [
+                "debe76c9.6e646"
+            ]
+        ]
+    },
+    {
+        "id": "29cfc44d.90d17c",
+        "type": "inject",
+        "z": "c716ffd5.d195d",
+        "name": "",
+        "topic": "s.guzmanm@uniandes.edu.co",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "11",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 80,
+        "y": 20,
+        "wires": [
+            [
+                "25ca698.9691016"
+            ]
+        ]
+    },
+    {
+        "id": "ede1b737.188af",
+        "type": "mqtt in",
+        "z": "c716ffd5.d195d",
+        "name": "",
+        "topic": "Arduino007.envio",
+        "qos": "0",
+        "broker": "95b6be9c.590918",
+        "x": 80,
+        "y": 160,
+        "wires": [
+            [
+                "91c2374.9ae15c8",
+                "f5cf0e6d.904338"
+            ]
+        ]
+    },
+    {
+        "id": "debe76c9.6e646",
+        "type": "function",
+        "z": "c716ffd5.d195d",
+        "name": "Put id",
+        "func": "msg.payload=msg.payload+\"\\t3141\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 190,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "665aef84.14ef",
+        "type": "switch",
+        "z": "c716ffd5.d195d",
+        "name": "Is emergency?",
+        "property": "flag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 680,
+        "y": 240,
+        "wires": [
+            [
+                "c7412491.606b18",
+                "3272489b.b734c8"
+            ]
+        ]
+    },
+    {
+        "id": "fe5494b0.364cb8",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "HC4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "flag",
+        "x": 540,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "c7412491.606b18",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "HC5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 790,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "6e9aa67a.0b96a8",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "TEST",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "test",
+        "x": 120,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "ce675edd.24ebb8",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "TEST2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "test2",
+        "x": 250,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "6bf43a36.a4b31c",
+        "type": "inject",
+        "z": "9f25517e.dc5bc8",
+        "name": "TIME INTERVAL",
+        "topic": "s.guzmanm@uniandes.edu.co",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "25",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 160,
+        "wires": [
+            [
+                "4cea937a.702394"
+            ]
+        ]
+    },
+    {
+        "id": "4cea937a.702394",
+        "type": "function",
+        "z": "9f25517e.dc5bc8",
+        "name": "HEALTHCHECK",
+        "func": "msg.payload={\"Hub\":\"Hub007\"}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 360,
+        "y": 180,
+        "wires": [
+            [
+                "552e0136.79c81",
+                "1deb4462.d4fd3c"
+            ]
+        ]
+    },
+    {
+        "id": "54856cbb.86e424",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "HC",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 700,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "91c2374.9ae15c8",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "HCheck",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 300,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "be0c295e.e20a78",
+        "type": "inject",
+        "z": "34f6a4a0.c4adbc",
+        "name": "ACEPTAR",
+        "topic": "s.guzmanm@uniandes.edu.co",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 200,
+        "y": 420,
+        "wires": [
+            [
+                "8db5adda.8b52b"
+            ]
+        ]
+    },
+    {
+        "id": "8db5adda.8b52b",
+        "type": "function",
+        "z": "34f6a4a0.c4adbc",
+        "name": "GET MQTT MSG",
+        "func": "msg.payload={\"clave\":\"5555\"};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 570,
+        "y": 480,
+        "wires": [
+            [
+                "c4a974a6.5071d8",
+                "59e93c11.c9f354"
+            ]
+        ]
+    },
+    {
+        "id": "525dafb4.185a2",
+        "type": "mqtt out",
+        "z": "34f6a4a0.c4adbc",
+        "name": "",
+        "topic": "Arduino007.recibir",
+        "qos": "",
+        "retain": "",
+        "broker": "21be8c88.6d7f64",
+        "x": 670,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "87f290d6.3f3ca",
+        "type": "function",
+        "z": "34f6a4a0.c4adbc",
+        "name": "GET MQTT MSG",
+        "func": "number=1\nif(number==0)\n    msg.payload=\"CERRAR\";\nelse\n    msg.payload=\"ABRIR\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 570,
+        "y": 640,
+        "wires": [
+            [
+                "525dafb4.185a2"
+            ]
+        ]
+    },
+    {
+        "id": "8e6707a9.61eac8",
+        "type": "inject",
+        "z": "34f6a4a0.c4adbc",
+        "name": "RECHAZAR",
+        "topic": "s.guzmanm@uniandes.edu.co",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 210,
+        "y": 580,
+        "wires": [
+            [
+                "87f290d6.3f3ca"
+            ]
+        ]
+    },
+    {
+        "id": "b1ce02a1.7fe8c",
+        "type": "function",
+        "z": "c716ffd5.d195d",
+        "name": "Reinicio arduino",
+        "func": "global.set(\"misses\",0);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1490,
+        "y": 260,
+        "wires": [
+            [
+                "8127e7d7.9ff548"
+            ]
+        ]
+    },
+    {
+        "id": "ed497d5.501e58",
+        "type": "function",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Verify alarm message",
+        "func": "if (msg.payload.msg==\"A\")\n    global.set(\"emailActivated\",true);\nelse if (msg.payload.msg==\"D\")\n    global.set(\"emailActivated\",false);\nmsg.payload=global.get(\"emailActivated\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 940,
+        "y": 320,
+        "wires": [
+            [
+                "9bcf1e39.40561"
+            ]
+        ]
+    },
+    {
+        "id": "6318c0ff.7b8ff",
+        "type": "switch",
+        "z": "a81c23f3.bd483",
+        "name": "Email is activated?",
+        "property": "emailActivated",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 970,
+        "y": 160,
+        "wires": [
+            [
+                "faff2eb0.303eb"
+            ]
+        ]
+    },
+    {
+        "id": "9bcf1e39.40561",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "GLOBAL EMAIL",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1070,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "f8d2a1ce.ef2ab",
+        "type": "switch",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Verify topic",
+        "property": "flag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 720,
+        "y": 200,
+        "wires": [
+            [
+                "7bf50ee4.c8d238"
+            ],
+            [
+                "ed497d5.501e58"
+            ]
+        ]
+    },
+    {
+        "id": "5843eba3.9d8844",
+        "type": "debug",
+        "z": "a81c23f3.bd483",
+        "name": "EMIAL IS ACTIVATED",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "test",
+        "x": 990,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "6912859b.27aabc",
+        "type": "function",
+        "z": "ddb0bb9c.500fa8",
+        "name": "PUT FLAG",
+        "func": "msg.flag=0;\nindice=msg.payload.msg.split(\";\")[0];\nif(indice==\"A\" || indice==\"D\")\n    msg.flag=1;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 710,
+        "y": 360,
+        "wires": [
+            [
+                "f8d2a1ce.ef2ab",
+                "d3825ae.b9c9fa8"
+            ]
+        ]
+    },
+    {
+        "id": "d3825ae.b9c9fa8",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "MSG FLAG",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "flag",
+        "x": 630,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "552e0136.79c81",
+        "type": "debug",
+        "z": "9f25517e.dc5bc8",
+        "name": "HUB HC",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 550,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "f58759ff.7f50e",
+        "type": "mqtt out",
+        "z": "34f6a4a0.c4adbc",
+        "name": "",
+        "topic": "Arduino007.recibir",
+        "qos": "",
+        "retain": "",
+        "broker": "21be8c88.6d7f64",
+        "x": 1080,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "e00bd0a8.abd328",
+        "type": "function",
+        "z": "34f6a4a0.c4adbc",
+        "name": "GET MQTT MSG",
+        "func": "res={};\nres.payload=\"CERRAR\";\nmsg.test=global.get(\"Timeout\");\nvar last=global.get(\"arduinoRequestDate\");\nvar time=global.get(\"arduinoTimeout\");\nvar diffMs = (new Date() - last); // milliseconds between now & Christmas\nif(msg.statusCode==200 && diffMs<=time)\n{\n    res.payload=\"ABRIR\";\n    global.set(\"arduinoState\",\"open\")\n}\nreturn res;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 830,
+        "y": 280,
+        "wires": [
+            [
+                "f58759ff.7f50e",
+                "ee1c0c4f.f691"
+            ]
+        ]
+    },
+    {
+        "id": "ee1c0c4f.f691",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "msg result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1090,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "cd7bbca9.598ab8",
+        "type": "function",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Format Physical Entity",
+        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-5-3\";\nvar conjunto=\"Toscana\";\nvar zona=\"Centro\"\n\ntempArray = msg.payload.split(\"\\t\");\nres.topic = \"entryHub\";\nres.payload = {};\nres.payload={\"clave\":tempArray[3]};\nglobal.set(\"arduinoTimeout\",tempArray[2]);\nglobal.set(\"arduinoRequestDate\",new Date());\nreturn res;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 520,
+        "y": 300,
+        "wires": [
+            [
+                "8c172336.62932",
+                "4a4999d7.cef258"
+            ]
+        ]
+    },
+    {
+        "id": "8c172336.62932",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "After Format",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 750,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "c2818a40.bea788",
+        "type": "switch",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Is correct entry?",
+        "property": "flag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 580,
+        "y": 100,
+        "wires": [
+            [
+                "cd7bbca9.598ab8"
+            ]
+        ]
+    },
+    {
+        "id": "bf0a8711.72761",
+        "type": "function",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Physical Entity mock",
+        "func": "msg.flag=msg.payload.split(\"\\t\")[1];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 260,
+        "y": 120,
+        "wires": [
+            [
+                "c2818a40.bea788",
+                "f11155c6.522e1"
+            ]
+        ]
+    },
+    {
+        "id": "f11155c6.522e1",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Before Format 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 540,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "98342d12.4458a8",
+        "type": "mqtt in",
+        "z": "34f6a4a0.c4adbc",
+        "name": "",
+        "topic": "Arduino007.envio",
+        "qos": "0",
+        "broker": "95b6be9c.590918",
+        "x": 120,
+        "y": 180,
+        "wires": [
+            [
+                "bf0a8711.72761",
+                "a430a835.f23778"
+            ]
+        ]
+    },
+    {
+        "id": "9735429e.c7973",
+        "type": "function",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Put id",
+        "func": "msg.payload=\"Arduino007\\t\"+msg.payload+\"\\t\"+5000+\"\\t\"+5555;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 190,
+        "y": 80,
+        "wires": [
+            [
+                "bf0a8711.72761"
+            ]
+        ]
+    },
+    {
+        "id": "a430a835.f23778",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "HOLA",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 290,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "85d5c560.7df24",
+        "type": "random",
+        "z": "34f6a4a0.c4adbc",
+        "name": "Random emergency",
+        "low": "0",
+        "high": "0",
+        "inte": "true",
+        "x": 240,
+        "y": 40,
+        "wires": [
+            [
+                "9735429e.c7973"
+            ]
+        ]
+    },
+    {
+        "id": "a3b78923.8bd4d",
+        "type": "inject",
+        "z": "34f6a4a0.c4adbc",
+        "name": "",
+        "topic": "s.guzmanm@uniandes.edu.co",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 80,
+        "y": 40,
+        "wires": [
+            [
+                "85d5c560.7df24"
+            ]
+        ]
+    },
+    {
+        "id": "8127e7d7.9ff548",
+        "type": "mqtt out",
+        "z": "c716ffd5.d195d",
+        "name": "",
+        "topic": "Centro/Toscana/fallo/cerraduraFueraDeLinea/2-5-3",
+        "qos": "",
+        "retain": "",
+        "broker": "fd5fe0d5.a2ccd",
+        "x": 1890,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "3272489b.b734c8",
+        "type": "function",
+        "z": "c716ffd5.d195d",
+        "name": "Format Physical Entity",
+        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-5-3\"\nvar conjunto=\"Toscana\"\nvar zona=\"Centro\"\n\n\nres.topic = \"failureHub\";\nres.payload = {};\n\nres.payload = {\"id\": \"Arduino007\", \"fallo\":\"1\",\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona}\n\nreturn res;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1140,
+        "y": 360,
+        "wires": [
+            [
+                "3dd8b5c5.fe437a",
+                "e27f4768.fa36c8"
+            ]
+        ]
+    },
+    {
+        "id": "3dd8b5c5.fe437a",
+        "type": "function",
+        "z": "c716ffd5.d195d",
+        "name": "Merge 2 Messages",
+        "func": "context.data = context.data || {};\n\nswitch (msg.topic) \n{\n    case \"failureTime\":\n        context.data.sensetime = msg.payload;\n        msg = null;\n        break;\n    case \"failureHub\":\n        context.data.failure = msg.payload;\n        msg = null;\n        break;\n    default:\n        msg = null;\n    \tbreak;\n}\n\nif(context.data.sensetime != null && context.data.failure != null) \n{\n\tres = {};\n    res.payload = JSON.stringify(context.data);\n    res.topic = \"failureHub\";\n    context.data = null;\n    return res;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1430,
+        "y": 440,
+        "wires": [
+            [
+                "b1ce02a1.7fe8c",
+                "6f69fa7.4e93e04"
+            ]
+        ]
+    },
+    {
+        "id": "67bf5d91.e22844",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "After Format 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1340,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "d079fd37.b2365",
+        "type": "function",
+        "z": "c716ffd5.d195d",
+        "name": "Format Time",
+        "func": "var res = {};\n\n\nres.payload = msg.payload;\nres.topic = msg.topic;\n\nreturn res;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1110,
+        "y": 540,
+        "wires": [
+            [
+                "67bf5d91.e22844",
+                "3dd8b5c5.fe437a"
+            ]
+        ]
+    },
+    {
+        "id": "8617c210.423be",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "Before Format 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1120,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "10c00f47.4b2011",
+        "type": "inject",
+        "z": "c716ffd5.d195d",
+        "name": "Send Time",
+        "topic": "failureTime",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "0",
+        "x": 850,
+        "y": 460,
+        "wires": [
+            [
+                "8617c210.423be",
+                "d079fd37.b2365"
+            ]
+        ]
+    },
+    {
+        "id": "6f69fa7.4e93e04",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "MENSAJE SPEED",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1700,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "e27f4768.fa36c8",
+        "type": "debug",
+        "z": "c716ffd5.d195d",
+        "name": "POST FORMAT",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1310,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "1deb4462.d4fd3c",
+        "type": "mqtt out",
+        "z": "9f25517e.dc5bc8",
+        "name": "",
+        "topic": "Centro/Toscana/hub/2-5-3",
+        "qos": "0",
+        "retain": "",
+        "broker": "44a57b55.f2de64",
+        "x": 630,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "d114498f.ebe898",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "BD",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 750,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "c4a974a6.5071d8",
+        "type": "http request",
+        "z": "34f6a4a0.c4adbc",
+        "name": "POST",
+        "method": "POST",
+        "ret": "txt",
+        "url": "172.24.41.182:8080/arduinoAccess",
+        "tls": "",
+        "x": 800,
+        "y": 540,
+        "wires": [
+            [
+                "5e27aeb.e93835"
+            ]
+        ]
+    },
+    {
+        "id": "5e27aeb.e93835",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "statusCode",
+        "x": 970,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "59e93c11.c9f354",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 820,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "4a4999d7.cef258",
+        "type": "http request",
+        "z": "34f6a4a0.c4adbc",
+        "name": "POST",
+        "method": "POST",
+        "ret": "txt",
+        "url": "172.24.41.182:8080/arduinoAccess",
+        "tls": "",
+        "x": 710,
+        "y": 340,
+        "wires": [
+            [
+                "e00bd0a8.abd328",
+                "3444788f.2d7f98"
+            ]
+        ]
+    },
+    {
+        "id": "c9d6e16e.7f9ab",
+        "type": "inject",
+        "z": "ddb0bb9c.500fa8",
+        "name": "ENABLE ALARMS",
+        "topic": "s.guzmanm@uniandes.edu.co",
+        "payload": "A",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 440,
+        "wires": [
+            [
+                "8a1d6eb5.71309"
+            ]
+        ]
+    },
+    {
+        "id": "8a1d6eb5.71309",
+        "type": "function",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Merge",
+        "func": "   msg.payload=\"{\\\"msg\\\":\\\"\"+msg.payload+\"\\\"}\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 440,
+        "wires": [
+            [
+                "3229b24c.e645ee",
+                "6912859b.27aabc"
+            ]
+        ]
+    },
+    {
+        "id": "3229b24c.e645ee",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Virtual ENABLE",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 480,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "8088a34f.0c6d7",
+        "type": "http request",
+        "z": "ddb0bb9c.500fa8",
+        "name": "COM",
+        "method": "use",
+        "ret": "txt",
+        "url": "172.24.41.182:8080/passwordAccess",
+        "tls": "",
+        "x": 1150,
+        "y": 180,
+        "wires": [
+            [
+                "1e7171eb.e3385e",
+                "245b38f1.ffbb78"
+            ]
+        ]
+    },
+    {
+        "id": "7e960837.516098",
+        "type": "function",
+        "z": "ddb0bb9c.500fa8",
+        "name": "GET MQTT MSG",
+        "func": "msg.payload=global.get('arduinoPasswordPayload');\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1270,
+        "y": 120,
+        "wires": [
+            [
+                "5293b74c.a7c678",
+                "96c86670.8f6788"
+            ]
+        ]
+    },
+    {
+        "id": "5293b74c.a7c678",
+        "type": "mqtt out",
+        "z": "ddb0bb9c.500fa8",
+        "name": "",
+        "topic": "Arduino007.recibir",
+        "qos": "",
+        "retain": "",
+        "broker": "21be8c88.6d7f64",
+        "x": 1570,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "96c86670.8f6788",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "FINAL RESULT",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1540,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "1e7171eb.e3385e",
+        "type": "switch",
+        "z": "ddb0bb9c.500fa8",
+        "name": "SUCCESSFUL",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "200",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1330,
+        "y": 200,
+        "wires": [
+            [
+                "7e960837.516098"
+            ]
+        ]
+    },
+    {
+        "id": "245b38f1.ffbb78",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "PASSWORD RESPONSE",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "statusCode",
+        "x": 1440,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "3444788f.2d7f98",
+        "type": "debug",
+        "z": "34f6a4a0.c4adbc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "statusCode",
+        "x": 830,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "3dcd1067.0e0c6",
+        "type": "mqtt in",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Centro/Toscana/2-5-3/horarios",
+        "topic": "Centro/Toscana/2-5-3/horarios",
+        "qos": "0",
+        "broker": "943fed38.2468a",
+        "x": 160,
+        "y": 720,
+        "wires": [
+            [
+                "1d18fbae.01d614"
+            ]
+        ]
+    },
+    {
+        "id": "1d18fbae.01d614",
+        "type": "json",
+        "z": "ddb0bb9c.500fa8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 400,
+        "y": 740,
+        "wires": [
+            [
+                "6fb0bfb7.c5c0f"
+            ]
+        ]
+    },
+    {
+        "id": "d2feb173.f2198",
+        "type": "inject",
+        "z": "ddb0bb9c.500fa8",
+        "name": "DISABLE ALARMS",
+        "topic": "s.guzmanm@uniandes.edu.co",
+        "payload": "D",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 530,
+        "y": 460,
+        "wires": [
+            [
+                "7265d294.13975c"
+            ]
+        ]
+    },
+    {
+        "id": "7265d294.13975c",
+        "type": "function",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Merge",
+        "func": "   msg.payload=\"{\\\"msg\\\":\\\"\"+msg.payload+\"\\\"}\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 710,
+        "y": 460,
+        "wires": [
+            [
+                "90227cd7.2921",
+                "6912859b.27aabc"
+            ]
+        ]
+    },
+    {
+        "id": "90227cd7.2921",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Virtual DISABLE",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 900,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "ea10d822.3e6638",
+        "type": "inject",
+        "z": "ddb0bb9c.500fa8",
+        "name": "CREATE SCHEDULE",
+        "topic": "s.guzmanm@uniandes.edu.co",
+        "payload": "1",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 160,
+        "y": 820,
+        "wires": [
+            [
+                "543396e4.883358"
+            ]
+        ]
+    },
+    {
+        "id": "543396e4.883358",
+        "type": "function",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Merge",
+        "func": "\nmsg.payload={horaInicio:\"13:00\",horaFin:\"14:00\",usuario:\"sguzmanm\",\"nuevoInicio\":\"13:00\",nuevoFin:\"14:00\",operacion:msg.payload}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 820,
+        "wires": [
+            [
+                "6fb0bfb7.c5c0f"
+            ]
+        ]
+    },
+    {
+        "id": "6fb0bfb7.c5c0f",
+        "type": "function",
+        "z": "ddb0bb9c.500fa8",
+        "name": "Verify arduino message",
+        "func": "operaciones=['POST','PUT','DELETE'];\nmsg.method=operaciones[msg.payload.operacion-1];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 610,
+        "y": 740,
+        "wires": [
+            [
+                "7e752a26.c6b254"
+            ]
+        ]
+    },
+    {
+        "id": "7e752a26.c6b254",
+        "type": "http request",
+        "z": "ddb0bb9c.500fa8",
+        "name": "COM",
+        "method": "use",
+        "ret": "txt",
+        "url": "172.24.41.182:8080/scheduleAccess",
+        "tls": "",
+        "x": 810,
+        "y": 780,
+        "wires": [
+            [
+                "478b064e.d08c48"
+            ]
+        ]
+    },
+    {
+        "id": "478b064e.d08c48",
+        "type": "debug",
+        "z": "ddb0bb9c.500fa8",
+        "name": "SCHEDULE RESPONSE",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "statusCode",
+        "x": 1000,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "2529ba28.8b9346",
+        "type": "function",
+        "z": "541dcb45.f3862c",
+        "name": "Format Time",
+        "func": "var res = {};\n\n\nres.payload = msg.payload;\nres.topic = msg.topic;\n\nreturn res;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370,
+        "y": 340,
+        "wires": [
+            [
+                "28638fff.a7e2d",
+                "2d99dea7.c090fa"
+            ]
+        ]
+    },
+    {
+        "id": "1b954245.445006",
+        "type": "inject",
+        "z": "541dcb45.f3862c",
+        "name": "Send Time",
+        "topic": "emergencyTime",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "0",
+        "x": 110,
+        "y": 260,
+        "wires": [
+            [
+                "43ec9b3.7d7afe4",
+                "2529ba28.8b9346"
+            ]
+        ]
+    },
+    {
+        "id": "28638fff.a7e2d",
+        "type": "debug",
+        "z": "541dcb45.f3862c",
+        "name": "After Format 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 600,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "2d99dea7.c090fa",
+        "type": "function",
+        "z": "541dcb45.f3862c",
+        "name": "Merge 2 Messages",
+        "func": "context.data = context.data || {};\n\nswitch (msg.topic) \n{\n    case \"emergencyTime\":\n        context.data.sensetime = msg.payload;\n        msg = null;\n        break;\n    case \"emergencyHub\":\n        context.data.emergency = msg.payload;\n        context.flag=msg.payload.emergencia;\n        msg = null;\n        break;\n    default:\n        msg = null;\n    \tbreak;\n}\n\nif(context.flag!=null && context.data.sensetime != null && context.data.emergency != null) \n{\n\tres = {};\n    res.payload = JSON.stringify(context.data);\n    res.flag=context.flag;\n    res.topic = \"emergencyHub\";\n    context.data = null;\n    res.test=global.get(\"emailActivated\");\n    return res;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 710,
+        "y": 280,
+        "wires": [
+            [
+                "a226227e.116b3",
+                "dd5aa822.eca508",
+                "134fd40c.9a34b4"
+            ]
+        ]
+    },
+    {
+        "id": "43ec9b3.7d7afe4",
+        "type": "debug",
+        "z": "541dcb45.f3862c",
+        "name": "Before Format 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 360,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "8ce5ab70.50ce48",
+        "type": "function",
+        "z": "541dcb45.f3862c",
+        "name": "Format Physical Entity",
+        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-503\"\nvar conjunto=\"Toscana\"\nvar zona=\"Centro\"\n//Set the alarm sending to true by default\nif(typeof global.get(\"emailActivated\")=='undefined')\n{\n    global.set(\"emailActivated\",true);\n}\n\ntempArray = msg.payload.split(\"\\t\");\nres.topic = \"emergencyHub\";\nres.payload = {};\n\nres.payload = {\"id\": tempArray[0], \"emergencia\":tempArray[1][0],\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona}\n\nreturn res;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 500,
+        "y": 220,
+        "wires": [
+            [
+                "fd8feda6.aa1b8",
+                "2d99dea7.c090fa"
+            ]
+        ]
+    },
+    {
+        "id": "a226227e.116b3",
+        "type": "debug",
+        "z": "541dcb45.f3862c",
+        "name": "Flag",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "flag",
+        "x": 810,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "dd5aa822.eca508",
+        "type": "debug",
+        "z": "541dcb45.f3862c",
+        "name": "Merge",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 850,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "fd8feda6.aa1b8",
+        "type": "debug",
+        "z": "541dcb45.f3862c",
+        "name": "After Format",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 670,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "134fd40c.9a34b4",
+        "type": "switch",
+        "z": "541dcb45.f3862c",
+        "name": "Classify emergency",
+        "property": "flag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "4",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 4,
+        "x": 1030,
+        "y": 280,
+        "wires": [
+            [
+                "4a880ab8.53045c",
+                "f1ac6215.71ea1"
+            ],
+            [
+                "49c79a13.35ab54",
+                "6616a61d.7c91a"
+            ],
+            [
+                "e5b0df38.6524f",
+                "4825538c.5344ac"
+            ],
+            [
+                "f5ab461b.8a8008",
+                "d53e47c9.f9606"
+            ]
+        ]
+    },
+    {
+        "id": "664a3dcb.218a14",
+        "type": "function",
+        "z": "541dcb45.f3862c",
+        "name": "Physical Entity mock",
+        "func": "msg.flag=msg.payload.split(\"\\t\")[1][0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 420,
+        "y": 100,
+        "wires": [
+            [
+                "cd08d78e.a11ca",
+                "8ce5ab70.50ce48"
+            ]
+        ]
+    },
+    {
+        "id": "4a880ab8.53045c",
+        "type": "mqtt out",
+        "z": "541dcb45.f3862c",
+        "name": "Emergency 1",
+        "topic": "Centro/Toscana/emergencia/puertaAbierta/2-5-3",
+        "qos": "0",
+        "retain": "false",
+        "broker": "66020ec3.36326",
+        "x": 1250,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "f1ac6215.71ea1",
+        "type": "debug",
+        "z": "541dcb45.f3862c",
+        "name": "After Merge 1 ",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1300,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "49c79a13.35ab54",
+        "type": "mqtt out",
+        "z": "541dcb45.f3862c",
+        "name": "Emergency 2",
+        "topic": "Centro/Toscana/emergencia/aperturaSospechosa/2-5-3",
+        "qos": "0",
+        "retain": "false",
+        "broker": "6bf30e21.7143f",
+        "x": 1310,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "6616a61d.7c91a",
+        "type": "debug",
+        "z": "541dcb45.f3862c",
+        "name": "After Merge 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1380,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "e5b0df38.6524f",
+        "type": "mqtt out",
+        "z": "541dcb45.f3862c",
+        "name": "Emergency 3",
+        "topic": "Centro/Toscana/emergencia/aperturaNoPermitida/2-5-3",
+        "qos": "0",
+        "retain": "false",
+        "broker": "dec95f12.953088",
+        "x": 1350,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "4825538c.5344ac",
+        "type": "debug",
+        "z": "541dcb45.f3862c",
+        "name": "After Merge 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1360,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "f5ab461b.8a8008",
+        "type": "mqtt out",
+        "z": "541dcb45.f3862c",
+        "name": "Emergency 4",
+        "topic": "Centro/Toscana/emergencia/bateriaCritica/2-5-3",
+        "qos": "0",
+        "retain": "false",
+        "broker": "d61fe174.7f0c2",
+        "x": 1230,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "d53e47c9.f9606",
+        "type": "debug",
+        "z": "541dcb45.f3862c",
+        "name": "After Merge 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1180,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "cd08d78e.a11ca",
+        "type": "debug",
+        "z": "541dcb45.f3862c",
+        "name": "Before Format 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 660,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "cf17bdbc.64bb",
+        "type": "function",
+        "z": "541dcb45.f3862c",
+        "name": "Put id",
+        "func": "msg.payload=\"Arduino007\\t\"+msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 130,
+        "y": 100,
+        "wires": [
+            [
+                "664a3dcb.218a14"
+            ]
+        ]
+    },
+    {
+        "id": "39cf195f.75c646",
+        "type": "random",
+        "z": "541dcb45.f3862c",
+        "name": "Random emergency",
+        "low": "1",
+        "high": "4",
+        "inte": "true",
+        "x": 400,
+        "y": 60,
+        "wires": [
+            [
+                "cf17bdbc.64bb"
+            ]
+        ]
+    },
+    {
+        "id": "1f895ef3.bd8321",
+        "type": "inject",
+        "z": "541dcb45.f3862c",
+        "name": "INTERVALO DE EMERGENCIAS",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 40,
+        "wires": [
+            [
+                "39cf195f.75c646"
+            ]
+        ]
+    },
+    {
+        "id": "f486b1ae.f99cf8",
+        "type": "mqtt out",
+        "z": "541dcb45.f3862c",
+        "name": "Failure 1",
+        "topic": "Centro/Toscana/emergencia/cerraduraFueraDeLinea/2-5-3",
+        "qos": "0",
+        "retain": "false",
+        "broker": "fd5fe0d5.a2ccd",
+        "x": 1440,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "5449dad3.d6f6d4",
+        "type": "switch",
+        "z": "541dcb45.f3862c",
+        "name": "Classify failure",
+        "property": "flag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 1040,
+        "y": 680,
+        "wires": [
+            [
+                "f486b1ae.f99cf8",
+                "b8f059ac.ce50d8"
+            ],
+            [
+                "8b0f0221.b5ea38",
+                "6206937.de5ae6c"
+            ]
+        ]
+    },
+    {
+        "id": "b8f059ac.ce50d8",
+        "type": "debug",
+        "z": "541dcb45.f3862c",
+        "name": "After Merge 1 ",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1480,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "8b0f0221.b5ea38",
+        "type": "mqtt out",
+        "z": "541dcb45.f3862c",
+        "name": "Failure 2",
+        "topic": "Centro/Toscana/fallo/hubFueraDeLinea/2-5-3",
+        "qos": "0",
+        "retain": "false",
+        "broker": "f342dd7f.73d4d",
+        "x": 1460,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "6206937.de5ae6c",
+        "type": "debug",
+        "z": "541dcb45.f3862c",
+        "name": "After Merge 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1340,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "68a170bb.f2c2d8",
+        "type": "function",
+        "z": "541dcb45.f3862c",
+        "name": "Merge 2 Messages",
+        "func": "context.data = context.data || {};\n\nswitch (msg.topic) \n{\n    case \"failureTime\":\n        context.data.sensetime = msg.payload;\n        msg = null;\n        break;\n    case \"failureHub\":\n        context.data.failure = msg.payload;\n        msg = null;\n        break;\n    default:\n        msg = null;\n    \tbreak;\n}\n\nif(context.data.sensetime != null && context.data.failure != null) \n{\n\tres = {};\n    res.payload = JSON.stringify(context.data);\n    res.topic = \"failureHub\";\n    context.data = null;\n    return res;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 730,
+        "y": 680,
+        "wires": [
+            [
+                "472cf590.58736c",
+                "351bee4b.206f52",
+                "5449dad3.d6f6d4"
+            ]
+        ]
+    },
+    {
+        "id": "cdd9dd8a.152268",
+        "type": "function",
+        "z": "541dcb45.f3862c",
+        "name": "Format Time",
+        "func": "var res = {};\n\n\nres.payload =msg.payload;\nres.topic = msg.topic;\n\nreturn res;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 740,
+        "wires": [
+            [
+                "2502784c.0c5f78",
+                "68a170bb.f2c2d8"
+            ]
+        ]
+    },
+    {
+        "id": "472cf590.58736c",
+        "type": "debug",
+        "z": "541dcb45.f3862c",
+        "name": "Flag",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "flag",
+        "x": 830,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "351bee4b.206f52",
+        "type": "debug",
+        "z": "541dcb45.f3862c",
+        "name": "Merge",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 870,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "376ffda7.1c60d2",
+        "type": "function",
+        "z": "541dcb45.f3862c",
+        "name": "Format Physical Entity",
+        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\nvar apartamento=\"2-5-3\"\nvar conjunto=\"Toscana\"\nvar zona=\"Centro\"\n\n\nres.topic = \"failureHub\";\nres.payload = {};\n\nres.payload = {\"id\": \"Arduino007\", \"fallo\":\"1\",\"apartamento\": apartamento, \"conjunto\": conjunto,\"zona\":zona}\n\nreturn res;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 520,
+        "y": 620,
+        "wires": [
+            [
+                "69a9f368.929b54",
+                "68a170bb.f2c2d8"
+            ]
+        ]
+    },
+    {
+        "id": "2502784c.0c5f78",
+        "type": "debug",
+        "z": "541dcb45.f3862c",
+        "name": "After Format 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 620,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "62f97ba9.e4f85c",
+        "type": "inject",
+        "z": "541dcb45.f3862c",
+        "name": "Send Time",
+        "topic": "failureTime",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "0",
+        "x": 130,
+        "y": 660,
+        "wires": [
+            [
+                "b03e27fb.6ecce8",
+                "cdd9dd8a.152268"
+            ]
+        ]
+    },
+    {
+        "id": "69a9f368.929b54",
+        "type": "debug",
+        "z": "541dcb45.f3862c",
+        "name": "After Format",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 690,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "b03e27fb.6ecce8",
+        "type": "debug",
+        "z": "541dcb45.f3862c",
+        "name": "Before Format 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 380,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "32051cf1.edda4c",
+        "type": "function",
+        "z": "541dcb45.f3862c",
+        "name": "Physical Entity mock",
+        "func": "msg.flag=msg.payload.split(\"\\t\")[1][0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 440,
+        "y": 500,
+        "wires": [
+            [
+                "8219f68c.b8aea",
+                "376ffda7.1c60d2"
+            ]
+        ]
+    },
+    {
+        "id": "8219f68c.b8aea",
+        "type": "debug",
+        "z": "541dcb45.f3862c",
+        "name": "Before Format 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 680,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "c531495e.519108",
+        "type": "function",
+        "z": "541dcb45.f3862c",
+        "name": "Put id",
+        "func": "msg.payload=\"Arduino007\\t\"+msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 150,
+        "y": 500,
+        "wires": [
+            [
+                "32051cf1.edda4c"
+            ]
+        ]
+    },
+    {
+        "id": "7e64cb91.52abcc",
+        "type": "random",
+        "z": "541dcb45.f3862c",
+        "name": "Random failure",
+        "low": "1",
+        "high": "4",
+        "inte": "true",
+        "x": 400,
+        "y": 460,
+        "wires": [
+            [
+                "c531495e.519108"
+            ]
+        ]
+    },
+    {
+        "id": "9526887.f5f56f8",
+        "type": "inject",
+        "z": "541dcb45.f3862c",
+        "name": "INTERVALO DE FALLOS",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 440,
+        "wires": [
+            [
+                "7e64cb91.52abcc"
+            ]
+        ]
+    },
+    {
+        "id": "beb4a069.1d0278",
+        "type": "comment",
+        "z": "541dcb45.f3862c",
+        "name": "CONFIGURAR TIEMPOS",
+        "info": "Agregar el tiempo entre emergencias y fallos en los nodos de intervalo",
+        "x": 110,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "c1ebaf0a.aec9",
+        "type": "inject",
+        "z": "246b32f6.82522e",
+        "name": "",
+        "topic": "s.guzmanm@uniandes.edu.co",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 80,
+        "y": 40,
+        "wires": [
+            [
+                "a3706af.f49d598"
+            ]
+        ]
+    },
+    {
+        "id": "a3706af.f49d598",
+        "type": "random",
+        "z": "246b32f6.82522e",
+        "name": "Random emergency",
+        "low": "6",
+        "high": "6",
+        "inte": "true",
+        "x": 220,
+        "y": 60,
+        "wires": [
+            [
+                "9a35bb99.84a728"
+            ]
+        ]
+    },
+    {
+        "id": "9a35bb99.84a728",
+        "type": "function",
+        "z": "246b32f6.82522e",
+        "name": "Put id",
+        "func": "msg.payload=\"Arduino007\\t\"+msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 170,
+        "y": 100,
+        "wires": [
+            [
+                "33837732.8c1fa8"
+            ]
+        ]
+    },
+    {
+        "id": "33837732.8c1fa8",
+        "type": "function",
+        "z": "246b32f6.82522e",
+        "name": "Physical Entity mock",
+        "func": "msg.flag=msg.payload.split(\"\\t\")[1];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 240,
+        "y": 140,
+        "wires": [
+            [
+                "7b9d4d14.8b8d54",
+                "45d5c337.d1cc1c",
+                "8e588069.168b5"
+            ]
+        ]
+    },
+    {
+        "id": "ea105f9b.01a0c",
+        "type": "mqtt in",
+        "z": "246b32f6.82522e",
+        "name": "",
+        "topic": "Arduino007.envio",
+        "qos": "0",
+        "broker": "95b6be9c.590918",
+        "x": 100,
+        "y": 200,
+        "wires": [
+            [
+                "33837732.8c1fa8",
+                "423accd2.b01164"
+            ]
+        ]
+    },
+    {
+        "id": "423accd2.b01164",
+        "type": "debug",
+        "z": "246b32f6.82522e",
+        "name": "HOLA",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 270,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "45d5c337.d1cc1c",
+        "type": "debug",
+        "z": "246b32f6.82522e",
+        "name": "Before Format 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 520,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "7b9d4d14.8b8d54",
+        "type": "switch",
+        "z": "246b32f6.82522e",
+        "name": "Is correct entry?",
+        "property": "flag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "6",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 560,
+        "y": 120,
+        "wires": [
+            [
+                "7f656d91.c0e234"
+            ]
+        ]
+    },
+    {
+        "id": "7f656d91.c0e234",
+        "type": "function",
+        "z": "246b32f6.82522e",
+        "name": "Format Physical Entity",
+        "func": "global.set(\"arduinoState\",\"closed\");\nmsg.test=global.get(\"arduinoState\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 500,
+        "y": 320,
+        "wires": [
+            [
+                "fae52f7a.06431"
+            ]
+        ]
+    },
+    {
+        "id": "6621a553.02f79c",
+        "type": "inject",
+        "z": "246b32f6.82522e",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 120,
+        "y": 420,
+        "wires": [
+            [
+                "7fb4c66d.e9a2b8"
+            ]
+        ]
+    },
+    {
+        "id": "7fb4c66d.e9a2b8",
+        "type": "function",
+        "z": "246b32f6.82522e",
+        "name": "GET ARDUINO STATE",
+        "func": "if(global.get(\"arduinoState\")==null)\n    global.set(\"arduinoState\",\"open\");\nmsg.payload=global.get(\"arduinoState\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 440,
+        "wires": [
+            [
+                "2e860322.859a6c"
+            ]
+        ]
+    },
+    {
+        "id": "18cd6d50.99e7b3",
+        "type": "inject",
+        "z": "dad5415e.45edb",
+        "name": "Open lock",
+        "topic": "s.guzmanm@uniandes.edu.co",
+        "payload": "ABRIR",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 80,
+        "y": 100,
+        "wires": [
+            [
+                "c92b7763.445008"
+            ]
+        ]
+    },
+    {
+        "id": "a57a5f0d.44c3b",
+        "type": "inject",
+        "z": "dad5415e.45edb",
+        "name": "Close lock",
+        "topic": "",
+        "payload": "CERRAR",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 80,
+        "y": 240,
+        "wires": [
+            [
+                "60ae09f0.df6298"
+            ]
+        ]
+    },
+    {
+        "id": "c92b7763.445008",
+        "type": "function",
+        "z": "dad5415e.45edb",
+        "name": "Set global variable",
+        "func": "global.set(\"arduinoState\",\"open\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 280,
+        "y": 100,
+        "wires": [
+            [
+                "1a406fe7.c3602",
+                "d9f4abb5.3b5ea8"
+            ]
+        ]
+    },
+    {
+        "id": "60ae09f0.df6298",
+        "type": "function",
+        "z": "dad5415e.45edb",
+        "name": "Set global variable",
+        "func": "global.set(\"arduinoState\",\"closed\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 240,
+        "wires": [
+            [
+                "1a406fe7.c3602",
+                "e224c55c.fde2f8"
+            ]
+        ]
+    },
+    {
+        "id": "1a406fe7.c3602",
+        "type": "mqtt out",
+        "z": "dad5415e.45edb",
+        "name": "Arduino007.recibir",
+        "topic": "Arduino007.recibir",
+        "qos": "",
+        "retain": "",
+        "broker": "21be8c88.6d7f64",
+        "x": 530,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "d9f4abb5.3b5ea8",
+        "type": "debug",
+        "z": "dad5415e.45edb",
+        "name": "Open message",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 580,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "e224c55c.fde2f8",
+        "type": "debug",
+        "z": "dad5415e.45edb",
+        "name": "Close message",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 550,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "2e860322.859a6c",
+        "type": "debug",
+        "z": "246b32f6.82522e",
+        "name": "ARDUINO STATE",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 360,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "fae52f7a.06431",
+        "type": "debug",
+        "z": "246b32f6.82522e",
+        "name": "ARDUINO STATE",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "test",
+        "x": 700,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "8e588069.168b5",
+        "type": "debug",
+        "z": "246b32f6.82522e",
+        "name": "FLAG",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "flag",
+        "x": 400,
+        "y": 180,
+        "wires": []
+    }
+]
