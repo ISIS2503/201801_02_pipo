@@ -1,24 +1,35 @@
 <template>
+
 <div class="md-content md-scrollbar">
     <div class="above">
+      <div @click="previousTower" class="icon-container">
         <md-icon class="md-size-2x next cursor cursor-left">arrow_back_ios</md-icon>
-        <h1 class="next tower-name">TORRE 1</h1>
+      </div>
+        <h1 class="next tower-name">TORRE {{ur.torres[towerIndex].numero}}</h1>
+      <div @click="nextTower" class="icon-container">
         <md-icon class="md-size-2x next cursor">arrow_forward_ios</md-icon>
+      </div>
     </div>
 
-    <div class="container">
+    <div class="container" v-if="ur.torres[towerIndex]">
         <div class="roof">
-            <div class="middle-roof">
-            </div>
-            <div class="bottom-roof">
-            </div>
+            <div class="middle-roof"/>            
+            <div class="bottom-roof"/>            
         </div>
-        <div v-for="(piso, index) in this.unidad.torres[0].pisos" :key="index">
+
+        <div v-for="(piso, index) in ur.torres[towerIndex].pisos" :key="index">
             <div class="md-layout">
                 <!-- <b-row> -->
                     <div class="floor-number md-layout-item md-size-5">{{piso.numero}}</div>
 
-                        <div v-for="(apartamento, index) in piso.apartamentos" :key="index" v-on:click="reversedMessage" class="apto md-layout-item">
+                        <div
+                          v-for="(apartamento, index) in piso.apartamentos" 
+                          :key="index"
+                          v-if="ur.torres[towerIndex].pisos"
+                          v-on:click="selectProperty('' + ur.torres[towerIndex].numero + '-' + piso.numero + '-' + apartamento.numero, apartamento.owner)"
+                          v-scroll-to="'#' + ur.torres[towerIndex].numero + '-' + piso.numero + '-' + apartamento.numero"
+                          :class="assignIcon(apartamento)"
+                        >
                             <div class="apartment-number" >
                                 {{apartamento.numero}}
                             </div>
@@ -33,10 +44,8 @@
                 <!-- </b-row> -->
             </div>
         </div>
-            <div class="middle-floor">
-            </div>
-            <div class="bottom-floor">
-            </div>
+            <div class="middle-floor" />
+            <div class="bottom-floor" />
     </div>
 
 
@@ -48,6 +57,7 @@ import "../../../styles/tower.css";
 import "../../../styles/apartment-icon.css";
 export default {
   name: "MapGrid",
+  props: ["ur", "alarms", "tower-index"],
   data: function() {
     return {
       unidad: {
@@ -172,16 +182,52 @@ export default {
             ]
           }
         ]
-      }
+      },
+      boolean: true
     };
   },
-  methods:{
-    // a computed getter
-    reversedMessage: function () {
-      // `this` points to the vm instance
-      console.log('llega');
-      return 2;
+  methods: {
+    selectProperty: function(localID, auth0_owner) {
+      let selectedAlarm = undefined;
+      for (var alarm of this.alarms) {
+        if (alarma.apartamento === localID) {
+          selectedAlarm = alarm;
+        }
+      }
+
+      this.$emit("select-detail", localID, auth0_owner, selectedAlarm);
+    },
+    previousTower() {
+      this.towerIndex =
+        (this.towerIndex - 1 + this.ur.torres.length) % this.ur.torres.length;
+         this.$emit("select-tower", towerIndex);
+    },
+    nextTower() {
+      this.towerIndex = (this.towerIndex + 1) % this.ur.torres.length;
+       this.$emit("select-tower", towerIndex);
+    },
+    scrollToAlarm(alarm) {
+      //Colorar el grid
+      ur.torres[alarm.localID.split("-")[0]].pisos[
+        alarm.localID.split("-")[1]
+      ].apartamentos[alarm.localID.split("-")[2]].alarma = alarm;
+      this.$scrollTo("#" + alarm.localID, 1000);
+    },
+    assignIcon(apartamento) {
+      let classObject = {};
+      if (apartamento.alarma) {
+        classObject[apartamento.alarma.normalType] = true;
+      }
+      else{
+       classObject["apto md-layout-item"]=true;
+      }
+      console.log(classObject);
+
+      return classObject;
     }
+  },
+  mounted() {
+    this.torres = this.ur; //set unidad to prop
   }
 };
 </script>
@@ -189,6 +235,9 @@ export default {
 <style scoped>
 .above {
   margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .next {
@@ -201,26 +250,28 @@ export default {
   font-size: 3rem;
 }
 
-.cursor{
-  width:55px;
+.icon-container {
+  display: flex;
+}
+
+.cursor {
+  width: 55px;
   height: 55px;
-  background:  rgb(77, 77, 77);
-  color:white;
+  background: rgb(77, 77, 77);
+  color: white;
   border-radius: 50%;
   line-height: 55px;
   text-align: center;
 }
 
-
 .cursor:hover {
   cursor: pointer;
 }
 
-.cursor-left{
-  position:relative;
+.cursor-left {
+  position: relative;
   padding-left: 11px;
 }
-
 
 .floor-container {
   position: relative;
@@ -238,14 +289,12 @@ export default {
   height: 50px;
   width: 100%;
   border: 1px rgb(77, 77, 77) solid;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   line-height: 50px;
   font-weight: bold;
   font-size: 2rem;
   position: relative;
 }
-
-
 
 .floor-number {
   vertical-align: middle;
@@ -260,6 +309,42 @@ export default {
   border-radius: 15% 0 0 15%;
 }
 
+/* Puerta abierta */
+.e-1{
+
+  background: url("../../../assets/puertaAbierta.png");
+}
+
+/* Apertura sospechosa */
+.e-2{
+
+  background: url("../../../assets/aperturaSospechosa.png");
+}
+
+/* Apertura no permitida */
+.e-3{
+
+  background: url("../../../assets/aperturaNoPermitida.png");
+}
+
+/* Batería baja */
+.e-4{
+
+  background: url("../../../assets/bateriaCritica.png");
+}
+
+/* Cerradura fuera de linea */
+.f-1{
+  
+  background: url("../../../assets/cerraduraFueraLinea.png");
+}
+
+/* Hub fuer de linea */
+.f-2{
+  
+  background: url("../../../assets/hubFueraLinea.png");
+}
+
 .col-1 {
   display: inline-block;
   height: 118px;
@@ -271,6 +356,11 @@ export default {
   display: inline-block;
   padding: 0;
   vertical-align: middle;
+}
+
+.apto:hover,
+.apto:active {
+  cursor: pointer;
 }
 
 .cuerpo {

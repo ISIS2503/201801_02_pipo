@@ -931,6 +931,21 @@ def listarUsuarios():
     respuesta.append(doc)
   return dumpJson(respuesta)
 
+@app.route('/users/checkAuth0/<ur_name>/<auth0_id>', methods=[GET])
+@requires_auth(SECURITY)
+def checkAuth0(ur_name, auth0_id):
+  print('auth0_id: ', auth0_id)
+  unidad = db.unidadesResidenciales.find_one({ 'nombre' : ur_name })
+  respuesta = {}
+  for inmueble in unidad['inmuebles']:
+    try:
+      if inmueble['owner_user_id'] == auth0_id: #If there is someone in the UR with that auth0_id, return their data
+        user = db.users.find_one({'auth0_id': auth0_id})
+        return dumpJson(user)
+    except KeyError:
+      print('missing owner_user_id: ', inmueble['localID'])
+  return dumpJson(respuesta), 404
+
 @app.route('/users/<usuario>', methods=[GET, PUT, DELETE])
 @requires_auth(USER)
 def usuario(usuario):

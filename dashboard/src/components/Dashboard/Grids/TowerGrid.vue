@@ -6,9 +6,7 @@
         </div>
 
         <div class="contenedor">
-            <md-button class="md-raised">1</md-button>
-            <md-button class="md-raised">2</md-button>
-            <md-button class="md-raised">3</md-button>
+            <md-button v-on="selectTower(torre.numero)" v-for="(torre, index) in ur.torres" class="md-raised" :key="index">{{torre.numero}}</md-button>
         </div>
     </md-card>
 </div>
@@ -16,7 +14,13 @@
 
 <script>
 export default {
-    name: "TowerGrid"
+    name: "TowerGrid",
+   props: ["ur"],
+   methods: {
+       selectTower(numero){
+          this.$emit("select-tower", numero);
+       }
+   }
 };
 </script>
 <style scoped>
