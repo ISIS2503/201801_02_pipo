@@ -4,15 +4,13 @@ from kafka import KafkaConsumer
 from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
  
 topicos2=("Centro.Toscana.emergencia.aperturaSospechosa.2-5-3","Centro.Toscana.emergencia.puertaAbierta.2-5-3",
-         "Centro.Toscana.emergencia.aperturaNoPermitida.2-5-3","Centro.Toscana.emergencia.bateriaCritica.2-5-3")
-topicosFallos=("Centro.Toscana.fallo.cerraduraFueraDeLinea.2-5-3","Centro.Toscana.fallo.hubFueraDeLinea.2-5-3")
+         "Centro.Toscana.emergencia.aperturaNoPermitida.2-5-3","Centro.Toscana.emergencia.bateriaCritica.2-5-3",
+		 "Centro.Toscana.fallo.cerraduraFueraDeLinea.2-5-3","Centro.Toscana.fallo.hubFueraDeLinea.2-5-3")
 consumer = KafkaConsumer(bootstrap_servers=['172.24.42.33:8090'])
 consumer.subscribe(topicos2)
-consumer.subscribe(topicosFallos)
 
 isAuthenticated=False
 print(topicos2)
-print(topicosFallos)
 print(consumer)
 for message in consumer:
 	if isAuthenticated==False:
@@ -42,7 +40,7 @@ for message in consumer:
 		isAuthenticated=True	
 
 	print("M",message.topic)
-	if message.topic in topicos2:
+	if "emergencia" in message.topic:
 		location = message.topic.split('.')
 		sensor_code = location[1] + '.' + location[2]
 		
@@ -70,7 +68,7 @@ for message in consumer:
 			'tipo': tipoEmergencia,
 			'idEmergencia' : idEmergencia
 	    }
-	elif message.topic in topicosFallos:
+	elif "fallo" in message.topic:
 		location = message.topic.split('.')
 		sensor_code = location[1] + '.' + location[2]
 		
