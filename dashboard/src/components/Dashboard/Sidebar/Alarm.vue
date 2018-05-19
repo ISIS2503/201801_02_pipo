@@ -102,7 +102,7 @@ export default {
       if (this.alarm.emergencia)
         return emergencyTypes[parseInt(this.alarm.emergencia)];
       else if (this.alarm.fallo)
-        return emergencyTypes[parseInt(this.alarm.fallo)];
+        return failureTypes[parseInt(this.alarm.fallo)];
       else {
         //TODO may not work depending on structure
         console.log("Unknown Alarm: ",this.alarm);

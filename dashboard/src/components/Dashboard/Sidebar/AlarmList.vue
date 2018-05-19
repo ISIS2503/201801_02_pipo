@@ -69,10 +69,10 @@ export default {
     const meterAlarma = () => {
       this.alarms.push(Object.assign({}, defaultAlarm))
     };
-
+/* 
     meterAlarma();
     meterAlarma();
-    //setInterval(meterAlarma, 4000);
+    //setInterval(meterAlarma, 4000); */
   }
 };
 </script>
