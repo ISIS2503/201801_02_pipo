@@ -6,7 +6,7 @@ from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
 topicos2=("Centro.Toscana.emergencia.aperturaSospechosa.2-5-3","Centro.Toscana.emergencia.puertaAbierta.2-5-3",
          "Centro.Toscana.emergencia.aperturaNoPermitida.2-5-3","Centro.Toscana.emergencia.bateriaCritica.2-5-3")
 topicosFallos=("Centro.Toscana.fallo.cerraduraFueraDeLinea.2-5-3","Centro.Toscana.fallo.hubFueraDeLinea.2-5-3")
-consumer = KafkaConsumer(bootstrap_servers=['172.24.42.70:8090'])
+consumer = KafkaConsumer(bootstrap_servers=['172.24.42.33:8090'])
 consumer.subscribe(topicos2)
 consumer.subscribe(topicosFallos)
 
@@ -39,10 +39,9 @@ for message in consumer:
 															  "picture": user_info['picture']
 															}
 					}
-		print("SESION",type(sessionParam))
 		isAuthenticated=True	
 
-	print(message)
+	print("M",message.topic)
 	if message.topic in topicos2:
 		location = message.topic.split('.')
 		sensor_code = location[1] + '.' + location[2]
@@ -97,7 +96,6 @@ for message in consumer:
 	    }
 	response = requests.post(url, data=json.dumps(payload),headers={'Content-type': 'application/json','sessionParam':json.dumps(sessionParam)})
 	print("Response Status Code: " + str(response.status_code))
-	print(response.content)
 	if(response.status_code!=200):
 		isAuthenticated=False
 	
