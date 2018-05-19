@@ -29,7 +29,9 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,9 +62,50 @@ public class SimpleMqqtConsumerClient implements MqttCallback {
     static final String MQTT_USER_NAME = "P1Centro";
     static final String MQTT_PASSWORD = "p1";
     static WebSocketManager webSocketManager;
+    
+    private MqttConnectOptions connOpt;
+    private MqttClient mqtt;
 
-    public void connectionLost(Throwable throwable) {
-        System.out.println("Connection to MQTT broker lost!");
+    @Override
+    public void connectionLost(Throwable cause) {
+        System.out.println("Lost connection to MQTT server");
+        while (true) {
+            try {
+                System.out.println("Attempting to reconnect to MQTT server");
+                mqtt.connect(connOpt);
+                mqtt.subscribe("Centro/Toscana/#");
+                System.out.println("Reconnected to MQTT server, resuming");
+                return;
+            } catch (MqttException e) {
+                System.out.println("Reconnect failed, retrying in 10 seconds");
+            }
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                
+            }
+        }
+    }
+    
+    public void connect() throws MqttException {
+        mqtt = new MqttClient("ssl://172.24.41.182:8083", MqttClient.generateClientId());
+        mqtt.setCallback(this);
+        connOpt = new MqttConnectOptions();
+        connOpt.setKeepAliveInterval(30);
+        connOpt.setMqttVersion(MqttConnectOptions.MQTT_VERSION_3_1);
+        connOpt.setUserName(MQTT_USER_NAME);
+        connOpt.setPassword(MQTT_PASSWORD.toCharArray());
+        
+        SSLSocketFactory socketFactory;
+        try {
+            socketFactory = getSocketFactory(ROOT+CRT_FILE_PATH+CA_FILE_PATH, ROOT+CRT_FILE_PATH+CLIENT_CRT_FILE_PATH, ROOT+CRT_FILE_PATH+CLIENT_KEY_FILE_PATH, "");
+            connOpt.setSocketFactory(socketFactory);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        mqtt.connect(connOpt);
+        mqtt.subscribe("Centro/Toscana/#");
     }
 
     public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
@@ -77,27 +120,12 @@ public class SimpleMqqtConsumerClient implements MqttCallback {
     }
 
     public static void main(String[] args) {
-        try {           
-
+        try {
             webSocketManager = new WebSocketManager();
             System.out.println("Message not received:\n\t");
-            MqttClient client = new MqttClient("ssl://172.24.41.182:8083", MqttClient.generateClientId());
-            client.setCallback(new SimpleMqqtConsumerClient());
-            MqttConnectOptions connOpt = new MqttConnectOptions();
-            connOpt.setKeepAliveInterval(30);
-            connOpt.setMqttVersion(MqttConnectOptions.MQTT_VERSION_3_1);
-            connOpt.setUserName(MQTT_USER_NAME);
-            connOpt.setPassword(MQTT_PASSWORD.toCharArray());
             
-          
-
-            //socket factory
-            SSLSocketFactory socketFactory = getSocketFactory(ROOT + CRT_FILE_PATH + CA_FILE_PATH, ROOT + CRT_FILE_PATH + CLIENT_CRT_FILE_PATH, ROOT + CRT_FILE_PATH + CLIENT_KEY_FILE_PATH, "");
-            connOpt.setSocketFactory(socketFactory);
-
-               
-            client.connect(connOpt);
-            client.subscribe("Centro/Toscana/#");
+            SimpleMqqtConsumerClient client = new SimpleMqqtConsumerClient();
+            client.connect();
             //new Contador().start();
             
             
