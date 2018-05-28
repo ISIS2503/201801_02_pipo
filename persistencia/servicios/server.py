@@ -45,15 +45,21 @@ DEVELOPMENT_MODE = False
 #$env:AUTH0_YALE_CLIENT_SECRET = "<CLIENT_SECRET_AUTH0>"
 #Correr ejecutando el comando "flask run --port=80 --host=172.24.42.64" estando parado en el directorio de este archivo
 
-#Setup de mongoDB
+#Setup de mongoDB - MV windows uniandes -- OUTDATED
 #Puerto: 27017
+#DB: Pipo-yale-persistencia
+#COL: unidadesResidenciales / users / groups
+
+#Setup de mongoDB - AWS
+DB_IP = os.environ.get('DB_PIPO_IP')
+DB_PORT = os.environ.get('DB_PIPO_PORT')
 #DB: Pipo-yale-persistencia
 #COL: unidadesResidenciales / users / groups
 
 elScope = ''
 username = ''
 
-client = MongoClient('localhost', 27017)
+client = MongoClient(DB_IP, DB_PORT)
 db = client['Pipo-yale-persistencia']
 app = Flask(__name__)
 CORS(app)
@@ -77,7 +83,7 @@ oauth = OAuth(app)
 auth0 = oauth.register(
   'auth0',
   client_id='VFOHkNbDGQJlrFJ8QzfmLkM3EVhDIDFn',
-  client_secret=os.environ.get('AUTH0_YALE_CLIENT_SECRET'),
+  client_secret=os.environ.get('AUTH0_CLIENT_SECRET'),
   api_base_url='https://%s' % 'isis2503-jamanrique.auth0.com',
   access_token_url='https://isis2503-jamanrique.auth0.com/oauth/token',
   authorize_url='https://isis2503-jamanrique.auth0.com/authorize',
