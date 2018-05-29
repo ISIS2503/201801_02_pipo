@@ -29,6 +29,5 @@ r.set('Centro:Toscana:2-5-3:sguzmanm','5555;;;14:45-21:00,08:00-10:00')
 r.set('N:01','5555')
 r.set('C:5555','U:sguzmanm')
 r.set('U:sguzmanm','14:45-21:00,08:00-10:00')
-
 r.set('Arduino007/recibir','Yale:Hub007')
-r.set('Arduino007/envio','Hub007:Yale')
+r.set('Arduino007/envio','Hub007:BridgeCentro')

@@ -2,15 +2,14 @@ from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
 import base64
 from datetime import datetime
 import sys
-import hashlib
 import redis
 import json
 from flask import Flask,Response,request
- 
+
 app = Flask(__name__)
 r = redis.Redis()
 roles=['Lector','Escritor']
- 
+
 @app.route('/auth', methods=['POST'])
 def auth():
     response = Response(content_type='text/plain', status=403)
@@ -42,39 +41,39 @@ def superuser():
     print("DATA")
     response =  Response(content_type='text/plain', status=403)
     try:
-      auth = request.headers.get('Authorization')
-      token = auth.split(' ')[1]
-      print(token)
-      data = base64.b64decode(token).decode("utf-8").split(':')
-      username = data[0]
-      if username == 'microcontrolador':
+        auth = request.headers.get('Authorization')
+        token = auth.split(' ')[1]
+        print(token)
+        data = base64.b64decode(token).decode("utf-8").split(':')
+        username = data[0]
+        if username == 'microcontrolador':
           response.status_code = 200
     except:
-      pass
+        pass
     return response
- 
+
 @app.route('/acl', methods=['POST'])
 def acl():
     print("DDDATA")
     response =  Response(content_type='text/plain', status=403)
     try:
-      print("R",request.data)
-      print("H",request.headers)
-      print("F",request.form)
-      print("A",request.args)
-      print("REQ",request)
-      auth = request.headers.get('Authorization')
-      token = auth.split(' ')[1]
-      data = base64.b64decode(token).decode("utf-8").split(':')[0]
-      print("ENTRA")
-      rol=request.form.get('acc')
-      print(rol)
-      print("ROLES",r.get(request.form.get("topic")).decode('utf-8').split(":"))
-      for i in range(0,int(rol)):
-     	 if(data[0] in r.get(request.form.get("topic")).decode('utf-8').split(":")[i]):
-               response.status_code = 200
+        print("R",request.data)
+        print("H",request.headers)
+        print("F",request.form)
+        print("A",request.args)
+        print("REQ",request)
+        auth = request.headers.get('Authorization')
+        token = auth.split(' ')[1]
+        data = base64.b64decode(token).decode("utf-8").split(':')[0]
+        print("ENTRA")
+        rol=request.form.get('acc')
+        print(rol)
+        print("ROLES",r.get(request.form.get("topic")).decode('utf-8').split(":"))
+        for i in range(0,int(rol)):
+             if(data[0] in r.get(request.form.get("topic")).decode('utf-8').split(":")[i]):
+                response.status_code = 200
     except:
-      pass
+        pass
     return response
 
 #Added functionalities for communication with redis
@@ -86,18 +85,18 @@ def arduinoaccess():
     clave=data['clave']
     print(r.get('C:'+str(clave)))
     print(r.get(r.get('C:'+str(clave))))
-    horarios=r.get((r.get('C:'+str(clave)))).split(',')
+    horarios=r.get((r.get('C:'+str(clave)))).decode('utf-8').split(',')
     for h in horarios:
-     print(h)
-     tiempoInicial=h.split('-')[0].split(':')
-     tiempoFinal=h.split('-')[1].split(':')
-     print(tiempoInicial,tiempoFinal)
-     start_time = int(tiempoInicial[0])*60 + int(tiempoInicial[1])
-     end_time = int(tiempoFinal[0])*60 + int(tiempoFinal[1])
-     current_time =  datetime.now().hour*60 +datetime.now().minute
-     if start_time <= current_time and end_time >= current_time:
-        response.status_code=200
-        break 
+        print(h)
+        tiempoInicial=h.split('-')[0].split(':')
+        tiempoFinal=h.split('-')[1].split(':')
+        print(tiempoInicial,tiempoFinal)
+        start_time = int(tiempoInicial[0])*60 + int(tiempoInicial[1])
+        end_time = int(tiempoFinal[0])*60 + int(tiempoFinal[1])
+        current_time =  datetime.now().hour*60 +datetime.now().minute
+        if start_time <= current_time and end_time >= current_time:
+            response.status_code=200
+            break 
     return response
 
 @app.route('/passwordAccess', methods=['POST','PUT','DELETE'])
@@ -110,37 +109,38 @@ def passwordAccess():
     numero=str(data['numero'])
     print(clave,usuario)
     if clave != None and clave !="":
-      viejo = r.get('C:'+str(clave))
-      claveAntigua=r.get('N:'+numero)
-      print ("HOLA",viejo,claveAntigua)
-      if (claveAntigua==None) and (request.method == 'PUT' or request.method == 'DELETE') or (claveAntigua!=None and request.method == 'POST'):
-        return response
-      print("VIEJO",viejo)
-      if request.method == 'POST' and (viejo==None or viejo==""):
-        r.set('C:'+str(clave),'U:'+usuario)
-        r.set('N:'+numero,str(clave))
-        response.status_code=200
-      elif request.method == 'PUT':
-        if clave==None or clave=='' or(claveAntigua==None or claveAntigua ==""):
-          return response
-        r.set('N:'+numero,str(clave))
-        r.rename("C:"+claveAntigua,'C:'+str(clave))
-        response.status_code=200
+        viejo = r.get('C:'+str(clave))
+        claveAntigua=r.get('N:'+numero)
+        print ("HOLA",viejo,claveAntigua)
+        if (claveAntigua==None) and (request.method == 'PUT' or request.method == 'DELETE') or (claveAntigua!=None and request.method == 'POST'):
+            return response
+        print("VIEJO",viejo)
+        if request.method == 'POST' and (viejo==None or viejo==""):
+            r.set('C:'+str(clave),'U:'+usuario)
+            r.set('N:'+numero,str(clave))
+            response.status_code=200
+        elif request.method == 'PUT':
+            if clave==None or clave=='' or(claveAntigua==None or claveAntigua ==""):
+                return response
+            claveAntigua=claveAntigua.decode('utf-8')
+            r.set('N:'+numero,str(clave))
+            r.rename("C:"+claveAntigua,'C:'+str(clave))
+            response.status_code=200
     else:
-      if request.method != 'DELETE':
-        return response
-      if numero!="" and numero !=None:
-        r.delete("C:"+r.get("N:"+numero))
-	r.delete("N:"+numero)
-        response.status_code=200
-      else:
-        for key in r.keys('*'):
-          print(key,r.get(key))
-          if r.get(key)==('U:'+usuario):
-            r.delete(key)
-        for i in range (1,20):
-          r.delete('N:'+str(i))
-        response.status_code=200
+        if request.method != 'DELETE':
+            return response
+        if numero!="" and numero !=None:
+            r.delete("C:"+r.get("N:"+numero).decode('utf-8'))
+            r.delete("N:"+numero)
+            response.status_code=200
+        else:
+          for key in r.keys('*'):
+              print(key,r.get(key).decode('utf-8'))
+              if r.get(key).decode('utf-8')==('U:'+usuario):
+                  r.delete(key)
+          for i in range (1,20):
+              r.delete('N:'+str(i))
+          response.status_code=200
     return response
 
 @app.route('/scheduleAccess', methods=['POST','PUT','DELETE'])
@@ -153,37 +153,37 @@ def scheduleaccess():
     usuario=data['usuario']
     print(horaInicio,horaFin,usuario)
     if usuario != None:
-      completo=str(horaInicio)+"-"+str(horaFin)
-      viejo = r.get('U:'+str(usuario))
-      print (viejo)
-      if viejo == None and (request.method == 'PUT' or request.method == 'DELETE'):
-        return response
-      if viejo==None and request.method=='POST':
-        r.set('U:'+str(usuario),completo)
-        response.status_code=200
-      else:
-        nuevoInicio=data.get('nuevoInicio')
-        nuevoFin=data.get('nuevoFin')
-        if completo not in viejo:
-          if request.method=='POST':
-            viejo+=(","+completo)
-            r.set('U:'+str(usuario),viejo)
+        completo=str(horaInicio)+"-"+str(horaFin)
+        viejo = r.get('U:'+str(usuario)).decode('utf-8')
+        print (viejo)
+        if viejo == None and (request.method == 'PUT' or request.method == 'DELETE'):
+            return response
+        if viejo==None and request.method=='POST':
+            r.set('U:'+str(usuario),completo)
             response.status_code=200
         else:
-          if request.method=='DELETE':
-            remplazo=''
-            viejo=viejo.replace(','+completo,remplazo)
-            viejo=viejo.replace(completo+',',remplazo)
-          elif request.method=='PUT' and nuevoInicio!="" and nuevoInicio!=None and nuevoFin!='' and nuevoFin!=None :
-            nuevoInicio=data['nuevoInicio']
-            nuevoFin=data['nuevoFin']
-            remplazo=str(nuevoInicio)+"-"+str(nuevoFin)
-            viejo=viejo.replace(','+completo,','+remplazo)
-            viejo=viejo.replace(completo+',',remplazo+',')
-          r.set('U:'+str(usuario),viejo)
-          response.status_code=200
+            nuevoInicio=data.get('nuevoInicio')
+            nuevoFin=data.get('nuevoFin')
+            if completo not in viejo:
+                if request.method=='POST':
+                    viejo+=(","+completo)
+                r.set('U:'+str(usuario),viejo)
+                response.status_code=200
+            else:
+                if request.method=='DELETE':
+                    remplazo=''
+                    viejo=viejo.replace(','+completo,remplazo)
+                    viejo=viejo.replace(completo+',',remplazo)
+                elif request.method=='PUT' and nuevoInicio!="" and nuevoInicio!=None and nuevoFin!='' and nuevoFin!=None :
+                    nuevoInicio=data['nuevoInicio']
+                    nuevoFin=data['nuevoFin']
+                    remplazo=str(nuevoInicio)+"-"+str(nuevoFin)
+                    viejo=viejo.replace(','+completo,','+remplazo)
+                    viejo=viejo.replace(completo+',',remplazo+',')
+                r.set('U:'+str(usuario),viejo)
+                response.status_code=200
     return response
 
 
 if __name__ == '__main__':
-	app.run(port=8080,host='172.24.41.182')
+    app.run(port=8080,host='localhost')
