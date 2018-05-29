@@ -56,14 +56,17 @@ export default {
       this.$emit("select-detail", localID, owner, alarm);
     },
     scrollToAlarm(alarm) {
-      this.towerIndex = parseInt(alarm.apartamento.split("-")[0]);
+      this.towerIndex = parseInt(alarm.apartamento.split("-")[0])-1;
       this.$refs.mapgrid.scrollToAlarm(alarm);
     },
     selectTower(number){
-       this.towerIndex = parseInt(number);
+       this.towerIndex = parseInt(number)-1;
     },
     towerSelected(number){
       this.towerIndex=parseInt(number);
+    },
+    pushAlarm(dir,alarm){
+      this.$refs.mapgrid.pushAlarm(dir,alarm);
     }
   }
 };
@@ -96,13 +99,6 @@ export default {
   top: 0;
 }
 
-.floors {
-  margin-top: 100px;
-}
-
-.towers {
-  margin-bottom: 50px;
-}
 
 .md-layout {
   min-height: 100vh;

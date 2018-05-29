@@ -114,7 +114,8 @@ public class Bridge implements MqttCallback {
 	@Override
 	public void deliveryComplete(IMqttDeliveryToken token) {
 		// TODO Auto-generated method stub
-		
+            System.out.println("Delivery completed");
+            
 	}
 
 	@Override
@@ -183,7 +184,7 @@ public class Bridge implements MqttCallback {
         props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
-        consumer.subscribe(Arrays.asList("Centro.Toscana.2-5-3.claves", "Centro.Toscana.2-5-3.horarios"));
+        consumer.subscribe(Arrays.asList("Centro.Toscana.2-5-3.claves", "Centro.Toscana.2-5-3.horarios", "Arduino007.envio"));
         Bridge b = new Bridge();
         try {
             b.connect(BROKER_URL,MqttClient.generateClientId());

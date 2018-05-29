@@ -41,7 +41,7 @@ Se hace la especificación de esta repartición para justificar la no uniformida
 + Se asume que cada inmueble solo tiene un propietario y que todas las claves del Arduino son de este propietario
 
 ## EXPERIMENTO III FINAL:
-+ El link de todo el experimento realizado está acá: 
++ El link de todo el experimento realizado está acá: https://youtu.be/ZIL0D73rxig
 + Se modificó la entidad física para que se mande el mensaje de apertura con <Id de arduino>\t0\t<Timeout>\t<Clave>
 + Se modificó Node Red para que con cada cambio en los servicios de horarios y de claves se modifique la BD interna del Hub
 + Aprovechando la BD con la que se conectaba mosquitto en el Hub, se usó la misma para poder comunciarse con Redis y validar claves y horarios
@@ -49,4 +49,5 @@ Se hace la especificación de esta repartición para justificar la no uniformida
 + La interfaz se realizó en la carpeta Dashboard
 + El SAD se puede encontrar en la carpeta docs junto con la matriz de esfuerzos
 + El programa que simula el loop infinito de "Yale" se dejó como un programa simple en java que se comunica por MQTT asegurado en la carpeta entidadVirtual/Mensajeria
-+ Se creó un flujo aparte de hub "testFlow.json" para bombardear el speed que muestra en tiempo real eld ashboard de seguridad.
++ Se creó un flujo aparte de hub "securityFlow.json" para bombardear el speed que muestra en tiempo real eld ashboard de seguridad.
++ La declaración de esfuerzos se encuentra en la carpeta docs

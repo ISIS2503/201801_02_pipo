@@ -109,7 +109,7 @@ public class SimpleMqqtConsumerClient implements MqttCallback {
     }
 
     public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
-        //new RestPublisher(mqttMessage,url,contador).start();                
+        new RestPublisher(mqttMessage,url,contador).start();                
         webSocketManager.publish(mqttMessage);
         //server.getBroadcastOperations().sendEvent("emergency", mqttMessage.toString());
         ++contador;

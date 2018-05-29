@@ -101,8 +101,8 @@ export default {
     alarmMessage() {
       if (this.alarm.emergencia)
         return emergencyTypes[parseInt(this.alarm.emergencia)];
-      else if (this.alarm.failure)
-        return emergencyTypes[parseInt(this.alarm.failure)];
+      else if (this.alarm.fallo)
+        return failureTypes[parseInt(this.alarm.fallo)];
       else {
         //TODO may not work depending on structure
         console.log("Unknown Alarm: ",this.alarm);
@@ -231,7 +231,7 @@ export default {
 [target="revised"] .type-icon,
 [target="not-revised"] .type-icon {
   flex: 1;
-  height: 100%;
+  height: 108px;
   width: 100%;
   background-repeat: no-repeat;
   background-size: contain;

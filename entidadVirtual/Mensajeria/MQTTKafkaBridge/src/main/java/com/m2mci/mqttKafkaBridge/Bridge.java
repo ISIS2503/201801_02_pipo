@@ -42,7 +42,7 @@ public class Bridge implements MqttCallback {
 	private Producer<String, String> kafkaProducer;
         private MqttConnectOptions connOpt;
         
-    static final String ROOT = "C:/Users/se.cardenas/Documents/201810_02_pipo/entidadVirtual/ssl";
+    static final String ROOT = "C:/Users/s.guzmanm/Documents/201810_02_pipo/entidadVirtual/ssl";
     static final String CRT_FILE_PATH = "/mosquittoChecho";
     //static final String CTRFilesPath = "/mosquittoCarlos";
     static final String CA_FILE_PATH = "/ca.crt";

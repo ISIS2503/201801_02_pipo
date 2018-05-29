@@ -24,13 +24,14 @@
 
                         <div
                           v-for="(apartamento, index) in piso.apartamentos" 
-                          :key="index"
-                          v-if="ur.torres[towerIndex].pisos"
+                          :key="index"                          
                           v-on:click="selectProperty('' + ur.torres[towerIndex].numero + '-' + piso.numero + '-' + apartamento.numero, apartamento.owner)"
                           :id="ur.torres[towerIndex].numero + '-' + piso.numero + '-' + apartamento.numero"
                           :v-scroll-to="ur.torres[towerIndex].numero + '-' + piso.numero + '-' + apartamento.numero"
-                          :class="assignIcon(apartamento)"
+                          class="md-layout-item"
                         >
+
+                        <div v-if="aptoIcono(apartamento)"  class="apto md-layout-item">
                             <div class="apartment-number" >
                                 {{apartamento.numero}}
                             </div>
@@ -41,6 +42,19 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div  v-if="aptoNoIcono(apartamento)"  :class="assignIcon(apartamento)"> 
+                          <div class="apartment-number" >
+                                {{apartamento.numero}}
+                          </div>
+                            <div class="apartmentBackground">
+                                <div class="apartmentImage">
+                                
+                                </div>
+                            </div>
+                            
+                          </div>
+                    </div>                  
 
                 <!-- </b-row> -->
             </div>
@@ -58,10 +72,10 @@ import "../../../styles/tower.css";
 import "../../../styles/apartment-icon.css";
 export default {
   name: "MapGrid",
-  props: ["urTODOCORRECTELDEFAULTESTAACTIVO", "alarms", "towerIndex"],
+  props: ["ur", "alarms", "towerIndex"],
   data: function() {
     return {
-      ur: {
+      urPP: {
         nombre: "toscana",
         torres: [
           {
@@ -72,18 +86,18 @@ export default {
                 apartamentos: [
                   {
                     numero: 1,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 2,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 3,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   }
                 ]
               },
@@ -92,23 +106,23 @@ export default {
                 apartamentos: [
                   {
                     numero: 1,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 2,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 3,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 4,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   }
                 ]
               },
@@ -117,33 +131,33 @@ export default {
                 apartamentos: [
                   {
                     numero: 1,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 2,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 3,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 4,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 5,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 6,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   }
                 ]
               },
@@ -152,23 +166,23 @@ export default {
                 apartamentos: [
                   {
                     numero: 1,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 2,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 3,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 4,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   }
                 ]
               },
@@ -177,18 +191,18 @@ export default {
                 apartamentos: [
                   {
                     numero: 1,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 2,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 3,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   }
                 ]
               },
@@ -197,23 +211,23 @@ export default {
                 apartamentos: [
                   {
                     numero: 1,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 2,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 3,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 4,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   }
                 ]
               },
@@ -222,13 +236,13 @@ export default {
                 apartamentos: [
                   {
                     numero: 1,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   },
                   {
                     numero: 2,
-                    owner: 'auth0|5adcd6a941aacd1daa8999d1',
-                    alarmas:[]
+                    owner: "auth0|5adcd6a941aacd1daa8999d1",
+                    alarmas: []
                   }
                 ]
               }
@@ -239,6 +253,7 @@ export default {
       boolean: true
     };
   },
+  computed: {},
   methods: {
     selectProperty: function(localID, auth0_owner) {
       let selectedAlarm = undefined;
@@ -253,40 +268,72 @@ export default {
     previousTower() {
       this.towerIndex =
         (this.towerIndex - 1 + this.ur.torres.length) % this.ur.torres.length;
-         this.$emit("select-tower", towerIndex);
+      this.$emit("tower-selected", this.towerIndex);
     },
     nextTower() {
       this.towerIndex = (this.towerIndex + 1) % this.ur.torres.length;
-       this.$emit("select-tower", towerIndex);
+      this.$emit("tower-selected", this.towerIndex);
     },
     scrollToAlarm(alarm) {
       //Colorar el grid
-      let apto= document.getElementById(alarm.apartamento);
-      console.log('apto',apto);
-      apto.scrollIntoView({behavior:"smooth"});
+      let apto = document.getElementById(alarm.apartamento);
+      console.log("apto", apto);
+      apto.scrollIntoView({ behavior: "smooth" });
       apto.classList.add("brillo");
 
-      const  returnToNormal = ()=> {
-        let apto1= document.getElementById(alarm.apartamento);
-        apto1.classList.remove("brillo")
-      }
+      const returnToNormal = () => {
+        let apto1 = document.getElementById(alarm.apartamento);
+        apto1.classList.remove("brillo");
+      };
 
-      const stop = setTimeout(returnToNormal, 1000)
+      const stop = setTimeout(returnToNormal, 1000);
 
-
-     //this.$scrollTo(apto, 1000);
+      //this.$scrollTo(apto, 1000);
+    },
+    pushAlarm(dir, alarm) {
+      //console.log('llega1');
+      this.ur.torres[dir[0] - 1].pisos[
+        this.ur.torres[dir[0] - 1].pisos.length - dir[1]
+      ].apartamentos[dir[2] - 1].alarmas.push(alarm);
+      //console.log('llega6');
+      console.log(this.towerIndex);
     },
     assignIcon(apartamento) {
+      if (apartamento.alarmas.length > 0) {
+      }
       let classObject = {};
-      if (apartamento.alarmas.length>0) {
+      classObject["md-layout-item"] = true;
+      if (apartamento.alarmas.length > 0) {
         classObject[apartamento.alarmas[0].normalType] = true;
+        classObject["with-alarm"] = true;
+        return classObject;
+      } else {
+        classObject["apto"] = true;
       }
-      else{
-       classObject["apto md-layout-item"]=true;
-      }
-      console.log(classObject);
-
+      console.log("al menos?");
       return classObject;
+    },
+    aptoIcono(apto) {
+      if (apto === undefined) {
+        console.log("undefined");
+        return false;
+      }
+      if (apto.alarmas.length > 0) {
+        console.log("lista");
+        return false;
+      }
+      return true;
+    },
+    aptoNoIcono(apto) {
+      if (apto === undefined) {
+        console.log("undefined2");
+        return false;
+      }
+      if (apto.alarmas.length > 0) {
+        console.log("lista2");
+        return true;
+      }
+      return false;
     }
   },
   mounted() {
@@ -373,39 +420,73 @@ export default {
 }
 
 /* Puerta abierta */
-.e-1{
-
+.e-1 .apartmentImage {
   background: url("../../../assets/puertaAbierta.png");
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 /* Apertura sospechosa */
-.e-2{
-
+.e-2 .apartmentImage {
   background: url("../../../assets/aperturaSospechosa.png");
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 /* Apertura no permitida */
-.e-3{
-
+.e-3 .apartmentImage {
   background: url("../../../assets/aperturaNoPermitida.png");
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 /* Batería baja */
-.e-4{
-
+.e-4 .apartmentImage {
   background: url("../../../assets/bateriaCritica.png");
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 /* Cerradura fuera de linea */
-.f-1{
-  
+.f-1 .apartmentImage {
   background: url("../../../assets/cerraduraFueraLinea.png");
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 /* Hub fuer de linea */
-.f-2{
-  
+.f-2 .apartmentImage {
   background: url("../../../assets/hubFueraLinea.png");
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.with-alarm .apartment-number {
+  background: white;
+  color: rgb(223, 0, 22);
+}
+
+.apartmentBackground {
+  width: 100%;
+  height: 100px;
+  background: rgb(77, 77, 77);
+}
+
+.apartmentBackground:hover,
+.apartmentBackground:active {
+  cursor: pointer;
 }
 
 .col-1 {
@@ -419,6 +500,7 @@ export default {
   display: inline-block;
   padding: 0;
   vertical-align: middle;
+  width:100%;
 }
 
 .apto:hover,
@@ -443,7 +525,7 @@ export default {
   left: -10px;
 }
 
-.brillo{
+.brillo {
   box-shadow: 10px 10px 20px red;
   transition: box-shadow 0.3s ease-in-out repeat;
 }
