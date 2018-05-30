@@ -59,7 +59,7 @@ DB_PORT = os.environ.get('DB_PIPO_PORT')
 elScope = ''
 username = ''
 
-client = MongoClient(DB_IP, DB_PORT)
+client = MongoClient(DB_IP, int(DB_PORT))
 db = client['Pipo-yale-persistencia']
 app = Flask(__name__)
 CORS(app)
@@ -77,7 +77,7 @@ app.secret_key = "super secret key"
 #app.config['MQTT_TLS_KEYFILE'] = 'server.key'
 #app.config['MQTT_TLS_VERSION'] = ssl.PROTOCOL_TLSv1_1
 
-producer = KafkaProducer(bootstrap_servers='172.24.42.70:8090')
+#producer = KafkaProducer(bootstrap_servers='172.24.42.70:8090')
 
 oauth = OAuth(app)
 auth0 = oauth.register(
