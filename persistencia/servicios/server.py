@@ -38,12 +38,14 @@ DISABLED = 'DISABLED'
 #Tipo de operación
 DEVELOPMENT_MODE = False
 
-#Instalación en windows ---------------------
-#pip install -r requirements.txt
-#En *Powershell*, parado en la carpeta de este archivo, poner las siguientes líneas de código:
-#$env:FLASK_APP = "server.py"
-#$env:AUTH0_YALE_CLIENT_SECRET = "<CLIENT_SECRET_AUTH0>"
-#Correr ejecutando el comando "flask run --port=80 --host=172.24.42.64" estando parado en el directorio de este archivo
+#Instalación en AWS ---------------------
+#pip install -r requirements.txt (faltan algunos)
+#Por SSH, parado en la carpeta de este archivo, poner las siguientes líneas de código:
+#export FLASK_APP = "server.py"
+#export AUTH0_YALE_CLIENT_SECRET = "<CLIENT_SECRET_AUTH0>"
+#export DB_PIPO_IP = <Mongo_IP>
+#export DB_PIPO_PORT = <Mongo_Port>
+#Correr ejecutando el comando "flask run --port=8080   --host="0.0.0.0" estando parado en el directorio de este archivo
 
 #Setup de mongoDB - MV windows uniandes -- OUTDATED
 #Puerto: 27017
@@ -187,11 +189,11 @@ def callback_handling():
 
 @app.route('/login')
 def login():
-  return auth0.authorize_redirect(redirect_uri='http://172.24.42.64/callback')
+  return auth0.authorize_redirect(redirect_uri='http://ec2-34-202-239-178.compute-1.amazonaws.com:8080/callback')
 
 @app.route('/dashboardLogin')
 def dashboardL_login():
-  return auth0.authorize_redirect(redirect_uri='http://172.24.42.64/dashboardCallback')
+  return auth0.authorize_redirect(redirect_uri='http://ec2-34-202-239-178.compute-1.amazonaws.com:8080/dashboardCallback')
 
 @app.route('/dashboardCallback')
 def dashboard_callback_handling():
