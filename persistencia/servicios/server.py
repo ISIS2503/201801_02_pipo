@@ -38,12 +38,14 @@ DISABLED = 'DISABLED'
 #Tipo de operación
 DEVELOPMENT_MODE = False
 
-#Instalación en windows ---------------------
-#pip install -r requirements.txt
-#En *Powershell*, parado en la carpeta de este archivo, poner las siguientes líneas de código:
-#$env:FLASK_APP = "server.py"
-#$env:AUTH0_YALE_CLIENT_SECRET = "<CLIENT_SECRET_AUTH0>"
-#Correr ejecutando el comando "flask run --port=80 --host=172.24.42.64" estando parado en el directorio de este archivo
+#Instalación en AWS ---------------------
+#pip install -r requirements.txt (faltan algunos)
+#Por SSH, parado en la carpeta de este archivo, poner las siguientes líneas de código:
+#export FLASK_APP = "server.py"
+#export AUTH0_YALE_CLIENT_SECRET = "<CLIENT_SECRET_AUTH0>"
+#export DB_PIPO_IP = <Mongo_IP>
+#export DB_PIPO_PORT = <Mongo_Port>
+#Correr ejecutando el comando "flask run --port=8080   --host="0.0.0.0" estando parado en el directorio de este archivo
 
 #Setup de mongoDB - MV windows uniandes -- OUTDATED
 #Puerto: 27017
@@ -59,7 +61,7 @@ DB_PORT = os.environ.get('DB_PIPO_PORT')
 elScope = ''
 username = ''
 
-client = MongoClient(DB_IP, DB_PORT)
+client = MongoClient(DB_IP, int(DB_PORT))
 db = client['Pipo-yale-persistencia']
 app = Flask(__name__)
 CORS(app)
@@ -77,7 +79,7 @@ app.secret_key = "super secret key"
 #app.config['MQTT_TLS_KEYFILE'] = 'server.key'
 #app.config['MQTT_TLS_VERSION'] = ssl.PROTOCOL_TLSv1_1
 
-producer = KafkaProducer(bootstrap_servers='172.24.42.70:8090')
+#producer = KafkaProducer(bootstrap_servers='172.24.42.70:8090')
 
 oauth = OAuth(app)
 auth0 = oauth.register(
@@ -187,11 +189,11 @@ def callback_handling():
 
 @app.route('/login')
 def login():
-  return auth0.authorize_redirect(redirect_uri='http://172.24.42.64/callback')
+  return auth0.authorize_redirect(redirect_uri='http://ec2-34-202-239-178.compute-1.amazonaws.com:8080/callback')
 
 @app.route('/dashboardLogin')
 def dashboardL_login():
-  return auth0.authorize_redirect(redirect_uri='http://172.24.42.64/dashboardCallback')
+  return auth0.authorize_redirect(redirect_uri='http://ec2-34-202-239-178.compute-1.amazonaws.com:8080/dashboardCallback')
 
 @app.route('/dashboardCallback')
 def dashboard_callback_handling():
@@ -319,7 +321,7 @@ def unidadResidencial(unidad):
     return dumpJson(respuesta)
   elif request.method == PUT:
     #Convertir JSON a directorio python
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
     #Verificar campos no nulos/vacíos
     valid = True
     try:
@@ -351,7 +353,7 @@ def crearUnidad():
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
 
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
     valid = True
     try:
       valid = valid and (data['nombre'] != None or data['nombre'] != "")
@@ -415,7 +417,7 @@ def imuebles(unidad):
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
     
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
     valid = True
     try:
       valid = valid and (data['localID'] != None or data['localID'] != "")
@@ -464,7 +466,7 @@ def inmuebles(unidad, localID):
     #Lo retorna
     return dumpJson(respuesta)
   elif request.method == PUT:
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
     valid = True
     try:      
       valid = valid and (data['localID'] != None or data['localID'] != "")
@@ -509,7 +511,7 @@ def hub(unidad, localID):
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
     
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
     valid = True
     try:
       valid = valid and (data['frecuencia'] != None or data['frecuencia'] != "")
@@ -568,7 +570,7 @@ def cerradura(unidad, localID):
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
     
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
     valid = True
     try:
       valid = valid and (data['bateriaCritica'] != None or data['bateriaCritica'] != "")
@@ -614,7 +616,7 @@ def cerradura(unidad, localID):
 def claves(unidad, localID):
   data = {}
   if request.data:
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
   if request.method == GET:
     respuesta = []
     unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
@@ -677,7 +679,7 @@ def claves(unidad, localID):
 def gestionClaves(unidad, localID):
   data = {}
   if request.data:
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
   valid = True
   try:
     valid = valid and (data['indice'] != None or data['indice'] != "")
@@ -774,7 +776,7 @@ def borrarClaves(unidad, localID):
 def emergencias(unidad, localID):
   data = {}
   if request.data:
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
   if request.method == GET:
     respuesta = []
     unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
@@ -831,9 +833,9 @@ def emergencias(unidad, localID):
 def emergenciasP2(unidad, localID):
   data = {}
   if request.data:
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
   if request.method == POST:
-    sessionParam=json.loads(request.headers['sessionParam'])
+    sessionParam=json.loads(request.headers['sessionParam']).decode('utf-8')
     user = db.users.find_one({'auth0_id' : sessionParam['PROFILE_KEY']['user_id']})
     if False==checkSession(sessionParam['PROFILE_KEY']['user_id'], YALE, user['scope']):
       return "Hubo un error autenticando al usuario",403     
@@ -877,7 +879,7 @@ def emergenciasP2(unidad, localID):
 def fallos(unidad, localID):
   data = {}
   if request.data:
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
   if request.method == GET:
     respuesta = []
     unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
@@ -932,9 +934,9 @@ def fallos(unidad, localID):
 def fallosP2(unidad, localID):
   data = {}
   if request.data:
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
   if request.method == POST:
-    sessionParam=json.loads(request.headers['sessionParam'])
+    sessionParam=json.loads(request.headers['sessionParam']).decode('utf-8')
     user = db.users.find_one({'auth0_id' : sessionParam['PROFILE_KEY']['user_id']})
     if False==checkSession(sessionParam['PROFILE_KEY']['user_id'], YALE, user['scope']):
       return "Hubo un error autenticando al usuario",403     
@@ -986,7 +988,7 @@ def horariosPermitidos(unidad, localID):
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
     
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
     valid = True
     try:
       valid = valid and (data['horaInicio'] != None or data['horaInicio'] != "")
@@ -1035,7 +1037,7 @@ def horariosPermitidos(unidad, localID):
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
     
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
     valid = True
     try:
       valid = valid and (data['esBorrado'] != None or data['esBorrado'] != "")
@@ -1119,7 +1121,7 @@ def horariosPermitidos(unidad, localID):
     elif data['esBorrado'] == 1:
       if request.data == None or request.data == "":
         return "Debe enviar información", 400
-      data = loads(request.data)
+      data = loads(request.data).decode('utf-8')
       valid = True
       try:
         valid = valid and (data['horaInicio'] != None or data['horaInicio'] != "")
@@ -1237,7 +1239,7 @@ def checkAuth0(ur_name, auth0_id):
 def usuario(usuario):
   data = {}
   if request.data:
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
   if request.method == GET:
     user = db.users.find_one({'username': usuario})
     return dumpJson(user)
