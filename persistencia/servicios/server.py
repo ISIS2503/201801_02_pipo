@@ -321,7 +321,7 @@ def unidadResidencial(unidad):
     return dumpJson(respuesta)
   elif request.method == PUT:
     #Convertir JSON a directorio python
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
     #Verificar campos no nulos/vacíos
     valid = True
     try:
@@ -353,7 +353,7 @@ def crearUnidad():
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
 
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
     valid = True
     try:
       valid = valid and (data['nombre'] != None or data['nombre'] != "")
@@ -417,7 +417,7 @@ def imuebles(unidad):
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
     
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
     valid = True
     try:
       valid = valid and (data['localID'] != None or data['localID'] != "")
@@ -466,7 +466,7 @@ def inmuebles(unidad, localID):
     #Lo retorna
     return dumpJson(respuesta)
   elif request.method == PUT:
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
     valid = True
     try:      
       valid = valid and (data['localID'] != None or data['localID'] != "")
@@ -511,7 +511,7 @@ def hub(unidad, localID):
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
     
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
     valid = True
     try:
       valid = valid and (data['frecuencia'] != None or data['frecuencia'] != "")
@@ -570,7 +570,7 @@ def cerradura(unidad, localID):
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
     
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
     valid = True
     try:
       valid = valid and (data['bateriaCritica'] != None or data['bateriaCritica'] != "")
@@ -616,7 +616,7 @@ def cerradura(unidad, localID):
 def claves(unidad, localID):
   data = {}
   if request.data:
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
   if request.method == GET:
     respuesta = []
     unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
@@ -679,7 +679,7 @@ def claves(unidad, localID):
 def gestionClaves(unidad, localID):
   data = {}
   if request.data:
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
   valid = True
   try:
     valid = valid and (data['indice'] != None or data['indice'] != "")
@@ -776,7 +776,7 @@ def borrarClaves(unidad, localID):
 def emergencias(unidad, localID):
   data = {}
   if request.data:
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
   if request.method == GET:
     respuesta = []
     unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
@@ -833,9 +833,9 @@ def emergencias(unidad, localID):
 def emergenciasP2(unidad, localID):
   data = {}
   if request.data:
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
   if request.method == POST:
-    sessionParam=json.loads(request.headers['sessionParam'])
+    sessionParam=json.loads(request.headers['sessionParam']).decode('utf-8')
     user = db.users.find_one({'auth0_id' : sessionParam['PROFILE_KEY']['user_id']})
     if False==checkSession(sessionParam['PROFILE_KEY']['user_id'], YALE, user['scope']):
       return "Hubo un error autenticando al usuario",403     
@@ -879,7 +879,7 @@ def emergenciasP2(unidad, localID):
 def fallos(unidad, localID):
   data = {}
   if request.data:
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
   if request.method == GET:
     respuesta = []
     unidadRes = db.unidadesResidenciales.find_one({ 'nombre' : unidad })
@@ -934,9 +934,9 @@ def fallos(unidad, localID):
 def fallosP2(unidad, localID):
   data = {}
   if request.data:
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
   if request.method == POST:
-    sessionParam=json.loads(request.headers['sessionParam'])
+    sessionParam=json.loads(request.headers['sessionParam']).decode('utf-8')
     user = db.users.find_one({'auth0_id' : sessionParam['PROFILE_KEY']['user_id']})
     if False==checkSession(sessionParam['PROFILE_KEY']['user_id'], YALE, user['scope']):
       return "Hubo un error autenticando al usuario",403     
@@ -988,7 +988,7 @@ def horariosPermitidos(unidad, localID):
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
     
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
     valid = True
     try:
       valid = valid and (data['horaInicio'] != None or data['horaInicio'] != "")
@@ -1037,7 +1037,7 @@ def horariosPermitidos(unidad, localID):
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
     
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
     valid = True
     try:
       valid = valid and (data['esBorrado'] != None or data['esBorrado'] != "")
@@ -1121,7 +1121,7 @@ def horariosPermitidos(unidad, localID):
     elif data['esBorrado'] == 1:
       if request.data == None or request.data == "":
         return "Debe enviar información", 400
-      data = loads(request.data)
+      data = loads(request.data).decode('utf-8')
       valid = True
       try:
         valid = valid and (data['horaInicio'] != None or data['horaInicio'] != "")
@@ -1239,7 +1239,7 @@ def checkAuth0(ur_name, auth0_id):
 def usuario(usuario):
   data = {}
   if request.data:
-    data = loads(request.data)
+    data = loads(request.data).decode('utf-8')
   if request.method == GET:
     user = db.users.find_one({'username': usuario})
     return dumpJson(user)
