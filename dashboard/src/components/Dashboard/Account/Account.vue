@@ -8,7 +8,7 @@
       <md-icon class="md-size-2x">account_circle</md-icon>
     </md-button>
     <md-menu-content>
-      <md-menu-item href="http://172.24.42.64/logout">Cerrar sesión</md-menu-item>
+      <md-menu-item href="http://ec2-34-202-239-178.compute-1.amazonaws.com:8080d/logout">Cerrar sesión</md-menu-item>
     </md-menu-content>
   </md-menu>
 </div>

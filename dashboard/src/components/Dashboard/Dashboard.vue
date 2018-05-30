@@ -50,7 +50,7 @@ export default {
   methods: {
     //Initializes SocketIO and declares event listener for alarms
     initWebsocket() {
-      const serverIP = "http://172.24.42.33:8070";
+      const serverIP = "http://ec2-34-202-239-178.compute-1.amazonaws.com:8070";
 
       const namespace = "/securityWebsocket";
       //Conectarse al servidor
@@ -114,13 +114,13 @@ export default {
       const user = this.$route.params.username;
 
       axios
-        .get("http://172.24.42.64/users/" + user)
+        .get("http://ec2-34-202-239-178.compute-1.amazonaws.com:8080/users/" + user)
         .then(userResponse => {
           //Make another HTTP request, depending on the UR assigned to the user
           //Only works with users with scope, YALE users won't work (tests: user6@yale.com)
           axios
             .get(
-              "http://172.24.42.64/unidadesResidenciales/" +
+              "http://ec2-34-202-239-178.compute-1.amazonaws.com:8080/unidadesResidenciales/" +
                 userResponse.data.scope +
                 "/inmuebles"
             )
@@ -257,7 +257,7 @@ export default {
       const _this = this;
       axios
         .get(
-          "http://172.24.42.64/users/checkAuth0/" +
+          "http://ec2-34-202-239-178.compute-1.amazonaws.com:8080/users/checkAuth0/" +
             this.UR.name +
             "/" +
             auth0_owner
