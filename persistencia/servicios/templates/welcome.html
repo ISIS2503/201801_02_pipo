@@ -29,11 +29,11 @@
                 'edad': age
             }
 
-            axios.put('http://172.24.42.64/users/' + username, payload)
+            axios.put('http://ec2-34-202-239-178.compute-1.amazonaws.com:8080/users/' + username, payload)
                 .then(function (response) {
                     console.log('success!', response);
                     //redirect to Postman clone
-                    document.location = 'http://172.24.42.64/dashboard'
+                    document.location = 'http://ec2-34-202-239-178.compute-1.amazonaws.com:8080/dashboard'
                 })
                 .catch(function (error) {
                     console.log('RIP', error);
