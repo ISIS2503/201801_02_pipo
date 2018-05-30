@@ -77,7 +77,7 @@ def test_connect():
 def main():
 		mqtt_thread = MQTT_Thread()
 		mqtt_thread.start()
-		socketio.run(app, host='34.202.239.178',port=8070)
+		socketio.run(app, host='0.0.0.0',port=8070)
     
 
 # Iniciar el servicio en el puerto 8070

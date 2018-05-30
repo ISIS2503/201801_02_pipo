@@ -3476,19 +3476,6 @@
         "wires": []
     },
     {
-        "id": "2e0f323c.4e69de",
-        "type": "mqtt out",
-        "z": "b4a6d7e6.d7a68",
-        "name": "",
-        "topic": "Arduino007.recibir",
-        "qos": "",
-        "retain": "",
-        "broker": "aeed959f.e3661",
-        "x": 1080,
-        "y": 340,
-        "wires": []
-    },
-    {
         "id": "7f0b8e8.3bd0d7",
         "type": "function",
         "z": "b4a6d7e6.d7a68",
@@ -3500,7 +3487,6 @@
         "y": 280,
         "wires": [
             [
-                "2e0f323c.4e69de",
                 "ff9b60e6.e34998",
                 "532df192.590108"
             ]
@@ -3615,8 +3601,8 @@
         "topic": "Arduino007.envio",
         "qos": "0",
         "broker": "aeed959f.e3661",
-        "x": 120,
-        "y": 200,
+        "x": 80,
+        "y": 280,
         "wires": [
             [
                 "245cfb72.1e73b4",
@@ -4183,7 +4169,7 @@
         "type": "function",
         "z": "1370a681.d22b81",
         "name": "Merge",
-        "func": "\nmsg.payload={horaInicio:\"13:00\",horaFin:\"14:00\",usuario:\"sguzmanm\",\"nuevoInicio\":\"13:50\",nuevoFin:\"14:00\",operacion:msg.payload}\nreturn msg;",
+        "func": "\nmsg.payload={horaInicio:\"13:50\",horaFin:\"14:00\",usuario:\"sguzmanm\",\"nuevoInicio\":\"13:50\",nuevoFin:\"18:00\",operacion:msg.payload}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 330,
