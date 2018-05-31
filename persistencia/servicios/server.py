@@ -746,7 +746,7 @@ def gestionClaves(unidad, localID):
     msg = ";"+str(indice)+combinacion
     msg = operacion+msg
     message = '{"msg":"'+msg+'", "usuario":"'+username+'"}'
-    topic = "Centro/"+elScope+"/claves"
+    topic = "Centro/"+unidad+"/"+localID+"/claves"
     mqtt.publish(topic, message.encode('utf-8'))
     return message, 200
     
@@ -767,7 +767,7 @@ def borrarClaves(unidad, localID):
     
     msg = "4"
     message = '{"msg":"'+msg+'", "usuario":"'+username+'"}'
-    topic = "Centro/"+elScope+"/claves"
+    topic = "Centro/"+unidad+"/"+localID+"/claves"
     mqtt.publish(topic, message.encode('utf-8'))
     return message, 200
 
