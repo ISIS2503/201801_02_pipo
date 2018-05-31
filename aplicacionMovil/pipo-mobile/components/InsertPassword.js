@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ToastAndroid } from 'react-native';
 import { Button } from 'react-native-elements';
 
 const styles = StyleSheet.create({
@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     paddingTop: 16
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     borderBottomColor: '#F8CA0D',
     borderBottomWidth: 2
   },
@@ -19,11 +19,10 @@ const styles = StyleSheet.create({
     paddingTop: 8
   },
   input: {
-    height: 32,
+    height: 40,
     width: 184,
     fontSize: 28,
     textAlign: 'center',
-    paddingTop: 4,
     borderBottomWidth: 1,
     borderBottomColor: '#F8CA0D'
   },
@@ -46,12 +45,19 @@ class InsertPassword extends React.Component {
   sendPassword = () => {
     fetch('http://ec2-34-202-239-178.compute-1.amazonaws.com:8080/unidadesResidenciales/Toscana/inmuebles/2-5-3/hub/cerradura/gestionClaves', {
       method: 'POST',
-      body: {
-        combinacion: this.state.clave,
-        indice: 0
-      }
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "combinacion": this.state.clave,
+        "indice": 0
+      })
     }).then((response) => {
-      ToastAndroid.show('Clave "' + this.state.clave + '" enviada', ToastAndroid.LONG);
+      ToastAndroid.show('Clave "' + this.state.clave + '" enviada', ToastAndroid.SHORT);
+      this.setState({
+        clave: ''
+      })
       console.log(response)
     });
   }
@@ -67,6 +73,7 @@ class InsertPassword extends React.Component {
             underlineColorAndroid='#0000'
             onChangeText={(clave) => this.setState({ clave })}
             maxLength={4}
+            keyboardType='numeric'
             value={this.state.clave}
           />
           <Button
@@ -76,6 +83,7 @@ class InsertPassword extends React.Component {
             color='#000'
             buttonStyle={styles.button}
             onPress={this.sendPassword}
+            disabled={this.state.clave.length != 4}
           />
         </View>
       </View>
