@@ -37,18 +37,18 @@ class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar hidden={true}/>
+        <StatusBar hidden={true} />
         <View style={styles.logoContainer}>
           <Image
             source={require('./assets/yale.png')}
             style={styles.logo}
           />
-          <Text style={styles.title}> <Text style={{fontSize:38}}>π</Text>po App </Text>
+          <Text style={styles.title}> <Text style={{ fontSize: 38 }}>π</Text>po App </Text>
         </View>
         <View style={styles.contentContainer}>
-          <OpenButton/>
-          <CloseButton/>
-          <InsertPassword/>
+          <OpenButton />
+          <CloseButton />
+          <InsertPassword />
         </View>
       </View>
     );

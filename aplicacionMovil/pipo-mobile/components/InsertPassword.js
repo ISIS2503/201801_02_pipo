@@ -43,6 +43,19 @@ class InsertPassword extends React.Component {
     }
   }
 
+  sendPassword = () => {
+    fetch('http://ec2-34-202-239-178.compute-1.amazonaws.com:8080/unidadesResidenciales/Toscana/inmuebles/2-5-3/hub/cerradura/gestionClaves', {
+      method: 'POST',
+      body: {
+        combinacion: this.state.clave,
+        indice: 0
+      }
+    }).then((response) => {
+      ToastAndroid.show('Clave "' + this.state.clave + '" enviada', ToastAndroid.LONG);
+      console.log(response)
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -62,6 +75,7 @@ class InsertPassword extends React.Component {
             large
             color='#000'
             buttonStyle={styles.button}
+            onPress={this.sendPassword}
           />
         </View>
       </View>
