@@ -5,7 +5,7 @@ from pymongo import MongoClient, ReturnDocument
 from bson.json_util import dumps, loads, ObjectId, CANONICAL_JSON_OPTIONS
 from functools import wraps
 from six.moves.urllib.parse import urlencode
-from kafka import KafkaProducer
+from flask_mqtt import Mqtt
 import re
 import http.client
 import os
@@ -65,12 +65,12 @@ client = MongoClient(DB_IP, int(DB_PORT))
 db = client['Pipo-yale-persistencia']
 app = Flask(__name__)
 CORS(app)
-app.secret_key = "super secret key"
-#app.config['MQTT_BROKER_URL'] = '172.24.41.182'
-#app.config['MQTT_BROKER_PORT'] = 8083
-#app.config['MQTT_USERNAME'] = 'Yale'
-#app.config['MQTT_PASSWORD'] = 'piporules'
-#app.config['MQTT_KEEPALIVE'] = 5
+app.secret_key = os.environ.get('AUTH0_CLIENT_SECRET')
+app.config['MQTT_BROKER_URL'] = os.environ.get(DB_IP)
+app.config['MQTT_BROKER_PORT'] = 8083
+app.config['MQTT_USERNAME'] = 'yale'
+app.config['MQTT_PASSWORD'] = 'Yale2018.'
+app.config['MQTT_KEEPALIVE'] = 5
 
 # Parameters for SSL enabled
 #app.config['MQTT_TLS_ENABLED'] = True
@@ -80,6 +80,7 @@ app.secret_key = "super secret key"
 #app.config['MQTT_TLS_VERSION'] = ssl.PROTOCOL_TLSv1_1
 
 #producer = KafkaProducer(bootstrap_servers='172.24.42.70:8090')
+mqtt = Mqtt(app);
 
 oauth = OAuth(app)
 auth0 = oauth.register(
@@ -95,7 +96,9 @@ auth0 = oauth.register(
 )
 
 
-
+@mqtt.on_connect()
+def handle_connect(client, userdata, flags, rc):
+  print("hola mundo")
 
 def checkRole(user_id, auth_type):
   user = db.users.find_one({'auth0_id' : user_id})
@@ -137,7 +140,7 @@ def requires_auth(auth_type):
 			print('kwa',kwargs)
 			for arg in kwargs:
 				scope += kwargs[arg] + '/'
-				elScope += kwargs[arg] + '.'
+				elScope += kwargs[arg] + '/'
 			scope = scope[:-1]
 			elScope = elScope[:-1]
 			print(elScope)
@@ -675,7 +678,6 @@ def claves(unidad, localID):
 
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/gestionClaves", methods=[POST, PUT, DELETE])
-@requires_auth(PROPERTY_OWNER)
 def gestionClaves(unidad, localID):
   data = {}
   if request.data:
@@ -744,13 +746,12 @@ def gestionClaves(unidad, localID):
     msg = ";"+str(indice)+combinacion
     msg = operacion+msg
     message = '{"msg":"'+msg+'", "usuario":"'+username+'"}'
-    topic = "Centro."+elScope+".claves"
-    producer.send(topic, message.encode('utf-8'))
+    topic = "Centro/"+elScope+"/claves"
+    mqtt.publish(topic, message.encode('utf-8'))
     return message, 200
     
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/gestionClaves/borrarTodo", methods=[DELETE])
-@requires_auth(PROPERTY_OWNER)
 def borrarClaves(unidad, localID):
   if request.method == DELETE:
     respuesta = []
@@ -766,9 +767,26 @@ def borrarClaves(unidad, localID):
     
     msg = "4"
     message = '{"msg":"'+msg+'", "usuario":"'+username+'"}'
-    topic = "Centro."+elScope+".claves"
-    producer.send(topic, message.encode('utf-8'))
+    topic = "Centro/"+elScope+"/claves"
+    mqtt.publish(topic, message.encode('utf-8'))
     return message, 200
+
+
+@app.route("/cerradura/abrir", methods=[PUT])
+def abrirCerradura():
+  if request.method == PUT:
+    msg = "ABRIR"
+    mqtt.publish("Arduino007.recibir", msg)
+    return msg, 200
+
+
+@app.route("/cerradura/cerrar", methods=[PUT])
+def cerrarCerradura():
+  if request.method == PUT:
+    msg = "CERRAR"
+    mqtt.publish("Arduino007.recibir", msg)
+    return msg, 200
+
 
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/emergencias", methods=[GET, POST])
@@ -1030,8 +1048,8 @@ def horariosPermitidos(unidad, localID):
       return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     
     message = '{"horaInicio":"'+horaInicio+'","horaFin":"'+horaFin+'","usuario":"'+username+'","operacion":1}'
-    topic = "Centro."+elScope+".horarios"
-    producer.send(topic, message.encode('utf-8'))
+    topic = "Centro/"+elScope+"/horarios"
+    mqtt.publish(topic, message.encode('utf-8'))
     return dumpJson(result)
   elif request.method == PUT:
     if request.data == None or request.data == "":
@@ -1110,9 +1128,9 @@ def horariosPermitidos(unidad, localID):
       if result == None:
         return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
       message = '{"usuario":"'+username+'","operacion":2, "horaInicio":"'+horaInicio+'", "horaFin":"'+horaFin+'", "nuevoInicio":"'+nuevoInicio+'", "nuevoFin":"'+nuevoFin+'"}'
-      topic = "Centro."+elScope+".horarios"
+      topic = "Centro/"+elScope+"/horarios"
       print(message)
-      producer.send(topic, message.encode('utf-8'))
+      mqtt.publish(topic, message.encode('utf-8'))
       return dumpJson(result)
     #hperm = hPermitidos[0]
     #horaInicioAnterior = hperm['horaInicio']
@@ -1164,9 +1182,9 @@ def horariosPermitidos(unidad, localID):
       if result == None:
         return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
       message = '{"usuario":"'+username+'","operacion":3, "horaInicio":"'+horaInicio+'", "horaFin":"'+horaFin+'"}'
-      topic = "Centro."+elScope+".horarios"
+      topic = "Centro/"+elScope+"/horarios"
       print(message)
-      producer.send(topic, message.encode('utf-8'))
+      mqtt.publish(topic, message.encode('utf-8'))
       return dumpJson(result)
     else:
       return "La operación dada no es válida", 400
