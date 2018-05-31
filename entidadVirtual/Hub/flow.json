@@ -5404,5 +5404,35 @@
         "x": 1680,
         "y": 200,
         "wires": []
+    },
+    {
+        "id": "ed82857.36fb778",
+        "type": "mqtt in",
+        "z": "415fff6d.5e95c",
+        "name": "RECIBIR",
+        "topic": "Arduino007.recibir",
+        "qos": "0",
+        "broker": "aeed959f.e3661",
+        "x": 110,
+        "y": 340,
+        "wires": [
+            [
+                "8a537e6e.90172"
+            ]
+        ]
+    },
+    {
+        "id": "8a537e6e.90172",
+        "type": "debug",
+        "z": "415fff6d.5e95c",
+        "name": "RECIBIR",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 270,
+        "y": 340,
+        "wires": []
     }
 ]
