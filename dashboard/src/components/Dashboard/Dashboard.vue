@@ -50,7 +50,7 @@ export default {
   methods: {
     //Initializes SocketIO and declares event listener for alarms
     initWebsocket() {
-      const serverIP = "http://ec2-34-202-239-178.compute-1.amazonaws.com:8070";
+      const serverIP = "http://ec2-34-202-239-178.compute-1.amazonaws.com:8079";
 
       const namespace = "/securityWebsocket";
       //Conectarse al servidor

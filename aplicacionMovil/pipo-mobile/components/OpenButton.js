@@ -12,18 +12,23 @@ const styles = StyleSheet.create({
   }
 });
 
-class OpenButton extends React.Component{
+class OpenButton extends React.Component {
 
   openLock = () => {
-    
+    fetch('http://ec2-34-202-239-178.compute-1.amazonaws.com:8080/cerradura/abrir', {
+      method: 'PUT'
+    }).then((response) => {
+      ToastAndroid.show('Cerradura abriéndose', ToastAndroid.LONG);
+      console.log(response)
+    });
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <View style={styles.container}>
         <Button
           title='Abrir cerradura'
-          icon={{name:'lock-open', color: '#000'}}
+          icon={{ name: 'lock-open', color: '#000' }}
           color='#000'
           buttonStyle={styles.button}
           onPress={this.openLock}

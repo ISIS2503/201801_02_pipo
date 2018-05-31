@@ -1,0 +1,5 @@
+{"_id":{"$oid":"5b0c855d2b457e2cc446be22"},"nombre":"USER","roles":["USER"]}
+{"_id":{"$oid":"5b0c857b2b457e2cc446be23"},"nombre":"YALE","roles":["YALE","USER","UR_ADMIN","SECURITY"]}
+{"_id":{"$oid":"5b0c86012b457e2cc446be24"},"nombre":"SECURITY","roles":["SECURITY"]}
+{"_id":{"$oid":"5b0c86842b457e2cc446be25"},"nombre":"PROPERTY_OWNER","roles":["PROPERTY_OWNER"]}
+{"_id":{"$oid":"5b0c86cf2b457e2cc446be26"},"nombre":"DISABLED","roles":[""]}

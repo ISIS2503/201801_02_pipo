@@ -38,7 +38,7 @@ def on_connect(client, userdata, flags, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
-    jsonRequest=loads(msg.payload)
+    jsonRequest=loads(msg.payload.decode('utf-8'))
     event = None
     if 'emergency' in jsonRequest:
         jsonRequest=jsonRequest['emergency']
@@ -48,7 +48,7 @@ def on_message(client, userdata, msg):
         event=jsonRequest['conjunto']
     print("JSON",jsonRequest)
     print("EVENT",event)
-    socketio.emit(event,dumps(jsonRequest))
+    socketio.emit(event,msg.payload.decode('utf-8'))
 
 def on_disconnect(client, userdata, rc):
 	if rc != 0:
@@ -69,17 +69,13 @@ client.connect("34.202.239.178", 8083, 60)
 @socketio.on('connect')
 def test_connect():
     print("Conecta")
-    #global thread
-    #with thread_lock:
-    #    if thread is None:
-    #        thread = socketio.start_background_task(target=background_thread_websocket)
 
 def main():
 		mqtt_thread = MQTT_Thread()
 		mqtt_thread.start()
-		socketio.run(app, host='0.0.0.0',port=8070)
+		socketio.run(app, host='0.0.0.0',port=8079,debug=True)
     
 
-# Iniciar el servicio en el puerto 8070
+# Iniciar el servicio en el puerto 8079
 if __name__ == '__main__':
     main()
