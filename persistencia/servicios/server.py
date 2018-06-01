@@ -745,7 +745,7 @@ def gestionClaves(unidad, localID):
     
     msg = ";"+str(indice)+combinacion
     msg = operacion+msg
-    message = '{"msg":"'+msg+'", "usuario":"'+username+'"}'
+    message = '{"msg":"'+msg+'", "usuario":"sguzmanm"}'
     topic = "Centro/"+unidad+"/"+localID+"/claves"
     mqtt.publish(topic, message.encode('utf-8'))
     return message, 200
@@ -766,7 +766,7 @@ def borrarClaves(unidad, localID):
       return "No existe ningún inmueble en esa unidad residencial con ese localID", 404
     
     msg = "4"
-    message = '{"msg":"'+msg+'", "usuario":"'+username+'"}'
+    message = '{"msg":"'+msg+'", "usuario":"sguzmanm"}'
     topic = "Centro/"+unidad+"/"+localID+"/claves"
     mqtt.publish(topic, message.encode('utf-8'))
     return message, 200
@@ -994,7 +994,6 @@ def fallosP2(unidad, localID):
     return dumpJson(result)
 
 @app.route("/unidadesResidenciales/<unidad>/inmuebles/<localID>/hub/cerradura/horariosPermitidos", methods=[GET, POST, PUT])
-@requires_auth(PROPERTY_OWNER)
 def horariosPermitidos(unidad, localID):
   print("data: ")
   print(request.data)
@@ -1047,8 +1046,8 @@ def horariosPermitidos(unidad, localID):
     if result == None:
       return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     
-    message = '{"horaInicio":"'+horaInicio+'","horaFin":"'+horaFin+'","usuario":"'+username+'","operacion":1}'
-    topic = "Centro/"+elScope+"/horarios"
+    message = '{"horaInicio":"'+horaInicio+'","horaFin":"'+horaFin+'","usuario":"sguzmanm","operacion":1}'
+    topic = "Centro/"+unidad+"/"+localID+"/horarios"
     mqtt.publish(topic, message.encode('utf-8'))
     return dumpJson(result)
   elif request.method == PUT:
@@ -1127,8 +1126,8 @@ def horariosPermitidos(unidad, localID):
       return_document=ReturnDocument.AFTER)
       if result == None:
         return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
-      message = '{"usuario":"'+username+'","operacion":2, "horaInicio":"'+horaInicio+'", "horaFin":"'+horaFin+'", "nuevoInicio":"'+nuevoInicio+'", "nuevoFin":"'+nuevoFin+'"}'
-      topic = "Centro/"+elScope+"/horarios"
+      message = '{"usuario":"sguzmanm","operacion":2, "horaInicio":"'+horaInicio+'", "horaFin":"'+horaFin+'", "nuevoInicio":"'+nuevoInicio+'", "nuevoFin":"'+nuevoFin+'"}'
+      topic = "Centro/"+unidad+"/"+localID+"/horarios"
       print(message)
       mqtt.publish(topic, message.encode('utf-8'))
       return dumpJson(result)
@@ -1181,8 +1180,8 @@ def horariosPermitidos(unidad, localID):
       return_document=ReturnDocument.AFTER)
       if result == None:
         return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
-      message = '{"usuario":"'+username+'","operacion":3, "horaInicio":"'+horaInicio+'", "horaFin":"'+horaFin+'"}'
-      topic = "Centro/"+elScope+"/horarios"
+      message = '{"usuario":"sguzmanm","operacion":3, "horaInicio":"'+horaInicio+'", "horaFin":"'+horaFin+'"}'
+      topic = "Centro/"+unidad+"/"+localID+"/horarios"
       print(message)
       mqtt.publish(topic, message.encode('utf-8'))
       return dumpJson(result)
