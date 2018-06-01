@@ -21,14 +21,14 @@
         <p class="time"><md-icon class="time-icon">access_time</md-icon>{{howLongStr}}</p>
       </div>
 
-      <div v-if="!alarm.revised" class="revise-button" @click="alarmRevised">
+      <!-- <div v-if="!alarm.revised" class="revise-button" @click="alarmRevised">
         <md-button class="md-icon-button">
           <md-icon>
             done_outline
           </md-icon>
         </md-button>
         <p class="icon-tooltip">Revisar</p>
-      </div>
+      </div> -->
       
     </div>
   </div>
@@ -313,6 +313,8 @@ md-icon {
 }
 
 .time {
+  position: absolute;
+  left: 0;
   width: 100px;
   color: #696969;
 }

@@ -1,6 +1,7 @@
 <template>
 
 <div>
+    <!-- Header del edificio (eliminado)
     <div class="above">
       <div @click="previousTower" class="icon-container">
         <md-icon class="md-size-2x next cursor cursor-left">arrow_back_ios</md-icon>
@@ -9,7 +10,7 @@
       <div @click="nextTower" class="icon-container">
         <md-icon class="md-size-2x next cursor">arrow_forward_ios</md-icon>
       </div>
-    </div>
+    </div> -->
 
     <div class="container" v-if="ur.torres[towerIndex]">
         <div class="roof">
