@@ -1031,9 +1031,9 @@ def horariosPermitidos(unidad, localID):
     sanitizedData['horaInicio'] = horaInicio
     sanitizedData['horaFin'] = horaFin
     
-    user = db.users.find_one({'auth0_id' : session['PROFILE_KEY']['user_id']})
-    if user == None:
-      return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
+    #user = db.users.find_one({'auth0_id' : session['PROFILE_KEY']['user_id']})
+    #if user == None:
+    #  return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     
     if sanitizedData in user['horariosPermitidos']:
       return "El horario a agregar ya existe", 400
