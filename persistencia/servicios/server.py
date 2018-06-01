@@ -1040,11 +1040,11 @@ def horariosPermitidos(unidad, localID):
     #Esta linea busca los documentos que tengan la propiedad nombre == unidad
     #Y luego inserta a el valor del campo inmuebles[x].hub.cerradura.horariosPermitidos el nuevo horario
     #inmuebles[x] corresponde al elemento tal que inmuebles[x].localID == identificador local del inmueble
-    result = db.users.find_one_and_update({'auth0_id' : session['PROFILE_KEY']['user_id']},
-    {'$push': {'horariosPermitidos' : sanitizedData}},
-    return_document=ReturnDocument.AFTER)
-    if result == None:
-      return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
+    #result = db.users.find_one_and_update({'auth0_id' : session['PROFILE_KEY']['user_id']},
+    #{'$push': {'horariosPermitidos' : sanitizedData}},
+    #return_document=ReturnDocument.AFTER)
+    #if result == None:
+    #  return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     
     message = '{"horaInicio":"'+horaInicio+'","horaFin":"'+horaFin+'","usuario":"sguzmanm","operacion":1}'
     topic = "Centro/"+unidad+"/"+localID+"/horarios"
