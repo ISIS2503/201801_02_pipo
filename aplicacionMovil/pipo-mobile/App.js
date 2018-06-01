@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image, StatusBar } from 'react-native';
 import CloseButton from './components/CloseButton';
 import OpenButton from './components/OpenButton';
 import InsertPassword from './components/InsertPassword';
+import InsertSchedule from './components/InsertSchedule';
 
 const styles = StyleSheet.create({
   container: {
@@ -49,6 +50,7 @@ class App extends React.Component {
           <OpenButton />
           <CloseButton />
           <InsertPassword />
+          <InsertSchedule />
         </View>
       </View>
     );

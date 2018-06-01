@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ToastAndroid } from 'react-native';
 import { Button } from 'react-native-elements';
 
 const styles = StyleSheet.create({
@@ -18,7 +18,7 @@ class OpenButton extends React.Component {
     fetch('http://ec2-34-202-239-178.compute-1.amazonaws.com:8080/cerradura/abrir', {
       method: 'PUT'
     }).then((response) => {
-      ToastAndroid.show('Cerradura abriéndose', ToastAndroid.LONG);
+      ToastAndroid.show('Abriendo cerradura', ToastAndroid.SHORT);
       console.log(response)
     });
   }

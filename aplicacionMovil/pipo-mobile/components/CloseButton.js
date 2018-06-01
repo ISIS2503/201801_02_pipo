@@ -18,7 +18,7 @@ class CloseButton extends React.Component {
     fetch('http://ec2-34-202-239-178.compute-1.amazonaws.com:8080/cerradura/cerrar', {
       method: 'PUT'
     }).then((response) => {
-      ToastAndroid.show('Cerradura cerrándose', ToastAndroid.LONG);
+      ToastAndroid.show('Cerrando cerradura', ToastAndroid.SHORT);
       console.log(response)
     });
   }
