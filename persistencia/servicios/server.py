@@ -1049,7 +1049,7 @@ def horariosPermitidos(unidad, localID):
     message = '{"horaInicio":"'+horaInicio+'","horaFin":"'+horaFin+'","usuario":"sguzmanm","operacion":1}'
     topic = "Centro/"+unidad+"/"+localID+"/horarios"
     mqtt.publish(topic, message.encode('utf-8'))
-    return dumpJson(result)
+    return message, 200
   elif request.method == PUT:
     if request.data == None or request.data == "":
       return "Debe enviar información", 400
