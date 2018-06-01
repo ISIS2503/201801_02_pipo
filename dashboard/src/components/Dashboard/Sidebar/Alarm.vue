@@ -72,7 +72,7 @@ export default {
       this.$emit("scroll-to-alarm", this.alarm);
     },
     hace() {
-      var timestamp = this.startTimestamp;
+      var timestamp = this.alarm.sensetime;
       const now = moment();
       const expiration = moment(parseInt(timestamp));
 
