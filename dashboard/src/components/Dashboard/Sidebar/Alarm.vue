@@ -231,7 +231,7 @@ export default {
 [target="revised"] .type-icon,
 [target="not-revised"] .type-icon {
   flex: 1;
-  height: 108px;
+  height: 80px;
   width: 100%;
   background-repeat: no-repeat;
   background-size: contain;
@@ -250,19 +250,19 @@ p {
 }
 
 h2 {
-  font-size: 1.7rem;
+  font-size: 1rem;
   margin: 0;
 }
 
 h3 {
-  font-size: 1.9rem;
+  font-size: 1.2rem;
   margin: 0;
 }
 
 .alarm-message {
   color: rgb(223, 0, 22);
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 0.7rem;
   margin: 0;
 }
 
@@ -314,7 +314,8 @@ md-icon {
 
 .time {
   position: absolute;
-  left: 0;
+  font-size: 0.7rem;
+  right: 0;
   width: 100px;
   color: #696969;
 }
