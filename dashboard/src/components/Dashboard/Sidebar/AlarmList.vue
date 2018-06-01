@@ -46,8 +46,8 @@ export default {
         .filter(alarm => {
           if (alarm.emergencia) {
             return !this.filters.emergencies.includes(parseInt(alarm.emergencia)) //Si lo incluye, está dentro de los filtros, es decir, debe retornar falso
-          } else if (alarm.failure) {
-            return !this.filters.faliures.includes(parseInt(alarm.failure)) //Si lo incluye, está dentro de los filtros, es decir, debe retornar falso
+          } else if (alarm.fallo) {
+            return !this.filters.faliures.includes(parseInt(alarm.fallo)) //Si lo incluye, está dentro de los filtros, es decir, debe retornar falso
           } else {
             return true; //nunca filtrar errores desconocidos
           }
