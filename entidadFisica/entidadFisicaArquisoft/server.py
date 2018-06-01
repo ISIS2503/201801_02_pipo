@@ -118,7 +118,7 @@ def passwordAccess():
         viejo = r.get('C:'+str(clave))
         claveAntigua=r.get('N:'+numero)
         print ("HOLA",viejo,claveAntigua)
-        if (claveAntigua==None) and (request.method == 'PUT' or request.method == 'DELETE') or (claveAntigua!=None and request.method == 'POST'):
+        if (claveAntigua==None) and (request.method == 'PUT' or request.method == 'DELETE'):
             return response
         print("VIEJO",viejo)
         if request.method == 'POST' and (viejo==None or viejo==""):
