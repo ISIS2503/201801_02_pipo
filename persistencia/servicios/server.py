@@ -66,7 +66,7 @@ db = client['Pipo-yale-persistencia']
 app = Flask(__name__)
 CORS(app)
 app.secret_key = os.environ.get('AUTH0_CLIENT_SECRET')
-app.config['MQTT_BROKER_URL'] = os.environ.get(DB_IP)
+app.config['MQTT_BROKER_URL'] = DB_IP
 app.config['MQTT_BROKER_PORT'] = 8083
 app.config['MQTT_USERNAME'] = 'yale'
 app.config['MQTT_PASSWORD'] = 'Yale2018.'

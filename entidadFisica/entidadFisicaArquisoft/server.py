@@ -81,7 +81,7 @@ def acl():
 def arduinoaccess():
     print(request.data)
     response =  Response(content_type='text/plain', status=500)
-    data=loads(request.data)
+    data=loads(request.data.decode('utf-8'))
     clave=data['clave']
     print(r.get('C:'+str(clave)))
     print(r.get(r.get('C:'+str(clave))))
@@ -93,7 +93,13 @@ def arduinoaccess():
         print(tiempoInicial,tiempoFinal)
         start_time = int(tiempoInicial[0])*60 + int(tiempoInicial[1])
         end_time = int(tiempoFinal[0])*60 + int(tiempoFinal[1])
-        current_time =  datetime.now().hour*60 +datetime.now().minute
+        #Agregado el 7 por la diferencia horaria de la máquina de aws
+        hour=datetime.now().hour-5
+        if hour<0:
+          hour=24+hour
+        current_time = hour*60 +datetime.now().minute
+        print(hour,datetime.now().minute)
+        print(start_time,current_time,end_time)
         if start_time <= current_time and end_time >= current_time:
             response.status_code=200
             break 
@@ -103,7 +109,7 @@ def arduinoaccess():
 def passwordAccess():
     print(request.data)
     response =  Response(content_type='text/plain', status=500)
-    data=loads(request.data)
+    data=loads(request.data.decode('utf-8'))
     clave=data.get('clave')
     usuario=data['usuario']
     numero=str(data['numero'])
@@ -147,7 +153,7 @@ def passwordAccess():
 def scheduleaccess():
     print(request.data)
     response =  Response(content_type='text/plain', status=500)
-    data=loads(request.data)
+    data=loads(request.data.decode('utf-8'))
     horaInicio=data['horaInicio']
     horaFin=data['horaFin']
     usuario=data['usuario']
@@ -186,4 +192,4 @@ def scheduleaccess():
 
 
 if __name__ == '__main__':
-    app.run(port=8080,host='localhost')
+    app.run(port=8082,host='localhost')
