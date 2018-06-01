@@ -1035,8 +1035,8 @@ def horariosPermitidos(unidad, localID):
     #if user == None:
     #  return "No hay ninguna unidad con ese nombre o inmueble con ese ID", 404
     
-    if sanitizedData in user['horariosPermitidos']:
-      return "El horario a agregar ya existe", 400
+    #if sanitizedData in user['horariosPermitidos']:
+    #  return "El horario a agregar ya existe", 400
     #Esta linea busca los documentos que tengan la propiedad nombre == unidad
     #Y luego inserta a el valor del campo inmuebles[x].hub.cerradura.horariosPermitidos el nuevo horario
     #inmuebles[x] corresponde al elemento tal que inmuebles[x].localID == identificador local del inmueble
