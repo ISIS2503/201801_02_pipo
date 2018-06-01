@@ -121,7 +121,9 @@ def passwordAccess():
         if (claveAntigua==None) and (request.method == 'PUT' or request.method == 'DELETE'):
             return response
         print("VIEJO",viejo)
-        if request.method == 'POST' and (viejo==None or viejo==""):
+        if request.method == 'POST':
+            if claveAntigua!=None and claveAntigua!="":
+               r.rename('C:'+claveAntigua.decode('utf-8'),'C:'+str(clave))
             r.set('C:'+str(clave),'U:'+usuario)
             r.set('N:'+numero,str(clave))
             response.status_code=200
@@ -130,7 +132,7 @@ def passwordAccess():
                 return response
             claveAntigua=claveAntigua.decode('utf-8')
             r.set('N:'+numero,str(clave))
-            r.rename("C:"+claveAntigua,'C:'+str(clave))
+            r.rename('C:'+claveAntigua.decode('utf-8'),'C:'+str(clave))
             response.status_code=200
     else:
         if request.method != 'DELETE':
