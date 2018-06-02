@@ -23,7 +23,11 @@
         <div class="bottom-roof"/>            
       </div>           
 
-      <towerGrid :tower="tower" :ref="'tower'+tower.numero"></towerGrid>
+      <towerGrid 
+      :tower="tower" 
+      :ref="'tower'+tower.numero"
+      v-on:select-detail="passSelectDetail(...arguments)" ></towerGrid>
+
        <div class="floor">
             <div class="middle-floor"/>            
             <div class="bottom-floor"/>            
@@ -48,16 +52,8 @@ export default {
       boolean: true
     };
   },
-  computed: {},
   methods: {
-    selectProperty: function(localID, auth0_owner) {
-      let selectedAlarm = undefined;
-      for (var alarm of this.alarms) {
-        if (alarm.apartamento === localID) {
-          selectedAlarm = alarm;
-        }
-      }
-
+    passSelectDetail: function(localID, auth0_owner, selectedAlarm) {
       this.$emit("select-detail", localID, auth0_owner, selectedAlarm);
     },
     scrollToAlarm(alarm) {

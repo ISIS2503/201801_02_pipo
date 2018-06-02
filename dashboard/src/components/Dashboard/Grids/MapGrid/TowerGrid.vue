@@ -6,7 +6,12 @@
                 <!-- <b-row> -->
                     <div class="floor-number md-layout-item md-size-5">{{piso.numero}}</div>
 
-                    <apartment v-for="(apartamento, index) in piso.apartamentos" :apartamento="apartamento" :key="index" :id="'apartment'+piso.numero+'-'+apartamento.numero"></apartment>               
+                    <apartment 
+                    v-for="(apartamento, index) in piso.apartamentos" 
+                    :apartamento="apartamento" 
+                    :key="index" 
+                    :id="'apartment'+piso.numero+'-'+apartamento.numero"
+                    v-on:select-detail="passSelectDetail(piso.numero,...arguments)" ></apartment>               
 
                 <!-- </b-row> -->
             </div>
@@ -34,6 +39,10 @@ export default {
       setTimeout(function(){
         apto.classList.remove("glow");
       }, 1000);
+    },
+    passSelectDetail(floorNumber, aptoNumber, auth0_owner, selectedAlarm){
+      let localID= this.tower.numero+ '-'+ floorNumber + '-' + aptoNumber;
+      this.$emit("select-detail", localID, auth0_owner, selectedAlarm);
     }
   },
 };

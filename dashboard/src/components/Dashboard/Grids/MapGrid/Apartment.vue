@@ -1,6 +1,6 @@
 <template>
-<div class="apto md-layout-item glow">
-    <div v-if="aptoIcono(apartamento)"  class="md-layout-item">
+<div class="md-layout-item" v-on:click="selectProperty(apartamento.numero, apartamento.owner)">
+    <div v-if="aptoIcono(apartamento)" class="md-layout-item apto">
        <!-- <div class="apartment-number" >
             {{apartamento.numero}}
         </div> 
@@ -12,7 +12,7 @@
         </div>  -->
     </div>
 
-    <div  v-if="aptoNoIcono(apartamento)"  :class="assignIcon(apartamento)"> 
+    <div  v-if="aptoNoIcono(apartamento)" class="md-layout-item apto-alarma"> 
         <!-- <div class="apartment-number" >
             {{apartamento.numero}}
         </div> 
@@ -22,7 +22,7 @@
             </div>
          </div>       -->                     
     </div>  
-    <md-tooltip md-direction="top">Puerta abierta</md-tooltip>
+    <md-tooltip md-direction="top">{{apartamento.numero}}</md-tooltip>
 </div>
 </template>
 
@@ -35,20 +35,13 @@ export default {
     return {};
   },
   methods: {
-    scrollToAlarm(alarm) {
-      //Colorar el grid
-      let apto = document.getElementById(alarm.apartamento);
-      apto.scrollIntoView({ behavior: "smooth" });
-      apto.classList.add("brillo");
-
-      const returnToNormal = () => {
-        let apto1 = document.getElementById(alarm.apartamento);
-        apto1.classList.remove("brillo");
-      };
-
-      const stop = setTimeout(returnToNormal, 1000);
-
-      //this.$scrollTo(apto, 1000);
+    selectProperty: function(number, auth0_owner) {
+      let selectedAlarm = undefined;
+      if(this.apartamento.alarms.length>0)
+      {
+        selectedAlarm= this.apartamento.alarms[0];
+      }
+      this.$emit("select-detail", number, auth0_owner, selectedAlarm);
     },
     alarmRevised(alarm) {
       alarm.revised = true;
@@ -78,6 +71,7 @@ export default {
 <style scoped lang="scss">
 $gris: rgb(189, 195, 199);
 $negrito: rgb(77, 77, 77);
+$with-alarm: rgb(230,0,2);
 .md-scrollbar {
   width: calc(100% + 9px);
   max-height: 81%;
@@ -91,9 +85,20 @@ $negrito: rgb(77, 77, 77);
   border: 1px solid $negrito;
 }
 
+.apto-alarma{
+  cursor: pointer;
+  height: 20px;
+  background-color: $with-alarm;
+  border: 1px solid $negrito;
+}
+
 .md-tooltip {
   background: rgb(77, 77, 77);
   color: white;
 }
 
+.apto:hover{
+border: 1px solid rgb(86, 180, 239);
+box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05) inset, 0px 0px 8px rgba(82, 168, 236, 0.6);
+}
 </style>

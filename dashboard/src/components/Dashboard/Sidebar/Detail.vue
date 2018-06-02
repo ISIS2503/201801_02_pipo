@@ -59,6 +59,7 @@ export default {
     },
     alarmRevised(){
       this.detail.alarm.revised = true
+      this.$emit("alarm-revised", this.detail.alarm);
     }
   },
   mounted() {

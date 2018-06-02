@@ -12,7 +12,7 @@
   </div>
 
   <div id="detail" v-if="detail && !closed">
-    <detail @close="close" :detail="detail"/>
+    <detail @close="close" :detail="detail" @alarm-revised="alarmRevised(...arguments)"/>
   </div>
 </div>
 </template>
@@ -66,6 +66,10 @@ export default {
           this.filters.failures.push(index);
         }
       }
+    },
+    alarmRevised(alarm)
+    {
+      this.$emit("alarm-revised", alarm);
     },
     selectRevision(selection) {
       this.filters[selection] = !this.filters[selection];

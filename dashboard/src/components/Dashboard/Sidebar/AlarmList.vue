@@ -4,7 +4,6 @@
       <alarm 
         @scroll-to-alarm="scrollToAlarm(...arguments)" 
         :alarm="alarm"
-        @alarm-revised="alarmRevised(...arguments)"
        />
     </div>
   </div>
@@ -57,7 +56,6 @@ export default {
         for(var alarmm of filtered){
           test.push(alarmm.timestamp)
         }
-
       return filtered.slice().reverse();
     }
   },
