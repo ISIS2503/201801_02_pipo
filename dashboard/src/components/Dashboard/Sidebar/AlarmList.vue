@@ -57,9 +57,6 @@ export default {
         for(var alarmm of filtered){
           test.push(alarmm.timestamp)
         }
-        /* console.log(test);
-
-        console.log(test.reverse()); */
 
       return filtered.slice().reverse();
     }

@@ -1,6 +1,6 @@
 <template>
 
-<div  class="tower-container">
+<div class="tower-container">
     <!-- Header del edificio (eliminado)
     <div class="above">
       <div @click="previousTower" class="icon-container">
@@ -12,12 +12,22 @@
       </div>
     </div> -->
 
-    <div v-for="(tower, index) in ur.torres" :key="index">
-        <div class="roof">
-            <div class="middle-roof"/>            
-            <div class="bottom-roof"/>            
-        </div>   
-      <towerGrid :tower="tower"></towerGrid>
+    <div v-for="(tower, index) in ur.torres" :key="index" :id="'tower'+tower.numero">
+
+      <div class="above">
+         <h1 class="next tower-name">TORRE {{tower.numero}}</h1>
+      </div> 
+
+      <div class="roof">
+        <div class="middle-roof"/>            
+        <div class="bottom-roof"/>            
+      </div>           
+
+      <towerGrid :tower="tower" :ref="'tower'+tower.numero"></towerGrid>
+       <div class="floor">
+            <div class="middle-floor"/>            
+            <div class="bottom-floor"/>            
+        </div> 
     </div>
 
 </div>
@@ -50,75 +60,21 @@ export default {
 
       this.$emit("select-detail", localID, auth0_owner, selectedAlarm);
     },
-    previousTower() {
-      this.towerIndex =
-        (this.towerIndex - 1 + this.ur.torres.length) % this.ur.torres.length;
-      this.$emit("tower-selected", this.towerIndex);
-    },
-    nextTower() {
-      this.towerIndex = (this.towerIndex + 1) % this.ur.torres.length;
-      this.$emit("tower-selected", this.towerIndex);
-    },
     scrollToAlarm(alarm) {
-      //Colorar el grid
-      let apto = document.getElementById(alarm.apartamento);
-      console.log("apto", apto);
-      apto.scrollIntoView({ behavior: "smooth" });
-      apto.classList.add("brillo");
-
-      const returnToNormal = () => {
-        let apto1 = document.getElementById(alarm.apartamento);
-        apto1.classList.remove("brillo");
-      };
-
-      const stop = setTimeout(returnToNormal, 1000);
-
-      //this.$scrollTo(apto, 1000);
+      this.$refs['tower'+ alarm.apartamento.split("-")[0]].scrollToAlarm(alarm);
+    },
+    scrollToTower(number){
+      let tower = document.getElementById('tower'+number);
+      tower.scrollIntoView({ behavior: "smooth" });
+      tower.classList.remove("tower-shine");
+      setTimeout(function(){
+        tower.classList.add("tower-shine");
+      }, 500);
     },
     pushAlarm(dir, alarm) {
-      //console.log('llega1');
       this.ur.torres[dir[0] - 1].pisos[
         this.ur.torres[dir[0] - 1].pisos.length - dir[1]
       ].apartamentos[dir[2] - 1].alarmas.push(alarm);
-      //console.log('llega6');
-      console.log(this.towerIndex);
-    },
-    assignIcon(apartamento) {
-      if (apartamento.alarmas.length > 0) {
-      }
-      let classObject = {};
-      classObject["md-layout-item"] = true;
-      if (apartamento.alarmas.length > 0) {
-        classObject[apartamento.alarmas[0].normalType] = true;
-        classObject["with-alarm"] = true;
-        return classObject;
-      } else {
-        classObject["apto"] = true;
-      }
-      console.log("al menos?");
-      return classObject;
-    },
-    aptoIcono(apto) {
-      if (apto === undefined) {
-        console.log("undefined");
-        return false;
-      }
-      if (apto.alarmas.length > 0) {
-        console.log("lista");
-        return false;
-      }
-      return true;
-    },
-    aptoNoIcono(apto) {
-      if (apto === undefined) {
-        console.log("undefined2");
-        return false;
-      }
-      if (apto.alarmas.length > 0) {
-        console.log("lista2");
-        return true;
-      }
-      return false;
     }
   },
   mounted() {
@@ -130,7 +86,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 .above {
   margin-top: 10px;
   display: flex;
@@ -145,7 +100,57 @@ export default {
 
 .tower-name {
   font-weight: bold;
-  font-size: 3rem;
+  font-size: 1rem;
+}
+
+.tower-shine{
+  position:relative;
+  overflow: hidden;
+}
+
+.tower-shine::after {
+  pointer-events: none;
+  animation: shine 5s ease-in-out;
+  animation-fill-mode: forwards;  
+  content: "";
+  position: absolute;
+  top: -110%;
+  left: -210%;
+  width: 200%;
+  height: 200%;
+  opacity: 0;
+  transform: rotate(30deg);
+  
+  background: rgba(255, 255, 255, 0.13);
+  background: linear-gradient(
+    to right, 
+    rgba(255, 255, 255, 0.13) 0%,
+    rgba(255, 255, 255, 0.13) 77%,
+    rgba(255, 255, 255, 0.5) 92%,
+    rgba(255, 255, 255, 0.0) 100%
+  );
+}
+
+.tower-shine:active:after {
+ // opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes shine{
+  10% {
+    opacity: 1;
+    top: -30%;
+    left: -30%;
+    transition-property: left, top, opacity;
+    transition-duration: 0.7s, 0.7s, 0.15s;
+    transition-timing-function: ease;
+  }
+  100% {
+    opacity: 0;
+    top: -30%;
+    left: -30%;
+    transition-property: left, top, opacity;
+  }
 }
 
 .icon-container {
@@ -194,19 +199,6 @@ export default {
   position: relative;
 }
 
-.floor-number {
-  vertical-align: middle;
-  display: inline-block;
-  line-height: 140px;
-  padding: 0;
-  overflow: hidden;
-  box-shadow: 1px 0px 1px 1px black;
-  font-weight: bold;
-  font-size: 2rem;
-  height: unset !important;
-  border-radius: 15% 0 0 15%;
-}
-
 /* Puerta abierta */
 .e-1 .apartmentImage {
   //background: url("../../../assets/puertaAbierta.png");
@@ -218,7 +210,7 @@ export default {
 
 /* Apertura sospechosa */
 .e-2 .apartmentImage {
-   //background: url("../../../assets/aperturaSospechosa.png");
+  //background: url("../../../assets/aperturaSospechosa.png");
   height: 100%;
   background-repeat: no-repeat;
   background-size: contain;
@@ -307,15 +299,14 @@ export default {
 }
 
 .tower-container {
+  margin: 2rem 0;
   display: grid;
-  grid-template-columns: repeat(5,20%);
+  grid-template-columns: repeat(5, 20%);
   justify-content: center;
   grid-row-gap: 1.5rem;
-grid-column-gap: 1.5rem;
+  grid-column-gap: 1.5rem;
   text-align: center;
-  width: 102%;
   position: relative;
-  left: -10px;
 }
 
 .brillo {

@@ -1,6 +1,6 @@
 <template>
 <div>
-  <md-card>
+  <md-card class="tower-selector">
     <div class="name-container">
       <p class="name">{{ur.torres.length > 1 ? 'TORRES' : 'TORRE'}}</p>
     </div>
@@ -20,7 +20,7 @@
 import data from "./ProvisionalData"; //Importar datos para probar front
 export default {
   name: "TowerSelector",
-  props: ["urPP", "towerIndex"], //Cambiar urPP a ur para despliegue real
+  props: ["urPP"], //Cambiar urPP a ur para despliegue real
   data: function() {
     return {
       ur: null, //El despliegue real no tiene este atributo en el data
@@ -32,18 +32,12 @@ export default {
       this.$emit("select-tower", numero);
     },
     selected(numero) {
-      console.log('n',numero);
-      console.log('t',this.towerIndex);
       let classObject = {};
-      if (numero - 1 == this.towerIndex) {
-        classObject["active-tower"] = true;
-      }
       return classObject;
     }
   },
    mounted() {
     this.torres = this.ur; //set unidad to prop
-    console.log(data);
     this.ur = data; //Reemplazar el prop 'ur' por una propiedad en el data, usando los datos importados
   }
 };
@@ -70,6 +64,8 @@ export default {
 
 .contenedor {
   display: inline-block;
+  max-height: calc(100vh - 300px);
+  overflow-y: scroll;
 }
 
 .md-button {
@@ -84,5 +80,10 @@ export default {
 
 .md-button:last-child {
   border-bottom: none;
+} 
+
+.tower-selector{
+  top:50%;
+  transform: translate(0%,-50%);
 }
 </style>

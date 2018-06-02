@@ -1,28 +1,16 @@
 <template>
 
 <div>
-    <!-- Header del edificio (eliminado)
-    <div class="above">
-      <div @click="previousTower" class="icon-container">
-        <md-icon class="md-size-2x next cursor cursor-left">arrow_back_ios</md-icon>
-      </div>
-        <h1 class="next tower-name">TORRE {{ur.torres[towerIndex].numero}}</h1>
-      <div @click="nextTower" class="icon-container">
-        <md-icon class="md-size-2x next cursor">arrow_forward_ios</md-icon>
-      </div>
-    </div> -->
         <div v-for="(piso, index) in tower.pisos" :key="index">
             <div class="md-layout">
                 <!-- <b-row> -->
                     <div class="floor-number md-layout-item md-size-5">{{piso.numero}}</div>
 
-                    <apartment v-for="(apartamento, index) in piso.apartamentos" :apartamento="apartamento" :key="index"></apartment>               
+                    <apartment v-for="(apartamento, index) in piso.apartamentos" :apartamento="apartamento" :key="index" :id="'apartment'+piso.numero+'-'+apartamento.numero"></apartment>               
 
                 <!-- </b-row> -->
             </div>
         </div>
-            <div class="middle-floor" />
-            <div class="bottom-floor" />
 </div>
 </template>
 
@@ -39,6 +27,14 @@ export default {
     return {};
   },
   methods: {
+    scrollToAlarm(alarm){
+      let apto = document.getElementById('apartment'+alarm.apartamento.split("-")[1]+'-'+alarm.apartamento.split("-")[2]);  
+      apto.scrollIntoView({ behavior: "smooth" });
+      apto.classList.add("glow");
+      setTimeout(function(){
+        apto.classList.remove("glow");
+      }, 1000);
+    }
   },
 };
 </script>
@@ -48,5 +44,22 @@ export default {
   width: calc(100% + 9px);
   max-height: 81%;
   overflow: scroll;
+}
+
+.floor-number {
+  vertical-align: middle;
+  display: inline-block;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 1px 0px 1px 1px black;
+  font-weight: bold;
+  font-size: 0.5rem;
+  height: unset !important;
+  border-radius: 15% 0 0 15%;
+}
+
+.glow{
+border: 1px solid rgb(86, 180, 239);
+box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05) inset, 0px 0px 8px rgba(82, 168, 236, 0.6);
 }
 </style>

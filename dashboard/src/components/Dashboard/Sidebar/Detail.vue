@@ -81,7 +81,6 @@ export default {
       else if (this.detail.alarm.fallo)
         return failureTypes[parseInt(this.detail.alarm.failure)];
       else {
-        console.log(this.alarm);
         return "Emergencia desconocida";
       }
     }

@@ -79,7 +79,6 @@ export default {
       this.closed = true;
     },
     openDetail(){
-      console.log('llega', this.detail)
       this.closed = false;
     }
   }

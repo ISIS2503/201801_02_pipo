@@ -3,8 +3,8 @@
   height: 100px;
   width: 100%;
   position: relative;
-   text-align: center; 
-   margin-right: 20px;  
+  text-align: center; 
+  margin-right: 20px;  
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -33,17 +33,28 @@
   background: rgb(77, 77, 77);
   background-size: 100px 100px;
   border-top: 5px solid white;
+}
 
+.floor {
+  display: flex;
+  height: 100px;
+  width: 100%;
+  position: relative;
+  text-align: center; 
+  margin-right: 20px;  
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .middle-floor{
   display: inline-block;
   height: 40px;
-  width: 91.5%;
+  width: 95%;
   background:  rgb(77, 77, 77);
   background-size: 100px 100px;
-  left: 6.7%;
-  top:100%;
+  left: 5%;
+  top:0;
   position:absolute;
 }
 
@@ -56,6 +67,6 @@
   position: absolute;
   text-align: center;
   left:2%;
-  top:calc(100% + 20px);
+  top:20px;
   border-top: 5px solid white;
 }

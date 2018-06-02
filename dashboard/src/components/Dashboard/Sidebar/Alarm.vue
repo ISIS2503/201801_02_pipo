@@ -104,8 +104,6 @@ export default {
       else if (this.alarm.fallo)
         return failureTypes[parseInt(this.alarm.fallo)];
       else {
-        //TODO may not work depending on structure
-        console.log("Unknown Alarm: ",this.alarm);
         return "Emergencia desconocida";
       }
     },

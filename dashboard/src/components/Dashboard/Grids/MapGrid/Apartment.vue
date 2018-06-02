@@ -1,27 +1,28 @@
 <template>
-<div class="md-layout-item">
-    <div v-if="aptoIcono(apartamento)"  class="apto md-layout-item">
+<div class="apto md-layout-item glow">
+    <div v-if="aptoIcono(apartamento)"  class="md-layout-item">
        <!-- <div class="apartment-number" >
             {{apartamento.numero}}
-        </div> -->
+        </div> 
         <div class="apartment-icon md-layout-item">
             <div :id="index"  class="apartment-door">
                 <div class="apartment-doorbell"/>
                 <div class="apartment-lock"/>
             </div>
-        </div>
+        </div>  -->
     </div>
 
     <div  v-if="aptoNoIcono(apartamento)"  :class="assignIcon(apartamento)"> 
         <!-- <div class="apartment-number" >
             {{apartamento.numero}}
-        </div> -->
+        </div> 
         <div class="apartmentBackground">
             <div class="apartmentImage">
                                 
             </div>
-         </div>                            
+         </div>       -->                     
     </div>  
+    <md-tooltip md-direction="top">Puerta abierta</md-tooltip>
 </div>
 </template>
 
@@ -35,44 +36,64 @@ export default {
   },
   methods: {
     scrollToAlarm(alarm) {
-      //Pass event
-      this.$emit("scroll-to-alarm", alarm);
+      //Colorar el grid
+      let apto = document.getElementById(alarm.apartamento);
+      apto.scrollIntoView({ behavior: "smooth" });
+      apto.classList.add("brillo");
+
+      const returnToNormal = () => {
+        let apto1 = document.getElementById(alarm.apartamento);
+        apto1.classList.remove("brillo");
+      };
+
+      const stop = setTimeout(returnToNormal, 1000);
+
+      //this.$scrollTo(apto, 1000);
     },
     alarmRevised(alarm) {
       alarm.revised = true;
     },
     aptoIcono(apto) {
-        console.log('apt ', apto)
       if (apto === undefined) {
-        console.log("undefined");
         return false;
       }
       if (apto.alarmas.length > 0) {
-        console.log("lista");
         return false;
       }
       return true;
     },
     aptoNoIcono(apto) {
-         console.log('apt ', apto)
       if (apto === undefined) {
-        console.log("undefined2");
         return false;
       }
       if (apto.alarmas.length > 0) {
-        console.log("lista2");
         return true;
       }
       return false;
     }
-  },
+  }
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+$gris: rgb(189, 195, 199);
+$negrito: rgb(77, 77, 77);
 .md-scrollbar {
   width: calc(100% + 9px);
   max-height: 81%;
   overflow: scroll;
 }
+
+.apto {
+  cursor: pointer;
+  height: 20px;
+  background-color: $gris;
+  border: 1px solid $negrito;
+}
+
+.md-tooltip {
+  background: rgb(77, 77, 77);
+  color: white;
+}
+
 </style>
