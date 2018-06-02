@@ -42,13 +42,12 @@ import data from "../Provisionaldata"; //Importar datos para probar front
 import TowerGrid from "./TowerGrid.vue";
 export default {
   name: "MapGrid",
-  props: ["urPP", "alarms", "towerIndex"], //Cambiar urPP a ur para despliegue real
+  props: ["ur", "alarms", "towerIndex"], //Cambiar urPP a ur para despliegue real
   components: {
     TowerGrid
   },
   data: function() {
     return {
-      ur: null, //El despliegue real no tiene este atributo en el data
       boolean: true
     };
   },
@@ -74,9 +73,9 @@ export default {
     }
   },
   mounted() {
-    this.torres = this.ur; //set unidad to prop
+    /* this.torres = this.ur; //set unidad to prop
     console.log(data);
-    this.ur = data; //Reemplazar el prop 'ur' por una propiedad en el data, usando los datos importados
+    this.ur = data; */ //Reemplazar el prop 'ur' por una propiedad en el data, usando los datos importados
   }
 };
 </script>

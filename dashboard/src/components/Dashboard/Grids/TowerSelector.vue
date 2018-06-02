@@ -20,10 +20,10 @@
 import data from "./ProvisionalData"; //Importar datos para probar front
 export default {
   name: "TowerSelector",
-  props: ["urPP"], //Cambiar urPP a ur para despliegue real
+  props: ["ur"], //Cambiar urPP a ur para despliegue real
   data: function() {
     return {
-      ur: null, //El despliegue real no tiene este atributo en el data
+      //ur: null, //El despliegue real no tiene este atributo en el data
       boolean: true
     };
   },
@@ -37,8 +37,8 @@ export default {
     }
   },
    mounted() {
-    this.torres = this.ur; //set unidad to prop
-    this.ur = data; //Reemplazar el prop 'ur' por una propiedad en el data, usando los datos importados
+    /* this.torres = this.ur; //set unidad to prop
+    this.ur = data; */ //Reemplazar el prop 'ur' por una propiedad en el data, usando los datos importados
   }
 };
 </script>

@@ -65,7 +65,6 @@ export default {
       this.$emit("alarm-revised", this.alarm);
     },
     alarmDeleted() {
-      /* this.alarm.revised = true; //TODO see if it produces reactivity changes */
       this.$emit("alarm-deleted", this.alarm);
     },
     scrollToAlarm() {
