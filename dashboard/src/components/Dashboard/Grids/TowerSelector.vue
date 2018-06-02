@@ -17,9 +17,16 @@
 </template>
 
 <script>
+import data from "./ProvisionalData"; //Importar datos para probar front
 export default {
-  name: "TowerGrid",
-  props: ["ur", "towerIndex"],
+  name: "TowerSelector",
+  props: ["urPP", "towerIndex"], //Cambiar urPP a ur para despliegue real
+  data: function() {
+    return {
+      ur: null, //El despliegue real no tiene este atributo en el data
+      boolean: true
+    };
+  },
   methods: {
     selectTower(numero) {
       this.$emit("select-tower", numero);
@@ -33,6 +40,11 @@ export default {
       }
       return classObject;
     }
+  },
+   mounted() {
+    this.torres = this.ur; //set unidad to prop
+    console.log(data);
+    this.ur = data; //Reemplazar el prop 'ur' por una propiedad en el data, usando los datos importados
   }
 };
 </script>

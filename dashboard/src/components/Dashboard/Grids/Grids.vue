@@ -5,7 +5,7 @@
       <div class="lateral">
         <div class="logo"></div>
           <div class="md-layout-item md-size-100">
-              <tower-Grid 
+              <tower-selector
                 :ur="ur" 
                 :tower-index="towerIndex"
                 v-on:select-tower="selectTower(...arguments)" 
@@ -35,13 +35,13 @@
 
 
 <script>
-import TowerGrid from "./TowerGrid.vue";
+import TowerSelector from "./TowerSelector.vue";
 import FloorGrid from "./FloorGrid.vue";
-import MapGrid from "./MapGrid.vue";
+import MapGrid from "./MapGrid/MapGrid.vue";
 export default {
   name: "Grids",
   components: {
-    TowerGrid,
+    TowerSelector,
     FloorGrid,
     MapGrid
   },

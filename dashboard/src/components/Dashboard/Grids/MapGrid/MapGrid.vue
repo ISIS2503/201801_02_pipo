@@ -1,6 +1,6 @@
 <template>
 
-<div>
+<div  class="tower-container">
     <!-- Header del edificio (eliminado)
     <div class="above">
       <div @click="previousTower" class="icon-container">
@@ -12,70 +12,26 @@
       </div>
     </div> -->
 
-    <div class="container" v-if="ur.torres[towerIndex]">
+    <div v-for="(tower, index) in ur.torres" :key="index">
         <div class="roof">
             <div class="middle-roof"/>            
             <div class="bottom-roof"/>            
-        </div>
-
-        <div v-for="(piso, index) in ur.torres[towerIndex].pisos" :key="index">
-            <div class="md-layout">
-                <!-- <b-row> -->
-                    <div class="floor-number md-layout-item md-size-5">{{piso.numero}}</div>
-
-                        <div
-                          v-for="(apartamento, index) in piso.apartamentos" 
-                          :key="index"                          
-                          v-on:click="selectProperty('' + ur.torres[towerIndex].numero + '-' + piso.numero + '-' + apartamento.numero, apartamento.owner)"
-                          :id="ur.torres[towerIndex].numero + '-' + piso.numero + '-' + apartamento.numero"
-                          :v-scroll-to="ur.torres[towerIndex].numero + '-' + piso.numero + '-' + apartamento.numero"
-                          class="md-layout-item"
-                        >
-
-                        <div v-if="aptoIcono(apartamento)"  class="apto md-layout-item">
-                            <div class="apartment-number" >
-                                {{apartamento.numero}}
-                            </div>
-                            <div class="apartment-icon md-layout-item">
-                                <div :id="index"  class="apartment-door">
-                                    <div class="apartment-doorbell"/>
-                                    <div class="apartment-lock"/>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div  v-if="aptoNoIcono(apartamento)"  :class="assignIcon(apartamento)"> 
-                          <div class="apartment-number" >
-                                {{apartamento.numero}}
-                          </div>
-                            <div class="apartmentBackground">
-                                <div class="apartmentImage">
-                                
-                                </div>
-                            </div>
-                            
-                          </div>
-                    </div>                  
-
-                <!-- </b-row> -->
-            </div>
-        </div>
-            <div class="middle-floor" />
-            <div class="bottom-floor" />
+        </div>   
+      <towerGrid :tower="tower"></towerGrid>
     </div>
-
 
 </div>
 </template>
 
 <script>
-import "../../../styles/tower.css";
-import "../../../styles/apartment-icon.css";
-import data from "./ProvisionalData"; //Importar datos para probar front
-
+import data from "../Provisionaldata"; //Importar datos para probar front
+import TowerGrid from "./TowerGrid.vue";
 export default {
   name: "MapGrid",
   props: ["urPP", "alarms", "towerIndex"], //Cambiar urPP a ur para despliegue real
+  components: {
+    TowerGrid
+  },
   data: function() {
     return {
       ur: null, //El despliegue real no tiene este atributo en el data
@@ -173,7 +129,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
 .above {
   margin-top: 10px;
   display: flex;
@@ -252,7 +209,7 @@ export default {
 
 /* Puerta abierta */
 .e-1 .apartmentImage {
-  background: url("../../../assets/puertaAbierta.png");
+  //background: url("../../../assets/puertaAbierta.png");
   height: 100%;
   background-repeat: no-repeat;
   background-size: contain;
@@ -261,7 +218,7 @@ export default {
 
 /* Apertura sospechosa */
 .e-2 .apartmentImage {
-  background: url("../../../assets/aperturaSospechosa.png");
+   //background: url("../../../assets/aperturaSospechosa.png");
   height: 100%;
   background-repeat: no-repeat;
   background-size: contain;
@@ -270,7 +227,7 @@ export default {
 
 /* Apertura no permitida */
 .e-3 .apartmentImage {
-  background: url("../../../assets/aperturaNoPermitida.png");
+  // background: url("../../../assets/aperturaNoPermitida.png");
   height: 100%;
   background-repeat: no-repeat;
   background-size: contain;
@@ -279,7 +236,7 @@ export default {
 
 /* Batería baja */
 .e-4 .apartmentImage {
-  background: url("../../../assets/bateriaCritica.png");
+  // background: url("../../../assets/bateriaCritica.png");
   height: 100%;
   background-repeat: no-repeat;
   background-size: contain;
@@ -288,7 +245,7 @@ export default {
 
 /* Cerradura fuera de linea */
 .f-1 .apartmentImage {
-  background: url("../../../assets/cerraduraFueraLinea.png");
+  // background: url("../../../assets/cerraduraFueraLinea.png");
   height: 100%;
   background-repeat: no-repeat;
   background-size: contain;
@@ -297,7 +254,7 @@ export default {
 
 /* Hub fuer de linea */
 .f-2 .apartmentImage {
-  background: url("../../../assets/hubFueraLinea.png");
+  // background: url("../../../assets/hubFueraLinea.png");
   height: 100%;
   background-repeat: no-repeat;
   background-size: contain;
@@ -331,7 +288,7 @@ export default {
   display: inline-block;
   padding: 0;
   vertical-align: middle;
-  width:100%;
+  width: 100%;
 }
 
 .apto:hover,
@@ -349,7 +306,12 @@ export default {
   border-top: rgb(77, 77, 77) 1px solid;
 }
 
-.container {
+.tower-container {
+  display: grid;
+  grid-template-columns: repeat(5,20%);
+  justify-content: center;
+  grid-row-gap: 1.5rem;
+grid-column-gap: 1.5rem;
   text-align: center;
   width: 102%;
   position: relative;
