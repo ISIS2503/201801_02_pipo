@@ -71,186 +71,14 @@
 <script>
 import "../../../styles/tower.css";
 import "../../../styles/apartment-icon.css";
+import data from "./ProvisionalData"; //Importar datos para probar front
+
 export default {
   name: "MapGrid",
-  props: ["ur", "alarms", "towerIndex"],
+  props: ["urPP", "alarms", "towerIndex"], //Cambiar urPP a ur para despliegue real
   data: function() {
     return {
-      urPP: {
-        nombre: "toscana",
-        torres: [
-          {
-            numero: 1,
-            pisos: [
-              {
-                numero: 1,
-                apartamentos: [
-                  {
-                    numero: 1,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 2,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 3,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  }
-                ]
-              },
-              {
-                numero: 2,
-                apartamentos: [
-                  {
-                    numero: 1,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 2,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 3,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 4,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  }
-                ]
-              },
-              {
-                numero: 3,
-                apartamentos: [
-                  {
-                    numero: 1,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 2,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 3,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 4,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 5,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 6,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  }
-                ]
-              },
-              {
-                numero: 4,
-                apartamentos: [
-                  {
-                    numero: 1,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 2,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 3,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 4,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  }
-                ]
-              },
-              {
-                numero: 5,
-                apartamentos: [
-                  {
-                    numero: 1,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 2,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 3,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  }
-                ]
-              },
-              {
-                numero: 6,
-                apartamentos: [
-                  {
-                    numero: 1,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 2,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 3,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 4,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  }
-                ]
-              },
-              {
-                numero: 7,
-                apartamentos: [
-                  {
-                    numero: 1,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  },
-                  {
-                    numero: 2,
-                    owner: "auth0|5adcd6a941aacd1daa8999d1",
-                    alarmas: []
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
+      ur: null, //El despliegue real no tiene este atributo en el data
       boolean: true
     };
   },
@@ -339,6 +167,8 @@ export default {
   },
   mounted() {
     this.torres = this.ur; //set unidad to prop
+    console.log(data);
+    this.ur = data; //Reemplazar el prop 'ur' por una propiedad en el data, usando los datos importados
   }
 };
 </script>
