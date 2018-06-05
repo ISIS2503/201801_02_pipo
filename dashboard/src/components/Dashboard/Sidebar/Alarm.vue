@@ -10,7 +10,7 @@
     </div>
     <div class="md-layout-item md-size md-size-20 right-container">
 
-<div v-if="alarm.revised" class="button-delete" @click="alarmDeleted">
+<div v-if="alarm.revised" class="button-delete" @click.stop="alarmDeleted">
         <md-button class="md-icon-button">
           <md-icon>
             delete
