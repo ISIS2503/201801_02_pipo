@@ -276,6 +276,15 @@ export default {
           break;
         }
       }
+      alarmas=  this.alarms;
+      for (let i = 0; i < alarmas.length; i++) {
+        if(alarmas[i].sensetime===alarm.sensetime)
+        {
+          alarmas[i].revised = true;
+          break;
+        }
+      }
+      console.log(alarmas);
     },
     deleteAlarm(alarm)
     {
