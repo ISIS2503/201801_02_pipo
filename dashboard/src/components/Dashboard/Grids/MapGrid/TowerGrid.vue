@@ -9,7 +9,7 @@
                     <div class="md-layout-item" v-for="(apartamento, index) in piso.apartamentos" :key="index" >
                       <apartment 
                       :apartamento="apartamento" 
-                      :id="'apartment'+piso.numero+'-'+apartamento.numero"
+                      :id="'apartment'+tower.numero+'-'+piso.numero+'-'+apartamento.numero"
                       v-on:select-detail="passSelectDetail(piso.numero,...arguments)" ></apartment>               
 
                 <!-- </b-row> -->
@@ -34,8 +34,9 @@ export default {
   methods: {
     scrollToAlarm(alarm){
       console.log('towr ', this.tower);
-      let apto = document.getElementById('apartment'+alarm.apartamento.split("-")[1]+'-'+alarm.apartamento.split("-")[2]);  
+      let apto = document.getElementById('apartment'+alarm.apartamento.split("-")[0]+'-'+alarm.apartamento.split("-")[1]+'-'+alarm.apartamento.split("-")[2]);  
       apto.scrollIntoView({ behavior: "smooth" });
+      console.log(apto);
       apto.classList.add("glow");
       setTimeout(function(){
         apto.classList.remove("glow");

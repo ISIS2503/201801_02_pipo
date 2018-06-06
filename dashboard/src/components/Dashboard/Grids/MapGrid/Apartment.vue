@@ -40,7 +40,7 @@ export default {
       console.log(this.apartamento);
       if(this.apartamento.alarmas.length>0)
       {
-        selectedAlarm= this.apartamento.alarms[0];
+        selectedAlarm= this.apartamento.alarmas[0];
       }
       this.$emit("select-detail", number, auth0_owner, selectedAlarm);
     },
