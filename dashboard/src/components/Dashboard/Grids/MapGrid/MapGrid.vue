@@ -59,6 +59,8 @@ export default {
       console.log(alarm);
       console.log(alarm.apartamento.split("-")[0]);
       console.log(this.$refs['tower'+ alarm.apartamento.split("-")[0]]);
+      console.log(this.$refs["'tower'+ alarm.apartamento.split("-")[0]"]);
+      console.log(this.$refs);
       this.$refs['tower'+ alarm.apartamento.split("-")[0]].scrollToAlarm(alarm);
     },
     scrollToTower(number){
