@@ -80,6 +80,7 @@ export default {
     },
     scrollToAlarm(alarm) {
       //Pass event
+      console.log('scroll', this.detail);
       this.closed = false;
       this.$emit("scroll-to-alarm", alarm);
     },
@@ -87,6 +88,7 @@ export default {
       this.closed = true;
     },
     openDetail(){
+      console.log('open', this.detail);
       this.closed = false;
     }
   }
