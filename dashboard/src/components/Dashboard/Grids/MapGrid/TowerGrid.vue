@@ -6,11 +6,9 @@
                 <!-- <b-row> -->
                  
                 <div class="floor-number md-layout-item md-size-5">{{piso.numero}}</div>
-                    <div class="md-layout-item">
+                    <div class="md-layout-item" v-for="(apartamento, index) in piso.apartamentos" :key="index" >
                       <apartment 
-                      v-for="(apartamento, index) in piso.apartamentos" 
                       :apartamento="apartamento" 
-                      :key="index" 
                       :id="'apartment'+piso.numero+'-'+apartamento.numero"
                       v-on:select-detail="passSelectDetail(piso.numero,...arguments)" ></apartment>               
 
