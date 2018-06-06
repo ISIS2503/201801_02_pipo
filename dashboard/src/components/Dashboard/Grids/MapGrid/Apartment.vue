@@ -37,7 +37,8 @@ export default {
   methods: {
     selectProperty: function(number, auth0_owner) {
       let selectedAlarm = undefined;
-      if(this.apartamento.alarms.length>0)
+      console.log(this.apartamento);
+      if(this.apartamento.alarmas.length>0)
       {
         selectedAlarm= this.apartamento.alarms[0];
       }
