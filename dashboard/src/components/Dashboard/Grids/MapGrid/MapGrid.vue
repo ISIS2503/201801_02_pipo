@@ -56,6 +56,9 @@ export default {
       this.$emit("select-detail", localID, auth0_owner, selectedAlarm);
     },
     scrollToAlarm(alarm) {
+      console.log(alarm);
+      console.log(alarm.apartamento.split("-")[0]);
+      console.log(this.$refs['tower'+ alarm.apartamento.split("-")[0]]);
       this.$refs['tower'+ alarm.apartamento.split("-")[0]].scrollToAlarm(alarm);
     },
     scrollToTower(number){
