@@ -296,10 +296,10 @@ export default {
 .tower-container {
   margin: 2rem 0;
   display: grid;
-  grid-template-columns: repeat(5, 20%);
+  grid-template-columns: repeat(5, 18%);
   justify-content: center;
   grid-row-gap: 1.5rem;
-  grid-column-gap: 1.5rem;
+  grid-column-gap: 1rem;
   text-align: center;
   position: relative;
 }
