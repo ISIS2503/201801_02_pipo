@@ -175,6 +175,8 @@ void processCommand(String input)
 //Method that adds a password in the specified index
 void addPassword(int val, int index)
 {
+  //Serial.println(val);
+  //Serial.println("index "+ index);
   byte arg0 = val % 256;
   byte arg1 = val / 256;
   EEPROM.write((index * 2) + 3, arg0);
@@ -330,19 +332,20 @@ void loop()
     // get the new byte:
     char inChar = (char)Serial.read();
     // add it to the inputString:
-    Serial.println("Char "+inChar);
+    //Serial.println("Char "+inChar);
     inputString += inChar;
     // if the incoming character is a newline, set a flag
     // so the main loop can do something about it:
     if (inChar == '\n')
     {
-      Serial.println("INPUT "+inputString);
+      //Serial.println("INPUT "+inputString);
       stringComplete = true;
     }
   }
 
   if (stringComplete)
   {
+    //Serial.println("inp "+ inputString);
     inputString = inputString.substring(0, inputString.length() - 1);
     processCommand(inputString);
     firstVal.trim();
@@ -440,7 +443,7 @@ void loop()
 
     if (intentoFallido)
     {
-      Serial.println("fallido " + intentoFallido);
+      //Serial.println("fallido " + intentoFallido);
       intentoFallido = false;
       attempts = attempts + 1;
       setColor(255, 0, 0);
@@ -463,7 +466,7 @@ void loop()
     if (customKey && customKey != '*' && customKey != '#' && !esperandoConfirmacion)
     {
       currentKey += String(customKey);
-      Serial.println("CURRENT "+currentKey);
+      //Serial.println("CURRENT "+currentKey);
     }
 
     //Reiniciar Clave
@@ -480,11 +483,12 @@ void loop()
       if (comparacion)
       {
         //Serial.println("comparacion Correcta");
-        currentKey = "";
         comparacion = false;
         timeConfirmacion = millis();
+        //Serial.println("a "+ currentKey);
         Serial.println(boardId+"\t"+'0'+"\t"+tiempoTimeout+"\t"+currentKey);
         esperandoConfirmacion = true;
+        currentKey = "";
         setColor(255, 255, 255);
       }
       else
