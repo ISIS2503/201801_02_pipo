@@ -225,6 +225,12 @@ export default {
           this.$refs.sidebar.openDetail();
         })
         .catch(error => {
+          console.log(
+          "http://ec2-34-202-239-178.compute-1.amazonaws.com:8080/users/checkAuth0/" +
+            this.UR.name +
+            "/" +
+            auth0_owner
+        );
           console.log(error);
 
           /* tempora defualt...-------------- */
