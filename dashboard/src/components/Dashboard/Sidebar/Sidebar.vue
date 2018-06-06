@@ -81,7 +81,7 @@ export default {
     scrollToAlarm(alarm) {
       //Pass event
       console.log('scroll', this.detail);
-      this.closed = false;
+      //this.closed = false;
       this.$emit("scroll-to-alarm", alarm);
     },
     close(){
