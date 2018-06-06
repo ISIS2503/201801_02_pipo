@@ -248,7 +248,7 @@ void loop()
   if (millis() - timeHealthcheck > tiempoHealthcheck)
   {
     timeHealthcheck = millis();
-    Serial.println(boardId+"\t5");
+    //Serial.println(boardId+"\t5");
   }
 
   //PIR
@@ -262,7 +262,7 @@ void loop()
     pirState = valorPIR;
     if (valorPIR == HIGH && !permitidoEntrar)
     {
-      Serial.println(boardId + "\t3");
+      //Serial.println(boardId + "\t3");
     }
   }
 
@@ -290,7 +290,7 @@ void loop()
     //Primera vez que se ingresa
     if (!bateriaBaja)
     {
-      Serial.println(boardId + "\t4");
+      //Serial.println(boardId + "\t4");
       bateriaBaja = true;
       delay(150);
     }
@@ -330,11 +330,13 @@ void loop()
     // get the new byte:
     char inChar = (char)Serial.read();
     // add it to the inputString:
+    Serial.println("Char "+inChar);
     inputString += inChar;
     // if the incoming character is a newline, set a flag
     // so the main loop can do something about it:
     if (inChar == '\n')
     {
+      Serial.println("INPUT "+inputString);
       stringComplete = true;
     }
   }
@@ -438,7 +440,7 @@ void loop()
 
     if (intentoFallido)
     {
-      Serial.println("intento Fallido " + intentoFallido);
+      Serial.println("fallido " + intentoFallido);
       intentoFallido = false;
       attempts = attempts + 1;
       setColor(255, 0, 0);
@@ -461,6 +463,7 @@ void loop()
     if (customKey && customKey != '*' && customKey != '#' && !esperandoConfirmacion)
     {
       currentKey += String(customKey);
+      Serial.println("CURRENT "+currentKey);
     }
 
     //Reiniciar Clave
