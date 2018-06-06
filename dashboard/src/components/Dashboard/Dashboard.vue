@@ -102,9 +102,6 @@ export default {
         else normalizedAlarm.normalType = "unknown";
 
         _this.alarms.push(normalizedAlarm);
-        _this.UR.torres[dir[0]-1].pisos[_this.UR.torres[dir[0]-1].pisos.length-dir[1]].apartamentos[dir[2]-1].alarmas.push(
-          normalizedAlarm
-        );
          
        _this.$refs.grids.pushAlarm(dir,normalizedAlarm);
       }
