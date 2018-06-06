@@ -480,7 +480,7 @@ void loop()
         currentKey = "";
         comparacion = false;
         timeConfirmacion = millis();
-        Serial.println(boardId+"\t+"'0'+"\t"+tiempoTimeout+"\t"+currentKey);
+        Serial.println(boardId+"\t"+'0'+"\t"+tiempoTimeout+"\t"+currentKey);
         esperandoConfirmacion = true;
         setColor(255, 255, 255);
       }
