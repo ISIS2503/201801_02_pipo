@@ -233,6 +233,7 @@ export default {
             "/" +
             auth0_owner
         );
+        console.log( "/" + this.UR.name + "/" + auth0_owner  );
           console.log(error);
 
           /* tempora defualt...-------------- */
