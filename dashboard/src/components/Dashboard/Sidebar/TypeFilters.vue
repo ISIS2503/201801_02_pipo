@@ -26,10 +26,6 @@
 </div>
 </template>
 
-
-
-
-
 <script>
 export default {
   name: "TypeFitlers",
@@ -84,85 +80,102 @@ export default {
 
 
 <style lang="scss" scoped>
+
+$activated: rgb(230,0,2);
+$deactivated: rgb(140,0,1);
 .puerta-abierta {
+  background-color:$deactivated;
   background: url("../../../assets/puertaAbiertaD.png");
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 .puerta-abierta-selected {
+  background-color:$deactivated;
   background: url("../../../assets/puertaAbierta.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 .apertura-sospechosa {
+  background-color:$deactivated;
   background: url("../../../assets/aperturaSospechosaD.png");
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 .apertura-sospechosa-selected {
+  background-color:$deactivated;
   background: url("../../../assets/aperturaSospechosa.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 .apertura-no-permitida {
+  background-color:$deactivated;
   background: url("../../../assets/aperturaNoPermitidaD.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 .apertura-no-permitida-selected {
+  background-color:$deactivated;
   background: url("../../../assets/aperturaNoPermitida.png");
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 .bateria-baja {
+  background-color:$deactivated;
   background: url("../../../assets/bateriaCriticaD.png");
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 .bateria-baja-selected {
+  background-color:$deactivated;
   background: url("../../../assets/bateriaCritica.png");
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 .apertura-sospechosa {
+  background-color:$deactivated;
   background: url("../../../assets/aperturaSospechosaD.png");
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 .apertura-sospechosa-selected {
+  background-color:$deactivated;
   background: url("../../../assets/aperturaSospechosa.png");
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 .cerradura-desconectada {
+  background-color:$deactivated;
   background: url("../../../assets/cerraduraFueraLineaD.png");
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 .cerradura-desconectada-selected {
+  background-color:$deactivated;
   background: url("../../../assets/cerraduraFueraLinea.png");
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 .hub-desconectado {
+  background-color:$deactivated;
   background: url("../../../assets/hubFueraLineaD.png");
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 .hub-desconectado-selected {
+  background-color:$deactivated;
   background: url("../../../assets/hubFueraLinea.png");
   background-repeat: no-repeat;
   background-size: contain;

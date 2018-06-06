@@ -10,7 +10,7 @@
     </div>
     <div class="md-layout-item md-size md-size-20 right-container">
 
-<div v-if="alarm.revised" class="button-delete" @click="alarmDeleted">
+<div v-if="alarm.revised" class="button-delete" @click.stop="alarmDeleted">
         <md-button class="md-icon-button">
           <md-icon>
             delete
@@ -65,7 +65,6 @@ export default {
       this.$emit("alarm-revised", this.alarm);
     },
     alarmDeleted() {
-      /* this.alarm.revised = true; //TODO see if it produces reactivity changes */
       this.$emit("alarm-deleted", this.alarm);
     },
     scrollToAlarm() {
@@ -104,8 +103,6 @@ export default {
       else if (this.alarm.fallo)
         return failureTypes[parseInt(this.alarm.fallo)];
       else {
-        //TODO may not work depending on structure
-        console.log("Unknown Alarm: ",this.alarm);
         return "Emergencia desconocida";
       }
     },

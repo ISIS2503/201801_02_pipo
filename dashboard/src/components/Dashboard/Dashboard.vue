@@ -17,6 +17,7 @@
               :ur-name="UR.name"
               class="sidebar"
               @scroll-to-alarm="scrollToAlarm(...arguments)"
+              @alarm-revised="alarmRevised(...arguments)"
               ref="sidebar"
             />
         </div>
@@ -146,12 +147,6 @@ export default {
                   owner: property.owner_user_id,
                   alarmas: []
                 };
-                /* console.log(
-                  "t" + currentTowerNumber + " " + parseInt(params[0]) - 1
-                );
-                console.log(
-                  "f" + currentFloorNumber + " " + parseInt(params[1])
-                ); */
                 if (currentTowerNumber === parseInt(params[0])) {
                   if (currentFloorNumber === parseInt(params[1])) {
                     /* console.log(currentTowerNumber);
@@ -197,47 +192,6 @@ export default {
         .catch(error => {
           console.log(error);
         });
-    },
-    addPropertyTo(property, parsed_UR) {
-      towerIndex = -1;
-      const towerNumber = property.localID.split("-")[0];
-      for (i = 0; i < parsed_UR.torres.length; i++) {
-        if (parsed_UR.torres[i].number === towerNumber) {
-          towerIndex = i;
-          break;
-        }
-      }
-      if (towerIndex === -1) {
-        parsed_UR.torres.push({ numero: towerNumber, pisos: [] });
-        towerIndex = parsed_UR.torres.length - 1;
-      }
-      addFloorTo(towerIndex, property, parsed_UR);
-    },
-    addFloorTo(towerIndex, property, parsed_UR) {
-      floorIndex = -1;
-      const floorNumber = property.localID.split("-")[1];
-      for (i = 0; i < parsed_UR.torres[towerIndex].pisos.length; i++) {
-        if (parsed_UR.torres[towerIndex].pisos[i].number === floorNumber) {
-          floorIndex = i;
-          break;
-        }
-      }
-      if (floorIndex === -1) {
-        parsed_UR.torres[towerIndex].pisos.push({
-          numero: floorNumber,
-          apartamentos: []
-        });
-        floorIndex = parsed_UR.torres[towerIndex].pisos.length - 1;
-      }
-      addPropertyTo(towerIndex, floorIndex, property, parsed_UR);
-    },
-    addPropertyTo(towerIndex, floorIndex, property, parsed_UR) {
-      floorIndex = -1;
-      const floorNumber = property.localID.split("-")[1];
-      parsed_UR.torres[towerIndex].pisos[floorIndex].push({
-        numero: property.localID.split("-")[2],
-        owner: owner_user_id
-      });
     },
     sortArray(UR_temp) {
       UR_temp.sort(function(a, b) {
@@ -303,6 +257,19 @@ export default {
     },
     scrollToAlarm(alarm) {
       this.$refs.grids.scrollToAlarm(alarm);
+    },
+    alarmRevised(alarm)
+    {
+      let alarmas= this.UR.torres[alarm.apartamento[0] - 1].pisos[
+        this.UR.torres[alarm.apartamento[0] - 1].pisos.length - alarm.apartamento[1]
+      ].apartamentos[alarm.apartamento[2] - 1].alarmas;
+      for (let i = 0; i < alarmas.length; i++) {
+        if(alarmas[i].sensetime===alarm.sensetime)
+        {
+          alarmas.splice(i, 1);
+          break;
+        }
+      }
     }
   },
   mounted() {

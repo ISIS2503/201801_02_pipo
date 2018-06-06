@@ -59,6 +59,7 @@ export default {
     },
     alarmRevised(){
       this.detail.alarm.revised = true
+      this.$emit("alarm-revised", this.detail.alarm);
     }
   },
   mounted() {
@@ -81,7 +82,6 @@ export default {
       else if (this.detail.alarm.fallo)
         return failureTypes[parseInt(this.detail.alarm.failure)];
       else {
-        console.log(this.alarm);
         return "Emergencia desconocida";
       }
     }

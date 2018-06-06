@@ -4,19 +4,18 @@
     <div class="md-layout-item md-size-15">
       <div class="lateral">
         <div class="logo"></div>
-          <div class="md-layout-item md-size-100">
-              <tower-Grid 
+          <div class="md-size-100">
+              <tower-selector
                 :ur="ur" 
-                :tower-index="towerIndex"
                 v-on:select-tower="selectTower(...arguments)" 
-                class="towers select"
+                class="towers-select"
               />
           </div>
-          <div class="md-layout-item md-size-100">
+     <!--<div class="md-layout-item md-size-100">
               <floor-grid :ur="ur"
                :tower-index="towerIndex"
                class="floors select"></floor-grid>
-          </div>
+          </div> -->
       </div>
     </div>
     <div class="md-layout-item">
@@ -35,13 +34,13 @@
 
 
 <script>
-import TowerGrid from "./TowerGrid.vue";
+import TowerSelector from "./TowerSelector.vue";
 import FloorGrid from "./FloorGrid.vue";
-import MapGrid from "./MapGrid.vue";
+import MapGrid from "./MapGrid/MapGrid.vue";
 export default {
   name: "Grids",
   components: {
-    TowerGrid,
+    TowerSelector,
     FloorGrid,
     MapGrid
   },
@@ -60,7 +59,7 @@ export default {
       this.$refs.mapgrid.scrollToAlarm(alarm);
     },
     selectTower(number){
-       this.towerIndex = parseInt(number)-1;
+      this.$refs.mapgrid.scrollToTower(number);
     },
     towerSelected(number){
       this.towerIndex=parseInt(number);
@@ -79,14 +78,16 @@ export default {
   margin-right: 5%;
 }
 
-.select {
-  margin: auto 0;
+.towers-select{
+  height: calc(100vh - 150px);
+  position: relative;
 }
 
 .lateral {
   position: fixed;
-  left: 25px;
-  bottom: 22%;
+  top:0;
+  display: flex;
+  flex-direction: column;
 }
 
 .logo {
@@ -94,9 +95,6 @@ export default {
   background-size: contain;
   width: 150px;
   height: 150px;
-  position: fixed;
-  left: 0;
-  top: 0;
 }
 
 
