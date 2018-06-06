@@ -311,6 +311,8 @@ md-icon {
 
 .time {
   position: absolute;
+  bottom:0;
+  right:0;
   font-size: 0.7rem;
   right: 0;
   width: 100px;
