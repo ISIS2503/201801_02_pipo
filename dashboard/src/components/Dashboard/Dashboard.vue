@@ -266,9 +266,9 @@ export default {
     },
     alarmRevised(alarm)
     {
-      let alarmas= this.UR.torres[alarm.apartamento[0] - 1].pisos[
-        this.UR.torres[alarm.apartamento[0] - 1].pisos.length - alarm.apartamento[1]
-      ].apartamentos[alarm.apartamento[2] - 1].alarmas;
+      let dir = alarm.apartamento.split("-"); 
+
+      let alarmas=  this.UR.torres[dir[0]-1].pisos[this.UR.torres[dir[0]-1].pisos.length-dir[1]].apartamentos[dir[2]-1].alarmas;
       for (let i = 0; i < alarmas.length; i++) {
         if(alarmas[i].sensetime===alarm.sensetime)
         {

@@ -70,7 +70,7 @@ export default {
     glow(){
       this.mustGlow=true;
       setTimeout(function(){
-        this.mustGlow=false;
+      this.mustGlow=false;
       }, 1000);
     }
   }
