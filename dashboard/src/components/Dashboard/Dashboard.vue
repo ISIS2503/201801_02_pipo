@@ -209,6 +209,7 @@ export default {
       return UR_temp;
     },
     selectDetail(localID, auth0_owner, selectedAlarm) {
+      console.log('elDetail');
       const _this = this;
       axios
         .get(
@@ -284,7 +285,6 @@ export default {
           break;
         }
       }
-      console.log(alarmas);
     },
     deleteAlarm(alarm)
     {
