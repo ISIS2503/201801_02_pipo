@@ -7,6 +7,7 @@
                  
                 <div class="floor-number md-layout-item md-size-5">{{piso.numero}}</div>
                       <apartment 
+                      v-for="(apartamento, index) in piso.apartamentos" :key="index" 
                       :apartamento="apartamento" 
                       :id="'apartment'+tower.numero+'-'+piso.numero+'-'+apartamento.numero"
                       :ref="'apartment'+tower.numero+'-'+piso.numero+'-'+apartamento.numero"
