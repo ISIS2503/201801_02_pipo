@@ -4,18 +4,18 @@
         <div v-for="(piso, index) in tower.pisos" :key="index">
             <div class="md-layout">
                 <!-- <b-row> -->
-                  <div class="md-layout-item md-size-5">
-                    <div class="floor-number">{{piso.numero}}</div>
-
-                    <apartment 
-                    v-for="(apartamento, index) in piso.apartamentos" 
-                    :apartamento="apartamento" 
-                    :key="index" 
-                    :id="'apartment'+piso.numero+'-'+apartamento.numero"
-                    v-on:select-detail="passSelectDetail(piso.numero,...arguments)" ></apartment>               
+                 
+                <div class="floor-number md-layout-item md-size-5">{{piso.numero}}</div>
+                    <div class="md-layout-item">
+                      <apartment 
+                      v-for="(apartamento, index) in piso.apartamentos" 
+                      :apartamento="apartamento" 
+                      :key="index" 
+                      :id="'apartment'+piso.numero+'-'+apartamento.numero"
+                      v-on:select-detail="passSelectDetail(piso.numero,...arguments)" ></apartment>               
 
                 <!-- </b-row> -->
-                  </div>
+                    </div>
             </div>
         </div>
 </div>
