@@ -1,6 +1,6 @@
 <template>
 <div class="md-layout-item" v-on:click="selectProperty(apartamento.numero, apartamento.owner)">
-    <div v-if="aptoIcono(apartamento)" class="md-layout-item apto">
+    <div v-if="aptoIcono(apartamento)" class="md-layout-item apto" :class="{'glow':mustGlow}">
        <!-- <div class="apartment-number" >
             {{apartamento.numero}}
         </div> 
@@ -12,7 +12,7 @@
         </div>  -->
     </div>
 
-    <div  v-if="aptoNoIcono(apartamento)" class="md-layout-item apto-alarma"> 
+    <div  v-if="aptoNoIcono(apartamento)" class="md-layout-item apto-alarma" :class="{'glow':mustGlow}"> 
         <!-- <div class="apartment-number" >
             {{apartamento.numero}}
         </div> 
@@ -32,7 +32,9 @@ export default {
   name: "Apartment",
   props: ["apartamento"],
   data() {
-    return {};
+    return {
+      mustGlow: false
+    };
   },
   methods: {
     selectProperty: function(number, auth0_owner) {
@@ -64,6 +66,12 @@ export default {
         return true;
       }
       return false;
+    },
+    glow(){
+      this.mustGlow=true;
+      setTimeout(function(){
+        this.mustGlow=false;
+      }, 1000);
     }
   }
 };
@@ -99,6 +107,11 @@ $with-alarm: rgb(230,0,2);
 }
 
 .apto:hover{
+border: 1px solid rgb(86, 180, 239);
+box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05) inset, 0px 0px 8px rgba(82, 168, 236, 0.6);
+}
+
+.glow{
 border: 1px solid rgb(86, 180, 239);
 box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05) inset, 0px 0px 8px rgba(82, 168, 236, 0.6);
 }
