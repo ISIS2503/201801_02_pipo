@@ -69,9 +69,9 @@ export default {
     },
     glow(){
       this.mustGlow=true;
+      var vm= this;
       setTimeout(function(){
-      this.mustGlow=false;
-      this.$forceUpdate();
+      vm.mustGlow=false;
       }, 1000);
     }
   }
