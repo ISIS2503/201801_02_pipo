@@ -197,7 +197,7 @@ $deactivated: rgb(140,0,1);
 }
 
 .container .col {
-  height: 8.5vh;
+  height: 6.5vh;
   max-height: 4vw;
 }
 
