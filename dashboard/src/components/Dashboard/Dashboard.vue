@@ -1,7 +1,7 @@
 <template>
 <div class="dashboard">
     <div class="md-layout">
-        <div class="md-layout-item md-size-75">
+        <div class="md-layout-item md-size-80">
             <grids
               v-if="UR"
               v-on:select-detail="selectDetail(...arguments)"
@@ -10,7 +10,7 @@
               ref="grids"
             />
         </div>
-        <div class="md-layout-item md-size-25 sidebar-container">
+        <div class="md-layout-item md-size-20 sidebar-container">
             <sidebar 
               :detail="detailSelected"
               :alarms="alarms"
