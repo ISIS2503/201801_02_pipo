@@ -86,7 +86,7 @@ export default {
           normalizedAlarm.type = "failure";
         } else {
           console.log("Alarma inválida!");
-          if (alarm.fallo) console.log("Este man tiene fallo!");
+          if (alarm.fallo) console.log("Alarma con fallo!");
           normalizedAlarm.type = "unknown";
         }
         normalizedAlarm.sensetime = alarm.sensetime;
@@ -206,7 +206,6 @@ export default {
       return UR_temp;
     },
     selectDetail(localID, auth0_owner, selectedAlarm) {
-      console.log('elDetail');
       const _this = this;
       axios
         .get(

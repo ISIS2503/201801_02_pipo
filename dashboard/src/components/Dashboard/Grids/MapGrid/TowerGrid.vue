@@ -33,10 +33,8 @@ export default {
   },
   methods: {
     scrollToAlarm(alarm){
-      console.log('towr ', this.tower);
       let apto = document.getElementById('apartment'+alarm.apartamento.split("-")[0]+'-'+alarm.apartamento.split("-")[1]+'-'+alarm.apartamento.split("-")[2]);  
       apto.scrollIntoView({ behavior: "smooth" });
-      console.log(this.$refs);
       this.$refs['apartment'+alarm.apartamento.split("-")[0]+'-'+alarm.apartamento.split("-")[1]+'-'+alarm.apartamento.split("-")[2]]["0"].glow();
     },
     passSelectDetail(floorNumber, aptoNumber, auth0_owner, selectedAlarm){

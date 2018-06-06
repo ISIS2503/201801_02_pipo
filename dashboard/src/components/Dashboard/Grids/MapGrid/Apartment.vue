@@ -70,8 +70,8 @@ export default {
     glow(){
       this.mustGlow=true;
       setTimeout(function(){
-      console.log('se quita');
       this.mustGlow=false;
+      this.$forceUpdate();
       }, 1000);
     }
   }
