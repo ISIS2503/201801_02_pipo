@@ -33,6 +33,7 @@ export default {
   },
   methods: {
     scrollToAlarm(alarm){
+      console.log('towr '+ this.tower);
       let apto = document.getElementById('apartment'+alarm.apartamento.split("-")[1]+'-'+alarm.apartamento.split("-")[2]);  
       apto.scrollIntoView({ behavior: "smooth" });
       apto.classList.add("glow");
