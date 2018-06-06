@@ -17,6 +17,7 @@
               :ur-name="UR.name"
               class="sidebar"
               @scroll-to-alarm="scrollToAlarm(...arguments)"
+              @alarm-deleted="deleteAlarm(...arguments)"
               @alarm-revised="alarmRevised(...arguments)"
               ref="sidebar"
             />
@@ -267,19 +268,25 @@ export default {
     alarmRevised(alarm)
     {
       let dir = alarm.apartamento.split("-"); 
-      let encontrada=false;
-      console.log('intenta con', alarm.sensetime);
       let alarmas=  this.UR.torres[dir[0]-1].pisos[this.UR.torres[dir[0]-1].pisos.length-dir[1]].apartamentos[dir[2]-1].alarmas;
       for (let i = 0; i < alarmas.length; i++) {
         if(alarmas[i].sensetime===alarm.sensetime)
         {
-           console.log('hasta ', alarmas[i].sensetime);
           alarmas.splice(i, 1);
-          encontrada=true;
           break;
         }
       }
-      console.log('enc ', encontrada);
+    },
+    deleteAlarm(alarm)
+    {
+      let alarmas=  this.alarms;
+      for (let i = 0; i < alarmas.length; i++) {
+        if(alarmas[i].sensetime===alarm.sensetime)
+        {
+          alarmas.splice(i, 1);
+          break;
+        }
+      }
     }
   },
   mounted() {

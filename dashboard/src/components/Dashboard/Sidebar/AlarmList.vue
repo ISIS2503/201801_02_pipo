@@ -3,6 +3,7 @@
     <div v-for="(alarm, index) in filteredAlarms" :key="index">
       <alarm 
         @scroll-to-alarm="scrollToAlarm(...arguments)" 
+        @alarm-deleted="deleteAlarm(...arguments)"
         :alarm="alarm"
        />
     </div>
@@ -33,6 +34,10 @@ export default {
     },
     alarmRevised(alarm){
       alarm.revised = true
+    },
+    deleteAlarm(alarm)
+    {
+      this.$emit("alarm-deleted", alarm)
     }
   },
   computed: {
